@@ -138,6 +138,7 @@ bridge should run against the panel network at a time.
   `0x07BC` (AP master), `0x07C4` (NAV1 lock = CRS), `0x07C8` (heading lock), `0x07D0` (altitude lock), `0x07DC` (airspeed hold), `0x0800` (approach hold), `0x0804` (back course hold),
   `0x2EE0` (flight director), `0x3122` (audio switches: bit 7 COM1 tx, 6 COM2 tx, 5 COM both, 4 NAV1, 3 NAV2, 2 marker, 1 DME, 0 ADF) and `0x0BAC` / `0x0BAE` / `0x0BB0` (inner / middle /
   outer marker). All are read in the `RadioStack` group and all 19 are 0 while the avionics bus is below 24 V. A change is sent like a frequency change. The DodoSim aircraft may not drive every offset.
+- **Backlight:** the radio packet also carries `BPWR` (1 while the main bus, offset `0x2840`, is 20 V or more) for the Radio controller's panel backlight, like the Servo, Stepper and Dual Stepper packets.
 - **Controls:** `TryPanelCommand()` (checked first in `UpdateRadios()`) maps the control names sent on UDP 27001 by the Radio and ADF controllers to FSUIPC controls (`PanelControls`): `AP_MASTER`,
   `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD`, `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD`, `VOR1_OBI_INC/DEC`, `AP_ALT_VAR_INC/DEC`, `AP_VS_VAR_INC/DEC`,
   `AP_SPD_VAR_INC/DEC`, `HEADING_BUG_INC/DEC`, `COM1/COM2_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR1/VOR2/DME1/ADF_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `GEAR_UP/DOWN`,

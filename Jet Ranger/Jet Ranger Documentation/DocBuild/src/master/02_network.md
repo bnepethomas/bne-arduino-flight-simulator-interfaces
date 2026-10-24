@@ -70,7 +70,7 @@ All sketches call `Ethernet.setRetransmissionTimeout(10)` after `Ethernet.begin(
 
 ![How bus voltages switch the panel](diagrams/power_rules.svg)
 
-- **Main bus below 20 V:** the Servo board's lamps are sent as off, the Stepper's radar altitude (`AGL`) is sent as zero and `BPWR:0` switches the Servo, Stepper and Dual Stepper backlights off.
+- **Main bus below 20 V:** the Servo board's lamps are sent as off, the Stepper's radar altitude (`AGL`) is sent as zero and `BPWR:0` switches the Radio, Servo, Stepper and Dual Stepper backlights off.
 - **Main bus below 24 V:** the bridge sends `PWR:0` to the Dual Stepper, which blanks its four OLEDs; `PWR:1` turns them back on.
 - **Avionics bus below 24 V:** the bridge sends `NAVCOM1:0` to the Radio, which blanks its COM and NAV displays together. If the aircraft reports the avionics bus as exactly 0 (the FlyInside B206 does) the main bus is used instead.
 
@@ -80,13 +80,13 @@ There is no hysteresis on these thresholds. The 24 V figure is carried over from
 
 ![How the backlight level is decided](diagrams/backlight_logic.svg)
 
-The Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 (PWM). Three things decide the level:
+The Radio, Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 (PWM). On the Radio the no-data rule is the same 30 second timeout that blanks its displays, which a knob or key press also restarts. Three things decide the level:
 
 - **`BPWR`** (from the bridges, first in the Servo and Stepper packets and after `PWR` in the Dual Stepper packet): 1 while the main bus is 20 V or more, 0 below that. At 0 the backlight is off. Until the first `BPWR` arrives the board assumes 1.
 - **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns.
 - **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
 
-The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR`. The ADF controller's brightness pot sends `C,B` to the Radio, Servo, Upper, Stepper and Dual Stepper boards whenever its level changes (see the ADF controller chapter). The Radio and Upper controllers accept `C,B` but do nothing with it yet.
+The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper and Dual Stepper. The ADF controller's brightness pot sends `C,B` to the Radio, Servo, Upper, Stepper and Dual Stepper boards whenever its level changes (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs. The Upper controller accepts `C,B` but does nothing with it yet.
 
 ## Remote reset
 

@@ -111,6 +111,24 @@ the UDP reflector's forwarded copy: blanked about 30 s after boot, restored on
 the next `D,C1A:...` packet. Compiled at 24,440 bytes flash (9%) / 3,141 bytes
 RAM (38%).
 
+## I2C scan, DME display and matrix debounce
+
+- **I2C scan:** `scanI2C()` runs at start-up (after `Wire.begin()`) and on `C,I2CSCAN:1`. It scans 0x08-0x77 on the main bus with every TCA9548A channel off, then each channel 0-7 (the mux itself is
+  skipped) and sends the results to the debug stream (`I2C main bus: ...`, `I2C TCA port n: 0x3C (OLED)`, `I2C TCA ports with nothing connected: ...`, `I2C scan done, N device(s) answered`). It sets
+  `Wire.setWireTimeout(5000, true)` so a stuck bus reports `bus timeout` instead of hanging. A scan takes a second or two.
+- **DME display:** the Audio panel's OLED, mux channel 3 (`DME_OLED_Port`). `initCharOLED(DME_OLED_Port)` then `showDme("10M", "0M")` at start-up (each line padded to 16 characters).
+- **Matrix debounce:** `scanMatrix()` samples each key once per millisecond with two readings 3 us apart (a disagreement skips the sample) and debounces by integration (`keyIntegrator[][]`, 0 = down to
+  `MATRIX_INTEGRATOR_MAX` = 12 = up; a key changes state at either end), replacing the 50 ms timer that restarted on every differing reading and could hold a release back. Compiled at 34,518 bytes flash (13%) /
+  4,979 bytes RAM (60%).
+
+## Backlight (D5)
+
+Mega pin D5 (`BACKLIGHT_PWM`, 330 ohm to an IRF540N with a 10 kohm gate pull-down) switches the Audio, Auto Pilot and COM and NAV panel backlights, with the same rules as the Servo, Stepper
+and Dual Stepper boards. `applyBacklight()` writes PWM 0 unless `backlightPowered` (`BPWR:1`, main bus 20 V or more, assumed 1 until the first `BPWR`) is true and the displays are not blanked by
+the no-data timeout (30 s with no UDP packet and no knob or key use; local input restores it); otherwise it writes the last `C,B:0-15` level mapped to PWM 0 to 255, or `BacklightDefaultPwm`
+(65) until one has been received. `BPWR` is handled in `HandleOutputValuePair()` before the per-pair debug line, the radio packet from both bridges now carries it, and `C,B` also sets the
+MAX7219 intensity. Compiled at 31,046 bytes flash (12%) / 4,851 bytes RAM (59%); not flashed or tested on the board yet.
+
 ## Auto Pilot and Audio panel switches and knobs
 
 The matrix is now 4 rows (D22-D25) by 5 columns (D26, D27, D28, D29 and **D48**): `COL0` is the COM and NAV swap switches, `COL1`/`COL2` the Auto Pilot panel and

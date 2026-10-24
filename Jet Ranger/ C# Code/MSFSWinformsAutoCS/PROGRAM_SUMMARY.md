@@ -64,6 +64,7 @@ must list them in the same order; `CheckDefinitionMatchesStruct()` checks the co
   `PanelAp`: `AUTOPILOT MASTER`, `NAV1 LOCK`, `HEADING LOCK`, `ALTITUDE LOCK`, `AIRSPEED HOLD`, `APPROACH HOLD`, `BACKCOURSE HOLD`, `FLIGHT DIRECTOR ACTIVE`. `PanelAudio`: `COM TRANSMIT:1/2`,
   `COM RECEIVE ALL`, `NAV SOUND:1/2`, `DME SOUND`, `ADF SOUND`, `MARKER SOUND`, `OUTER / MIDDLE / INNER MARKER`. They become the `LED_xxx` tokens of the radio packet (`Payloads.LedTokens()`, all 0 while
   the radio bus is below 24 V). `ADF SOUND` could not be confirmed to exist in MSFS (if it does not, only the audio LEDs stay off).
+- **Backlight:** `Payloads.Radio()` also carries `BPWR` (1 while the main bus is 20 V or more) for the Radio controller's panel backlight, like the Servo, Stepper and Dual Stepper packets.
 - **Controls:** `TryPanelCommand()` (first in `UpdateRadios()`) sends the control names from UDP 27001 as the SimConnect event of the same name, mapped once at connect time from `PanelEventNames`
   (event numbers from 1000): the same list as the FSUIPC bridge, with an optional `:N` repeat count. Built clean; not run against MSFS.
 

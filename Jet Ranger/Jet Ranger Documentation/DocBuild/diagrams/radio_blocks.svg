@@ -42,6 +42,10 @@
 <text x="584.0" y="135.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">I2C</text>
 <path d="M 739.0 132.0 L 739.0 156.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
 <path d="M 700.0 230.0 L 700.0 246.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="614.0" y="336.0" width="250.0" height="60.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="359.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">DME OLED  (mux port 3)</text>
+<text x="626.0" y="383.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Audio panel: 10M / 0M at start-up</text>
+<path d="M 700.0 320.0 L 700.0 336.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
 <rect x="310.0" y="400.0" width="260.0" height="74.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="322.0" y="424.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">W5500 Ethernet shield</text>
 <text x="322.0" y="448.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SPI 50 - 52, reset pin 53</text>
@@ -54,12 +58,12 @@
 <text x="28.0" y="521.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 2: COM1_RADIO_SWAP</text>
 <text x="28.0" y="538.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 3: COM2_RADIO_SWAP</text>
 <text x="28.0" y="555.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">        + AVIONICS_MASTER_SET</text>
-<rect x="614.0" y="380.0" width="250.0" height="200.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
-<text x="626.0" y="404.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Power and blanking</text>
-<text x="626.0" y="428.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM and NAV OLEDs go dark when</text>
-<text x="626.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">the PC sends NAVCOM1:0 (avionics</text>
-<text x="626.0" y="463.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">bus below 24 V) or after 30 s with</text>
-<text x="626.0" y="480.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no data and no knob or key use.</text>
-<text x="626.0" y="498.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Any knob or key wakes them.</text>
-<path d="M 570.0 450.0 L 614.0 450.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+<rect x="614.0" y="416.0" width="250.0" height="164.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="626.0" y="440.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Power and blanking</text>
+<text x="626.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM and NAV OLEDs go dark when</text>
+<text x="626.0" y="481.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">the PC sends NAVCOM1:0 (avionics</text>
+<text x="626.0" y="499.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">bus below 24 V) or after 30 s with</text>
+<text x="626.0" y="516.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no data and no knob or key use.</text>
+<text x="626.0" y="534.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Any knob or key wakes them.</text>
+<path d="M 570.0 470.0 L 614.0 470.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
 </svg>

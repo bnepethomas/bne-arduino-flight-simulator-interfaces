@@ -73,13 +73,13 @@ The bridge turns parts of the panel off when the simulated electrics drop: lamps
 
 ![How the backlight level is decided](diagrams/backlight_logic.svg)
 
-The Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB. Three things decide the level:
+The Radio, Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB (on the Radio these are the Audio, Auto Pilot and COM and NAV panels; its "no data" rule is the same 30 seconds that blanks its displays, restarted by any knob or key). Three things decide the level:
 
 - **Main bus power (`BPWR`).** The bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that, which switches the backlight off. Until the first `BPWR` arrives the board leaves the backlight on.
 - **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The **ADF controller's** brightness pot sends the level to the Radio, Servo, Upper, Stepper and Dual Stepper boards when you move it, and once at start-up. The Radio and Upper controllers accept the command but do not drive a backlight yet.
+The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The **ADF controller's** brightness pot sends the level to the Radio, Servo, Upper, Stepper and Dual Stepper boards when you move it, and once at start-up. The Radio also uses the level for its panel LEDs. The Upper controller accepts the command but does not drive a backlight yet.
 
 # Arduino servo controller
 

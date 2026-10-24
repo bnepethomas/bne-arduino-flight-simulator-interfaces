@@ -72,7 +72,7 @@ The default waits are the swing times measured on the real boards plus about one
 
 ## Brightness
 
-A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper (.106), every board except the USB HID board, each time it is moved; **Send to all boards** resends the current level, and the status line lists the boards sent to. The Servo, Stepper and Dual Stepper set their backlight from it; the Radio parses it but does nothing and the Upper ignores it. **Backlight power ON** and **OFF** send `D,BPWR:1` and `D,BPWR:0` to the Servo, Stepper and Dual Stepper, the packet the bridges send from the main bus voltage, to test the main bus rule from the bench: OFF switches the backlight off and ON returns it to the last brightness commanded.
+A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper (.106), every board except the USB HID board, each time it is moved; **Send to all boards** resends the current level, and the status line lists the boards sent to. The Radio, Servo, Stepper and Dual Stepper set their backlight from it (the Radio also sets its panel LEDs' intensity) and the Upper ignores it. **Backlight power ON** and **OFF** send `D,BPWR:1` and `D,BPWR:0` to the Radio, Servo, Stepper and Dual Stepper, the packet the bridges send from the main bus voltage, to test the main bus rule from the bench: OFF switches the backlight off and ON returns it to the last brightness commanded.
 
 ## Warning lamps
 

@@ -155,10 +155,10 @@ OLEDs left on manually will still time out after 30s.
 
 A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper
 (.106) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
-The status line lists the boards sent to. The Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
-Radio sets the intensity of its panel LEDs from it (0 off, 1 to 15), and the Upper controller ignores it. The board IP boxes at the top are used.
+The status line lists the boards sent to. The Radio, Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
+Radio also sets the intensity of its panel LEDs from it (0 off, 1 to 15), and the Upper controller ignores it. The board IP boxes at the top are used.
 
-**Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Servo, Stepper and Dual Stepper, the packet the bridges send from the
+**Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Radio, Servo, Stepper and Dual Stepper, the packet the bridges send from the
 main bus voltage (1 at 20 V or more): the backlight goes off at 0 and, on 1, returns to the last brightness commanded. These are for
 testing the main bus rule from the bench.
 

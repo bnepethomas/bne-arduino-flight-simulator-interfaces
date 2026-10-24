@@ -349,6 +349,21 @@ void send_string(const char *String) {
 
 #define NAV_OLED_Port 0
 #define COMM_OLED_Port 1
+// The DME display is the Audio panel's character OLED (the PCB net AUDIO_OLED, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2).
+#define DME_OLED_Port 3
+
+// Writes two lines of up to 16 characters to the DME display ("10M" and "0M" at start-up). Each line is padded with spaces so a shorter text
+// replaces a longer one.
+void showDme(const char* topLine, const char* bottomLine) {
+  char line[17];
+  tcaselect(DME_OLED_Port);
+  snprintf(line, sizeof(line), "%-16s", topLine);
+  sendCommand(0x80);
+  send_string(line);
+  snprintf(line, sizeof(line), "%-16s", bottomLine);
+  sendCommand(cmd_NewLine);
+  send_string(line);
+}
 
 // The PC bridges send frequencies with 2 or 3 decimals ("128.30", "127.8").
 // Pad to a fixed 7 characters ("128.300") so the two columns on each OLED line up
@@ -753,10 +768,15 @@ const int ROWS = 4;
 const int COLS = 5;
 
 // Debounce settings
-const unsigned long DEBOUNCE_DELAY = 50;     // 50ms debounce delay
-unsigned long lastDebounceTime[ROWS][COLS];  // Debounce timing for each key
+// Debounce by integration: each key is sampled once per millisecond and a counter moves one step towards 0 (key down) or
+// MATRIX_INTEGRATOR_MAX (key up) with every sample. A key changes state only when its counter reaches an end, so a lone noisy reading
+// (the MAX7219 LED multiplexing runs next to the column lines in the panel cables) cannot hold a release back or make a false press,
+// and a switch is reported about MATRIX_INTEGRATOR_MAX ms after it changes. The old scheme restarted a 50 ms timer on every reading that
+// differed from the last one, so a release could be held off for as long as the noise lasted.
+#define MATRIX_INTEGRATOR_MAX 12
+uint8_t keyIntegrator[ROWS][COLS];  // 0 = down, MATRIX_INTEGRATOR_MAX = up
+unsigned long lastMatrixSampleMs = 0;
 bool buttonState[ROWS][COLS];                // Current state of each button
-bool lastButtonState[ROWS][COLS];            // Previous state of each button
 bool keyPressed[ROWS][COLS];                 // Tracks if key is currently pressed
 
 // Optional: Define key mapping (customize as needed)
@@ -793,54 +813,61 @@ void initMatrixScanner() {
   for (int row = 0; row < ROWS; row++) {
     for (int col = 0; col < COLS; col++) {
       buttonState[row][col] = HIGH;  // HIGH = not pressed (pull-up)
-      lastButtonState[row][col] = HIGH;
+      keyIntegrator[row][col] = MATRIX_INTEGRATOR_MAX;
       keyPressed[row][col] = false;
-      lastDebounceTime[row][col] = 0;
     }
   }
 }
 
 void scanMatrix() {
+  // One sample of every key per millisecond (the loop runs much faster than that)
+  unsigned long nowMs = millis();
+  if (nowMs == lastMatrixSampleMs) return;
+  lastMatrixSampleMs = nowMs;
+
   for (int row = 0; row < ROWS; row++) {
     // Set current row LOW, others HIGH
     for (int i = 0; i < ROWS; i++) {
       digitalWrite(rowPins[i], (i == row) ? LOW : HIGH);
     }
 
-    // Small delay to allow signal to stabilize
-    delayMicroseconds(10);
+    // Allow the row and the long panel cables to settle
+    delayMicroseconds(20);
 
     // Read all columns for this row
     for (int col = 0; col < COLS; col++) {
+      // Two readings a few microseconds apart: if they disagree this is a noise spike and the sample is skipped
       bool reading = digitalRead(colPins[col]);
+      delayMicroseconds(3);
+      if (digitalRead(colPins[col]) != reading) continue;
 
-      // Check if button state has changed
-      if (reading != lastButtonState[row][col]) {
-        lastDebounceTime[row][col] = millis();  // Reset debounce timer
+      // Move the integrator one step towards the reading (LOW = pressed because of the pull-up)
+      if (reading == LOW) {
+        if (keyIntegrator[row][col] > 0) keyIntegrator[row][col]--;
+      } else {
+        if (keyIntegrator[row][col] < MATRIX_INTEGRATOR_MAX) keyIntegrator[row][col]++;
       }
 
-      // Check if debounce time has elapsed
-      if ((millis() - lastDebounceTime[row][col]) > DEBOUNCE_DELAY) {
-        // If button state has changed after debounce period
-        if (reading != buttonState[row][col]) {
-          buttonState[row][col] = reading;
+      bool newState = buttonState[row][col];
+      if (keyIntegrator[row][col] == 0) newState = LOW;
+      else if (keyIntegrator[row][col] == MATRIX_INTEGRATOR_MAX) newState = HIGH;
 
-          if (millis() < matrixQuietUntil) {
-            // Start-up quiet period: record the state, report nothing.
-            keyPressed[row][col] = false;
-          } else if (buttonState[row][col] == LOW && !keyPressed[row][col]) {
-            // Key press detection (LOW = pressed due to pull-up): just pressed
-            keyPressed[row][col] = true;
-            onKeyPress(row, col);
-          } else if (buttonState[row][col] == HIGH && keyPressed[row][col]) {
-            // Key was just released
-            keyPressed[row][col] = false;
-            onKeyRelease(row, col);
-          }
+      if (newState != buttonState[row][col]) {
+        buttonState[row][col] = newState;
+
+        if (millis() < matrixQuietUntil) {
+          // Start-up quiet period: record the state, report nothing.
+          keyPressed[row][col] = false;
+        } else if (buttonState[row][col] == LOW && !keyPressed[row][col]) {
+          // Key press detection (LOW = pressed due to pull-up): just pressed
+          keyPressed[row][col] = true;
+          onKeyPress(row, col);
+        } else if (buttonState[row][col] == HIGH && keyPressed[row][col]) {
+          // Key was just released
+          keyPressed[row][col] = false;
+          onKeyRelease(row, col);
         }
       }
-
-      lastButtonState[row][col] = reading;
     }
   }
 
@@ -1447,6 +1474,8 @@ void setup() {
 
   initCharOLED(0);
   initCharOLED(1);
+  initCharOLED(DME_OLED_Port);
+  showDme("10M", "0M");  // start-up text on the DME display
   initPanelLeds();
   delay(1000);
   // updateNAV(100);

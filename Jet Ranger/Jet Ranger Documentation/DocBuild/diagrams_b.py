@@ -20,11 +20,13 @@ def radio_blocks():
     s.arrow([(570, 200), (614, 86)], "I2C", color=BLUE, label_dx=-8, label_dy=-8)
     s.arrow([(739, 132), (739, 156)], None)
     s.arrow([(700, 230), (700, 246)], None)
+    s.card(614, 336, 250, 60, "DME OLED  (mux port 3)", ["Audio panel: 10M / 0M at start-up"], "gray", title_size=13.5, line_size=12.5)
+    s.arrow([(700, 320), (700, 336)], None)
     s.card(310, 400, 260, 74, "W5500 Ethernet shield", ["SPI 50 - 52, reset pin 53", "UDP to and from the PC"], "white", title_size=14.5, line_size=12.5)
     s.arrow([(440, 340), (440, 400)], None, color=BLUE, both=True)
     s.card(16, 440, 250, 140, "Swap keys (column 0)", ["row 0: NAV1_RADIO_SWAP", "row 1: NAV2_RADIO_SWAP", "row 2: COM1_RADIO_SWAP", "row 3: COM2_RADIO_SWAP", "        + AVIONICS_MASTER_SET"], "white", title_size=14.5, line_size=12)
-    s.card(614, 380, 250, 200, "Power and blanking", ["COM and NAV OLEDs go dark when", "the PC sends NAVCOM1:0 (avionics", "bus below 24 V) or after 30 s with", "no data and no knob or key use.", "Any knob or key wakes them."], "amber", title_size=14.5, line_size=12.5)
-    s.arrow([(570, 450), (614, 450)], None, dash="4 3")
+    s.card(614, 416, 250, 164, "Power and blanking", ["COM and NAV OLEDs go dark when", "the PC sends NAVCOM1:0 (avionics", "bus below 24 V) or after 30 s with", "no data and no knob or key use.", "Any knob or key wakes them."], "amber", title_size=14.5, line_size=12.5)
+    s.arrow([(570, 470), (614, 470)], None, dash="4 3")
     return s
 
 

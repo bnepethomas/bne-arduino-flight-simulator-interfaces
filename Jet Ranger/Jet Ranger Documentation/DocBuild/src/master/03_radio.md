@@ -6,7 +6,7 @@
 
 ## Program flow
 
-1. **Setup:** reset the W5500 through pin 53, bring up Ethernet and open the UDP sockets, flash the red LED for 3 seconds while the link settles, send an "Ethernet Started" debug line, start the two OLEDs through the TCA9548A I2C multiplexer, start the eight encoders (with acceleration) and the matrix scanner.
+1. **Setup:** reset the W5500 through pin 53, bring up Ethernet and open the UDP sockets, flash the red LED for 3 seconds while the link settles, send an "Ethernet Started" debug line, scan the I2C bus (results to the debug monitor, see Diagnostics), start the COM and NAV OLEDs through the TCA9548A I2C multiplexer, start the DME display (the Audio panel's OLED) with the text `10M` and `0M`, start the eight COM and NAV encoders (with acceleration), the five Auto Pilot knobs and the matrix scanner.
 2. **Main loop:**
    - toggle the green and red status LEDs every 200 ms;
    - every 10 seconds send the `COMM_NAV` heartbeat;
@@ -20,6 +20,7 @@
 
 | Pin | Function |
 |---|---|
+| 5 | `BACKLIGHT_PWM`: the AUDIO, AUTOPILOT and COMM_NAV panel backlights (IRF540N MOSFET) |
 | 14 | Green status LED |
 | 15 | Red status LED (flashes while the Ethernet link comes up) |
 | 53 | W5500 manual reset |
@@ -50,8 +51,9 @@
 | `C2A`, `C2S` | COM2 active and standby frequency | `C2S:121.900` |
 | `MAINBUS` | Main bus voltage | `MAINBUS:27.8` |
 | `NAVCOM1` | Radio power: 1 = on, 0 = COM and NAV displays blank and the panel LEDs off | `NAVCOM1:1` |
+| `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off (the radio assumes 1 until the first one arrives) | `BPWR:1` |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (see below): 1 = on, 0 = off | `LED_HDG:1` |
-| `C,B:n` | Brightness 0 to 15 (control packet): the MAX7219 intensity of the panel LEDs, 0 = LEDs off | `C,B:5` |
+| `C,B:n` | Brightness 0 to 15 (control packet): the panel backlight level (0 off, 15 full) and the MAX7219 intensity of the panel LEDs | `C,B:5` |
 | `C,LEDTEST:n` | Control packet: 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
 The bridges send COM frequencies with two decimals; the radio pads every frequency to `xxx.xxx` (7 characters) so that the 16-column line (7 + 2 + 7) never slides COM2 or NAV2 behind the faceplate. The PC does not send NAV frequencies back.
@@ -110,7 +112,7 @@ Nothing is sent during the first 1.5 seconds after power-up (the quiet period). 
 | ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
 | ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
 
-The Radio controller sends the first 18 Auto Pilot rows and the 8 Audio rows; the ADF rows come from the ADF controller (see its chapter). If a knob turns the wrong way, swap its A and B pins in the `RotaryEncoder` lines for the five Auto Pilot knobs. Which row and column each switch is on comes from the panel schematics: the matrix columns are the Radio Auto Pilot PCB nets `COL1` to `COL4`, and `COL0` is the COM and NAV panel's four swap switches. The debounce is 50 ms and the knobs use the same polling encoder library, with acceleration, as the COM and NAV knobs.
+The Radio controller sends the first 18 Auto Pilot rows and the 8 Audio rows; the ADF rows come from the ADF controller (see its chapter). If a knob turns the wrong way, swap its A and B pins in the `RotaryEncoder` lines for the five Auto Pilot knobs. Which row and column each switch is on comes from the panel schematics: the matrix columns are the Radio Auto Pilot PCB nets `COL1` to `COL4`, and `COL0` is the COM and NAV panel's four swap switches. Each key is sampled once per millisecond and debounced by integration: a counter steps towards down or up with every sample and the key changes state only when it reaches an end (about 12 ms), and each sample takes two readings a few microseconds apart so a noise spike is skipped. This replaced a 50 ms timer that restarted on every reading that differed from the last, which let noise on a column line hold a release back (the MAX7219 LED digit lines run beside the column lines in the panel cables). The knobs use the same polling encoder library, with acceleration, as the COM and NAV knobs.
 
 ## Auto Pilot and Audio panel LEDs (MAX7219)
 
@@ -132,6 +134,14 @@ One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 1
 
 The first two columns are the Auto Pilot panel and the others the Audio panel. The bridges send each LED as a `LED_xxx:0/1` token in the radio data packet. `HandleOutputValuePair()` handles these before its per-pair debug line (19 extra debug packets per radio packet would flood the debug stream), `applyPanelLeds()` writes only the LEDs that changed, and the LEDs follow the radio power: they are lit only while `NAVCOM1` is 1 and the no-data timeout has not blanked the displays. `C,LEDTEST:1` lights all 19 for checking the wiring, and `C,B:0-15` (for example from the ADF controller's pot or the SwingTester slider) sets the intensity: 0 shuts the MAX7219 down, 1 to 15 set the intensity. The SwingTester has a toggle for each LED, an All ON / OFF, a chase and the board test.
 
+## DME display
+
+The Audio panel's character OLED (the PCB net `AUDIO_OLED`, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2) is the DME display. `DME_OLED_Port` selects the channel. At start-up the sketch starts it with the same OLED sequence as the COM and NAV displays and writes `10M` on the top line and `0M` on the bottom line (`showDme()` pads each line to 16 characters so a shorter text replaces a longer one). Nothing else writes to it yet and the no-data blanking leaves it alone.
+
+## Backlight
+
+Mega pin D5 (`BACKLIGHT_PWM`) drives an IRF540N through 330 ohm (10 kohm gate pull-down), which switches the backlights of the **AUDIO, AUTOPILOT and COMM_NAV** panels, using the same rules as the Servo, Stepper and Dual Stepper boards (see the network chapter): the backlight is on only while `BPWR` is 1 (main bus 20 V or more; the radio assumes 1 until the first `BPWR` arrives), at the last brightness commanded with `C,B:0-15` (0 off, 15 full, mapped to PWM 0 to 255) or the default PWM 65 until one has been received. `applyBacklight()` also keeps it off while the displays are blanked by the no-data timeout, which is the same 30 seconds with no UDP packet **and no knob or key use** (a knob or key restarts it, so the radio can be used with no PC), and brings it back at the same level when data or local input resumes. The same `C,B` also sets the panel LEDs' intensity. The bridges send `BPWR` in the radio packet, and the SwingTester's *Backlight power* buttons and brightness slider test it from the bench. The ADF controller's pot sends `C,B` to the radio like any other board.
+
 ## Tuning steps
 
 The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25 kHz channels (major knob 118 to 136; minor knob 000, 025, 050, 075). NAV runs 108.00 to 117.95 MHz in 50 kHz steps (major 108 to 117). Each minor knob wraps round at its ends. The constants `COM_MINOR_STEP_KHZ` and `NAV_MINOR_STEP_KHZ` set the steps, and the wrap-around limits follow from them. 8.33 kHz channels are not offered. FSUIPC holds COM frequencies to 10 kHz, so in the simulator a channel such as 118.025 may appear as 118.02 or 118.03.
@@ -144,6 +154,7 @@ The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25
 
 ## Diagnostics
 
+- **I2C scan:** at start-up, and whenever the control packet `C,I2CSCAN:1` arrives, the radio scans the Mega's own I2C bus and then each of the eight TCA9548A channels and sends every address that answers to the debug stream: `I2C main bus: 0x70 (TCA9548A)`, `I2C TCA port 0: 0x3C (OLED)`, one line for each channel with a device, `I2C TCA ports with nothing connected: ...` and `I2C scan done, N device(s) answered`. The scan uses a 5 ms I2C timeout so a stuck bus (SDA or SCL held low) is reported as `bus timeout` instead of hanging the board, and it takes a second or two, during which the knobs and keys are not read. It shows at once whether an OLED is missing or wired to the wrong mux channel.
 - The control packet `C,MATRIX:1` prints the raw matrix (H or L for each of the five columns, with all rows high and then each row driven low) to the debug stream, bypassing debounce and the quiet period. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board. A faulty or badly seated Mega did exactly this on the bench: all four swap switches share column 0, so none could register, and the board also dropped off USB and the network after flashing.
 - Remote reset is a software reset (see the network chapter). Bench-tested: "Ethernet Started" about 4 seconds after the command and "Setup Complete" about 5 seconds.
 
@@ -153,7 +164,6 @@ The Jet Ranger Radio Auto Pilot PCB (v1.3) carries more than the sketch handles.
 
 | Mega pins | PCB net | Status in the sketch |
 |---|---|---|
-| D5 | `BACKLIGHT_PWM`: 330 ohm to an IRF540N MOSFET that switches the AUDIO, AUTOPILOT and COMM_NAV panel backlights | Not driven. `C,B:n` sets the MAX7219 LED intensity, not this backlight |
 | A0 to A3 | `COMM1_VOL`, `COMM2_VOL`, `NAV1_VOL`, `NAV2_VOL` (volume pots) | Not read |
 | D2 to D4 | `I2C_SEL_A2`, `A1`, `A0` (mux address) | Not driven |
 

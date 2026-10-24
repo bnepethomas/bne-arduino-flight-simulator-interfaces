@@ -22,6 +22,7 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | Button matrix | rows 22 to 25, columns 26, 27, 28, 29 and 48 | 4 by 5: column 0 the COM and NAV swap switches, columns 1 and 2 the Auto Pilot panel, columns 3 and 4 the Audio panel |
 | Auto Pilot knobs | CRS 11, 12; ALT A4, A5; VS 46, 47; IAS 7, 6; HDG 8, 9 | Encoder A, B |
 | Panel LEDs (MAX7219) | DIN A15, CLK A14, LOAD A13 | 19 LEDs on the Auto Pilot and Audio panels |
+| Backlight | D5 | IRF540N MOSFET for the Audio, Auto Pilot and COM and NAV panel backlights |
 | OLEDs | I2C through the TCA9548A (0x70) | Port 0 = NAV OLED, port 1 = COM OLED, both at 0x3C |
 | Status LEDs | 14 green, 15 red | Red flashes while Ethernet starts |
 | Ethernet module | SPI 50 to 52, reset 53 | |
@@ -35,7 +36,8 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | `NAVCOM1` | Radio power (0 = off): the COM and NAV displays and the panel LEDs go off | `NAVCOM1:1` |
 | `MAINBUS` | Main bus voltage | |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
-| `C,B:n` | Brightness 0 to 15: the panel LEDs' intensity (0 = LEDs off) | `C,B:5` |
+| `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off | `BPWR:1` |
+| `C,B:n` | Brightness 0 to 15: the panel backlight level (0 off) and the panel LEDs' intensity | `C,B:5` |
 | `C,LEDTEST:n` | 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
 ## Commands to the PC (UDP 27001)
@@ -118,17 +120,23 @@ One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panel
 
 The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 19 for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the SwingTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **SwingTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
 
+## Backlight
+
+The radio controller switches the backlights of the Audio, Auto Pilot and COM and NAV panels from Mega pin D5, using the same rules as the other panels (see Network): on only while the main bus is 20 V or more (`BPWR`), at the last brightness sent (`C,B:0-15`) or a default until one arrives, and off when the radio has had no data and no knob or key use for 30 seconds (a knob or key brings it back). The SwingTester's brightness slider and *Backlight power ON / OFF* buttons test it, and the ADF panel's brightness pot sets it. The brightness also sets the intensity of the Auto Pilot and Audio panel LEDs.
+
 ## Display behaviour
 
 - If no data arrives from the PC for 30 seconds and no knob or button is used, both OLEDs blank (as if the radio had no power). Turning a knob, pressing a button or new data switches them back on.
 - When the avionics bus is below 24 V the bridge tells the radio the power is off (`NAVCOM1:0`) and the COM and NAV displays go blank together; they light together again when the bus rises.
-- At power-up the matrix is ignored for the first 1.5 seconds so a floating input cannot send false button presses.
+- At power-up the matrix is ignored for the first 1.5 seconds so a floating input cannot send false button presses. Each switch is checked every millisecond and reported about 12 ms after it changes, and a noisy reading cannot hold a release back.
+- At start-up the radio scans the I2C bus and sends what it finds, behind each multiplexer channel, to the debug monitor (lines starting `I2C`); send `C,I2CSCAN:1` to scan again. The Audio panel's OLED is the **DME display**: it shows `10M` on the top line and `0M` on the bottom line after start-up.
+
 - The radio sends `COMM_NAV` to the Health Monitor every 10 seconds.
 
 ## Known issues
 
 - Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet, although the NAV knobs are read.
-- The Radio Auto Pilot PCB has a backlight driver on D5 and volume pots that the radio sketch does not use yet. `C,B:n` sets the intensity of the panel LEDs, not that backlight.
+- The Radio Auto Pilot PCB has volume pots that the radio sketch does not read yet.
 - Four encoders (COM1 major and minor, COM2 minor, NAV1 minor) have A and B the other way round from the PCB labels; it only matters if one of those knobs tunes backwards.
 - If every button in the matrix's first column stops working, send `C,MATRIX:1` to port 13136: the radio prints the raw H or L state of each column to the debug listener. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board (a faulty or badly seated Mega did exactly this on the bench).
 

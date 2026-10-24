@@ -9,17 +9,17 @@ Notes from reading the KiCad projects in `Jet Ranger/PCBs` (schematics, PCB layo
 | PCB | Revision (title block) | Used by | Notes |
 |---|---|---|---|
 | Jet Ranger Front Panel Servo | 1.4 (2026-10-18) | Servo controller | Mega shield, two ULN2803A lamp drivers, servo headers (16, 2 used), 15 lamp outputs, three switch inputs, backlight MOSFET. Change log: 1.3 had the MOSFET pinned wrongly (source and drain need swapping), 1.4 corrects it |
-| Jet Ranger 13 Stepper | 1.5 (2026-10-16) | Stepper controller | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET. No change log text; the schematic now uses the IRF540N |
+| Jet Ranger 13 Stepper | 1.6 (2026-10-18) | Stepper controller | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET. The change log lists up to 1.5 (1.4 moved the LEDs away from the USB connectors, 1.5 selected the IRF540N); the title block now says 1.6 |
 | Jet Ranger OLED Dual Stepper | 1.5 (2026-10-18) | Dual stepper controller | Mega shield, USR-ES1, gauge sockets, TCA9548A sockets for the OLEDs, backlight MOSFET. No change log text; the schematic now uses the IRF540N |
 | Jet Ranger X27 Small Stepper | not set | Each stepper gauge | One X27 or VID29 stepper, backlight LED, six-pin connector to the controller |
 | Jet Ranger Radio Auto Pilot | 1.3 (2026-10-18) | Radio controller | Radio and autopilot controller. Change log: 1.2 added the audio panel, 1.3 corrected the MOSFET mis-pinout |
 | Jet Ranger COM and NAV | not set | Radio panel | Eight rotary encoders, push buttons and the four frequency-swap switches in a diode matrix |
 | Jet Ranger Upper Controller | 1.4 (2026-10-18) | Upper controller | Mega shield for the switch matrix, backlight MOSFET, brightness input on A0. Change log: 1.4 corrected the MOSFET mis-pinout |
 | Jet Ranger ADF Controller | 1.4 (2026-10-19) | ADF controller (`JET_RANGER_ADF_CONTROLLER`, .107) | Mega shield with the ADF major and minor knobs (D6 to D9), an I2C OLED, a 7-pin keypad (D22 to D28), landing-gear, flaps, speed-brake and brake inputs (D29 to D32), three landing-gear lamps (D2 to D4), the backlight MOSFET, a panel brightness pot (A0) and a 12 V monitor (A15, 47 k / 10 k divider). Change log: 1.2 added the audio panel, 1.3 corrected the MOSFET mis-pinout (IRF540 selected), 1.4 added the 12 V power rail monitors and the pot for panel brightness |
-| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 (2026-10-17) | Switch panels | Diode-matrix switch boards: Audio (10 switches, 21 diodes), Auto Pilot (16 switch and encoder parts, 18 diodes, 2 LEDs), ADF (9 switch and encoder parts, 4 diodes) |
+| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 (2026-10-17) | Switch panels | Diode-matrix switch boards: Audio (10 switches, 21 diodes), Auto Pilot (16 switch and encoder parts, 18 diodes, 2 LEDs), ADF (9 switch and encoder parts, 4 diodes) |
 | Annunciator, Altimeter, Large Guage, Simkits gauge boards | not set | Other panels and gauges | Not covered by the sketches in this document |
 
-The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights.
+The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights. The schematic and board layout of every PCB are in Appendix C.
 
 ## Backlight driver
 
@@ -38,7 +38,7 @@ All six controller boards (Servo, 13 Stepper, Dual Stepper, Radio Auto Pilot, Up
 
 The earlier revisions used a generic N-channel MOSFET symbol (`Q_NMOS_GSD`) whose pin-out had source and drain swapped; the revisions dated 18 October 2026 (1.4 Servo, 1.3 Radio Auto Pilot and ADF Controller, 1.4 Upper, 1.5 Stepper and Dual Stepper) use the IRF540N with the correct pin-out. A board made from an earlier revision should have the transistor checked.
 
-The Servo, Stepper, Dual Stepper and ADF sketches drive D5 (see the network and ADF controller chapters). The Radio and Upper sketches do not. The Upper PCB has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16) that no sketch reads; the ADF PCB has the same pot input, and the ADF sketch reads it and sends the level to the other panels.
+The Radio, Servo, Stepper, Dual Stepper and ADF sketches drive D5 (see the network, Radio and ADF controller chapters). The Upper sketch does not. The Upper PCB has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16) that no sketch reads; the ADF PCB has the same pot input, and the ADF sketch reads it and sends the level to the other panels.
 
 ## Warning Mute, Fuel Valve and TOT Clear inputs
 

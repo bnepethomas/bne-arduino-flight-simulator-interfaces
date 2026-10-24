@@ -41,7 +41,7 @@ The pot on A0 sits between 5 V and ground. The reading is smoothed (a running av
 - sets this board's own backlight (D5, PWM 0 to 255);
 - is sent as `C,B:<level>` on UDP 13136 to the Radio .101, Servo .102, Upper .103, Stepper .105 and Dual Stepper .106 (not the USB HID board).
 
-The level is also sent once 5 seconds after start-up, so the other panels take the pot's position without it being moved. The packets go out **one board per pass of the loop**, so a switched-off board costs at most one 80 ms send timeout and the knobs and keypad keep working. The Servo, Stepper and Dual Stepper boards apply the level; the Radio and Upper controllers accept it but do not drive a backlight yet. A brightness packet counts as received data for the receiving board's 30 second no-data watchdog, but it is sent only when the pot changes (and once at start-up), so it does not hold a board's watchdog off.
+The level is also sent once 5 seconds after start-up, so the other panels take the pot's position without it being moved. The packets go out **one board per pass of the loop**, so a switched-off board costs at most one 80 ms send timeout and the knobs and keypad keep working. The Radio, Servo, Stepper and Dual Stepper boards apply the level (the Radio also uses it for its panel LEDs); the Upper controller accepts it but does not drive a backlight yet. A brightness packet counts as received data for the receiving board's 30 second no-data watchdog, but it is sent only when the pot changes (and once at start-up), so it does not hold a board's watchdog off.
 
 ## Power monitoring
 

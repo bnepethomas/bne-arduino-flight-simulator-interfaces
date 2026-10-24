@@ -58,7 +58,7 @@ Run **only one bridge at a time**: `FSUIPCWinformsAutoCS` and `MSFSWinformsAutoC
 
 ## PCBs
 
-KiCad projects are in `Jet Ranger/PCBs/`. The boards used by the sketches and programs above are:
+KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix C. The boards used by the sketches and programs above are:
 
 | PCB | Revision | Used by |
 |---|---|---|
@@ -66,11 +66,11 @@ KiCad projects are in `Jet Ranger/PCBs/`. The boards used by the sketches and pr
 | Jet Ranger COM and NAV | no revision set | Radio panel (four swap switches, encoders) |
 | Jet Ranger Front Panel Servo | 1.4 | Servo controller |
 | Jet Ranger Upper Controller | 1.4 | Upper controller |
-| Jet Ranger 13 Stepper | 1.5 | Stepper controller |
+| Jet Ranger 13 Stepper | 1.6 | Stepper controller |
 | Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper controller |
 | Jet Ranger X27 Small Stepper | not set | One per stepper gauge |
 | Jet Ranger ADF Controller | 1.4 | ADF controller |
-| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels for the Radio Auto Pilot and ADF controllers |
+| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 | Switch panels for the Radio Auto Pilot and ADF controllers |
 | Annunciator, Altimeter, Large Guage, Simkits gauge boards | | Other panels and gauges |
 
 On 18 October 2026 the six controller boards (Servo, Upper, 13 Stepper, Dual Stepper, Radio Auto Pilot and ADF Controller) were revised to fix the **backlight MOSFET**: the schematic symbol had source and drain swapped and the part is now an IRF540N. All six drive their panel backlights from Mega pin D5 through this transistor (see the PCB notes chapter).
@@ -81,7 +81,7 @@ On 18 October 2026 the six controller boards (Servo, Upper, 13 Stepper, Dual Ste
 
 Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the Upper controller, and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger.
 
-Backlight control (Servo, Stepper and Dual Stepper boards) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.
+Backlight control (Servo, Stepper and Dual Stepper boards, and later the Radio controller) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.
 
 Open items:
 

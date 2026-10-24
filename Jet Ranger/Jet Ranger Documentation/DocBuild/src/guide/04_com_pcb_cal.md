@@ -51,16 +51,16 @@ The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp o
 | PCB | Revision | Used by | Main parts |
 |---|---|---|---|
 | Jet Ranger Front Panel Servo | 1.4 | Servo board | Mega shield, ULN2803A lamp drivers, servo headers, lamp outputs, three switch inputs, backlight MOSFET |
-| Jet Ranger 13 Stepper | 1.5 | Stepper board | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET |
+| Jet Ranger 13 Stepper | 1.6 | Stepper board | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET |
 | Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper board | Mega shield, USR-ES1, six-pin gauge sockets, TCA9548A sockets for the OLEDs, backlight MOSFET |
 | Jet Ranger X27 Small Stepper | not set | Each stepper gauge | One X27 or VID29 stepper, backlight LED, six-pin connector to the controller |
 | Jet Ranger Radio Auto Pilot | 1.3 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
 | Jet Ranger COM and NAV | not set | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
 | Jet Ranger Upper Controller | 1.4 | Upper controller | Mega shield for the switch matrix, backlight MOSFET, brightness input |
 | Jet Ranger ADF Controller | 1.4 | ADF controller | ADF knobs, keypad, panel brightness pot, 12 V monitor, gear lamps, I2C OLED, backlight MOSFET |
-| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |
+| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |
 
-The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights.
+The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights. The schematic and board layout of every PCB are in the *PCB schematics and layouts* chapter at the end of this guide.
 
 ## Backlight MOSFET (revisions of 18 October 2026)
 

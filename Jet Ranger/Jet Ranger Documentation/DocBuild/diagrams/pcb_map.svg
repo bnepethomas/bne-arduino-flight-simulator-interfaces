@@ -27,7 +27,7 @@
 <text x="468.0" y="255.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">key matrix, brightness pot on A0,</text>
 <text x="468.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">backlight MOSFET on D5</text>
 <rect x="16.0" y="330.0" width="408.0" height="120.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
-<text x="28.0" y="354.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger 13 Stepper  v1.5</text>
+<text x="28.0" y="354.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger 13 Stepper  v1.6</text>
 <text x="28.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Stepper controller (.105)</text>
 <text x="28.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">backlight D5, VSI coil B D8</text>
 <text x="28.0" y="412.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">IRF540N backlight MOSFET</text>
@@ -42,7 +42,7 @@
 <text x="28.0" y="535.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ADF knobs, keypad, brightness pot, 12 V monitor,</text>
 <text x="28.0" y="552.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">gear lamps, I2C OLED, IRF540N backlight MOSFET</text>
 <rect x="456.0" y="470.0" width="408.0" height="120.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="468.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Audio, Auto Pilot and ADF panels  v1.0</text>
+<text x="468.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Audio, Auto Pilot and ADF panels  v1.1</text>
 <text x="468.0" y="517.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: switch panels on the controllers</text>
 <text x="468.0" y="535.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">diode-matrix switch boards, LEDs</text>
 <text x="468.0" y="552.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">and rotary encoders</text>

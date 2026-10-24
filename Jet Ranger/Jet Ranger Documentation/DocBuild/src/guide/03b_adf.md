@@ -17,7 +17,7 @@ The ADF panel is another Mega, at 172.16.1.107, running `JET_RANGER_ADF_CONTROLL
 
 The OLED shows the frequency on the first line (`ADF  340 kHz`) and the ID on the second: `ID: 1234_` while you type, `FOLLOW 1234` once it is sent, or `FOLLOW OFF`. An entry you leave unfinished for 20 seconds is dropped.
 
-The panel brightness is sent when you move the pot, and once 5 seconds after the board starts. The Servo, Stepper and Dual Stepper boards apply it; the Radio and Upper controllers accept it but do not drive a backlight yet.
+The panel brightness is sent when you move the pot, and once 5 seconds after the board starts. The Radio, Servo, Stepper and Dual Stepper boards apply it (the Radio also uses it for its panel LEDs); the Upper controller accepts it but does not drive a backlight yet.
 
 ## Inputs and outputs
 

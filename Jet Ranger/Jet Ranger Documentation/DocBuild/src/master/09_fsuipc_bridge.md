@@ -57,7 +57,7 @@ The Servo, Stepper and Dual Stepper boards each get their **own** packet in real
 | Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated because FSUIPC pitch is nose-down positive), `BANK` (degrees, one decimal), the 15 lamp codes `EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF` as `:1` or `:0` |
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
 | Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
-| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
+| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
 
 ## Aircraft information for the GPS interface
 

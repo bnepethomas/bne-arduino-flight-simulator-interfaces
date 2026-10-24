@@ -423,7 +423,7 @@ class Builder:
             return
         self.fig_no += 1
         w_px, h_px = svg_size(full)
-        if full.lower().endswith(".png"):
+        if full.lower().endswith((".png", ".jpg", ".jpeg")):
             # screenshots: natural size at 96 dpi, scaled down to fit the page width and a maximum height
             w_mm = min(PAGE_W_MM, w_px * 0.2646)
             h_mm = w_mm * h_px / w_px
@@ -582,9 +582,28 @@ def png_size(path):
     return struct.unpack(">II", head[16:24])
 
 
+def jpg_size(path):
+    import struct
+    with open(path, "rb") as f:
+        data = f.read()
+    i = 2
+    while i < len(data):
+        if data[i] != 0xFF:
+            i += 1
+            continue
+        marker = data[i + 1]
+        if marker in (0xC0, 0xC1, 0xC2):
+            h, w = struct.unpack(">HH", data[i + 5:i + 9])
+            return w, h
+        i += 2 + struct.unpack(">H", data[i + 2:i + 4])[0]
+    raise ValueError("no size in " + path)
+
+
 def svg_size(path):
     if path.lower().endswith(".png"):
         return png_size(path)
+    if path.lower().endswith((".jpg", ".jpeg")):
+        return jpg_size(path)
     s = open(path, encoding="utf-8").read(600)
     w = re.search(r'width="([\d.]+)"', s)
     h = re.search(r'height="([\d.]+)"', s)

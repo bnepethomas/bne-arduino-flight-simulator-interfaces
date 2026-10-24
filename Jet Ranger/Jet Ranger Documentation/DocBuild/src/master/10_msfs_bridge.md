@@ -33,7 +33,7 @@ If no new data has arrived for 3 seconds (paused or loading) the bridge stops se
 | Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated: the simulator reports nose-down positive), `BANK`, and the 15 lamp codes (all `0` while the main bus is below 20 V) |
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI`, `AGL` (feet, 0 below 20 V), `FUEL` (US gal), `TQ`, `ITT` (degrees C), `N1` |
 | Dual Stepper .106 | `PWR` (1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME`, `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent, below), `TEMP` |
-| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` and the 19 `LED_xxx` tokens (see above) (`NAVCOM1` is 1 when the avionics bus is 24 V or more; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the main bus is used instead) |
+| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1`, `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens (see above) (`NAVCOM1` is 1 when the avionics bus is 24 V or more; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the main bus is used instead) |
 
 `ELECTRICALLOAD` is the magnitude of `ELECTRICAL TOTAL LOAD AMPS` divided by 300 A (the sign goes negative while the battery supplies the bus, for example with the engine stopped); the CowaSim profile uses 139 A.
 
