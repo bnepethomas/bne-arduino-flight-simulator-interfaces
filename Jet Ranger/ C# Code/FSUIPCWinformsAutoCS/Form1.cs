@@ -556,6 +556,7 @@ namespace FSUIPCTest
                     radioPayload += ",C2S:" + com2StandbyFrequency;
                     radioPayload += ",MAINBUS:" + MainBusVoltage;
                     radioPayload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                    radioPayload += ",BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0");    // backlight on only while the main bus is 20 V or more
                     radioPayload += panelLedText;
                     Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
                     udpClient.Send(radioSendData, radioSendData.Length);

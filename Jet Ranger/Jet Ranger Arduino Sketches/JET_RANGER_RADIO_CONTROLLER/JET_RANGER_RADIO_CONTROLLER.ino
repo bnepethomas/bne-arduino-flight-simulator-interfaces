@@ -56,6 +56,17 @@ String navCom1Status = "";
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 200
 
+#define BACK_LIGHTS 5  // PCB: D5 = BACKLIGHT_PWM (330 ohm to an IRF540N that switches the AUDIO, AUTOPILOT and COMM_NAV panel backlights)
+
+// Backlight control, the same rules as the Servo, Stepper and Dual Stepper boards. The backlight follows the main bus (BPWR:1/0 from the
+// bridge: 1 = main bus 20 V or more) and the last brightness command (C,B:0-15). Until a C,B command has been received it uses
+// BacklightDefaultPwm; once one has, the last commanded level is used every time power is applied. While the main bus is below 20 V the
+// backlight is off. It is also off while the displays are blanked by the no-data timeout (no UDP packet and no knob or key for 30 s,
+// including after power-up with no PC), and comes back at the same level when data or local input resumes.
+#define BacklightDefaultPwm 65
+bool backlightPowered = true;      // true until the bridge reports the main bus is down
+int backlightCommandedPwm = -1;    // PWM from the last C,B command; -1 = none received yet
+
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 bool GREEN_LED_STATE = true;
@@ -157,6 +168,75 @@ void tcaselect(uint8_t i) {
   Wire.endTransmission();
 }
 
+// I2C scan, sent to the debug stream (the UDP monitor on the PC). It looks at the Mega's own I2C bus and then at each of the eight TCA9548A
+// channels, and lists every address that answers, for example:
+//   I2C main bus: 0x70 (TCA9548A)
+//   I2C TCA port 0: 0x3C (OLED)
+//   I2C TCA port 1: 0x3C (OLED)
+//   I2C TCA ports 2 to 7: none
+// It runs once at start-up and again whenever "C,I2CSCAN:1" arrives. A scan takes a second or two, during which the knobs and keys are
+// not read. A stuck bus (SDA or SCL held low) is reported instead of hanging the board.
+String i2cDeviceName(uint8_t address) {
+  if (address == TCAADDR) return " (TCA9548A)";
+  if (address == 0x3C || address == 0x3D) return " (OLED)";
+  return "";
+}
+
+// Addresses that answer on the bus as it is now, as text ("0x3C (OLED), 0x70 (TCA9548A)"), or "none"; counts them in found.
+String scanI2CBus(int& found, bool skipMux) {
+  String list = "";
+  for (uint8_t address = 0x08; address <= 0x77; address++) {
+    if (skipMux && address == TCAADDR) continue;
+    Wire.beginTransmission(address);
+    if (Wire.endTransmission() == 0) {
+      if (list.length() > 0) list += ", ";
+      list += "0x" + String(address, HEX) + i2cDeviceName(address);
+      found++;
+    }
+    if (Wire.getWireTimeoutFlag()) return "bus timeout (SDA or SCL stuck low?)";
+  }
+  list.toUpperCase();
+  list.replace("0X", "0x");
+  return list.length() > 0 ? list : String("none");
+}
+
+void scanI2C() {
+  Wire.setWireTimeout(5000, true);  // a stuck bus gives up after 5 ms instead of hanging the sketch
+  Wire.clearWireTimeoutFlag();
+  SendDebug("I2C scan start");
+
+  // Main bus first, with every TCA9548A channel switched off
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(0);
+  Wire.endTransmission();
+  int found = 0;
+  SendDebug("I2C main bus: " + scanI2CBus(found, false));
+
+  // Then each channel of the multiplexer in turn (the multiplexer itself is skipped)
+  String noneRange = "";
+  for (uint8_t port = 0; port < 8; port++) {
+    tcaselect(port);
+    int onPort = 0;
+    String list = scanI2CBus(onPort, true);
+    found += onPort;
+    if (list == "none") {
+      noneRange += String(port) + " ";
+    } else {
+      SendDebug("I2C TCA port " + String(port) + ": " + list);
+    }
+    Wire.clearWireTimeoutFlag();
+  }
+  if (noneRange.length() > 0) {
+    noneRange.trim();
+    SendDebug("I2C TCA ports with nothing connected: " + noneRange);
+  }
+
+  // Leave every channel off, as at start-up
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(0);
+  Wire.endTransmission();
+  SendDebug("I2C scan done, " + String(found) + " device(s) answered");
+}
 // ############################################# END I2C FRAMEWORK ##########################################
 
 
@@ -328,6 +408,12 @@ void updateCOMM() {
 }
 
 // ############################################# END CHARACTER OLED ##########################################
+
+void applyBacklight() {
+  int pwm = 0;
+  if (backlightPowered && !noDataBlanked) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  analogWrite(BACK_LIGHTS, pwm);
+}
 
 // ############################################# BEGIN MAX7219 PANEL LEDS ##########################################
 // One MAX7219 on the Radio Auto Pilot PCB drives the 19 LEDs on the Auto Pilot panel (digits 0 and 1) and the Audio panel
@@ -800,6 +886,7 @@ void wakeDisplays() {
     updateNAV();
     updateCOMM();
     applyPanelLeds();
+    applyBacklight();
     SendDebug("Local input - displays restored");
   }
 }
@@ -1050,6 +1137,13 @@ void ProcessReceivedMSFSString() {
 
 void HandleOutputValuePair(String str) {
 
+  // Backlight power from the bridge: 1 = main bus 20 V or more, 0 = off. See applyBacklight().
+  if (str.startsWith("BPWR:")) {
+    backlightPowered = (str.substring(5).toInt() != 0);
+    applyBacklight();
+    return;
+  }
+
   // Panel LEDs ("LED_CRS:1" ...) are not logged one by one: there are 19 of them in every radio packet.
   if (str.startsWith("LED_")) {
     int colon = str.indexOf(':');
@@ -1230,8 +1324,10 @@ void HandleControlString(String str) {
     // Brightness, C,B:0-15: sets the intensity of the Auto Pilot and Audio panel LEDs (0 = off)
     if (command == "B")
       if (isetting >= 0 && isetting <= 15) {
+        backlightCommandedPwm = map(isetting, 0, 15, 0, 255);
+        applyBacklight();
         setPanelLedBrightness(isetting);
-        SendDebug("Panel LED brightness " + String(isetting));
+        SendDebug("Brightness " + String(isetting) + " (backlight PWM " + String(backlightCommandedPwm) + ", panel LEDs)");
       }
     //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
 
@@ -1240,6 +1336,9 @@ void HandleControlString(String str) {
 
     // Matrix diagnostic: C,MATRIX:1 (see reportMatrixRaw())
     if (command == "MATRIX") reportMatrixRaw();
+
+    // I2C scan: C,I2CSCAN:1 sends what answers on the I2C bus and behind each TCA9548A channel to the debug monitor (see scanI2C())
+    if (command == "I2CSCAN") scanI2C();
 
     // Panel LED test: C,LEDTEST:1 lights all 19 MAX7219 LEDs, C,LEDTEST:0 returns them to the simulator's state
     if (command == "LEDTEST") {
@@ -1286,6 +1385,8 @@ void setup() {
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
   digitalWrite(RED_STATUS_LED_PORT, false);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  applyBacklight();  // the default level until a brightness command or the main bus says otherwise
 
   if (Ethernet_In_Use == 1) {
 
@@ -1319,6 +1420,7 @@ void setup() {
   }
 
   Wire.begin();
+  scanI2C();  // what is on the I2C bus and behind each multiplexer channel, to the debug monitor
 
 
 
@@ -1584,6 +1686,7 @@ void loop() {
         radioFrequencyChanged = true;
         updateNAV();
         updateCOMM();
+        applyBacklight();
         SendDebug("UDP data resumed - displays restored");
       }
 
@@ -1601,6 +1704,7 @@ void loop() {
     updateCOMM();
     updateNAV();
     applyPanelLeds();
+    applyBacklight();
     SendDebug("no UDP data or local input for " + String(noDataTimeoutMs / 1000) + "s, displays blanked");
   }
 }

@@ -242,6 +242,7 @@ namespace MSFSWinformsAutoCS
              + ",C2S:" + Freq(s.Com2Standby)
              + ",MAINBUS:" + F1(s.MainBusVolts)
              + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0")
+             + ",BPWR:" + (GaugesPowered(s) ? "1" : "0")        // backlight on only while the main bus is 20 V or more
              + LedTokens(s.Leds, RadioPowered(s));
     }
 }

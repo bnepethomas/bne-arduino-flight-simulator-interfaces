@@ -136,7 +136,7 @@ namespace SwingTester
         private readonly NumericUpDown numLampOnGapMs = new() { Minimum = 0, Maximum = 10000, Increment = 100, Value = 1000, Width = 70 };
         // Backlight brightness (C,B:0-15) to every board except the USB HID board, and backlight power (D,BPWR) for testing the main bus rule.
         private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper };
-        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Servo, BoardId.Stepper, BoardId.DualStepper };
+        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper };
         private readonly TrackBar trkBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 260, AutoSize = false, Height = 32 };
         private readonly Label lblBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
         private readonly Button btnBrightnessSend = new() { Text = "Send to all boards", AutoSize = true };
@@ -477,7 +477,7 @@ namespace SwingTester
         }
 
         /// <summary>
-        /// Sends "D,BPWR:1/0" (backlight power - what the bridges send from the main bus voltage) to the Servo, Stepper and Dual Stepper.
+        /// Sends "D,BPWR:1/0" (backlight power - what the bridges send from the main bus voltage) to the Radio, Servo, Stepper and Dual Stepper.
         /// The boards turn the backlight off at 0 and, on 1, return to the last brightness commanded.
         /// </summary>
         private async Task SendBacklightPowerAsync(bool on)
