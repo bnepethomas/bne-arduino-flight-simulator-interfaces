@@ -29,15 +29,16 @@
     Events for the PC go to 172.16.1.10:27003 (not 27001: the FSUIPC and MSFS bridges treat anything they do not recognise
     on 27001 as a COM1 standby frequency). The bridges do not read port 27003 yet.
     The landing gear, flaps, speed brake and brakes switches (D29 to D32) and the two ADF knobs are also sent as joystick buttons to
-    the USB HID board (172.16.1.11:4210, Joystick 4, indexes 104 to 111) and, for the four switches, as simulator controls to the
-    bridge on UDP 27001 (GEAR_DOWN / GEAR_UP, FLAPS_DOWN / FLAPS_UP, SPOILERS_ON / SPOILERS_OFF, PARKING_BRAKES), which the bridges
-    recognise.
+    the USB HID board (172.16.1.11:4210, Joystick 4, indexes 104 to 111). The gear, flaps and speed brake switches are toggle switches, so
+    their POSITION is sent to the bridge on UDP 27001 as a value, "GEAR_SET:1" (down) or "GEAR_SET:0" (up), "FLAPS_SET:1/0" and
+    "SPOILERS_SET:1/0", when the switch changes and again every few seconds so the simulator always follows the switch; the brakes push
+    button sends PARKING_BRAKES when it is pressed.
       ADF_FREQ:<kHz>               the ADF frequency after the knobs stop moving, for example ADF_FREQ:830
       RADAR_FOLLOW_ID:<digits>     the aircraft ID typed on the keypad; RADAR_FOLLOW_ID:0 = stop following
       POWER,V12:12.41,V5:5.02,STATUS:OK     every 30 seconds (STATUS is OK, or the rails that are out of range)
 
   Pins (from the PCB)
-    D2 D3 D4  landing gear lamps (nose, left, right)     not driven yet
+    D2 D3 D4  landing gear lamps (nose, left, right): driven by "D,LDGN:1/0,LDGL:1/0,LDGR:1/0" data packets (high = lit); no bridge sends them yet
     D5        BACKLIGHT_PWM (IRF540N)
     D6 D7     ADF major encoder A, B
     D8 D9     ADF minor encoder A, B
@@ -209,6 +210,44 @@ void initCharOLED() {
 
 // ############################################# END I2C / CHARACTER OLED ##########################################
 
+// ############################################# BEGIN LANDING GEAR LAMPS ##########################################
+// The three landing gear lamps on the ADF panel (nose, left, right; each LED has its own 330 ohm resistor on the panel, anode to the Mega pin).
+// A data packet sets them: "D,LDGN:1,LDGL:1,LDGR:0" (1 = lit). Used by the SwingTester for the bench test; the simulator bridges do not send them yet.
+#define LDG_NOSE_PIN 2
+#define LDG_LEFT_PIN 3
+#define LDG_RIGHT_PIN 4
+
+void initLandingGearLamps() {
+  pinMode(LDG_NOSE_PIN, OUTPUT);
+  pinMode(LDG_LEFT_PIN, OUTPUT);
+  pinMode(LDG_RIGHT_PIN, OUTPUT);
+  digitalWrite(LDG_NOSE_PIN, LOW);
+  digitalWrite(LDG_LEFT_PIN, LOW);
+  digitalWrite(LDG_RIGHT_PIN, LOW);
+}
+
+// "LDGN", "1": returns true if the token was one of the landing gear lamps.
+bool setLandingGearLampFromToken(const String& name, const String& value) {
+  int pin = -1;
+  if (name == "LDGN") pin = LDG_NOSE_PIN;
+  else if (name == "LDGL") pin = LDG_LEFT_PIN;
+  else if (name == "LDGR") pin = LDG_RIGHT_PIN;
+  if (pin < 0) return false;
+  digitalWrite(pin, value.toInt() != 0 ? HIGH : LOW);
+  return true;
+}
+
+void HandleDataString(String str) {
+  int colon = str.indexOf(':');
+  if (colon <= 0) return;
+  String name = str.substring(0, colon);
+  String value = str.substring(colon + 1);
+  name.trim();
+  value.trim();
+  setLandingGearLampFromToken(name, value);
+}
+// ############################################# END LANDING GEAR LAMPS ##########################################
+
 // ############################################# BEGIN JOYSTICK BUTTONS AND PANEL SWITCHES ##########################################
 unsigned long panelQuietUntil = 0;  // for a moment after start-up the switches are only read, not sent
 
@@ -258,15 +297,18 @@ void sendCommandToBridge(const char* command) {
   udp.endPacket();
 }
 
-// The four switches on the ADF panel, to ground when on. The first command goes to the bridge when the switch closes and the second when it
-// opens (the brakes are a push button: its press toggles the parking brake and its release sends nothing). If a switch works the wrong way
-// round in the simulator, swap its two commands.
+// The four switches on the ADF panel, to ground when on. The landing gear, flaps and speed brake switches are toggle switches, so their position
+// is sent to the bridge as a value (positionCommand, with :1 when the switch is closed and :0 when it is open: gear down, flaps down, speed brakes
+// out) every time it changes and again every POSITION_RESEND_MS, rather than as an event that the simulator could toggle. The brakes are a push
+// button: pressing it sends pressCommand (the parking brake toggle) and releasing it sends nothing. If a switch works the wrong way round in the
+// simulator, swap the two ends of the switch (or the 1 and 0 here).
 #define SWITCH_DEBOUNCE_MS 30
+#define POSITION_RESEND_MS 5000UL
 struct AdfSwitch {
   uint8_t pin;
   uint8_t hidIndex;
-  const char* closedCommand;
-  const char* openCommand;
+  const char* positionCommand;  // "GEAR_SET": sent as GEAR_SET:1 / GEAR_SET:0; NULL for a push button
+  const char* pressCommand;     // sent when the switch closes (push button only)
   const char* name;
   bool closed;         // debounced state
   bool lastReading;    // raw reading last time
@@ -274,11 +316,19 @@ struct AdfSwitch {
 };
 
 AdfSwitch adfSwitches[] = {
-  { 29, 104, "GEAR_DOWN", "GEAR_UP", "LANDING GEAR", false, false, 0 },
-  { 30, 105, "FLAPS_DOWN", "FLAPS_UP", "FLAPS", false, false, 0 },
-  { 31, 106, "SPOILERS_ON", "SPOILERS_OFF", "SPEED BRAKES", false, false, 0 },
-  { 32, 107, "PARKING_BRAKES", NULL, "BRAKES", false, false, 0 },
+  { 29, 104, "GEAR_SET", NULL, "LANDING GEAR", false, false, 0 },
+  { 30, 105, "FLAPS_SET", NULL, "FLAPS", false, false, 0 },
+  { 31, 106, "SPOILERS_SET", NULL, "SPEED BRAKES", false, false, 0 },
+  { 32, 107, NULL, "PARKING_BRAKES", "BRAKES", false, false, 0 },
 };
+unsigned long lastPositionSent = 0;
+
+// Sends the position of one toggle switch to the bridge, for example "GEAR_SET:1".
+void sendSwitchPosition(const char* positionCommand, bool closed) {
+  if (positionCommand == NULL) return;
+  String command = String(positionCommand) + ":" + (closed ? "1" : "0");
+  sendCommandToBridge(command.c_str());
+}
 const int adfSwitchCount = sizeof(adfSwitches) / sizeof(adfSwitches[0]);
 bool adfSwitchStartSent = false;
 
@@ -304,9 +354,19 @@ void pollAdfSwitches() {
       if (millis() < panelQuietUntil) continue;  // start-up: record the state only
       SendDebug(String(s.name) + (s.closed ? " closed" : " open") + " (joystick button index " + String(s.hidIndex) + ")");
       sendButtonToHid(s.hidIndex, s.closed ? 1 : 0);
-      const char* command = s.closed ? s.closedCommand : s.openCommand;
-      if (command != NULL) sendCommandToBridge(command);
+      if (s.positionCommand != NULL) {
+        sendSwitchPosition(s.positionCommand, s.closed);
+        lastPositionSent = millis();
+      } else if (s.closed && s.pressCommand != NULL) {
+        sendCommandToBridge(s.pressCommand);
+      }
     }
+  }
+  // The positions of the toggle switches are sent again every few seconds once the start-up quiet period is over, so the simulator follows
+  // the switches (including the position they were in at power-up, which no change reports).
+  if (millis() >= panelQuietUntil && (long)(millis() - lastPositionSent) >= (long)POSITION_RESEND_MS) {
+    lastPositionSent = millis();
+    for (int i = 0; i < adfSwitchCount; i++) sendSwitchPosition(adfSwitches[i].positionCommand, adfSwitches[i].closed);
   }
   // Once the start-up quiet period is over, the joystick buttons are brought into line with the switches as they are (no simulator
   // command is sent, so the aircraft is not moved at power-up).
@@ -424,11 +484,14 @@ bool buttonState[ROWS][COLS];
 bool lastButtonState[ROWS][COLS];
 bool keyPressed[ROWS][COLS];
 
+// The label of the key at each (row, column) of the scan, as found on the real keypad: with the first guess ({1,2,3},{4,5,6},{7,8,9},{*,0,#}) the keys
+// were reported as * 8, 0 9, # 7, 7 5, 8 6, 9 4, 4 2, 5 3, 6 1, 1 0, 2 # and 3 *, so each key's label is put where it was actually reported
+// (the keypad's rows come out of the scan in the order 4-5-6, 7-8-9, *-0-#, 1-2-3 with the columns rotated by one).
 char keyMap[ROWS][COLS] = {
-  { '1', '2', '3' },
-  { '4', '5', '6' },
-  { '7', '8', '9' },
-  { '*', '0', '#' }
+  { '6', '4', '5' },
+  { '9', '7', '8' },
+  { '#', '*', '0' },
+  { '3', '1', '2' }
 };
 
 // An unwired or floating column reads LOW as soon as scanning starts, which would be reported as key presses at every boot,
@@ -505,6 +568,10 @@ void reportMatrixRaw() {
 // ############################################# BEGIN PANEL BRIGHTNESS ##########################################
 // Pot on A0 (5 V to GND, wiper to A0). The 0-15 level drives this board's backlight and is sent to the other panels as C,B:level.
 #define BRIGHTNESS_PIN A0
+// The brightness pot is switched off for the moment: with USE_BRIGHTNESS_POT 0 the pot (A0) is not read, no C,B brightness is sent to the other panels,
+// and this board's own backlight stays at the default level below. Set it to 1 to bring the pot back.
+#define USE_BRIGHTNESS_POT 0
+#define BRIGHTNESS_DEFAULT_LEVEL 4  // 0-15 (4 is PWM 68, close to the other boards' default of 65)
 #define BRIGHTNESS_SAMPLE_MS 20
 #define BRIGHTNESS_FIRST_SEND_MS 5000  // after start-up, so the other boards are up and the pot position is applied to them
 
@@ -530,6 +597,9 @@ void queueBrightness() {
 }
 
 void sendPendingBrightness() {
+#if !USE_BRIGHTNESS_POT
+  return;
+#endif
   if (pendingBrightnessMask == 0) return;
   for (int i = 0; i < brightnessBoardCount; i++) {
     if (pendingBrightnessMask & (1 << i)) {
@@ -543,6 +613,9 @@ void sendPendingBrightness() {
 }
 
 void pollBrightness() {
+#if !USE_BRIGHTNESS_POT
+  return;
+#endif
   if (millis() - lastBrightnessSample < BRIGHTNESS_SAMPLE_MS) return;
   lastBrightnessSample = millis();
   brightnessAverage = (brightnessAverage * 7 + analogRead(BRIGHTNESS_PIN)) / 8;
@@ -671,12 +744,14 @@ void HandleControlString(String str) {
 }
 
 void ProcessReceivedPacket() {
-  // Only control packets ("C,COMMAND:value,...") are used; this board does not take data packets.
+  // Control packets ("C,COMMAND:value,...") and data packets ("D,LDGN:1,...": the landing gear lamps only; everything else in a data packet is ignored).
   char* token = strtok(packetBuffer, ",");
-  if (token == NULL || token[0] != 'C') return;
+  if (token == NULL || (token[0] != 'C' && token[0] != 'D')) return;
+  bool isControl = (token[0] == 'C');
   token = strtok(NULL, ",");
   while (token != NULL) {
-    HandleControlString(String(token));
+    if (isControl) HandleControlString(String(token));
+    else HandleDataString(String(token));
     token = strtok(NULL, ",");
   }
 }
@@ -689,8 +764,12 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, false);
 
   pinMode(BACK_LIGHTS, OUTPUT);
+#if USE_BRIGHTNESS_POT
   brightnessAverage = analogRead(BRIGHTNESS_PIN);
   brightnessLevel = levelFromPot(brightnessAverage);
+#else
+  brightnessLevel = BRIGHTNESS_DEFAULT_LEVEL;
+#endif
   applyOwnBacklight();
 
   if (Ethernet_In_Use == 1) {
@@ -735,6 +814,7 @@ void setup() {
   SendDebug("Start Matrix");
   initMatrixScanner();
   initAdfSwitches();
+  initLandingGearLamps();
 
   SendDebug("Setup Complete");
 }

@@ -10,7 +10,8 @@ namespace SwingTester
         Servo,        // JET_RANGER_SERVO_CONTROLLER (pitch/bank)
         Radio,        // JET_RANGER_RADIO_CONTROLLER (reset only)
         Upper,        // JET_RANGER_UPPER_CONTROLLER (reset only)
-        Hid           // UDP_TO_HID (reset only; listens on 4210, not 13136)
+        Hid,          // UDP_TO_HID (reset only; listens on 4210, not 13136)
+        Adf           // JET_RANGER_ADF_CONTROLLER (landing gear lamps)
     }
 
     /// <summary>One gauge's startup swing: which board, which UDP control command.</summary>
@@ -127,6 +128,18 @@ namespace SwingTester
         private readonly Button btnApSend = new() { Text = "Send values", AutoSize = true };
         private readonly Button btnApStartUp = new() { Text = "Start-up values", AutoSize = true };
 
+        // The three landing gear lamps on the ADF panel (ADF controller .107): "D,LDGN:1/0" (nose), "LDGL" (left) and "LDGR" (right).
+        private static readonly (string Name, string Token)[] LandingGearLamps =
+        {
+            ("Nose", "LDGN"),
+            ("Left", "LDGL"),
+            ("Right", "LDGR"),
+        };
+        private readonly CheckBox[] ldgChecks = new CheckBox[LandingGearLamps.Length];
+        private bool suppressLdgEvents;
+        private readonly Button btnLdgOn = new() { Text = "All ON", AutoSize = true };
+        private readonly Button btnLdgOff = new() { Text = "All OFF", AutoSize = true };
+
         private readonly UdpClient udp = new UdpClient();
         private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
         private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
@@ -134,6 +147,7 @@ namespace SwingTester
         private readonly TextBox txtRadioIp = new() { Text = "172.16.1.101", Width = 110 };
         private readonly TextBox txtUpperIp = new() { Text = "172.16.1.103", Width = 110 };
         private readonly TextBox txtHidIp = new() { Text = "172.16.1.11", Width = 110 };
+        private readonly TextBox txtAdfIp = new() { Text = "172.16.1.107", Width = 110 };
         private readonly Button btnReset = new() { Text = "Reset boards...", AutoSize = true };
         private readonly Button btnSwingAll = new() { Text = "Swing ALL (in order)", AutoSize = true };
         private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
@@ -201,6 +215,8 @@ namespace SwingTester
             top.Controls.Add(txtUpperIp);
             top.Controls.Add(new Label { Text = "HID (.11)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
             top.Controls.Add(txtHidIp);
+            top.Controls.Add(new Label { Text = "ADF (.107)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtAdfIp);
 
             var actions = new FlowLayoutPanel
             {
@@ -346,7 +362,7 @@ namespace SwingTester
             content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             content.Controls.Add(grid, 0, 0);
-            content.Controls.Add(lampGroup, 1, 0);
+            // (the warning lamps go in the middle column; the ADF landing gear lamps are added under them further down)
 
             var scroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
             scroll.Controls.Add(content);
@@ -423,9 +439,48 @@ namespace SwingTester
             apFlow.Controls.Add(apButtons);
             apGroup.Controls.Add(apFlow);
 
+            // ADF panel landing gear lamps: one toggle for each (nose, left, right) and All ON / All OFF, sent to the ADF controller.
+            var ldgGroup = new GroupBox
+            {
+                Text = "ADF panel landing gear lamps (ADF .107)",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(8, 4, 8, 8)
+            };
+            var ldgFlow = new FlowLayoutPanel { Location = new Point(10, 22), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = true, MaximumSize = new Size(225, 0) };
+            for (int i = 0; i < LandingGearLamps.Length; i++)
+            {
+                int index = i;
+                var chk = new CheckBox
+                {
+                    Text = LandingGearLamps[i].Name,
+                    Appearance = Appearance.Button,
+                    AutoSize = false,
+                    Size = new Size(64, 28),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Margin = new Padding(3, 3, 6, 3)
+                };
+                chk.CheckedChanged += async (_, _) =>
+                {
+                    if (suppressLdgEvents) return;
+                    chk.BackColor = chk.Checked ? Color.Gold : Color.Empty;
+                    await SendLandingGearLampsAsync(new[] { index });
+                };
+                ldgChecks[i] = chk;
+                ldgFlow.Controls.Add(chk);
+            }
+            ldgFlow.Controls.Add(btnLdgOn);
+            ldgFlow.Controls.Add(btnLdgOff);
+            ldgGroup.Controls.Add(ldgFlow);
+
             var rightColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
             rightColumn.Controls.Add(ledGroup);
             rightColumn.Controls.Add(apGroup);
+            var middleColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+            middleColumn.Controls.Add(lampGroup);
+            middleColumn.Controls.Add(ldgGroup);
+            content.Controls.Add(middleColumn, 1, 0);
             content.ColumnCount = 3;
             content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
             content.Controls.Add(rightColumn, 2, 0);
@@ -454,6 +509,8 @@ namespace SwingTester
             btnLedsOff.Click += async (_, _) => await SetAllPanelLedsAsync(false);
             btnLedChase.Click += async (_, _) => await ToggleLedChaseAsync();
             chkLedHardwareTest.CheckedChanged += async (_, _) => await SendLedHardwareTestAsync(chkLedHardwareTest.Checked);
+            btnLdgOn.Click += async (_, _) => await SetAllLandingGearLampsAsync(true);
+            btnLdgOff.Click += async (_, _) => await SetAllLandingGearLampsAsync(false);
             btnApSend.Click += async (_, _) => await SendApValuesAsync();
             btnApStartUp.Click += async (_, _) =>
             {
@@ -478,6 +535,7 @@ namespace SwingTester
             BoardId.Radio => "Radio .101",
             BoardId.Upper => "Upper .103",
             BoardId.Hid => "HID .11",
+            BoardId.Adf => "ADF .107",
             _ => "Servo .102"
         };
 
@@ -488,6 +546,7 @@ namespace SwingTester
             BoardId.Radio => txtRadioIp.Text.Trim(),
             BoardId.Upper => txtUpperIp.Text.Trim(),
             BoardId.Hid => txtHidIp.Text.Trim(),
+            BoardId.Adf => txtAdfIp.Text.Trim(),
             _ => txtServoIp.Text.Trim()
         };
 
@@ -676,6 +735,33 @@ namespace SwingTester
             {
                 lblStatus.Text = "Auto Pilot display send failed: " + ex.Message;
             }
+        }
+
+        /// <summary>Sends the state of the given landing gear lamps to the ADF controller: "D,LDGN:1,LDGL:0".</summary>
+        private async Task SendLandingGearLampsAsync(IEnumerable<int> indexes)
+        {
+            try
+            {
+                var parts = indexes.Select(i => $"{LandingGearLamps[i].Token}:{(ldgChecks[i].Checked ? 1 : 0)}").ToList();
+                await SendPacketAsync(BoardId.Adf, "D," + string.Join(",", parts));
+                lblStatus.Text = "ADF landing gear lamps: " + string.Join("  ", parts) + " sent to the ADF controller.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Landing gear lamp send failed: " + ex.Message;
+            }
+        }
+
+        private async Task SetAllLandingGearLampsAsync(bool on)
+        {
+            suppressLdgEvents = true;
+            for (int i = 0; i < LandingGearLamps.Length; i++)
+            {
+                ldgChecks[i].Checked = on;
+                ldgChecks[i].BackColor = on ? Color.Gold : Color.Empty;
+            }
+            suppressLdgEvents = false;
+            await SendLandingGearLampsAsync(Enumerable.Range(0, LandingGearLamps.Length));
         }
 
         private void SetLedCheck(int index, bool on)

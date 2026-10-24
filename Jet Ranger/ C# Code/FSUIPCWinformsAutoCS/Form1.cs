@@ -1097,6 +1097,24 @@ namespace FSUIPCTest
             { "PARKING_BRAKES", FsControl.PARKING_BRAKES },
         };
 
+        // The landing gear, flaps and speed brake toggle switches send their POSITION as "GEAR_SET:1" (down) / "GEAR_SET:0" (up), "FLAPS_SET:1/0" and
+        // "SPOILERS_SET:1/0", every time it changes and every few seconds, so the simulator follows the switch instead of toggling. 1 is gear down, flaps
+        // fully down and speed brakes fully out.
+        private bool TryPositionCommand(string command)
+        {
+            int colon = command.IndexOf(':');
+            if (colon <= 0) return false;
+            string name = command.Substring(0, colon).Trim();
+            if (name != "GEAR_SET" && name != "FLAPS_SET" && name != "SPOILERS_SET") return false;
+            int value;
+            if (!int.TryParse(command.Substring(colon + 1).Trim(), out value)) return true;
+            bool on = value != 0;
+            if (name == "GEAR_SET") FSUIPCConnection.SendControlToFS(FsControl.GEAR_SET, on ? 1 : 0);
+            else if (name == "FLAPS_SET") FSUIPCConnection.SendControlToFS(FsControl.FLAPS_SET, on ? 16383 : 0);
+            else FSUIPCConnection.SendControlToFS(FsControl.SPOILERS_SET, on ? 16383 : 0);
+            return true;
+        }
+
         // True if the command was one of the panel controls (and has been sent). Checked first, so none of these names can fall through to the
         // COM1 standby frequency parser at the end of UpdateRadios().
         private bool TryPanelCommand(string command)
@@ -1120,6 +1138,7 @@ namespace FSUIPCTest
         private void UpdateRadios(string command)
         {
             if (!FSUIPCConnection.IsOpen) return;
+            if (TryPositionCommand(command)) return;
             if (TryPanelCommand(command)) return;
 
             if (command.Contains("COM1_RADIO_SWAP"))

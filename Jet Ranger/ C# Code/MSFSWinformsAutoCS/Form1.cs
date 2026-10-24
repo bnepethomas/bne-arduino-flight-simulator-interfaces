@@ -502,6 +502,9 @@ namespace MSFSWinformsAutoCS
             // Auto Pilot, Audio and ADF panel controls (see PanelEventNames).
             for (int i = 0; i < PanelEventNames.Length; i++)
                 simconnect.MapClientEventToSimEvent((EVENTS)(PanelEventBase + i), PanelEventNames[i]);
+            // The landing gear, flaps and speed brake switch positions (see PositionEventNames).
+            for (int i = 0; i < PositionEventNames.Length; i++)
+                simconnect.MapClientEventToSimEvent((EVENTS)(PositionEventBase + i), PositionEventNames[i]);
         }
 
         private static void CheckDefinitionMatchesStruct()
@@ -937,6 +940,24 @@ namespace MSFSWinformsAutoCS
             "GEAR_UP", "GEAR_DOWN", "FLAPS_UP", "FLAPS_DOWN", "SPOILERS_ON", "SPOILERS_OFF", "PARKING_BRAKES",
         };
 
+        // The landing gear, flaps and speed brake toggle switches send their POSITION as "GEAR_SET:1" (down) / "GEAR_SET:0" (up), "FLAPS_SET:1/0" and
+        // "SPOILERS_SET:1/0", every time it changes and every few seconds, so the simulator follows the switch instead of toggling. 1 is gear down, flaps
+        // fully down and speed brakes fully out (the SimConnect events take 0 or 1 for the gear handle and 0 to 16383 for the flaps and spoilers).
+        private const int PositionEventBase = 2000;
+        private static readonly string[] PositionEventNames = { "GEAR_SET", "FLAPS_SET", "SPOILERS_SET" };
+        private static readonly uint[] PositionOnValues = { 1u, 16383u, 16383u };
+
+        private bool TryPositionCommand(string command)
+        {
+            int colon = command.IndexOf(':');
+            if (colon <= 0) return false;
+            int index = Array.IndexOf(PositionEventNames, command.Substring(0, colon).Trim());
+            if (index < 0) return false;
+            if (!int.TryParse(command.Substring(colon + 1).Trim(), out int value)) return true;
+            SendEvent((EVENTS)(PositionEventBase + index), value != 0 ? PositionOnValues[index] : 0u);
+            return true;
+        }
+
         // True if the command was one of the panel events (and has been sent). Checked first, so none of these names can fall through to the
         // COM1 standby frequency parser at the end of UpdateRadios().
         private bool TryPanelCommand(string command)
@@ -963,6 +984,7 @@ namespace MSFSWinformsAutoCS
         private void UpdateRadios(string command)
         {
             if (simconnect == null) return;
+            if (TryPositionCommand(command)) return;
             if (TryPanelCommand(command)) return;
 
             if (command.Contains("COM1_RADIO_SWAP"))
