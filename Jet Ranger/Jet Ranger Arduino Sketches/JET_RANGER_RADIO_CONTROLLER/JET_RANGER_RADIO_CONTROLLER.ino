@@ -329,6 +329,101 @@ void updateCOMM() {
 
 // ############################################# END CHARACTER OLED ##########################################
 
+// ############################################# BEGIN MAX7219 PANEL LEDS ##########################################
+// One MAX7219 on the Radio Auto Pilot PCB drives the 19 LEDs on the Auto Pilot panel (digits 0 and 1) and the Audio panel
+// (digits 2 and 3). The segment pins are ANNODE_00 to ANNODE_07 (A to G, DP) and the digit pins are CATHODE_00 to CATHODE_07, so
+// a panel LED is lit by one segment of one digit. Serial lines: DIN = A15, CLK = A14, LOAD (CS) = A13 (/MAX_7219-DIN, -CLOCK, -LOAD).
+// The PC bridges send each LED as a "LED_xxx:0/1" pair in the radio data packet; the LEDs are only lit while the radio has power
+// (NAVCOM1:1, the avionics bus 24 V or more) and data or local input is arriving, the same rule that blanks the COM and NAV displays.
+// "C,LEDTEST:1" lights all 19 LEDs, "C,LEDTEST:0" puts them back to the simulator's state.
+#include <LedControl.h>
+
+#define MAX7219_DIN A15
+#define MAX7219_CLK A14
+#define MAX7219_LOAD A13
+#define MAX7219_INTENSITY 8  // 0 to 15: the level used until a C,B brightness command arrives
+
+LedControl panelLeds(MAX7219_DIN, MAX7219_CLK, MAX7219_LOAD, 1);
+
+// LedControl column numbers: 0 = DP, 1 = A, 2 = B, 3 = C, 4 = D, 5 = E, 6 = F, 7 = G.
+struct PanelLed {
+  const char* token;
+  uint8_t digit;    // MAX7219 digit = CATHODE_0n
+  uint8_t column;   // segment = ANNODE_0n (column 1 = ANNODE_00)
+  bool wanted;      // state from the simulator
+  bool shown;       // what is on the LED now
+};
+
+PanelLed panelLedTable[] = {
+  // Auto Pilot panel, digit 0 (CATHODE_00) and digit 1 (CATHODE_01)
+  { "LED_CRS", 0, 1, false, false },
+  { "LED_HDG", 0, 2, false, false },
+  { "LED_IAS", 0, 3, false, false },
+  { "LED_ALT", 0, 4, false, false },
+  { "LED_APPR", 1, 1, false, false },
+  { "LED_FD", 1, 2, false, false },
+  { "LED_BC", 1, 3, false, false },
+  { "LED_APENG", 1, 4, false, false },
+  // Audio panel, digit 2 (CATHODE_02) and digit 3 (CATHODE_03)
+  { "LED_COM1", 2, 1, false, false },
+  { "LED_BOTH", 2, 2, false, false },
+  { "LED_NAV2", 2, 3, false, false },
+  { "LED_DME", 2, 4, false, false },
+  { "LED_OUTER", 2, 5, false, false },
+  { "LED_INNER", 2, 6, false, false },
+  { "LED_COM2", 3, 1, false, false },
+  { "LED_NAV1", 3, 2, false, false },
+  { "LED_MKR", 3, 3, false, false },
+  { "LED_ADF", 3, 4, false, false },
+  { "LED_MID", 3, 5, false, false },
+};
+const int panelLedCount = sizeof(panelLedTable) / sizeof(panelLedTable[0]);
+bool panelLedTest = false;
+
+void initPanelLeds() {
+  panelLeds.shutdown(0, false);  // wake from power-down
+  panelLeds.setScanLimit(0, 3);  // only digits 0 to 3 are wired to panel LEDs
+  panelLeds.setIntensity(0, MAX7219_INTENSITY);
+  panelLeds.clearDisplay(0);
+}
+
+// Puts each LED to what it should show: the simulator's state while the radio is powered, otherwise off. Only LEDs that
+// changed are written.
+void applyPanelLeds() {
+  bool powered = powerAvailable;
+  for (int i = 0; i < panelLedCount; i++) {
+    bool on = panelLedTest || (powered && panelLedTable[i].wanted);
+    if (on != panelLedTable[i].shown) {
+      panelLeds.setLed(0, panelLedTable[i].digit, panelLedTable[i].column, on);
+      panelLedTable[i].shown = on;
+    }
+  }
+}
+
+// Panel brightness, "C,B:0-15" (the same command the other panels' backlights take, for example from the ADF controller's pot):
+// 0 switches the LEDs off, 1 to 15 set the MAX7219 intensity (1 dimmest, 15 brightest). The level is kept by the chip.
+void setPanelLedBrightness(int level) {
+  if (level < 0 || level > 15) return;
+  if (level == 0) {
+    panelLeds.shutdown(0, true);  // display off, the digit registers keep their contents
+  } else {
+    panelLeds.shutdown(0, false);
+    panelLeds.setIntensity(0, level);
+  }
+}
+
+// "LED_CRS", "1": returns true if the token was one of the panel LEDs.
+bool setPanelLedFromToken(const String& name, const String& value) {
+  for (int i = 0; i < panelLedCount; i++) {
+    if (name == panelLedTable[i].token) {
+      panelLedTable[i].wanted = (value.toInt() != 0);
+      return true;
+    }
+  }
+  return false;
+}
+// ############################################# END MAX7219 PANEL LEDS ##########################################
+
 // ############################################# BEGIN ENCODER ##########################################
 
 
@@ -533,6 +628,7 @@ void wakeDisplays() {
     powerAvailable = powerBeforeTimeout;
     updateNAV();
     updateCOMM();
+    applyPanelLeds();
     SendDebug("Local input - displays restored");
   }
 }
@@ -752,6 +848,7 @@ void ProcessReceivedMSFSString() {
       if (navDrawnPower != powerAvailable) updateNAV();  // NAV on/off together with COMM
       radioFrequencyChanged = false;
     }
+    applyPanelLeds();  // new LED states, and the LEDs follow the radio power like the displays
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -781,6 +878,17 @@ void ProcessReceivedMSFSString() {
 }
 
 void HandleOutputValuePair(String str) {
+
+  // Panel LEDs ("LED_CRS:1" ...) are not logged one by one: there are 19 of them in every radio packet.
+  if (str.startsWith("LED_")) {
+    int colon = str.indexOf(':');
+    if (colon > 0) {
+      String value = str.substring(colon + 1);
+      value.trim();
+      setPanelLedFromToken(str.substring(0, colon), value);
+    }
+    return;
+  }
 
   // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
   bool bLocalDebug = false;
@@ -948,10 +1056,11 @@ void HandleControlString(String str) {
 
     int isetting = setting.toInt();
 
-    // Backlighting and Flood ligghting
+    // Brightness, C,B:0-15: sets the intensity of the Auto Pilot and Audio panel LEDs (0 = off)
     if (command == "B")
       if (isetting >= 0 && isetting <= 15) {
-        //analogWrite(FLOOD_LIGHTS, map(isetting, 0, 15, 0, 255));
+        setPanelLedBrightness(isetting);
+        SendDebug("Panel LED brightness " + String(isetting));
       }
     //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
 
@@ -960,6 +1069,12 @@ void HandleControlString(String str) {
 
     // Matrix diagnostic: C,MATRIX:1 (see reportMatrixRaw())
     if (command == "MATRIX") reportMatrixRaw();
+
+    // Panel LED test: C,LEDTEST:1 lights all 19 MAX7219 LEDs, C,LEDTEST:0 returns them to the simulator's state
+    if (command == "LEDTEST") {
+      panelLedTest = (isetting != 0);
+      applyPanelLeds();
+    }
   }
 
   return;
@@ -1059,6 +1174,7 @@ void setup() {
 
   initCharOLED(0);
   initCharOLED(1);
+  initPanelLeds();
   delay(1000);
   // updateNAV(100);
   //updateCOMM( "118.50", "119.50", "120.50", "121.50");
@@ -1310,6 +1426,7 @@ void loop() {
     powerAvailable = false;
     updateCOMM();
     updateNAV();
+    applyPanelLeds();
     SendDebug("no UDP data or local input for " + String(noDataTimeoutMs / 1000) + "s, displays blanked");
   }
 }

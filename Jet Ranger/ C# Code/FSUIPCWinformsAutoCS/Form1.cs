@@ -93,6 +93,22 @@ namespace FSUIPCTest
         private Offset<ushort> adf1Main = new Offset<ushort>("RadioStack", 0x034C);
         private Offset<ushort> adf1Extended = new Offset<ushort>("RadioStack", 0x0356);
 
+        // Autopilot, flight director, audio panel and marker beacon state, for the 19 MAX7219 LEDs on the Radio controller
+        // (Auto Pilot and Audio panels). Standard FSUIPC offsets (see "FSUIPC for Programmers.pdf"); the DodoSim aircraft may not
+        // drive all of them.
+        private Offset<int> apMaster = new Offset<int>("RadioStack", 0x07BC);
+        private Offset<int> apNav1Lock = new Offset<int>("RadioStack", 0x07C4);
+        private Offset<int> apHeadingLock = new Offset<int>("RadioStack", 0x07C8);
+        private Offset<int> apAltitudeLock = new Offset<int>("RadioStack", 0x07D0);
+        private Offset<int> apAirspeedHold = new Offset<int>("RadioStack", 0x07DC);
+        private Offset<int> apApproachHold = new Offset<int>("RadioStack", 0x0800);
+        private Offset<int> apBackCourseHold = new Offset<int>("RadioStack", 0x0804);
+        private Offset<int> flightDirectorActive = new Offset<int>("RadioStack", 0x2EE0);
+        private Offset<byte> audioSwitches = new Offset<byte>("RadioStack", 0x3122);    // bit 7 COM1 tx, 6 COM2 tx, 5 COM both, 4 NAV1, 3 NAV2, 2 marker, 1 DME, 0 ADF1
+        private Offset<short> markerInner = new Offset<short>("RadioStack", 0x0BAC);
+        private Offset<short> markerMiddle = new Offset<short>("RadioStack", 0x0BAE);
+        private Offset<short> markerOuter = new Offset<short>("RadioStack", 0x0BB0);
+
 
 
 
@@ -204,12 +220,40 @@ namespace FSUIPCTest
 
         // --- Radio interface state (ported from SimConnect_to_UDP's UpdateRadios/RADIOS handling) ---
         private bool radioFrequencyChanged = false;
+
+        // The 19 LEDs on the Auto Pilot and Audio panels (driven by the Radio controller's MAX7219) as
+        // ",LED_CRS:1,LED_HDG:0,...". Everything is 0 while the avionics bus is below 24 V (powered = false), like the radio displays.
+        private string BuildPanelLedPayload(bool powered)
+        {
+            byte audio = audioSwitches.Value;
+            Func<bool, string> f = v => (powered && v) ? "1" : "0";
+            return ",LED_CRS:" + f(apNav1Lock.Value != 0)
+                 + ",LED_HDG:" + f(apHeadingLock.Value != 0)
+                 + ",LED_IAS:" + f(apAirspeedHold.Value != 0)
+                 + ",LED_ALT:" + f(apAltitudeLock.Value != 0)
+                 + ",LED_APPR:" + f(apApproachHold.Value != 0)
+                 + ",LED_FD:" + f(flightDirectorActive.Value != 0)
+                 + ",LED_BC:" + f(apBackCourseHold.Value != 0)
+                 + ",LED_APENG:" + f(apMaster.Value != 0)
+                 + ",LED_COM1:" + f((audio & 0x80) != 0)
+                 + ",LED_BOTH:" + f((audio & 0x20) != 0)
+                 + ",LED_NAV2:" + f((audio & 0x08) != 0)
+                 + ",LED_DME:" + f((audio & 0x02) != 0)
+                 + ",LED_OUTER:" + f(markerOuter.Value != 0)
+                 + ",LED_INNER:" + f(markerInner.Value != 0)
+                 + ",LED_COM2:" + f((audio & 0x40) != 0)
+                 + ",LED_NAV1:" + f((audio & 0x10) != 0)
+                 + ",LED_MKR:" + f((audio & 0x04) != 0)
+                 + ",LED_ADF:" + f((audio & 0x01) != 0)
+                 + ",LED_MID:" + f(markerMiddle.Value != 0);
+        }
         private String com1ActiveFrequency = "";
         private String com1StandbyFrequency = "";
         private String com2ActiveFrequency = "";
         private String com2StandbyFrequency = "";
         private String MainBusVoltage = "";
         private String CIRCUIT_NAVCOM1_ON = "";
+        private String panelLedText = "";    // ",LED_CRS:0,LED_HDG:1,..." as last sent in the radio packet
 
 
         // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
@@ -492,6 +536,14 @@ namespace FSUIPCTest
                     CIRCUIT_NAVCOM1_ON = navCom1OnFlag;
                 }
 
+                // Autopilot and audio panel LEDs: a change goes out like a frequency change.
+                string panelLedNow = BuildPanelLedPayload(navCom1OnFlag == "1");
+                if (panelLedText != panelLedNow)
+                {
+                    radioFrequencyChanged = true;
+                    panelLedText = panelLedNow;
+                }
+
                 span = DateTime.Now - RadioTimeLastPacketSent;
                 mS = (int)span.TotalMilliseconds;
 
@@ -504,6 +556,7 @@ namespace FSUIPCTest
                     radioPayload += ",C2S:" + com2StandbyFrequency;
                     radioPayload += ",MAINBUS:" + MainBusVoltage;
                     radioPayload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                    radioPayload += panelLedText;
                     Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
                     udpClient.Send(radioSendData, radioSendData.Length);
                     RadioTimeLastPacketSent = DateTime.Now;

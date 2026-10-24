@@ -111,6 +111,32 @@ the UDP reflector's forwarded copy: blanked about 30 s after boot, restored on
 the next `D,C1A:...` packet. Compiled at 24,440 bytes flash (9%) / 3,141 bytes
 RAM (38%).
 
+## Auto Pilot and Audio panel LEDs (MAX7219)
+
+One MAX7219 on the Radio Auto Pilot PCB drives 19 LEDs: DIN = A15, CLK = A14, LOAD = A13 (LedControl library, one device, scan limit 3, intensity 8 until a `C,B`
+arrives). Segments A to G and DP are `ANNODE_00` to `ANNODE_07`, digits 0 to 7 are `CATHODE_00` to `CATHODE_07`; a panel LED sits between one segment and one
+digit. LedControl `setLed(0, digit, column)` uses column 0 for DP and 1 to 7 for A to G.
+
+| LED | Token | Digit | Segment | | LED | Token | Digit | Segment |
+|---|---|---|---|---|---|---|---|---|
+| CRS | `LED_CRS` | 0 | A | | COM1 | `LED_COM1` | 2 | A |
+| HDG | `LED_HDG` | 0 | B | | BOTH | `LED_BOTH` | 2 | B |
+| IAS | `LED_IAS` | 0 | C | | NAV2 | `LED_NAV2` | 2 | C |
+| ALT | `LED_ALT` | 0 | D | | DME | `LED_DME` | 2 | D |
+| APPR | `LED_APPR` | 1 | A | | OUTER | `LED_OUTER` | 2 | E |
+| FD | `LED_FD` | 1 | B | | INNER | `LED_INNER` | 2 | F |
+| BC | `LED_BC` | 1 | C | | COM2 | `LED_COM2` | 3 | A |
+| AP ENGAGE | `LED_APENG` | 1 | D | | NAV1 | `LED_NAV1` | 3 | B |
+| | | | | | MKR | `LED_MKR` | 3 | C |
+| | | | | | ADF | `LED_ADF` | 3 | D |
+| | | | | | MIDDLE | `LED_MID` | 3 | E |
+
+The first two columns are the Auto Pilot panel (digits 0 and 1), the others the Audio panel (digits 2 and 3). The bridges send each LED as `LED_xxx:0/1` in the radio
+data packet (see the FSUIPC and MSFS bridges). `HandleOutputValuePair()` handles them before its per-pair debug line. The LEDs are lit only while `powerAvailable`
+is true (NAVCOM1:1 and not blanked by the no-data timeout), and `applyPanelLeds()` writes only the LEDs that changed. `C,LEDTEST:1` lights all 19, `C,LEDTEST:0`
+returns them to the simulator state. **`C,B:0-15`** sets the MAX7219 intensity (0 shuts the display down, 1 to 15 set the intensity). Compiled at 27,610 bytes
+flash (10%) / 3,724 bytes RAM (45%); not flashed or tested on the board yet.
+
 ## Remote reset over UDP
 
 UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this

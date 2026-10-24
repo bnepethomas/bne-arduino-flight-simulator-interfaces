@@ -34,8 +34,8 @@ namespace MSFSWinformsAutoCS
         private const int WM_USER_SIMCONNECT = 0x0402;
         private SimConnect? simconnect = null;
 
-        enum DEFINITIONS { PanelData }
-        enum DATA_REQUESTS { PanelData }
+        enum DEFINITIONS { PanelData, PanelAp, PanelAudio }
+        enum DATA_REQUESTS { PanelData, PanelAp, PanelAudio }
         enum GROUP_ID { GROUP0 }
 
         enum EVENTS
@@ -158,6 +158,68 @@ namespace MSFSWinformsAutoCS
             public double ZULU_MONTH_OF_YEAR;
             public double ZULU_DAY_OF_MONTH;
         }
+
+        // The autopilot and audio panel LEDs (Radio controller's MAX7219) are read through two separate, slower requests, so a
+        // SimVar the simulator does not know cannot take the main gauge data down with it. Same rule as PanelVars: the lists and
+        // the structures stay in step, field by field.
+        private static readonly (string Name, string Units)[] ApVars =
+        {
+            ("AUTOPILOT MASTER", "bool"),
+            ("AUTOPILOT NAV1 LOCK", "bool"),
+            ("AUTOPILOT HEADING LOCK", "bool"),
+            ("AUTOPILOT ALTITUDE LOCK", "bool"),
+            ("AUTOPILOT AIRSPEED HOLD", "bool"),
+            ("AUTOPILOT APPROACH HOLD", "bool"),
+            ("AUTOPILOT BACKCOURSE HOLD", "bool"),
+            ("AUTOPILOT FLIGHT DIRECTOR ACTIVE", "bool"),
+        };
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        private struct PanelApData
+        {
+            public double AUTOPILOT_MASTER;
+            public double AUTOPILOT_NAV1_LOCK;
+            public double AUTOPILOT_HEADING_LOCK;
+            public double AUTOPILOT_ALTITUDE_LOCK;
+            public double AUTOPILOT_AIRSPEED_HOLD;
+            public double AUTOPILOT_APPROACH_HOLD;
+            public double AUTOPILOT_BACKCOURSE_HOLD;
+            public double AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE;
+        }
+
+        private static readonly (string Name, string Units)[] AudioVars =
+        {
+            ("COM TRANSMIT:1", "bool"),
+            ("COM TRANSMIT:2", "bool"),
+            ("COM RECEIVE ALL", "bool"),
+            ("NAV SOUND:1", "bool"),
+            ("NAV SOUND:2", "bool"),
+            ("DME SOUND", "bool"),
+            ("ADF SOUND", "bool"),
+            ("MARKER SOUND", "bool"),
+            ("OUTER MARKER", "bool"),
+            ("MIDDLE MARKER", "bool"),
+            ("INNER MARKER", "bool"),
+        };
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        private struct PanelAudioData
+        {
+            public double COM_TRANSMIT_1;
+            public double COM_TRANSMIT_2;
+            public double COM_RECEIVE_ALL;
+            public double NAV_SOUND_1;
+            public double NAV_SOUND_2;
+            public double DME_SOUND;
+            public double ADF_SOUND;
+            public double MARKER_SOUND;
+            public double OUTER_MARKER;
+            public double MIDDLE_MARKER;
+            public double INNER_MARKER;
+        }
+
+        private PanelApData _latestAp;
+        private PanelAudioData _latestAudio;
 
         // ----- State ----------------------------------------------------------------------
         private PanelData _latest;
@@ -295,6 +357,7 @@ namespace MSFSWinformsAutoCS
         private string com2StandbyFrequency = "";
         private string mainBusText = "";
         private string navCom1On = "";
+        private string panelLedText = "";
         private DateTime radioTimeLastPacketSent = DateTime.Now;
         private DateTime frontPanelTimeLastPacketSent = DateTime.Now;
 
@@ -380,6 +443,20 @@ namespace MSFSWinformsAutoCS
                 SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
                 SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 2, 0);
 
+            // Autopilot and audio panel LEDs: about 10 times a second (every 6th frame at 60 fps).
+            foreach (var (name, units) in ApVars)
+                simconnect.AddToDataDefinition(DEFINITIONS.PanelAp, name, units, SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.RegisterDataDefineStruct<PanelApData>(DEFINITIONS.PanelAp);
+            simconnect.RequestDataOnSimObject(DATA_REQUESTS.PanelAp, DEFINITIONS.PanelAp,
+                SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
+                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 6, 0);
+            foreach (var (name, units) in AudioVars)
+                simconnect.AddToDataDefinition(DEFINITIONS.PanelAudio, name, units, SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.RegisterDataDefineStruct<PanelAudioData>(DEFINITIONS.PanelAudio);
+            simconnect.RequestDataOnSimObject(DATA_REQUESTS.PanelAudio, DEFINITIONS.PanelAudio,
+                SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
+                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 6, 0);
+
             // Client events used by the commands that come back from the radio board.
             simconnect.MapClientEventToSimEvent(EVENTS.COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
@@ -399,6 +476,10 @@ namespace MSFSWinformsAutoCS
             int fields = typeof(PanelData).GetFields().Length;
             if (fields != PanelVars.Length + 1)
                 throw new InvalidOperationException("PanelData has " + fields + " fields but PanelVars lists " + PanelVars.Length + " SimVars (+ title).");
+            if (typeof(PanelApData).GetFields().Length != ApVars.Length)
+                throw new InvalidOperationException("PanelApData and ApVars are out of step.");
+            if (typeof(PanelAudioData).GetFields().Length != AudioVars.Length)
+                throw new InvalidOperationException("PanelAudioData and AudioVars are out of step.");
         }
 
         private void CloseSimConnect()
@@ -410,6 +491,8 @@ namespace MSFSWinformsAutoCS
             }
             _haveData = false;
             _stale = false;
+            _latestAp = default;
+            _latestAudio = default;
         }
 
         private void simconnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
@@ -434,6 +517,8 @@ namespace MSFSWinformsAutoCS
         // Streaming SimVar data: keep the newest sample for the main timer.
         private void simconnect_OnRecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
         {
+            if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAp) { _latestAp = (PanelApData)data.dwData[0]; return; }
+            if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAudio) { _latestAudio = (PanelAudioData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID != DATA_REQUESTS.PanelData) return;
             _latest = (PanelData)data.dwData[0];
             _lastDataUtc = DateTime.UtcNow;
@@ -569,6 +654,7 @@ namespace MSFSWinformsAutoCS
             if (stale) return;
 
             SimSnapshot s = ToSnapshot(_latest);
+            s.Leds = BuildLeds();
             if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);
             if (s.CowaSim) s.TransTempCelsius = s.OilTempCelsius * CowaSimTransmissionTempOfOilTemp;
@@ -587,6 +673,7 @@ namespace MSFSWinformsAutoCS
             TrackRadioChange(ref com2StandbyFrequency, Payloads.Freq(s.Com2Standby));
             TrackRadioChange(ref mainBusText, s.MainBusVolts.ToString("F1", CultureInfo.InvariantCulture));
             TrackRadioChange(ref navCom1On, Payloads.RadioPowered(s) ? "1" : "0");
+            TrackRadioChange(ref panelLedText, Payloads.LedTokens(s.Leds, Payloads.RadioPowered(s)));
 
             int radioMs = (int)(DateTime.Now - radioTimeLastPacketSent).TotalMilliseconds;
             if ((radioMs >= 200 && radioFrequencyChanged) || radioMs >= 5000)
@@ -612,6 +699,35 @@ namespace MSFSWinformsAutoCS
                 SendPacket(gpsClient, Payloads.Gps(s));
                 gpsTimeLastPacketSent = DateTime.Now;
             }
+        }
+
+        // The autopilot and audio panel LED states from the two extra SimVar requests (all off until they arrive).
+        private PanelLedState BuildLeds()
+        {
+            PanelApData a = _latestAp;
+            PanelAudioData u = _latestAudio;
+            return new PanelLedState
+            {
+                Crs = a.AUTOPILOT_NAV1_LOCK > 0.5,
+                Hdg = a.AUTOPILOT_HEADING_LOCK > 0.5,
+                Ias = a.AUTOPILOT_AIRSPEED_HOLD > 0.5,
+                Alt = a.AUTOPILOT_ALTITUDE_LOCK > 0.5,
+                Appr = a.AUTOPILOT_APPROACH_HOLD > 0.5,
+                Fd = a.AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE > 0.5,
+                Bc = a.AUTOPILOT_BACKCOURSE_HOLD > 0.5,
+                ApEngage = a.AUTOPILOT_MASTER > 0.5,
+                Com1 = u.COM_TRANSMIT_1 > 0.5,
+                Both = u.COM_RECEIVE_ALL > 0.5,
+                Nav2 = u.NAV_SOUND_2 > 0.5,
+                Dme = u.DME_SOUND > 0.5,
+                Outer = u.OUTER_MARKER > 0.5,
+                Inner = u.INNER_MARKER > 0.5,
+                Com2 = u.COM_TRANSMIT_2 > 0.5,
+                Nav1 = u.NAV_SOUND_1 > 0.5,
+                Mkr = u.MARKER_SOUND > 0.5,
+                Adf = u.ADF_SOUND > 0.5,
+                Middle = u.MIDDLE_MARKER > 0.5,
+            };
         }
 
         private void TrackRadioChange(ref string current, string latest)

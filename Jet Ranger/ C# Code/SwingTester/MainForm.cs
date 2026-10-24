@@ -81,6 +81,39 @@ namespace SwingTester
             ("Rotor Low RPM",          "RLOW"),
         };
 
+        // The 19 panel LEDs driven by the MAX7219 on the Radio controller (172.16.1.101): "D,LED_xxx:1/0" data packets. Auto Pilot panel
+        // first, then Audio panel (see the Radio Auto Pilot PCB: digits 0-1 = Auto Pilot panel, digits 2-3 = Audio panel).
+        private static readonly (string Panel, string Name, string Token)[] PanelLeds =
+        {
+            ("Auto Pilot", "CRS",        "LED_CRS"),
+            ("Auto Pilot", "HDG",        "LED_HDG"),
+            ("Auto Pilot", "IAS",        "LED_IAS"),
+            ("Auto Pilot", "ALT",        "LED_ALT"),
+            ("Auto Pilot", "APPR",       "LED_APPR"),
+            ("Auto Pilot", "FD",         "LED_FD"),
+            ("Auto Pilot", "BC",         "LED_BC"),
+            ("Auto Pilot", "AP ENGAGE",  "LED_APENG"),
+            ("Audio",      "COM1",       "LED_COM1"),
+            ("Audio",      "BOTH",       "LED_BOTH"),
+            ("Audio",      "NAV2",       "LED_NAV2"),
+            ("Audio",      "DME",        "LED_DME"),
+            ("Audio",      "OUTER",      "LED_OUTER"),
+            ("Audio",      "INNER",      "LED_INNER"),
+            ("Audio",      "COM2",       "LED_COM2"),
+            ("Audio",      "NAV1",       "LED_NAV1"),
+            ("Audio",      "MKR",        "LED_MKR"),
+            ("Audio",      "ADF",        "LED_ADF"),
+            ("Audio",      "MIDDLE",     "LED_MID"),
+        };
+
+        private readonly CheckBox[] ledChecks = new CheckBox[PanelLeds.Length];
+        private bool suppressLedEvents;
+        private readonly Button btnLedsOn = new() { Text = "All ON", AutoSize = true };
+        private readonly Button btnLedsOff = new() { Text = "All OFF", AutoSize = true };
+        private readonly Button btnLedChase = new() { Text = "Chase", AutoSize = true };
+        private readonly CheckBox chkLedHardwareTest = new() { Text = "Board test (C,LEDTEST)", Appearance = Appearance.Button, AutoSize = true };
+        private CancellationTokenSource? ledChaseCts;
+
         private readonly UdpClient udp = new UdpClient();
         private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
         private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
@@ -133,7 +166,7 @@ namespace SwingTester
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
             int workHeight = Screen.PrimaryScreen?.WorkingArea.Height ?? 900;
-            ClientSize = new Size(900, Math.Min(900, workHeight - 80));
+            ClientSize = new Size(1130, Math.Min(900, workHeight - 80));
             MinimumSize = new Size(640, 400);
 
             var top = new FlowLayoutPanel
@@ -305,6 +338,57 @@ namespace SwingTester
             var scroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
             scroll.Controls.Add(content);
 
+            // Panel LEDs (Radio controller's MAX7219): each one can be lit on its own, all at once, in a chase, or with the board's own test.
+            var ledGroup = new GroupBox
+            {
+                Text = "Panel LEDs (Radio .101, MAX7219)",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(8, 4, 8, 8)
+            };
+            var ledOuter = new FlowLayoutPanel { Location = new Point(10, 22), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+            var ledButtons = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = true, Width = 300 };
+            ledButtons.Controls.Add(btnLedsOn);
+            ledButtons.Controls.Add(btnLedsOff);
+            ledButtons.Controls.Add(btnLedChase);
+            ledButtons.Controls.Add(chkLedHardwareTest);
+            ledOuter.Controls.Add(ledButtons);
+            var ledColumns = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight };
+            foreach (string panel in new[] { "Auto Pilot", "Audio" })
+            {
+                var column = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+                column.Controls.Add(new Label { Text = panel + " panel", AutoSize = true, Font = new Font("Segoe UI", 9f, FontStyle.Bold), Margin = new Padding(3, 6, 3, 3) });
+                for (int i = 0; i < PanelLeds.Length; i++)
+                {
+                    if (PanelLeds[i].Panel != panel) continue;
+                    int index = i;
+                    var chk = new CheckBox
+                    {
+                        Text = PanelLeds[i].Name,
+                        Appearance = Appearance.Button,
+                        AutoSize = false,
+                        Size = new Size(130, 28),
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Margin = new Padding(3, 3, 6, 3)
+                    };
+                    chk.CheckedChanged += async (_, _) =>
+                    {
+                        if (suppressLedEvents) return;
+                        chk.BackColor = chk.Checked ? Color.Gold : Color.Empty;
+                        await SendPanelLedAsync(index, chk.Checked);
+                    };
+                    ledChecks[i] = chk;
+                    column.Controls.Add(chk);
+                }
+                ledColumns.Controls.Add(column);
+            }
+            ledOuter.Controls.Add(ledColumns);
+            ledGroup.Controls.Add(ledOuter);
+            content.ColumnCount = 3;
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            content.Controls.Add(ledGroup, 2, 0);
+
             Controls.Add(scroll);
             Controls.Add(statusPanel);
             Controls.Add(brightPanel);
@@ -325,6 +409,10 @@ namespace SwingTester
             btnReset.Click += async (_, _) => await ResetBoardsAsync();
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
             btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
+            btnLedsOn.Click += async (_, _) => await SetAllPanelLedsAsync(true);
+            btnLedsOff.Click += async (_, _) => await SetAllPanelLedsAsync(false);
+            btnLedChase.Click += async (_, _) => await ToggleLedChaseAsync();
+            chkLedHardwareTest.CheckedChanged += async (_, _) => await SendLedHardwareTestAsync(chkLedHardwareTest.Checked);
         }
 
         private static void AddHeader(TableLayoutPanel grid, string text) =>
@@ -512,6 +600,101 @@ namespace SwingTester
             catch (Exception ex)
             {
                 lblStatus.Text = "OLED send failed: " + ex.Message;
+            }
+        }
+
+        private void SetLedCheck(int index, bool on)
+        {
+            suppressLedEvents = true;
+            ledChecks[index].Checked = on;
+            ledChecks[index].BackColor = on ? Color.Gold : Color.Empty;
+            suppressLedEvents = false;
+        }
+
+        /// <summary>
+        /// Lights or clears one panel LED: "D,NAVCOM1:1,LED_xxx:1/0" to the Radio controller. NAVCOM1:1 keeps the radio's power flag on
+        /// (the LEDs follow it, like the COM and NAV displays); the radio remembers every LED's state, so only the changed one is sent.
+        /// </summary>
+        private async Task SendPanelLedAsync(int index, bool on)
+        {
+            try
+            {
+                await SendPacketAsync(BoardId.Radio, $"D,NAVCOM1:1,{PanelLeds[index].Token}:{(on ? 1 : 0)}");
+                lblStatus.Text = $"LED {PanelLeds[index].Panel} panel {PanelLeds[index].Name}: {(on ? "ON" : "OFF")} ({PanelLeds[index].Token}).";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "LED send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>All 19 panel LEDs on (or off) in one packet.</summary>
+        private async Task SetAllPanelLedsAsync(bool on)
+        {
+            try
+            {
+                string body = string.Join(",", PanelLeds.Select(l => $"{l.Token}:{(on ? 1 : 0)}"));
+                await SendPacketAsync(BoardId.Radio, "D,NAVCOM1:1," + body);
+                for (int i = 0; i < PanelLeds.Length; i++) SetLedCheck(i, on);
+                lblStatus.Text = on ? "All panel LEDs ON." : "All panel LEDs OFF.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "LED send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>Lights each LED on its own, in table order, for the "on gap" time from the box (default 1 s), then clears them all.</summary>
+        private async Task ToggleLedChaseAsync()
+        {
+            if (ledChaseCts != null)
+            {
+                ledChaseCts.Cancel();
+                return;
+            }
+            ledChaseCts = new CancellationTokenSource();
+            var token = ledChaseCts.Token;
+            btnLedChase.Text = "Stop chase";
+            try
+            {
+                for (int i = 0; i < PanelLeds.Length; i++)
+                {
+                    string body = string.Join(",", PanelLeds.Select((l, n) => $"{l.Token}:{(n == i ? 1 : 0)}"));
+                    await SendPacketAsync(BoardId.Radio, "D,NAVCOM1:1," + body);
+                    for (int n = 0; n < PanelLeds.Length; n++) SetLedCheck(n, n == i);
+                    lblStatus.Text = $"LED chase: {PanelLeds[i].Panel} panel {PanelLeds[i].Name} ({PanelLeds[i].Token}).";
+                    await Task.Delay((int)numLampOnGapMs.Value, token);
+                }
+                lblStatus.Text = "LED chase finished.";
+            }
+            catch (OperationCanceledException)
+            {
+                lblStatus.Text = "LED chase stopped.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "LED send failed: " + ex.Message;
+            }
+            finally
+            {
+                try { await SetAllPanelLedsAsync(false); } catch { }
+                ledChaseCts.Dispose();
+                ledChaseCts = null;
+                btnLedChase.Text = "Chase";
+            }
+        }
+
+        /// <summary>The board's own test: "C,LEDTEST:1" lights all 19 LEDs at the MAX7219, "C,LEDTEST:0" returns them to the last sent state.</summary>
+        private async Task SendLedHardwareTestAsync(bool on)
+        {
+            try
+            {
+                await SendPacketAsync(BoardId.Radio, $"C,LEDTEST:{(on ? 1 : 0)}");
+                lblStatus.Text = on ? "Board LED test ON (C,LEDTEST:1)." : "Board LED test OFF (C,LEDTEST:0).";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "LED send failed: " + ex.Message;
             }
         }
 

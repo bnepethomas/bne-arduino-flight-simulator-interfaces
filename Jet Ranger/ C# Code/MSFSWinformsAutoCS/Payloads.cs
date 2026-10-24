@@ -39,6 +39,16 @@ namespace MSFSWinformsAutoCS
         public double LatitudeDeg, LongitudeDeg;   // degrees, south and west negative
         public double HeadingTrueDeg;              // degrees true
         public int ZuluYear, ZuluMonth, ZuluDay;   // the simulator's UTC date (the time of day is ZuluSeconds)
+        public PanelLedState Leds;                 // autopilot and audio panel LEDs (see PanelLedState)
+    }
+
+    // The 19 LEDs on the Auto Pilot and Audio panels, driven by the Radio controller's MAX7219.
+    public struct PanelLedState
+    {
+        // Auto Pilot panel
+        public bool Crs, Hdg, Ias, Alt, Appr, Fd, Bc, ApEngage;
+        // Audio panel
+        public bool Com1, Both, Nav2, Dme, Outer, Inner, Com2, Nav1, Mkr, Adf, Middle;
     }
 
     // Builds the "D,CODE:value,..." packets for each board. Same board split and real-unit
@@ -199,6 +209,31 @@ namespace MSFSWinformsAutoCS
         // Frequencies as the radio board expects them: MHz with three decimals.
         public static string Freq(double mhz) => mhz.ToString("F3", Inv);
 
+        // The panel LEDs as ",LED_CRS:1,LED_HDG:0,...". All 0 while the radio bus is below 24 V, like the radio displays.
+        public static string LedTokens(PanelLedState l, bool powered)
+        {
+            string B(bool v) => (powered && v) ? "1" : "0";
+            return ",LED_CRS:" + B(l.Crs)
+                 + ",LED_HDG:" + B(l.Hdg)
+                 + ",LED_IAS:" + B(l.Ias)
+                 + ",LED_ALT:" + B(l.Alt)
+                 + ",LED_APPR:" + B(l.Appr)
+                 + ",LED_FD:" + B(l.Fd)
+                 + ",LED_BC:" + B(l.Bc)
+                 + ",LED_APENG:" + B(l.ApEngage)
+                 + ",LED_COM1:" + B(l.Com1)
+                 + ",LED_BOTH:" + B(l.Both)
+                 + ",LED_NAV2:" + B(l.Nav2)
+                 + ",LED_DME:" + B(l.Dme)
+                 + ",LED_OUTER:" + B(l.Outer)
+                 + ",LED_INNER:" + B(l.Inner)
+                 + ",LED_COM2:" + B(l.Com2)
+                 + ",LED_NAV1:" + B(l.Nav1)
+                 + ",LED_MKR:" + B(l.Mkr)
+                 + ",LED_ADF:" + B(l.Adf)
+                 + ",LED_MID:" + B(l.Middle);
+        }
+
         // Radio board (.101).
         public static string Radio(SimSnapshot s)
             => "D,C1A:" + Freq(s.Com1Active)
@@ -206,6 +241,7 @@ namespace MSFSWinformsAutoCS
              + ",C2A:" + Freq(s.Com2Active)
              + ",C2S:" + Freq(s.Com2Standby)
              + ",MAINBUS:" + F1(s.MainBusVolts)
-             + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0");
+             + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0")
+             + LedTokens(s.Leds, RadioPowered(s));
     }
 }
