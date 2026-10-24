@@ -131,12 +131,20 @@ String BoardName = "Jet Ranger Radio: ";
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+// A send to a host that does not answer ARP (switched off, unplugged) fails, and each failed send holds the sketch up for the W5500's ARP
+// timeout (200 ms x 8 = 1.6 s by default, about 80 ms with the fast retransmission timeout set in setup()). So a destination that has failed is
+// not tried again for a while: the sends to it are skipped until its retry time, which keeps the knobs, keys and joystick buttons responsive
+// while the USB HID board or the PC is not there.
+#define DEBUG_RETRY_MS 10000UL
+unsigned long debugDownUntil = 0;
+
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    if ((long)(millis() - debugDownUntil) < 0) return;  // the debug listener's host did not answer: skipped until the retry time
     udp.beginPacket(reflectorIP, reflectorport);
     udp.print(MessageToSend);
-    udp.endPacket();
+    if (!udp.endPacket()) debugDownUntil = millis() + DEBUG_RETRY_MS;
   }
 }
 
@@ -628,11 +636,33 @@ const PanelSwitch panelSwitches[] = {
 const int panelSwitchCount = sizeof(panelSwitches) / sizeof(panelSwitches[0]);
 
 // Forwards a button press (1) or release (0) to the USB HID board, which drives the matching virtual joystick button.
+// The USB HID board is not always connected. If a send to it fails, joystick buttons are skipped for HID_RETRY_MS, so only one press or release in
+// that time pays the ARP timeout; when it answers again the buttons that are held down are sent again (hidNeedsResync).
+#define HID_RETRY_MS 30000UL
+unsigned long hidDownUntil = 0;
+bool hidWasDown = false;
+bool hidNeedsResync = false;
+
 void sendButtonToHid(int index, int state) {
   if (Ethernet_In_Use != 1) return;
+  if ((long)(millis() - hidDownUntil) < 0) return;  // the HID board did not answer: skipped until the retry time
+  unsigned long started = millis();
   udp.beginPacket(hidIP, hidPort);
   udp.print(String(index) + "," + String(state));
-  udp.endPacket();
+  bool sent = udp.endPacket();
+  unsigned long took = millis() - started;
+  if (!sent) {
+    hidDownUntil = millis() + HID_RETRY_MS;
+    hidWasDown = true;
+    SendDebug("USB HID board 172.16.1.11 not answering (send gave up after " + String(took) + " ms): joystick buttons paused for " + String(HID_RETRY_MS / 1000) + " s");
+  } else {
+    if (took > 100) SendDebug("HID send took " + String(took) + " ms");
+    if (hidWasDown) {
+      hidWasDown = false;
+      hidNeedsResync = true;
+      SendDebug("USB HID board is answering again");
+    }
+  }
 }
 
 // A knob click has no release, so it is sent as a short press: the release goes out from the main loop a few milliseconds later.
@@ -938,6 +968,13 @@ void reportMatrixRaw() {
     SendDebug(rl);
   }
   for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], HIGH);
+}
+
+// After the HID board has been missing, the switches that are held down are pressed again on it (called from loop()).
+void resyncHidButtons() {
+  for (int i = 0; i < panelSwitchCount; i++) {
+    if (keyPressed[panelSwitches[i].row][panelSwitches[i].col]) sendButtonToHid(panelSwitches[i].hidIndex, 1);
+  }
 }
 
 // Callback function for key press events
@@ -1694,6 +1731,10 @@ void loop() {
   scanMatrix();
   pollPanelEncoders();
   serviceHidPulses();
+  if (hidNeedsResync) {
+    hidNeedsResync = false;
+    resyncHidButtons();
+  }
 
   // Check for MSFS Data Updates for COM Radios for staters
   MSFSpacketsize = MSFSudp.parsePacket();
