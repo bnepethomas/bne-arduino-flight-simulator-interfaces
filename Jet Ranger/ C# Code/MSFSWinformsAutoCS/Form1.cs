@@ -34,8 +34,8 @@ namespace MSFSWinformsAutoCS
         private const int WM_USER_SIMCONNECT = 0x0402;
         private SimConnect? simconnect = null;
 
-        enum DEFINITIONS { PanelData, PanelAp, PanelAudio }
-        enum DATA_REQUESTS { PanelData, PanelAp, PanelAudio }
+        enum DEFINITIONS { PanelData, PanelAp, PanelAudio, PanelApValues }
+        enum DATA_REQUESTS { PanelData, PanelAp, PanelAudio, PanelApValues }
         enum GROUP_ID { GROUP0 }
 
         enum EVENTS
@@ -218,8 +218,29 @@ namespace MSFSWinformsAutoCS
             public double INNER_MARKER;
         }
 
+        // The values set on the autopilot (and the NAV1 OBS), for the Auto Pilot panel's OLED, in a request of their own for the same reason.
+        private static readonly (string Name, string Units)[] ApValueVars =
+        {
+            ("AUTOPILOT HEADING LOCK DIR", "degrees"),
+            ("NAV OBS:1", "degrees"),
+            ("AUTOPILOT AIRSPEED HOLD VAR", "knots"),
+            ("AUTOPILOT VERTICAL HOLD VAR", "feet per minute"),
+            ("AUTOPILOT ALTITUDE LOCK VAR", "feet"),
+        };
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        private struct PanelApValueData
+        {
+            public double AUTOPILOT_HEADING_LOCK_DIR;
+            public double NAV_OBS_1;
+            public double AUTOPILOT_AIRSPEED_HOLD_VAR;
+            public double AUTOPILOT_VERTICAL_HOLD_VAR;
+            public double AUTOPILOT_ALTITUDE_LOCK_VAR;
+        }
+
         private PanelApData _latestAp;
         private PanelAudioData _latestAudio;
+        private PanelApValueData _latestApValues;
 
         // ----- State ----------------------------------------------------------------------
         private PanelData _latest;
@@ -358,6 +379,7 @@ namespace MSFSWinformsAutoCS
         private string mainBusText = "";
         private string navCom1On = "";
         private string panelLedText = "";
+        private string panelValueText = "";
         private DateTime radioTimeLastPacketSent = DateTime.Now;
         private DateTime frontPanelTimeLastPacketSent = DateTime.Now;
 
@@ -457,6 +479,13 @@ namespace MSFSWinformsAutoCS
                 SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
                 SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 6, 0);
 
+            foreach (var (name, units) in ApValueVars)
+                simconnect.AddToDataDefinition(DEFINITIONS.PanelApValues, name, units, SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.RegisterDataDefineStruct<PanelApValueData>(DEFINITIONS.PanelApValues);
+            simconnect.RequestDataOnSimObject(DATA_REQUESTS.PanelApValues, DEFINITIONS.PanelApValues,
+                SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
+                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 6, 0);
+
             // Client events used by the commands that come back from the radio board.
             simconnect.MapClientEventToSimEvent(EVENTS.COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
@@ -484,6 +513,8 @@ namespace MSFSWinformsAutoCS
                 throw new InvalidOperationException("PanelApData and ApVars are out of step.");
             if (typeof(PanelAudioData).GetFields().Length != AudioVars.Length)
                 throw new InvalidOperationException("PanelAudioData and AudioVars are out of step.");
+            if (typeof(PanelApValueData).GetFields().Length != ApValueVars.Length)
+                throw new InvalidOperationException("PanelApValueData and ApValueVars are out of step.");
         }
 
         private void CloseSimConnect()
@@ -497,6 +528,7 @@ namespace MSFSWinformsAutoCS
             _stale = false;
             _latestAp = default;
             _latestAudio = default;
+            _latestApValues = default;
         }
 
         private void simconnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
@@ -523,6 +555,7 @@ namespace MSFSWinformsAutoCS
         {
             if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAp) { _latestAp = (PanelApData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAudio) { _latestAudio = (PanelAudioData)data.dwData[0]; return; }
+            if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelApValues) { _latestApValues = (PanelApValueData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID != DATA_REQUESTS.PanelData) return;
             _latest = (PanelData)data.dwData[0];
             _lastDataUtc = DateTime.UtcNow;
@@ -659,6 +692,12 @@ namespace MSFSWinformsAutoCS
 
             SimSnapshot s = ToSnapshot(_latest);
             s.Leds = BuildLeds();
+            PanelApValueData apv = _latestApValues;
+            s.ApHeading = Payloads.Bearing(apv.AUTOPILOT_HEADING_LOCK_DIR);
+            s.ApCourse = Payloads.Bearing(apv.NAV_OBS_1);
+            s.ApAirspeed = (int)Math.Round(apv.AUTOPILOT_AIRSPEED_HOLD_VAR);
+            s.ApVerticalSpeed = (int)Math.Round(apv.AUTOPILOT_VERTICAL_HOLD_VAR);
+            s.ApAltitude = (int)Math.Round(apv.AUTOPILOT_ALTITUDE_LOCK_VAR);
             if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);
             if (s.CowaSim) s.TransTempCelsius = s.OilTempCelsius * CowaSimTransmissionTempOfOilTemp;
@@ -678,6 +717,7 @@ namespace MSFSWinformsAutoCS
             TrackRadioChange(ref mainBusText, s.MainBusVolts.ToString("F1", CultureInfo.InvariantCulture));
             TrackRadioChange(ref navCom1On, Payloads.RadioPowered(s) ? "1" : "0");
             TrackRadioChange(ref panelLedText, Payloads.LedTokens(s.Leds, Payloads.RadioPowered(s)));
+            TrackRadioChange(ref panelValueText, Payloads.ApValueTokens(s));
 
             int radioMs = (int)(DateTime.Now - radioTimeLastPacketSent).TotalMilliseconds;
             if ((radioMs >= 200 && radioFrequencyChanged) || radioMs >= 5000)

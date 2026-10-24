@@ -360,6 +360,80 @@ void send_string(const char *String) {
 // The DME display is the Audio panel's character OLED (the PCB net AUDIO_OLED, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2).
 #define DME_OLED_Port 3
 
+// The Auto Pilot panel's character OLED (the PCB net AP_OLED, TCA9548A channel 2) sits behind a mask, so each value goes in its own window:
+//   top row     HDG at the left hand end, VS at the right hand end
+//   bottom row  CRS at the left hand end, IAS in the centre, ALT at the right hand end
+// (16 columns: HDG and CRS start at column 0, IAS ends at column 8 so it is centred, VS and ALT end at column 15.)
+#define AP_OLED_Port 2
+
+void placeLeft(char* line, int column, const char* text) {
+  for (int i = 0; text[i] != 0 && column + i < 16; i++) line[column + i] = text[i];
+}
+
+void placeRight(char* line, int lastColumn, const char* text) {
+  int start = lastColumn - (int)strlen(text) + 1;
+  if (start < 0) start = 0;
+  placeLeft(line, start, text);
+}
+
+// Shows the five Auto Pilot values on the panel's OLED. Values are text so they can carry leading zeros (090).
+void showAutoPilot(const char* heading, const char* course, const char* airspeed, const char* verticalSpeed, const char* altitude) {
+  char top[17];
+  char bottom[17];
+  memset(top, ' ', 16);
+  memset(bottom, ' ', 16);
+  top[16] = 0;
+  bottom[16] = 0;
+  placeLeft(top, 0, heading);
+  placeRight(top, 15, verticalSpeed);
+  placeLeft(bottom, 0, course);
+  placeRight(bottom, 8, airspeed);
+  placeRight(bottom, 15, altitude);
+  tcaselect(AP_OLED_Port);
+  sendCommand(0x80);
+  send_string(top);
+  sendCommand(cmd_NewLine);
+  send_string(bottom);
+}
+
+// The values on the Auto Pilot display, as text. The bridges send them as APHDG, APCRS, APIAS, APVS and APALT in the radio data packet (heading and
+// course as three digits, the others as plain numbers); the start-up values are shown until the first packet arrives.
+char apHeadingText[6] = "090";
+char apCourseText[6] = "110";
+char apAirspeedText[6] = "80";
+char apVerticalSpeedText[6] = "0";
+char apAltitudeText[6] = "3200";
+bool apValuesChanged = false;
+bool apDrawnPower = true;  // power state the Auto Pilot display was last drawn with
+
+// Draws the Auto Pilot display: the five values while the radio has power, blank otherwise (like the COM and NAV displays).
+void updateAP() {
+  apDrawnPower = powerAvailable;
+  if (powerAvailable) {
+    showAutoPilot(apHeadingText, apCourseText, apAirspeedText, apVerticalSpeedText, apAltitudeText);
+  } else {
+    tcaselect(AP_OLED_Port);
+    sendCommand(cmd_CLS);
+  }
+}
+
+// "APHDG", "090": returns true if the token was one of the Auto Pilot values (a value longer than 5 characters is ignored).
+bool setAutoPilotValueFromToken(const String& name, String value) {
+  char* destination = NULL;
+  if (name == "APHDG") destination = apHeadingText;
+  else if (name == "APCRS") destination = apCourseText;
+  else if (name == "APIAS") destination = apAirspeedText;
+  else if (name == "APVS") destination = apVerticalSpeedText;
+  else if (name == "APALT") destination = apAltitudeText;
+  if (destination == NULL) return false;
+  value.trim();
+  if (value.length() > 0 && value.length() <= 5 && strcmp(destination, value.c_str()) != 0) {
+    value.toCharArray(destination, 6);
+    apValuesChanged = true;
+  }
+  return true;
+}
+
 // Writes two lines of up to 16 characters to the DME display ("10M" and "0M" at start-up). Each line is padded with spaces so a shorter text
 // replaces a longer one.
 void showDme(const char* topLine, const char* bottomLine) {
@@ -943,6 +1017,7 @@ void wakeDisplays() {
     updateNAV();
     updateCOMM();
     applyPanelLeds();
+    updateAP();
     applyBacklight();
     SendDebug("Local input - displays restored");
   }
@@ -1171,6 +1246,10 @@ void ProcessReceivedMSFSString() {
       radioFrequencyChanged = false;
     }
     applyPanelLeds();  // new LED states, and the LEDs follow the radio power like the displays
+    if (apValuesChanged || apDrawnPower != powerAvailable) {  // new Auto Pilot values, or the radio power changed
+      apValuesChanged = false;
+      updateAP();
+    }
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -1206,6 +1285,12 @@ void HandleOutputValuePair(String str) {
     backlightPowered = (str.substring(5).toInt() != 0);
     applyBacklight();
     return;
+  }
+
+  // Auto Pilot display values ("APHDG:090" ...): not logged one by one either.
+  if (str.startsWith("AP")) {
+    int apColon = str.indexOf(':');
+    if (apColon > 0 && setAutoPilotValueFromToken(str.substring(0, apColon), str.substring(apColon + 1))) return;
   }
 
   // Panel LEDs ("LED_CRS:1" ...) are not logged one by one: there are 19 of them in every radio packet.
@@ -1513,6 +1598,8 @@ void setup() {
   initCharOLED(1);
   initCharOLED(DME_OLED_Port);
   showDme("10M", "0M");  // start-up text on the DME display
+  initCharOLED(AP_OLED_Port);
+  showAutoPilot("090", "110", "80", "0", "3200");  // start-up values: heading 090, course 110, airspeed 80, vertical speed 0, altitude 3200
   initPanelLeds();
   delay(1000);
   // updateNAV(100);
@@ -1756,6 +1843,7 @@ void loop() {
         radioFrequencyChanged = true;
         updateNAV();
         updateCOMM();
+        updateAP();
         applyBacklight();
         SendDebug("UDP data resumed - displays restored");
       }
@@ -1774,6 +1862,7 @@ void loop() {
     updateCOMM();
     updateNAV();
     applyPanelLeds();
+    updateAP();
     applyBacklight();
     SendDebug("no UDP data or local input for " + String(noDataTimeoutMs / 1000) + "s, displays blanked");
   }

@@ -114,6 +114,19 @@ namespace SwingTester
         private readonly CheckBox chkLedHardwareTest = new() { Text = "Board test (C,LEDTEST)", Appearance = Appearance.Button, AutoSize = true };
         private CancellationTokenSource? ledChaseCts;
 
+        // The values on the Auto Pilot panel's OLED (Radio .101): the start-up values and one text box for each.
+        private static readonly (string Label, string Token, string StartUp)[] ApValues =
+        {
+            ("HDG (top left)", "APHDG", "090"),
+            ("VS (top right)", "APVS", "0"),
+            ("CRS (bottom left)", "APCRS", "110"),
+            ("IAS (bottom centre)", "APIAS", "80"),
+            ("ALT (bottom right)", "APALT", "3200"),
+        };
+        private readonly TextBox[] apValueBoxes = new TextBox[ApValues.Length];
+        private readonly Button btnApSend = new() { Text = "Send values", AutoSize = true };
+        private readonly Button btnApStartUp = new() { Text = "Start-up values", AutoSize = true };
+
         private readonly UdpClient udp = new UdpClient();
         private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
         private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
@@ -166,7 +179,7 @@ namespace SwingTester
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
             int workHeight = Screen.PrimaryScreen?.WorkingArea.Height ?? 900;
-            ClientSize = new Size(1130, Math.Min(900, workHeight - 80));
+            ClientSize = new Size(1130, Math.Min(980, workHeight - 60));
             MinimumSize = new Size(640, 400);
 
             var top = new FlowLayoutPanel
@@ -385,9 +398,37 @@ namespace SwingTester
             }
             ledOuter.Controls.Add(ledColumns);
             ledGroup.Controls.Add(ledOuter);
+            // Auto Pilot display: type the five values and send them to the Radio controller, which shows them on the Auto Pilot panel's OLED.
+            var apGroup = new GroupBox
+            {
+                Text = "Auto Pilot display (Radio .101)",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(8, 4, 8, 8)
+            };
+            var apFlow = new FlowLayoutPanel { Location = new Point(10, 22), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+            for (int i = 0; i < ApValues.Length; i++)
+            {
+                var row = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight, Margin = new Padding(0) };
+                row.Controls.Add(new Label { Text = ApValues[i].Label, Width = 130, Margin = new Padding(3, 6, 3, 0) });
+                var box = new TextBox { Text = ApValues[i].StartUp, Width = 60, MaxLength = 5 };
+                apValueBoxes[i] = box;
+                row.Controls.Add(box);
+                apFlow.Controls.Add(row);
+            }
+            var apButtons = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = true, Width = 300 };
+            apButtons.Controls.Add(btnApSend);
+            apButtons.Controls.Add(btnApStartUp);
+            apFlow.Controls.Add(apButtons);
+            apGroup.Controls.Add(apFlow);
+
+            var rightColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+            rightColumn.Controls.Add(ledGroup);
+            rightColumn.Controls.Add(apGroup);
             content.ColumnCount = 3;
             content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-            content.Controls.Add(ledGroup, 2, 0);
+            content.Controls.Add(rightColumn, 2, 0);
 
             Controls.Add(scroll);
             Controls.Add(statusPanel);
@@ -413,6 +454,12 @@ namespace SwingTester
             btnLedsOff.Click += async (_, _) => await SetAllPanelLedsAsync(false);
             btnLedChase.Click += async (_, _) => await ToggleLedChaseAsync();
             chkLedHardwareTest.CheckedChanged += async (_, _) => await SendLedHardwareTestAsync(chkLedHardwareTest.Checked);
+            btnApSend.Click += async (_, _) => await SendApValuesAsync();
+            btnApStartUp.Click += async (_, _) =>
+            {
+                for (int i = 0; i < ApValues.Length; i++) apValueBoxes[i].Text = ApValues[i].StartUp;
+                await SendApValuesAsync();
+            };
         }
 
         private static void AddHeader(TableLayoutPanel grid, string text) =>
@@ -600,6 +647,34 @@ namespace SwingTester
             catch (Exception ex)
             {
                 lblStatus.Text = "OLED send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// Sends the five Auto Pilot display values to the Radio controller: "D,NAVCOM1:1,APHDG:090,APVS:0,APCRS:110,APIAS:80,APALT:3200"
+        /// (NAVCOM1:1 keeps the radio's power flag on, because the display blanks with it).
+        /// </summary>
+        private async Task SendApValuesAsync()
+        {
+            try
+            {
+                var parts = new List<string>();
+                for (int i = 0; i < ApValues.Length; i++)
+                {
+                    string value = apValueBoxes[i].Text.Trim();
+                    if (value.Length == 0 || value.Length > 5 || value.Contains(',') || value.Contains(':'))
+                    {
+                        lblStatus.Text = $"{ApValues[i].Label}: enter 1 to 5 characters (no commas or colons).";
+                        return;
+                    }
+                    parts.Add($"{ApValues[i].Token}:{value}");
+                }
+                await SendPacketAsync(BoardId.Radio, "D,NAVCOM1:1," + string.Join(",", parts));
+                lblStatus.Text = "Auto Pilot display: " + string.Join("  ", parts) + " sent to the Radio.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Auto Pilot display send failed: " + ex.Message;
             }
         }
 

@@ -109,6 +109,14 @@ namespace FSUIPCTest
         private Offset<short> markerMiddle = new Offset<short>("RadioStack", 0x0BAE);
         private Offset<short> markerOuter = new Offset<short>("RadioStack", 0x0BB0);
 
+        // The values set on the autopilot, shown on the Auto Pilot panel's OLED: heading (degrees * 65536 / 360), altitude (metres * 65536), airspeed (knots),
+        // vertical speed (feet per minute) and the NAV1 OBS (course, degrees).
+        private Offset<ushort> apHeadingValue = new Offset<ushort>("RadioStack", 0x07CC);
+        private Offset<int> apAltitudeValue = new Offset<int>("RadioStack", 0x07D4);
+        private Offset<short> apAirspeedValue = new Offset<short>("RadioStack", 0x07E2);
+        private Offset<short> apVerticalSpeedValue = new Offset<short>("RadioStack", 0x07F2);
+        private Offset<ushort> nav1Obs = new Offset<ushort>("RadioStack", 0x0C4E);
+
 
 
 
@@ -221,6 +229,22 @@ namespace FSUIPCTest
         // --- Radio interface state (ported from SimConnect_to_UDP's UpdateRadios/RADIOS handling) ---
         private bool radioFrequencyChanged = false;
 
+        // The five autopilot values for the Auto Pilot display as ",APHDG:090,APCRS:110,APIAS:80,APVS:0,APALT:3200": heading and course as three digits
+        // (north is 360), airspeed in knots, vertical speed in feet per minute and altitude in feet.
+        private string BuildPanelValuePayload()
+        {
+            int heading = ((int)Math.Round(apHeadingValue.Value * 360.0 / 65536.0)) % 360;
+            if (heading == 0) heading = 360;
+            int course = nav1Obs.Value % 360;
+            if (course == 0) course = 360;
+            int altitudeFeet = (int)Math.Round(apAltitudeValue.Value / 65536.0 * 3.28084);
+            return ",APHDG:" + heading.ToString("000")
+                 + ",APCRS:" + course.ToString("000")
+                 + ",APIAS:" + apAirspeedValue.Value.ToString()
+                 + ",APVS:" + apVerticalSpeedValue.Value.ToString()
+                 + ",APALT:" + altitudeFeet.ToString();
+        }
+
         // The 19 LEDs on the Auto Pilot and Audio panels (driven by the Radio controller's MAX7219) as
         // ",LED_CRS:1,LED_HDG:0,...". Everything is 0 while the avionics bus is below 24 V (powered = false), like the radio displays.
         private string BuildPanelLedPayload(bool powered)
@@ -254,6 +278,7 @@ namespace FSUIPCTest
         private String MainBusVoltage = "";
         private String CIRCUIT_NAVCOM1_ON = "";
         private String panelLedText = "";    // ",LED_CRS:0,LED_HDG:1,..." as last sent in the radio packet
+        private String panelValueText = "";  // ",APHDG:090,APCRS:110,..." as last sent in the radio packet
 
 
         // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
@@ -536,6 +561,14 @@ namespace FSUIPCTest
                     CIRCUIT_NAVCOM1_ON = navCom1OnFlag;
                 }
 
+                // Autopilot values for the Auto Pilot display: a change goes out like a frequency change.
+                string panelValueNow = BuildPanelValuePayload();
+                if (panelValueText != panelValueNow)
+                {
+                    radioFrequencyChanged = true;
+                    panelValueText = panelValueNow;
+                }
+
                 // Autopilot and audio panel LEDs: a change goes out like a frequency change.
                 string panelLedNow = BuildPanelLedPayload(navCom1OnFlag == "1");
                 if (panelLedText != panelLedNow)
@@ -558,6 +591,7 @@ namespace FSUIPCTest
                     radioPayload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                     radioPayload += ",BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0");    // backlight on only while the main bus is 20 V or more
                     radioPayload += panelLedText;
+                    radioPayload += panelValueText;
                     Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
                     udpClient.Send(radioSendData, radioSendData.Length);
                     RadioTimeLastPacketSent = DateTime.Now;

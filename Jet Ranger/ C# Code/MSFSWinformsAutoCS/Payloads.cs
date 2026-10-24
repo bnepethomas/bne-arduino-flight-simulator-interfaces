@@ -40,6 +40,8 @@ namespace MSFSWinformsAutoCS
         public double HeadingTrueDeg;              // degrees true
         public int ZuluYear, ZuluMonth, ZuluDay;   // the simulator's UTC date (the time of day is ZuluSeconds)
         public PanelLedState Leds;                 // autopilot and audio panel LEDs (see PanelLedState)
+        public int ApHeading, ApCourse;            // the autopilot heading bug and the NAV1 OBS, degrees (north is 360)
+        public int ApAirspeed, ApVerticalSpeed, ApAltitude;   // the autopilot airspeed (knots), vertical speed (feet per minute) and altitude (feet)
     }
 
     // The 19 LEDs on the Auto Pilot and Audio panels, driven by the Radio controller's MAX7219.
@@ -234,6 +236,22 @@ namespace MSFSWinformsAutoCS
                  + ",LED_MID:" + B(l.Middle);
         }
 
+        // A bearing as a whole number of degrees from 1 to 360 (north is 360, as on an autopilot display).
+        public static int Bearing(double degrees)
+        {
+            int d = (int)Math.Round(degrees) % 360;
+            if (d < 0) d += 360;
+            return d == 0 ? 360 : d;
+        }
+
+        // The five autopilot values for the Auto Pilot display: ",APHDG:090,APCRS:110,APIAS:80,APVS:0,APALT:3200".
+        public static string ApValueTokens(SimSnapshot s)
+            => ",APHDG:" + s.ApHeading.ToString("000", Inv)
+             + ",APCRS:" + s.ApCourse.ToString("000", Inv)
+             + ",APIAS:" + s.ApAirspeed.ToString(Inv)
+             + ",APVS:" + s.ApVerticalSpeed.ToString(Inv)
+             + ",APALT:" + s.ApAltitude.ToString(Inv);
+
         // Radio board (.101).
         public static string Radio(SimSnapshot s)
             => "D,C1A:" + Freq(s.Com1Active)
@@ -243,6 +261,7 @@ namespace MSFSWinformsAutoCS
              + ",MAINBUS:" + F1(s.MainBusVolts)
              + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0")
              + ",BPWR:" + (GaugesPowered(s) ? "1" : "0")        // backlight on only while the main bus is 20 V or more
-             + LedTokens(s.Leds, RadioPowered(s));
+             + LedTokens(s.Leds, RadioPowered(s))
+             + ApValueTokens(s);
     }
 }
