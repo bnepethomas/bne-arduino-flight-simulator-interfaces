@@ -33,8 +33,23 @@ The panel brightness is sent when you move the pot, and once 5 seconds after the
 | OLED | I2C D20, D21 (0x3C) | 2 lines of 16 characters |
 | Status LEDs | D14 green, D15 red | Red flashes while Ethernet starts |
 | Landing gear lamps | D2, D3, D4 | Not used yet |
-| Gear, flaps, speed brake, brakes | D29 to D32 | Not used yet |
+| Landing gear, flaps, speed brakes and brakes switches | D29 to D32 | Switches to ground; see Panel switches |
 | Ethernet module | SPI 50 to 52, reset 53 | |
+
+## Panel switches and joystick buttons
+
+The landing gear, flaps, speed brakes and brakes switches are read when they change (30 ms debounce, to ground when on). Each change is sent two ways, like the Auto Pilot and Audio panels:
+
+| Switch | Joystick button (index) | Command to the bridge (UDP 27001) |
+|---|---|---|
+| Landing gear | Joystick 4, button 9 (104) | `GEAR_DOWN` when closed, `GEAR_UP` when open |
+| Flaps | Joystick 4, button 10 (105) | `FLAPS_DOWN` when closed, `FLAPS_UP` when open |
+| Speed brakes | Joystick 4, button 11 (106) | `SPOILERS_ON` when closed, `SPOILERS_OFF` when open |
+| Brakes (push button) | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
+| ADF major knob (clockwise, anticlockwise) | Joystick 4, buttons 13, 14 (108, 109) | none: the knob tunes the ADF frequency |
+| ADF minor knob (clockwise, anticlockwise) | Joystick 4, buttons 15, 16 (110, 111) | none |
+
+For 1.5 seconds after power-up the switches are only read. When that ends the joystick buttons are set to match the switches, but **no command goes to the simulator**, so the aircraft is not moved when the panel is switched on. If a switch works the wrong way round in the simulator, swap its two commands in the sketch (`adfSwitches[]`). A knob click is a short joystick press.
 
 ## Power status
 
@@ -52,7 +67,7 @@ Five seconds after start-up, and then every **30 seconds**, the board sends the 
 | `RADAR_FOLLOW_ID:4521` | The aircraft ID typed on the keypad; `RADAR_FOLLOW_ID:0` means stop following |
 | `POWER,V12:12.41,V5:5.02,STATUS:OK` | Power status, every 30 seconds |
 
-These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anything they do not recognise on 27001 as a COM1 standby frequency. **Neither bridge reads port 27003 yet**, so the frequency and the follow ID do not reach the simulator. The Health Monitor does not show the board's `ADF_PANEL` heartbeat either.
+These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anything they do not recognise on 27001 as a COM1 standby frequency. (The panel switch commands above do go to 27001: the bridges recognise those names.) **Neither bridge reads port 27003 yet**, so the frequency and the follow ID do not reach the simulator. The Health Monitor does not show the board's `ADF_PANEL` heartbeat either.
 
 ## Control packets
 

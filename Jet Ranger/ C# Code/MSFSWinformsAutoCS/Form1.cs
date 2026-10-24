@@ -469,6 +469,10 @@ namespace MSFSWinformsAutoCS
             simconnect.MapClientEventToSimEvent(EVENTS.AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
             simconnect.MapClientEventToSimEvent(EVENTS.MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
             simconnect.MapClientEventToSimEvent(EVENTS.ALTERNATOR_SET, "ALTERNATOR_SET");
+
+            // Auto Pilot, Audio and ADF panel controls (see PanelEventNames).
+            for (int i = 0; i < PanelEventNames.Length; i++)
+                simconnect.MapClientEventToSimEvent((EVENTS)(PanelEventBase + i), PanelEventNames[i]);
         }
 
         private static void CheckDefinitionMatchesStruct()
@@ -875,12 +879,51 @@ namespace MSFSWinformsAutoCS
         // MHz to the Hz value the *_SET_HZ events take.
         private static uint ToHz(decimal mhz) => (uint)Math.Round(mhz * 1_000_000m);
 
+        // The Auto Pilot, Audio and ADF panel switches and knobs (Radio and ADF controllers): the command is the name of the simulator event,
+        // "AP_MASTER", or "HEADING_BUG_INC:5" to repeat it five times for a knob turned quickly. Each name is mapped to a client event when
+        // SimConnect opens (OpenSimConnect); the event numbers start at PanelEventBase, clear of the EVENTS enum. The panels also press
+        // joystick buttons on the USB HID board, which can be bound in MSFS; these commands are the direct route.
+        private const int PanelEventBase = 1000;
+        private static readonly string[] PanelEventNames =
+        {
+            // Auto Pilot panel
+            "AP_MASTER", "AP_HDG_HOLD", "AP_NAV1_HOLD", "AP_ALT_HOLD", "AP_APR_HOLD", "TOGGLE_FLIGHT_DIRECTOR", "AP_BC_HOLD", "AP_PANEL_SPEED_HOLD",
+            "VOR1_OBI_INC", "VOR1_OBI_DEC", "AP_ALT_VAR_INC", "AP_ALT_VAR_DEC", "AP_VS_VAR_INC", "AP_VS_VAR_DEC", "AP_SPD_VAR_INC", "AP_SPD_VAR_DEC",
+            "HEADING_BUG_INC", "HEADING_BUG_DEC",
+            // Audio panel
+            "COM1_TRANSMIT_SELECT", "COM2_TRANSMIT_SELECT", "COM_RECEIVE_ALL_TOGGLE", "RADIO_VOR1_IDENT_TOGGLE", "RADIO_VOR2_IDENT_TOGGLE",
+            "RADIO_DME1_IDENT_TOGGLE", "RADIO_ADF_IDENT_TOGGLE", "MARKER_SOUND_TOGGLE",
+            // ADF panel switches
+            "GEAR_UP", "GEAR_DOWN", "FLAPS_UP", "FLAPS_DOWN", "SPOILERS_ON", "SPOILERS_OFF", "PARKING_BRAKES",
+        };
+
+        // True if the command was one of the panel events (and has been sent). Checked first, so none of these names can fall through to the
+        // COM1 standby frequency parser at the end of UpdateRadios().
+        private bool TryPanelCommand(string command)
+        {
+            string name = command.Trim();
+            int count = 1;
+            int colon = name.IndexOf(':');
+            if (colon > 0)
+            {
+                if (!int.TryParse(name.Substring(colon + 1), out count)) count = 1;
+                name = name.Substring(0, colon);
+            }
+            int index = Array.IndexOf(PanelEventNames, name);
+            if (index < 0) return false;
+            count = Math.Max(1, Math.Min(count, 50));
+            for (int i = 0; i < count; i++)
+                SendEvent((EVENTS)(PanelEventBase + index), 0);
+            return true;
+        }
+
         // Same command set as FSUIPCWinformsAutoCS.UpdateRadios(): swaps, labelled COM2 / NAV1 /
         // NAV2 standby frequencies, avionics master, battery, alternator, and a bare number for
         // the COM1 standby frequency.
         private void UpdateRadios(string command)
         {
             if (simconnect == null) return;
+            if (TryPanelCommand(command)) return;
 
             if (command.Contains("COM1_RADIO_SWAP"))
             {

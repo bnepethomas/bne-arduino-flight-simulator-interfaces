@@ -132,6 +132,17 @@ bridge should run against the panel network at a time.
 | `0x0238` / `0x0239` | Zulu hours / Zulu minutes (documented FSUIPC offsets, bytes) — combined into the HHMM-encoded `ZULU` field sent to the OLED Dual Stepper Controller's Clock OLED |
 | `RadioStack:0x034E/0x311A/0x3118/0x311C/0x0350/0x311E/0x0352/0x3120/0x0354/0x034C/0x0356` | COM1/2 active+standby, NAV1/2 active+standby, transponder, ADF |
 
+## Panel LEDs and panel controls
+
+- **LEDs:** the radio packet carries 19 `LED_xxx:0/1` tokens (Auto Pilot and Audio panel LEDs on the Radio controller's MAX7219), built by `BuildPanelLedPayload()` from the standard offsets
+  `0x07BC` (AP master), `0x07C4` (NAV1 lock = CRS), `0x07C8` (heading lock), `0x07D0` (altitude lock), `0x07DC` (airspeed hold), `0x0800` (approach hold), `0x0804` (back course hold),
+  `0x2EE0` (flight director), `0x3122` (audio switches: bit 7 COM1 tx, 6 COM2 tx, 5 COM both, 4 NAV1, 3 NAV2, 2 marker, 1 DME, 0 ADF) and `0x0BAC` / `0x0BAE` / `0x0BB0` (inner / middle /
+  outer marker). All are read in the `RadioStack` group and all 19 are 0 while the avionics bus is below 24 V. A change is sent like a frequency change. The DodoSim aircraft may not drive every offset.
+- **Controls:** `TryPanelCommand()` (checked first in `UpdateRadios()`) maps the control names sent on UDP 27001 by the Radio and ADF controllers to FSUIPC controls (`PanelControls`): `AP_MASTER`,
+  `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD`, `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD`, `VOR1_OBI_INC/DEC`, `AP_ALT_VAR_INC/DEC`, `AP_VS_VAR_INC/DEC`,
+  `AP_SPD_VAR_INC/DEC`, `HEADING_BUG_INC/DEC`, `COM1/COM2_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR1/VOR2/DME1/ADF_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `GEAR_UP/DOWN`,
+  `FLAPS_UP/DOWN`, `SPOILERS_ON/OFF`, `PARKING_BRAKES`, each sent with parameter 0; a `:N` suffix repeats the control N times (1 to 50). Built clean; not run against a simulator.
+
 ## Real-unit payloads per board (2026-10-16)
 
 The Servo, Stepper and Dual Stepper boards each now get their **own** packet in

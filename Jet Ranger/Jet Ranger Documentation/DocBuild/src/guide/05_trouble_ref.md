@@ -105,15 +105,18 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 
 | Token | Packet | Meaning |
 |---|---|---|
-| `NAVCOM1` | D | 0 = avionics bus below 24 V (radio COM and NAV displays blank), 1 = on |
+| `NAVCOM1` | D | 0 = avionics bus below 24 V (radio COM and NAV displays blank, panel LEDs off), 1 = on |
+| `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | D | Auto Pilot panel LEDs on the radio controller (1 = on) |
+| `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | D | Audio panel LEDs on the radio controller (1 = on) |
 | `BPWR` | D | Backlight power for the Servo, Stepper and Dual Stepper: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets and after `PWR` in the Dual Stepper packet |
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |
-| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Servo, Stepper and Dual Stepper only; the Radio parses it but does nothing and the Upper ignores it. The ADF controller's pot sends it to the other panels |
+| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Servo, Stepper and Dual Stepper only; the Radio sets the brightness of its Auto Pilot and Audio panel LEDs from it (0 = off) and the Upper ignores it. The ADF controller's pot sends it to the other panels |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
 | `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (SwingTester sends it during a run) |
 | `RESET` | C | Reboots the board about 2 seconds later (servo, stepper, dual stepper, radio, upper and ADF controllers on port 13136; USB HID board on port 4210). The radio and upper controllers use a software reset because a watchdog reset hung the radio's bootloader; the upper controller's reset has not been bench-tested |
 | `MATRIX` | C | Radio and ADF controllers: print the raw button matrix to the debug listener |
 | `POWER` | C | ADF controller: send a power status (12 V and 5 V rails) now |
+| `LEDTEST` | C | Radio controller: 1 lights all 19 Auto Pilot and Audio panel LEDs, 0 returns them to the simulator's state |

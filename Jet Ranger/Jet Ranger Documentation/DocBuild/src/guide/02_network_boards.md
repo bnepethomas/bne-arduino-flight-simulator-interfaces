@@ -20,10 +20,10 @@ Every live board has its own IP and MAC address. The firmware sends its debug an
 | UDP port | Direction | Purpose |
 |---|---|---|
 | 13136 | PC to boards | Gauge, lamp and radio data (`D,`) and control (`C,`) packets |
-| 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
+| 27001 | Radio and ADF controllers to PC bridge | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (for example `AP_MASTER`, `GEAR_DOWN`) |
 | 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
 | 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status (no bridge reads it yet) |
-| 4210 | Servo and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
+| 4210 | Servo, Upper, Radio and ADF controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
 

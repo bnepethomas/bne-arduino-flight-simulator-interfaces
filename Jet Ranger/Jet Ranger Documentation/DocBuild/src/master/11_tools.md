@@ -52,7 +52,7 @@ Notes: the raw panel still lists `FLAPS`, `AOA`, `GFORCE`, `SPDMAX` and `N1RAW`;
 
 # SwingTester
 
-A Windows Forms (.NET 10) bench tool that triggers each gauge's start-up swing over UDP, one gauge at a time or all of them in a fixed order. Build with `dotnet build -c Release` in its folder; the executable is `bin\Release\net10.0-windows\SwingTester.exe`.
+A Windows Forms (.NET 10) bench tool that triggers each gauge's start-up swing over UDP, one gauge at a time or all of them in a fixed order. It also lights the warning lamps and, in a **Panel LEDs** group, each of the 19 Auto Pilot and Audio panel LEDs on its own (a toggle per LED sending `D,NAVCOM1:1,LED_xxx:1/0` to the Radio controller), all on or off, in a chase (one at a time, with the on gap), or with the Radio's own `C,LEDTEST` board test. Build with `dotnet build -c Release` in its folder; the executable is `bin\Release\net10.0-windows\SwingTester.exe`.
 
 ## How it works
 

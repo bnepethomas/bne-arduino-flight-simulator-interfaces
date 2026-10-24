@@ -49,7 +49,7 @@ The Upper controller has its own address and MAC (`172.16.1.103`, `...83:03`); i
 
 # USB HID board (172.16.1.11)
 
-`UDP_TO_HID` runs on an Arduino with native USB (Leonardo class, board option `arduino:avr:leonardo`) and a W5500 Ethernet module. It is a network-to-USB bridge: it receives button and key commands over UDP from the Upper controller and the Servo controller and re-emits them to Windows as **four virtual 32-button joysticks (128 buttons) and a keyboard**. The joysticks have buttons only: no axes and no hat switches.
+`UDP_TO_HID` runs on an Arduino with native USB (Leonardo class, board option `arduino:avr:leonardo`) and a W5500 Ethernet module. It is a network-to-USB bridge: it receives button and key commands over UDP from the Upper controller, the Servo controller, the Radio controller (Auto Pilot and Audio panels) and the ADF controller and re-emits them to Windows as **four virtual 32-button joysticks (128 buttons) and a keyboard**. The joysticks have buttons only: no axes and no hat switches.
 
 ![From switch to joystick button](diagrams/hid_path.svg)
 
@@ -84,6 +84,20 @@ The Upper controller has its own address and MAC (`172.16.1.103`, `...83:03`); i
 | 64 to 95 | Joystick 3 |
 | 96 to 127 | Joystick 4 |
 | 128 to 175 | Not sent to Windows (out of range) |
+
+## Auto Pilot, Audio and ADF panel buttons
+
+The Radio controller (Auto Pilot and Audio panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio and ADF panels). Nothing else uses those buttons: the Upper controller's assigned switches are all below index 40, and the Servo's are 7 to 9. The Upper matrix positions that map onto indexes 64 to 127 (rows 5 to 11) are wired but have no switch on them, so if switches are ever fitted there they would clash with these buttons. Windows numbers buttons from 1 (button = index mod 32 + 1). A knob click is a 40 ms press, clockwise and anticlockwise on adjacent buttons.
+
+| Index | Windows button | Source |
+|---|---|---|
+| 64 to 71 | Joystick 3, buttons 1 to 8 | Auto Pilot panel switches: ENGAGE, HDG, CRS, ALT, APPR, FD, BC, IAS |
+| 72 to 81 | Joystick 3, buttons 9 to 18 | Auto Pilot knobs, clockwise then anticlockwise: CRS, ALT, VS, IAS, HDG |
+| 96 to 103 | Joystick 4, buttons 1 to 8 | Audio panel switches: COM1, BOTH, NAV2, DME, COM2, NAV1, MKR, ADF |
+| 104 to 107 | Joystick 4, buttons 9 to 12 | ADF panel: landing gear, flaps, speed brakes, brakes |
+| 108 to 111 | Joystick 4, buttons 13 to 16 | ADF knobs, clockwise then anticlockwise: major, minor |
+
+Each of these is also sent to the bridge as a simulator control, so binding the joystick buttons in FSUIPC or MSFS is optional (see the Radio and ADF controller chapters for the full table).
 
 ## Switch mapping in use
 

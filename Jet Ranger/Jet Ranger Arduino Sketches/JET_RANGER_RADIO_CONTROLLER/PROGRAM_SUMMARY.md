@@ -111,6 +111,24 @@ the UDP reflector's forwarded copy: blanked about 30 s after boot, restored on
 the next `D,C1A:...` packet. Compiled at 24,440 bytes flash (9%) / 3,141 bytes
 RAM (38%).
 
+## Auto Pilot and Audio panel switches and knobs
+
+The matrix is now 4 rows (D22-D25) by 5 columns (D26, D27, D28, D29 and **D48**): `COL0` is the COM and NAV swap switches, `COL1`/`COL2` the Auto Pilot panel and
+`COL3`/`COL4` the Audio panel (one switch per row on each column, diode to the column). The five Auto Pilot knobs are polling encoders on CRS D11/D12, ALT A4/A5, VS D46/D47,
+IAS D7/D6 and HDG D8/D9, read like the ADF knobs (centred, recentred after each read, three counts per click, acceleration on). Every switch and click goes out twice:
+a joystick button to the USB HID board (172.16.1.11:4210, `index,state`; Joystick 3 = indexes 64-81 for the Auto Pilot panel, Joystick 4 = 96-103 for the Audio panel; a knob
+click is a 40 ms press released from `serviceHidPulses()`), and a simulator control name to the bridge on UDP 27001 (switch: on press; knob: one per click with a `:N` repeat
+count). Nothing is sent during the 1.5 s quiet period. `panelSwitches[]` and `panelEncoders[]` hold the tables; each press is logged (`AP HDG pressed (joystick button index 65)`).
+Compiled at 30,108 bytes flash (11%) / 4,823 bytes RAM (58%); not flashed or tested on the board yet.
+
+| Switch / knob | Row, col or pins | Index | Command |
+|---|---|---|---|
+| AP ENGAGE, HDG, CRS, ALT | (0,1) (1,1) (2,1) (3,1) | 64 to 67 | `AP_MASTER`, `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD` |
+| AP APPR, FD, BC, IAS | (0,2) (1,2) (2,2) (3,2) | 68 to 71 | `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD` |
+| CRS, ALT, VS, IAS, HDG knobs (cw, ccw) | D11/12, A4/A5, D46/47, D7/6, D8/9 | 72 to 81 | `VOR1_OBI_INC/DEC`, `AP_ALT_VAR_INC/DEC`, `AP_VS_VAR_INC/DEC`, `AP_SPD_VAR_INC/DEC`, `HEADING_BUG_INC/DEC` |
+| Audio COM1, BOTH, NAV2, DME | (0,3) (1,3) (2,3) (3,3) | 96 to 99 | `COM1_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR2_IDENT_TOGGLE`, `RADIO_DME1_IDENT_TOGGLE` |
+| Audio COM2, NAV1, MKR, ADF | (0,4) (1,4) (2,4) (3,4) | 100 to 103 | `COM2_TRANSMIT_SELECT`, `RADIO_VOR1_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `RADIO_ADF_IDENT_TOGGLE` |
+
 ## Auto Pilot and Audio panel LEDs (MAX7219)
 
 One MAX7219 on the Radio Auto Pilot PCB drives 19 LEDs: DIN = A15, CLK = A14, LOAD = A13 (LedControl library, one device, scan limit 3, intensity 8 until a `C,B`

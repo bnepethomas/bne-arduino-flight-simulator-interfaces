@@ -1019,9 +1019,73 @@ namespace FSUIPCTest
         // offset read in this project to guard the alternator commands, so those
         // remain a blind toggle and may need re-sending if they fire out of sync
         // with the aircraft's actual state.
+        // The Auto Pilot, Audio and ADF panel switches and knobs (Radio and ADF controllers): the command is the name of the simulator control,
+        // "AP_MASTER", or "HEADING_BUG_INC:5" to repeat it five times for a knob turned quickly. The panels also press joystick buttons on the
+        // USB HID board, which can be bound in FSUIPC; these commands are the direct route.
+        private static readonly Dictionary<string, FsControl> PanelControls = new Dictionary<string, FsControl>
+        {
+            // Auto Pilot panel
+            { "AP_MASTER", FsControl.AP_MASTER },
+            { "AP_HDG_HOLD", FsControl.AP_HDG_HOLD },
+            { "AP_NAV1_HOLD", FsControl.AP_NAV1_HOLD },
+            { "AP_ALT_HOLD", FsControl.AP_ALT_HOLD },
+            { "AP_APR_HOLD", FsControl.AP_APR_HOLD },
+            { "TOGGLE_FLIGHT_DIRECTOR", FsControl.TOGGLE_FLIGHT_DIRECTOR },
+            { "AP_BC_HOLD", FsControl.AP_BC_HOLD },
+            { "AP_PANEL_SPEED_HOLD", FsControl.AP_PANEL_SPEED_HOLD },
+            { "VOR1_OBI_INC", FsControl.VOR1_OBI_INC },
+            { "VOR1_OBI_DEC", FsControl.VOR1_OBI_DEC },
+            { "AP_ALT_VAR_INC", FsControl.AP_ALT_VAR_INC },
+            { "AP_ALT_VAR_DEC", FsControl.AP_ALT_VAR_DEC },
+            { "AP_VS_VAR_INC", FsControl.AP_VS_VAR_INC },
+            { "AP_VS_VAR_DEC", FsControl.AP_VS_VAR_DEC },
+            { "AP_SPD_VAR_INC", FsControl.AP_SPD_VAR_INC },
+            { "AP_SPD_VAR_DEC", FsControl.AP_SPD_VAR_DEC },
+            { "HEADING_BUG_INC", FsControl.HEADING_BUG_INC },
+            { "HEADING_BUG_DEC", FsControl.HEADING_BUG_DEC },
+            // Audio panel
+            { "COM1_TRANSMIT_SELECT", FsControl.COM1_TRANSMIT_SELECT },
+            { "COM2_TRANSMIT_SELECT", FsControl.COM2_TRANSMIT_SELECT },
+            { "COM_RECEIVE_ALL_TOGGLE", FsControl.COM_RECEIVE_ALL_TOGGLE },
+            { "RADIO_VOR1_IDENT_TOGGLE", FsControl.RADIO_VOR1_IDENT_TOGGLE },
+            { "RADIO_VOR2_IDENT_TOGGLE", FsControl.RADIO_VOR2_IDENT_TOGGLE },
+            { "RADIO_DME1_IDENT_TOGGLE", FsControl.RADIO_DME1_IDENT_TOGGLE },
+            { "RADIO_ADF_IDENT_TOGGLE", FsControl.RADIO_ADF_IDENT_TOGGLE },
+            { "MARKER_SOUND_TOGGLE", FsControl.MARKER_SOUND_TOGGLE },
+            // ADF panel switches
+            { "GEAR_UP", FsControl.GEAR_UP },
+            { "GEAR_DOWN", FsControl.GEAR_DOWN },
+            { "FLAPS_UP", FsControl.FLAPS_UP },
+            { "FLAPS_DOWN", FsControl.FLAPS_DOWN },
+            { "SPOILERS_ON", FsControl.SPOILERS_ON },
+            { "SPOILERS_OFF", FsControl.SPOILERS_OFF },
+            { "PARKING_BRAKES", FsControl.PARKING_BRAKES },
+        };
+
+        // True if the command was one of the panel controls (and has been sent). Checked first, so none of these names can fall through to the
+        // COM1 standby frequency parser at the end of UpdateRadios().
+        private bool TryPanelCommand(string command)
+        {
+            string name = command.Trim();
+            int count = 1;
+            int colon = name.IndexOf(':');
+            if (colon > 0)
+            {
+                if (!int.TryParse(name.Substring(colon + 1), out count)) count = 1;
+                name = name.Substring(0, colon);
+            }
+            FsControl control;
+            if (!PanelControls.TryGetValue(name, out control)) return false;
+            count = Math.Max(1, Math.Min(count, 50));
+            for (int i = 0; i < count; i++)
+                FSUIPCConnection.SendControlToFS(control, 0);
+            return true;
+        }
+
         private void UpdateRadios(string command)
         {
             if (!FSUIPCConnection.IsOpen) return;
+            if (TryPanelCommand(command)) return;
 
             if (command.Contains("COM1_RADIO_SWAP"))
             {

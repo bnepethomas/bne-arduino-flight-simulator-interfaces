@@ -29,7 +29,7 @@
 | D20, D21 | I2C SDA and SCL (character OLED at 0x3C) |
 | D22 to D25 | Keypad rows (`KEYPAD_7` to `KEYPAD_4`) |
 | D26 to D28 | Keypad columns (`KEYPAD_3` to `KEYPAD_1`) |
-| D29 to D32 | Landing gear, flaps, speed brake and brake inputs: on the PCB, not read yet |
+| D29 to D32 | Landing gear, flaps, speed brakes and brakes switches (to ground when on) |
 | D53 | W5500 reset |
 | A0 | Panel brightness pot wiper (`GUAGE_BACKLIGHT_BRIGHT`) |
 | A15 | 12 V monitor (`12V-Monitor`) |
@@ -57,10 +57,16 @@ A power status is sent 5 seconds after start-up, then **every 30 seconds**, and 
 |---|---|---|
 | 172.16.1.10 (PC) | 27003 | `ADF_FREQ:<kHz>`, `RADAR_FOLLOW_ID:<digits>` (`0` = stop following) and `POWER,V12:12.41,V5:5.02,STATUS:OK` |
 | 172.16.1.101, .102, .103, .105, .106 | 13136 | `C,B:<0-15>` panel brightness |
+| 172.16.1.10 (PC bridge) | 27001 | The four panel switches as simulator controls: `GEAR_DOWN` / `GEAR_UP`, `FLAPS_DOWN` / `FLAPS_UP`, `SPOILERS_ON` / `SPOILERS_OFF` and `PARKING_BRAKES` (the bridges recognise these names) |
+| 172.16.1.11 (USB HID board) | 4210 | The four switches and the two ADF knobs as joystick buttons `index,state`: indexes 104 to 107 and 108 to 111 (Joystick 4, buttons 9 to 16) |
 | 172.16.1.10 | 27000 | Debug text, each line prefixed `Jet Ranger ADF:`, including every power status |
 | 172.16.1.10 | 13137 | `ADF_PANEL` heartbeat every 10 seconds |
 
 The events use **port 27003, not 27001**, because the FSUIPC and MSFS bridges treat any unrecognised string on 27001 as a COM1 standby frequency and would retune COM1. **Neither bridge reads port 27003 yet**, so the ADF frequency and the radar follow ID do not reach the simulator, and the Health Monitor has no light for `ADF_PANEL`.
+
+## Panel switches
+
+The landing gear (D29), flaps (D30), speed brakes (D31) and brakes (D32) are read with pull-ups and a 30 ms debounce; a closed switch (to ground) is "on". For the first 1.5 seconds after power-up they are only read. Each change sends the joystick button (`index,1` closed or `index,0` open) and the bridge command: the gear switch sends `GEAR_DOWN` when it closes and `GEAR_UP` when it opens, the flaps `FLAPS_DOWN` and `FLAPS_UP`, the speed brakes `SPOILERS_ON` and `SPOILERS_OFF`, and the brakes button sends `PARKING_BRAKES` when it is pressed. When the quiet period ends the joystick buttons are brought into line with the switches as they are, but **no simulator command is sent**, so the aircraft is not moved at power-up. If a switch works the wrong way round, swap its two commands in `adfSwitches[]`. Each ADF knob click is also a 40 ms joystick press (major clockwise and anticlockwise 108 and 109, minor 110 and 111). The full joystick and command table is in the Radio controller chapter.
 
 ## What it receives
 

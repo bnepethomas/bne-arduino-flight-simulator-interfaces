@@ -11,7 +11,7 @@ def radio_blocks():
     s = Svg(880, 600)
     mega(s, 310, 150, 260, 190, "Arduino Mega 2560", ["JET_RANGER_RADIO_CONTROLLER", "172.16.1.101", "status LEDs 14 (green), 15 (red)"])
     s.card(16, 40, 250, 200, "8 rotary encoders", ["COM1 major 31/30, minor 33/32", "COM2 major 34/35, minor 37/36", "NAV1 major 38/39, minor 41/40", "NAV2 major 42/43, minor 45/44", "polled, no interrupts needed"], "white", title_size=14.5, line_size=12.5)
-    s.card(16, 270, 250, 130, "4 x 4 button matrix", ["rows 22 - 25, columns 26 - 29", "column 0 = the four swap keys", "other keys only log a message"], "white", title_size=14.5, line_size=12.5)
+    s.card(16, 270, 250, 130, "4 x 5 button matrix", ["rows 22 - 25, columns 26 - 29, 48", "col 0 = the four swap keys,", "cols 1 - 4 = Auto Pilot and Audio", "panel switches (+ 5 AP knobs)"], "white", title_size=14.5, line_size=12.5)
     s.arrow([(266, 140), (310, 200)], None, color=BLUE)
     s.arrow([(266, 335), (310, 290)], None, color=BLUE)
     s.card(614, 40, 250, 92, "TCA9548A I2C mux", ["address 0x70", "I2C SDA 20 / SCL 21"], "white", title_size=14.5, line_size=12.5)

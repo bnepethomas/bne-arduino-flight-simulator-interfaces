@@ -24,10 +24,10 @@ Every live board has its own IP and MAC address.
 | Port | Direction | Purpose |
 |---|---|---|
 | 13136 | PC to boards | Data (`D,`) and control (`C,`) packets |
-| 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
+| 27001 | Radio and ADF controllers to PC bridge | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (`AP_MASTER`, `HEADING_BUG_INC:5`, `GEAR_DOWN`, ...) |
 | 27002 | Bridge (or bench tester) to the GPS interface | Aircraft position, altitude, airspeed, heading and simulator UTC time, every 500 ms (both on the PC) |
 | 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status every 30 seconds (no bridge reads it yet; not 27001, where an unknown string is taken as a COM1 standby frequency) |
-| 4210 | Servo and Upper controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
+| 4210 | Servo, Upper, Radio and ADF controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
 | 7788 | Local on the boards | Source port opened at start-up for outgoing packets |

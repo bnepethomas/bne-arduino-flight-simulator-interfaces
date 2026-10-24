@@ -1,6 +1,6 @@
 # Radio controller (COM and NAV)
 
-The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTROLLER.ino`. It shows the COM and NAV frequencies on two OLEDs, reads eight tuning knobs and a 4 by 4 button matrix, and sends knob and button actions back to the PC.
+The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTROLLER.ino`. It shows the COM and NAV frequencies on two OLEDs, reads eight tuning knobs and a 4 by 5 button matrix, serves the Auto Pilot and Audio panels (switches, knobs and 19 LEDs), and sends knob and button actions back to the PC.
 
 ![Radio panel](diagrams/radio_blocks.svg)
 
@@ -19,7 +19,9 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | COM2 major and minor knob | 34, 35 and 37, 36 | Encoder A, B |
 | NAV1 major and minor knob | 38, 39 and 41, 40 | Encoder A, B |
 | NAV2 major and minor knob | 42, 43 and 45, 44 | Encoder A, B |
-| Button matrix | rows 22 to 25, columns 26 to 29 | 4 by 4 |
+| Button matrix | rows 22 to 25, columns 26, 27, 28, 29 and 48 | 4 by 5: column 0 the COM and NAV swap switches, columns 1 and 2 the Auto Pilot panel, columns 3 and 4 the Audio panel |
+| Auto Pilot knobs | CRS 11, 12; ALT A4, A5; VS 46, 47; IAS 7, 6; HDG 8, 9 | Encoder A, B |
+| Panel LEDs (MAX7219) | DIN A15, CLK A14, LOAD A13 | 19 LEDs on the Auto Pilot and Audio panels |
 | OLEDs | I2C through the TCA9548A (0x70) | Port 0 = NAV OLED, port 1 = COM OLED, both at 0x3C |
 | Status LEDs | 14 green, 15 red | Red flashes while Ethernet starts |
 | Ethernet module | SPI 50 to 52, reset 53 | |
@@ -30,9 +32,11 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 |---|---|---|
 | `C1A`, `C1S` | COM1 active and standby frequency | `C1A:119.500` |
 | `C2A`, `C2S` | COM2 active and standby frequency | `C2S:121.900` |
-| `NAVCOM1` | Radio power (0 = off) | `NAVCOM1:1` |
+| `NAVCOM1` | Radio power (0 = off): the COM and NAV displays and the panel LEDs go off | `NAVCOM1:1` |
 | `MAINBUS` | Main bus voltage | |
-| `C,B:n` | Display brightness (control packet) | `C,B:5` |
+| `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
+| `C,B:n` | Brightness 0 to 15: the panel LEDs' intensity (0 = LEDs off) | `C,B:5` |
+| `C,LEDTEST:n` | 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
 ## Commands to the PC (UDP 27001)
 
@@ -53,6 +57,67 @@ Each knob sends its standby frequency with the radio's name: COM1 as the bare nu
 
 **Tuning steps** follow the standard channel spacing. The COM knobs run 118.000 to 136.975 MHz in 25 kHz channels (the major knob picks 118 to 136, the minor knob 000, 025, 050 and 075). The NAV knobs run 108.00 to 117.95 MHz in 50 kHz steps (major 108 to 117, minor 000, 050, 100 and so on). Each minor knob wraps round at the ends. 8.33 kHz channels are not offered. FSUIPC holds COM frequencies to 10 kHz, so in that simulator a channel such as 118.025 may appear as 118.02 or 118.03.
 
+## Auto Pilot and Audio panels
+
+The Auto Pilot and Audio panels plug into the radio controller. Each panel has eight switches, and the Auto Pilot panel also has five knobs (CRS, ALT, VS, IAS and HDG). Every switch and knob is sent **two ways**:
+
+1. as a **joystick button** to the USB HID board (**Joystick 3** for the Auto Pilot panel, **Joystick 4** for the Audio and ADF panels), which you can bind in FSUIPC or MSFS like any other button. A switch holds its button down while pressed; a knob click is a short press, clockwise on one button and anticlockwise on the next;
+2. as a **command to the simulator bridge** on UDP 27001, which the FSUIPC and MSFS bridges turn straight into the simulator control of that name. A switch sends it when pressed; a knob sends one for each click (with a repeat count when you turn it quickly). Nothing needs binding for these.
+
+Nothing is sent for the first 1.5 seconds after power-up. The full list, with the ADF panel's switches, is below. The joystick buttons used (Joystick 3 and 4) are not used by any other switch.
+
+| Panel | Control | Matrix or pin | Joystick button (index) | Command to the bridge (UDP 27001) |
+|---|---|---|---|---|
+| Auto Pilot | AP ENGAGE | row 0, col 1 | Joystick 3, button 1 (64) | `AP_MASTER` |
+| Auto Pilot | HDG | row 1, col 1 | Joystick 3, button 2 (65) | `AP_HDG_HOLD` |
+| Auto Pilot | CRS | row 2, col 1 | Joystick 3, button 3 (66) | `AP_NAV1_HOLD` |
+| Auto Pilot | ALT | row 3, col 1 | Joystick 3, button 4 (67) | `AP_ALT_HOLD` |
+| Auto Pilot | APPR | row 0, col 2 | Joystick 3, button 5 (68) | `AP_APR_HOLD` |
+| Auto Pilot | FD | row 1, col 2 | Joystick 3, button 6 (69) | `TOGGLE_FLIGHT_DIRECTOR` |
+| Auto Pilot | BC | row 2, col 2 | Joystick 3, button 7 (70) | `AP_BC_HOLD` |
+| Auto Pilot | IAS | row 3, col 2 | Joystick 3, button 8 (71) | `AP_PANEL_SPEED_HOLD` |
+| Auto Pilot | CRS knob clockwise, anticlockwise | D11, D12 | Joystick 3, buttons 9, 10 (72, 73) | `VOR1_OBI_INC`, `VOR1_OBI_DEC` |
+| Auto Pilot | ALT knob | A4, A5 | Joystick 3, buttons 11, 12 (74, 75) | `AP_ALT_VAR_INC`, `AP_ALT_VAR_DEC` |
+| Auto Pilot | VS knob | D46, D47 | Joystick 3, buttons 13, 14 (76, 77) | `AP_VS_VAR_INC`, `AP_VS_VAR_DEC` |
+| Auto Pilot | IAS knob | D7, D6 | Joystick 3, buttons 15, 16 (78, 79) | `AP_SPD_VAR_INC`, `AP_SPD_VAR_DEC` |
+| Auto Pilot | HDG knob | D8, D9 | Joystick 3, buttons 17, 18 (80, 81) | `HEADING_BUG_INC`, `HEADING_BUG_DEC` |
+| Audio | COM1 | row 0, col 3 | Joystick 4, button 1 (96) | `COM1_TRANSMIT_SELECT` |
+| Audio | BOTH | row 1, col 3 | Joystick 4, button 2 (97) | `COM_RECEIVE_ALL_TOGGLE` |
+| Audio | NAV2 | row 2, col 3 | Joystick 4, button 3 (98) | `RADIO_VOR2_IDENT_TOGGLE` |
+| Audio | DME | row 3, col 3 | Joystick 4, button 4 (99) | `RADIO_DME1_IDENT_TOGGLE` |
+| Audio | COM2 | row 0, col 4 | Joystick 4, button 5 (100) | `COM2_TRANSMIT_SELECT` |
+| Audio | NAV1 | row 1, col 4 | Joystick 4, button 6 (101) | `RADIO_VOR1_IDENT_TOGGLE` |
+| Audio | MKR | row 2, col 4 | Joystick 4, button 7 (102) | `MARKER_SOUND_TOGGLE` |
+| Audio | ADF | row 3, col 4 | Joystick 4, button 8 (103) | `RADIO_ADF_IDENT_TOGGLE` |
+| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_DOWN` when closed, `GEAR_UP` when open |
+| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_DOWN` when closed, `FLAPS_UP` when open |
+| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_ON` when closed, `SPOILERS_OFF` when open |
+| ADF | Brakes button | ADF controller D32 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
+| ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
+| ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
+
+If a knob turns the wrong way in the simulator, swap its two encoder pins in the sketch. The rows and columns come from the panel schematics; check each switch on the bench with the debug listener, which prints a line for every press (for example `AP HDG pressed (joystick button index 65)`), and `C,MATRIX:1` for the raw matrix.
+
+## Auto Pilot and Audio panel LEDs
+
+One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panels. Each LED sits between one segment and one digit of the chip:
+
+| LED | Token | MAX7219 digit | Segment | | LED | Token | MAX7219 digit | Segment |
+|---|---|---|---|---|---|---|---|---|
+| CRS | `LED_CRS` | 0 | A | | COM1 | `LED_COM1` | 2 | A |
+| HDG | `LED_HDG` | 0 | B | | BOTH | `LED_BOTH` | 2 | B |
+| IAS | `LED_IAS` | 0 | C | | NAV2 | `LED_NAV2` | 2 | C |
+| ALT | `LED_ALT` | 0 | D | | DME | `LED_DME` | 2 | D |
+| APPR | `LED_APPR` | 1 | A | | OUTER | `LED_OUTER` | 2 | E |
+| FD | `LED_FD` | 1 | B | | INNER | `LED_INNER` | 2 | F |
+| BC | `LED_BC` | 1 | C | | COM2 | `LED_COM2` | 3 | A |
+| AP ENGAGE | `LED_APENG` | 1 | D | | NAV1 | `LED_NAV1` | 3 | B |
+| | | | | | MKR | `LED_MKR` | 3 | C |
+| | | | | | ADF | `LED_ADF` | 3 | D |
+| | | | | | MIDDLE | `LED_MID` | 3 | E |
+
+The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 19 for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the SwingTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **SwingTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
+
 ## Display behaviour
 
 - If no data arrives from the PC for 30 seconds and no knob or button is used, both OLEDs blank (as if the radio had no power). Turning a knob, pressing a button or new data switches them back on.
@@ -63,7 +128,7 @@ Each knob sends its standby frequency with the radio's name: COM1 as the bare nu
 ## Known issues
 
 - Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet, although the NAV knobs are read.
-- The Radio Auto Pilot PCB has a backlight driver on D5, autopilot knobs, volume pots and display drivers that the radio sketch does not use yet, and `C,B:n` brightness commands are accepted but have no effect.
+- The Radio Auto Pilot PCB has a backlight driver on D5 and volume pots that the radio sketch does not use yet. `C,B:n` sets the intensity of the panel LEDs, not that backlight.
 - Four encoders (COM1 major and minor, COM2 minor, NAV1 minor) have A and B the other way round from the PCB labels; it only matters if one of those knobs tunes backwards.
 - If every button in the matrix's first column stops working, send `C,MATRIX:1` to port 13136: the radio prints the raw H or L state of each column to the debug listener. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board (a faulty or badly seated Mega did exactly this on the bench).
 
@@ -94,6 +159,20 @@ Overhead and console switches reach the simulator as ordinary USB joystick butto
 | 64 to 95 | Joystick 3 |
 | 96 to 127 | Joystick 4 |
 | 128 to 175 | Not sent to Windows (out of range) |
+
+## Auto Pilot, Audio and ADF panel buttons
+
+The radio controller (Auto Pilot and Audio panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio and ADF panels), buttons nothing else uses. Windows numbers them from 1:
+
+| Index | Windows button | Source |
+|---|---|---|
+| 64 to 71 | Joystick 3, buttons 1 to 8 | Auto Pilot switches: ENGAGE, HDG, CRS, ALT, APPR, FD, BC, IAS |
+| 72 to 81 | Joystick 3, buttons 9 to 18 | Auto Pilot knobs (clockwise, anticlockwise): CRS, ALT, VS, IAS, HDG |
+| 96 to 103 | Joystick 4, buttons 1 to 8 | Audio switches: COM1, BOTH, NAV2, DME, COM2, NAV1, MKR, ADF |
+| 104 to 107 | Joystick 4, buttons 9 to 12 | ADF panel: landing gear, flaps, speed brakes, brakes |
+| 108 to 111 | Joystick 4, buttons 13 to 16 | ADF knobs (clockwise, anticlockwise): major, minor |
+
+Every one of these is also sent to the simulator bridge as a control (see the radio controller chapter), so you only need to bind the joystick buttons if you want to use them differently.
 
 ## Switch mapping in use
 

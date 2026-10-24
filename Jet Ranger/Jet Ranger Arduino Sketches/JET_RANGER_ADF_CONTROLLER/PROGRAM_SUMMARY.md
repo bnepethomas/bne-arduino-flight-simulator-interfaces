@@ -17,7 +17,11 @@ It compiles for `arduino:avr:mega` (25 KB flash, 1.5 KB RAM). It has not been fl
 | Power status | | Every 30 s (and 5 s after start-up, or on `C,POWER:1`), see below |
 | Display | I2C 0x3C | Character OLED, 2 lines of 16: `ADF  340 kHz` and `ID: 1234_` / `FOLLOW 1234` / `FOLLOW OFF`. Written directly on the Mega's I2C bus (no TCA9548A) |
 
-The landing gear lamps (D2 to D4) and the landing gear, flaps, speed brake and brake inputs (D29 to D32) are on the PCB but are not used yet.
+The landing gear lamps (D2 to D4) are on the PCB but are not used yet. The landing gear, flaps, speed brake and brake switches (D29 to D32, to ground when on, 30 ms debounce) are
+sent as joystick buttons to the USB HID board (172.16.1.11:4210, Joystick 4, indexes 104 to 107, `index,state`) and as simulator controls to the bridge on UDP 27001: `GEAR_DOWN` / `GEAR_UP`,
+`FLAPS_DOWN` / `FLAPS_UP`, `SPOILERS_ON` / `SPOILERS_OFF` when the switch closes / opens, and `PARKING_BRAKES` when the brakes button is pressed. For 1.5 s after start-up they are only read; then the
+joystick buttons are set to the switches' state and no command is sent, so the aircraft is not moved at power-up. If a switch works the wrong way round, swap its two commands in `adfSwitches[]`.
+Each ADF knob click is also a 40 ms press of Joystick 4 buttons (major clockwise / anticlockwise 108 / 109, minor 110 / 111). Compiled at 26,522 bytes flash (10%) / 1,732 bytes RAM (21%).
 
 ## Network
 

@@ -28,6 +28,10 @@
     "C,POWER:1" send a power status now). Debug text goes to 172.16.1.10:27000 and a heartbeat ("ADF_PANEL") to :13137.
     Events for the PC go to 172.16.1.10:27003 (not 27001: the FSUIPC and MSFS bridges treat anything they do not recognise
     on 27001 as a COM1 standby frequency). The bridges do not read port 27003 yet.
+    The landing gear, flaps, speed brake and brakes switches (D29 to D32) and the two ADF knobs are also sent as joystick buttons to
+    the USB HID board (172.16.1.11:4210, Joystick 4, indexes 104 to 111) and, for the four switches, as simulator controls to the
+    bridge on UDP 27001 (GEAR_DOWN / GEAR_UP, FLAPS_DOWN / FLAPS_UP, SPOILERS_ON / SPOILERS_OFF, PARKING_BRAKES), which the bridges
+    recognise.
       ADF_FREQ:<kHz>               the ADF frequency after the knobs stop moving, for example ADF_FREQ:830
       RADAR_FOLLOW_ID:<digits>     the aircraft ID typed on the keypad; RADAR_FOLLOW_ID:0 = stop following
       POWER,V12:12.41,V5:5.02,STATUS:OK     every 30 seconds (STATUS is OK, or the rails that are out of range)
@@ -40,7 +44,7 @@
     D14 D15   green and red status LEDs
     D20 D21   I2C (OLED)
     D22-D25   keypad rows, D26-D28 keypad columns (connector pins 1-4 and 5-7: this order is unverified, see C,MATRIX:1)
-    D29-D32   landing gear, flaps, speed brake and brake inputs      not read yet
+    D29-D32   landing gear, flaps, speed brake and brake switches (closed to ground = on)
     D53       Ethernet module reset
     A0        panel brightness pot (wiper), A15  12 V monitor
 
@@ -85,6 +89,9 @@ const unsigned int MSFSport = 13136;       // control packets in, and the port t
 const unsigned int aliveport = 13137;
 const unsigned int reflectorport = 27000;  // debug text
 const unsigned int adfEventPort = 27003;   // ADF frequency, radar follow ID and power status for the PC
+const unsigned int bridgeCommandPort = 27001;  // simulator controls for the PC bridge (the bridges recognise the control names below)
+IPAddress hidIP(172, 16, 1, 11);           // USB HID board: joystick buttons, "index,state"
+const unsigned int hidPort = 4210;
 
 EthernetUDP udp;
 EthernetUDP MSFSudp;   // Control packets
@@ -201,6 +208,114 @@ void initCharOLED() {
 }
 
 // ############################################# END I2C / CHARACTER OLED ##########################################
+
+// ############################################# BEGIN JOYSTICK BUTTONS AND PANEL SWITCHES ##########################################
+unsigned long panelQuietUntil = 0;  // for a moment after start-up the switches are only read, not sent
+
+// Forwards a button press (1) or release (0) to the USB HID board, which drives the matching virtual joystick button (Windows counts
+// buttons from 1, so index 104 is Joystick 4 button 9).
+void sendButtonToHid(int index, int state) {
+  if (Ethernet_In_Use != 1) return;
+  udp.beginPacket(hidIP, hidPort);
+  udp.print(String(index) + "," + String(state));
+  udp.endPacket();
+}
+
+// A knob click has no release, so it is sent as a short press and the release goes out from the main loop a few milliseconds later.
+#define HID_PULSE_MS 40
+#define HID_PULSE_SLOTS 4
+struct HidPulse {
+  int index;
+  unsigned long releaseAt;
+};
+HidPulse hidPulses[HID_PULSE_SLOTS];
+
+void pulseButtonToHid(int index) {
+  for (int i = 0; i < HID_PULSE_SLOTS; i++) {
+    if (hidPulses[i].index == 0 || hidPulses[i].index == index) {
+      if (hidPulses[i].index == 0) sendButtonToHid(index, 1);
+      hidPulses[i].index = index;
+      hidPulses[i].releaseAt = millis() + HID_PULSE_MS;
+      return;
+    }
+  }
+}
+
+void serviceHidPulses() {
+  for (int i = 0; i < HID_PULSE_SLOTS; i++) {
+    if (hidPulses[i].index != 0 && (long)(millis() - hidPulses[i].releaseAt) >= 0) {
+      sendButtonToHid(hidPulses[i].index, 0);
+      hidPulses[i].index = 0;
+    }
+  }
+}
+
+// Sends a simulator control to the bridge on UDP 27001.
+void sendCommandToBridge(const char* command) {
+  if (Ethernet_In_Use != 1) return;
+  udp.beginPacket(reflectorIP, bridgeCommandPort);
+  udp.print(command);
+  udp.endPacket();
+}
+
+// The four switches on the ADF panel, to ground when on. The first command goes to the bridge when the switch closes and the second when it
+// opens (the brakes are a push button: its press toggles the parking brake and its release sends nothing). If a switch works the wrong way
+// round in the simulator, swap its two commands.
+#define SWITCH_DEBOUNCE_MS 30
+struct AdfSwitch {
+  uint8_t pin;
+  uint8_t hidIndex;
+  const char* closedCommand;
+  const char* openCommand;
+  const char* name;
+  bool closed;         // debounced state
+  bool lastReading;    // raw reading last time
+  unsigned long changedAt;
+};
+
+AdfSwitch adfSwitches[] = {
+  { 29, 104, "GEAR_DOWN", "GEAR_UP", "LANDING GEAR", false, false, 0 },
+  { 30, 105, "FLAPS_DOWN", "FLAPS_UP", "FLAPS", false, false, 0 },
+  { 31, 106, "SPOILERS_ON", "SPOILERS_OFF", "SPEED BRAKES", false, false, 0 },
+  { 32, 107, "PARKING_BRAKES", NULL, "BRAKES", false, false, 0 },
+};
+const int adfSwitchCount = sizeof(adfSwitches) / sizeof(adfSwitches[0]);
+bool adfSwitchStartSent = false;
+
+void initAdfSwitches() {
+  for (int i = 0; i < adfSwitchCount; i++) {
+    pinMode(adfSwitches[i].pin, INPUT_PULLUP);
+    adfSwitches[i].lastReading = (digitalRead(adfSwitches[i].pin) == LOW);
+    adfSwitches[i].closed = adfSwitches[i].lastReading;
+  }
+  panelQuietUntil = millis() + 1500;
+}
+
+void pollAdfSwitches() {
+  for (int i = 0; i < adfSwitchCount; i++) {
+    AdfSwitch& s = adfSwitches[i];
+    bool reading = (digitalRead(s.pin) == LOW);
+    if (reading != s.lastReading) {
+      s.lastReading = reading;
+      s.changedAt = millis();
+    }
+    if (reading != s.closed && (millis() - s.changedAt) >= SWITCH_DEBOUNCE_MS) {
+      s.closed = reading;
+      if (millis() < panelQuietUntil) continue;  // start-up: record the state only
+      SendDebug(String(s.name) + (s.closed ? " closed" : " open") + " (joystick button index " + String(s.hidIndex) + ")");
+      sendButtonToHid(s.hidIndex, s.closed ? 1 : 0);
+      const char* command = s.closed ? s.closedCommand : s.openCommand;
+      if (command != NULL) sendCommandToBridge(command);
+    }
+  }
+  // Once the start-up quiet period is over, the joystick buttons are brought into line with the switches as they are (no simulator
+  // command is sent, so the aircraft is not moved at power-up).
+  if (!adfSwitchStartSent && millis() >= panelQuietUntil) {
+    adfSwitchStartSent = true;
+    for (int i = 0; i < adfSwitchCount; i++) sendButtonToHid(adfSwitches[i].hidIndex, adfSwitches[i].closed ? 1 : 0);
+  }
+}
+// ############################################# END JOYSTICK BUTTONS AND PANEL SWITCHES ##########################################
 
 // ############################################# BEGIN ADF TUNING ##########################################
 // ADF frequency in kHz. The major knob is 100 kHz per click, the minor knob 1 kHz per click (faster when spun).
@@ -619,6 +734,7 @@ void setup() {
 
   SendDebug("Start Matrix");
   initMatrixScanner();
+  initAdfSwitches();
 
   SendDebug("Setup Complete");
 }
@@ -644,6 +760,8 @@ void loop() {
   // ADF knobs
   int majorDetents = pollEncoderDetents(AdfMajorEncoder, majorRemainder);
   int minorDetents = pollEncoderDetents(AdfMinorEncoder, minorRemainder);
+  if (majorDetents != 0 && millis() >= panelQuietUntil) pulseButtonToHid(majorDetents > 0 ? 108 : 109);  // Joystick 4 buttons 13 and 14
+  if (minorDetents != 0 && millis() >= panelQuietUntil) pulseButtonToHid(minorDetents > 0 ? 110 : 111);  // Joystick 4 buttons 15 and 16
   if (majorDetents != 0 || minorDetents != 0) {
     int newKhz = constrain(adfKhz + majorDetents * ADF_MAJOR_STEP_KHZ + minorDetents * ADF_MINOR_STEP_KHZ, ADF_MIN_KHZ, ADF_MAX_KHZ);
     if (newKhz != adfKhz) {
@@ -660,6 +778,8 @@ void loop() {
   }
 
   scanMatrix();
+  pollAdfSwitches();
+  serviceHidPulses();
 
   // An entry that has been left unfinished is dropped and the display goes back to the ID being followed.
   if (idEntering && (millis() - lastKeyMillis) >= ID_ENTRY_TIMEOUT_MS) {

@@ -7,7 +7,7 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 | FSUIPCWinformsAutoCS | Bridge for Prepar3D and FSX | Bridges |
 | MSFSWinformsAutoCS | Bridge for MSFS 2020 and 2024 | Bridges |
 | JetRangerHealthMonitor | Shows which boards are alive | Health Monitor |
-| SwingTester | Swings every gauge, lamps, OLEDs, resets boards, sets brightness | SwingTester |
+| SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot and Audio panel LEDs, resets boards, sets brightness | SwingTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
 | JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards | Emulators |
 | LowranceAirMapGps | Feeds the Lowrance AirMap 2000C | GPS interface |
@@ -53,6 +53,7 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 - **Lamps ON (in order)** and **Lamps OFF (in order)** with the **on gap** and **off gap** times, and **Light warning lamps during Swing ALL**.
 - **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board; **Backlight power ON / OFF** send `BPWR` to test the main bus rule.
 - **Status line:** what was last sent and to which boards.
+- **Panel LEDs group** (far right): one toggle for each of the 19 Auto Pilot and Audio panel LEDs (gold when on), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0`). **All ON** and **All OFF** do all 19, **Chase** lights them one at a time for the *on gap* time (click again to stop), and **Board test (C,LEDTEST)** lights all 19 with the Radio's own test.
 - **Gauge rows** (left): the 18 gauges with the board each is on, the wait in seconds and a **Swing** button for each. The row being swung is highlighted gold.
 - **Warning lamps** (right): one button for each of the 15 lamps, in turn-off order. A lamp that is on is gold.
 

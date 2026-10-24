@@ -20,10 +20,11 @@
 <text x="28.0" y="140.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV2 major 42/43, minor 45/44</text>
 <text x="28.0" y="158.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">polled, no interrupts needed</text>
 <rect x="16.0" y="270.0" width="250.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="28.0" y="294.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">4 x 4 button matrix</text>
-<text x="28.0" y="318.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rows 22 - 25, columns 26 - 29</text>
-<text x="28.0" y="335.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">column 0 = the four swap keys</text>
-<text x="28.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">other keys only log a message</text>
+<text x="28.0" y="294.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">4 x 5 button matrix</text>
+<text x="28.0" y="318.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rows 22 - 25, columns 26 - 29, 48</text>
+<text x="28.0" y="335.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">col 0 = the four swap keys,</text>
+<text x="28.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">cols 1 - 4 = Auto Pilot and Audio</text>
+<text x="28.0" y="370.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">panel switches (+ 5 AP knobs)</text>
 <path d="M 266.0 140.0 L 310.0 200.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <path d="M 266.0 335.0 L 310.0 290.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="614.0" y="40.0" width="250.0" height="92.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>

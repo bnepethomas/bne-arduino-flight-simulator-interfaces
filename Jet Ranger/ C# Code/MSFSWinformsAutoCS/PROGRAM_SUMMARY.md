@@ -58,6 +58,15 @@ offsets. Written 2026-10-17 and since run against MSFS 2024.
 COM 1/2 and NAV 1/2 active and standby frequencies. `PanelVars` and the `PanelData` struct
 must list them in the same order; `CheckDefinitionMatchesStruct()` checks the count at connect.
 
+## Panel LEDs and panel controls
+
+- **LEDs:** the 19 Auto Pilot and Audio panel LEDs are read through two extra SimConnect requests (`PanelAp`, `PanelAudio`, every 6th frame) so an unknown SimVar cannot take the gauge data down.
+  `PanelAp`: `AUTOPILOT MASTER`, `NAV1 LOCK`, `HEADING LOCK`, `ALTITUDE LOCK`, `AIRSPEED HOLD`, `APPROACH HOLD`, `BACKCOURSE HOLD`, `FLIGHT DIRECTOR ACTIVE`. `PanelAudio`: `COM TRANSMIT:1/2`,
+  `COM RECEIVE ALL`, `NAV SOUND:1/2`, `DME SOUND`, `ADF SOUND`, `MARKER SOUND`, `OUTER / MIDDLE / INNER MARKER`. They become the `LED_xxx` tokens of the radio packet (`Payloads.LedTokens()`, all 0 while
+  the radio bus is below 24 V). `ADF SOUND` could not be confirmed to exist in MSFS (if it does not, only the audio LEDs stay off).
+- **Controls:** `TryPanelCommand()` (first in `UpdateRadios()`) sends the control names from UDP 27001 as the SimConnect event of the same name, mapped once at connect time from `PanelEventNames`
+  (event numbers from 1000): the same list as the FSUIPC bridge, with an optional `:N` repeat count. Built clean; not run against MSFS.
+
 ## Commands from the panel (UDP 27001)
 
 `COM1_RADIO_SWAP`, `COM2_RADIO_SWAP`, `NAV1_RADIO_SWAP`, `NAV2_RADIO_SWAP`;

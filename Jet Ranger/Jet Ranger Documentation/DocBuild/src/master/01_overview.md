@@ -47,7 +47,7 @@ All programs are in `Jet Ranger/ C# Code/` (note the leading space in the folder
 | `MSFSWinformsAutoCS` | Bridge for MSFS 2020 / 2024 using SimConnect, with estimates for aircraft whose dials do not read the standard variables (FlyInside B206, CowaSim Jet Ranger); also feeds the GPS interface |
 | `JetRangerHealthMonitor` | Traffic-light dashboard for the 10 second board heartbeats |
 | `StepperVSITester` | Bench tester that sends real and raw values to the stepper boards and the servo board |
-| `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, resets boards, and sets the backlight brightness |
+| `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, tests the Auto Pilot and Audio panel LEDs one by one, resets boards, and sets the backlight and LED brightness |
 | `LowranceAirMapGps` | Makes the PC a GPS source for a Lowrance AirMap 2000C: NMEA over a serial port, fed by the bridges over UDP, defaulting to Brisbane Airport |
 | `LowranceAirMapGpsBenchTester` | Bench sender for the GPS interface: typed values, 8-way cursor, country / city / airport selection, Fly mode and a date / time clock |
 | `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | Stand-ins for the radio and upper boards when they are disconnected |

@@ -483,17 +483,188 @@ RotaryEncoder Nav2MinorEncoder(45, 44, 0, NavMinorEncoderMaxValue, 1);
 
 // ############################################# END ENCODER  ##########################################
 
+// ############################################# BEGIN PANEL SWITCHES AND ENCODERS ##########################################
+// The Auto Pilot and Audio panels' switches (matrix columns 1 to 4) and the Auto Pilot panel's five encoders. Each one is sent two ways:
+//   1. as a joystick button on the USB HID board (UDP 172.16.1.11:4210, "index,state"), in the buttons that nothing else uses:
+//      Joystick 3 (indexes 64-95) is the Auto Pilot panel and Joystick 4 (96-127) the Audio and ADF panels. Windows numbers
+//      buttons from 1, so index 64 is Joystick 3 button 1.
+//   2. as a command to the PC bridge (UDP 172.16.1.10:27001), where the FSUIPC and MSFS bridges turn it into a simulator control.
+// The command is the name of the simulator event, sent when the switch is pressed (and once per click for an encoder, with a
+// ":N" repeat count when the knob is turned quickly).
+IPAddress hidIP(172, 16, 1, 11);
+const unsigned int hidPort = 4210;
+#define BRIDGE_COMMAND_PORT 27001
+extern unsigned long matrixQuietUntil;  // start-up quiet period, defined with the matrix scanner below
+
+struct PanelSwitch {
+  uint8_t row;
+  uint8_t col;
+  uint8_t hidIndex;
+  const char* command;
+  const char* name;
+};
+
+const PanelSwitch panelSwitches[] = {
+  // Auto Pilot panel (Joystick 3, buttons 1 to 8)
+  { 0, 1, 64, "AP_MASTER", "AP ENGAGE" },
+  { 1, 1, 65, "AP_HDG_HOLD", "AP HDG" },
+  { 2, 1, 66, "AP_NAV1_HOLD", "AP CRS" },
+  { 3, 1, 67, "AP_ALT_HOLD", "AP ALT" },
+  { 0, 2, 68, "AP_APR_HOLD", "AP APPR" },
+  { 1, 2, 69, "TOGGLE_FLIGHT_DIRECTOR", "AP FD" },
+  { 2, 2, 70, "AP_BC_HOLD", "AP BC" },
+  { 3, 2, 71, "AP_PANEL_SPEED_HOLD", "AP IAS" },
+  // Audio panel (Joystick 4, buttons 1 to 8)
+  { 0, 3, 96, "COM1_TRANSMIT_SELECT", "AUDIO COM1" },
+  { 1, 3, 97, "COM_RECEIVE_ALL_TOGGLE", "AUDIO BOTH" },
+  { 2, 3, 98, "RADIO_VOR2_IDENT_TOGGLE", "AUDIO NAV2" },
+  { 3, 3, 99, "RADIO_DME1_IDENT_TOGGLE", "AUDIO DME" },
+  { 0, 4, 100, "COM2_TRANSMIT_SELECT", "AUDIO COM2" },
+  { 1, 4, 101, "RADIO_VOR1_IDENT_TOGGLE", "AUDIO NAV1" },
+  { 2, 4, 102, "MARKER_SOUND_TOGGLE", "AUDIO MKR" },
+  { 3, 4, 103, "RADIO_ADF_IDENT_TOGGLE", "AUDIO ADF" },
+};
+const int panelSwitchCount = sizeof(panelSwitches) / sizeof(panelSwitches[0]);
+
+// Forwards a button press (1) or release (0) to the USB HID board, which drives the matching virtual joystick button.
+void sendButtonToHid(int index, int state) {
+  if (Ethernet_In_Use != 1) return;
+  udp.beginPacket(hidIP, hidPort);
+  udp.print(String(index) + "," + String(state));
+  udp.endPacket();
+}
+
+// A knob click has no release, so it is sent as a short press: the release goes out from the main loop a few milliseconds later.
+#define HID_PULSE_MS 40
+#define HID_PULSE_SLOTS 6
+struct HidPulse {
+  int index;
+  unsigned long releaseAt;
+};
+HidPulse hidPulses[HID_PULSE_SLOTS];
+
+void pulseButtonToHid(int index) {
+  for (int i = 0; i < HID_PULSE_SLOTS; i++) {
+    if (hidPulses[i].index == 0 || hidPulses[i].index == index) {
+      if (hidPulses[i].index == 0) sendButtonToHid(index, 1);
+      hidPulses[i].index = index;
+      hidPulses[i].releaseAt = millis() + HID_PULSE_MS;
+      return;
+    }
+  }
+}
+
+void serviceHidPulses() {
+  for (int i = 0; i < HID_PULSE_SLOTS; i++) {
+    if (hidPulses[i].index != 0 && (long)(millis() - hidPulses[i].releaseAt) >= 0) {
+      sendButtonToHid(hidPulses[i].index, 0);
+      hidPulses[i].index = 0;
+    }
+  }
+}
+
+// Sends a simulator control to the bridge ("AP_MASTER", or "HEADING_BUG_INC:5" for five clicks at once).
+void sendCommandToBridge(const char* command, int count) {
+  if (Ethernet_In_Use != 1) return;
+  if (millis() < matrixQuietUntil) return;
+  udp.beginPacket(reflectorIP, BRIDGE_COMMAND_PORT);
+  udp.print(command);
+  if (count > 1) {
+    udp.print(":");
+    udp.print(count);
+  }
+  udp.endPacket();
+}
+
+// Auto Pilot panel encoders. Each is kept near the middle of its range and recentred after every read, so the change since the last read is
+// the distance from the middle; three counts make one click. Turning clockwise gives the first command, anticlockwise the second. If a knob
+// works the wrong way, swap its A and B pins below.
+#define PanelEncoderCentre 1000
+struct PanelEncoder {
+  RotaryEncoder* encoder;
+  int16_t remainder;
+  const char* clockwise;
+  const char* anticlockwise;
+  uint8_t hidClockwise;
+  uint8_t hidAnticlockwise;
+  const char* name;
+};
+
+RotaryEncoder apCrsEncoder(11, 12, 0, 2 * PanelEncoderCentre, 1);   // CRS_A D11, CRS_B D12
+RotaryEncoder apAltEncoder(A4, A5, 0, 2 * PanelEncoderCentre, 1);   // ALT_A A4, ALT_B A5
+RotaryEncoder apVsEncoder(46, 47, 0, 2 * PanelEncoderCentre, 1);    // VS_A D46, VS_B D47
+RotaryEncoder apIasEncoder(7, 6, 0, 2 * PanelEncoderCentre, 1);     // IAS_A D7, IAS_B D6
+RotaryEncoder apHdgEncoder(8, 9, 0, 2 * PanelEncoderCentre, 1);     // HDG_A D8, HDG_B D9
+
+PanelEncoder panelEncoders[] = {
+  { &apCrsEncoder, 0, "VOR1_OBI_INC", "VOR1_OBI_DEC", 72, 73, "AP CRS knob" },
+  { &apAltEncoder, 0, "AP_ALT_VAR_INC", "AP_ALT_VAR_DEC", 74, 75, "AP ALT knob" },
+  { &apVsEncoder, 0, "AP_VS_VAR_INC", "AP_VS_VAR_DEC", 76, 77, "AP VS knob" },
+  { &apIasEncoder, 0, "AP_SPD_VAR_INC", "AP_SPD_VAR_DEC", 78, 79, "AP IAS knob" },
+  { &apHdgEncoder, 0, "HEADING_BUG_INC", "HEADING_BUG_DEC", 80, 81, "AP HDG knob" },
+};
+const int panelEncoderCount = sizeof(panelEncoders) / sizeof(panelEncoders[0]);
+
+void initPanelEncoders() {
+  for (int i = 0; i < panelEncoderCount; i++) {
+    RotaryEncoder* e = panelEncoders[i].encoder;
+    e->begin();
+    e->setAccelerationParams(5, 80, 5, 8);
+    e->enableAcceleration(true);
+    e->setPosition(PanelEncoderCentre);
+  }
+}
+
+void pollPanelEncoders() {
+  for (int i = 0; i < panelEncoderCount; i++) {
+    RotaryEncoder* e = panelEncoders[i].encoder;
+    e->poll();
+    int16_t delta = e->getPosition() - PanelEncoderCentre;
+    if (delta == 0) continue;
+    e->setPosition(PanelEncoderCentre);
+    panelEncoders[i].remainder += delta;
+    int clicks = panelEncoders[i].remainder / ClicksPerIncrement;
+    panelEncoders[i].remainder -= clicks * ClicksPerIncrement;
+    if (clicks == 0) continue;
+    if (millis() < matrixQuietUntil) continue;  // knob positions at start-up are not input
+    wakeDisplays();
+    bool clockwise = clicks > 0;
+    int count = abs(clicks);
+    if (count > 50) count = 50;
+    SendDebug(String(panelEncoders[i].name) + (clockwise ? " clockwise " : " anticlockwise ") + String(count));
+    sendCommandToBridge(clockwise ? panelEncoders[i].clockwise : panelEncoders[i].anticlockwise, count);
+    pulseButtonToHid(clockwise ? panelEncoders[i].hidClockwise : panelEncoders[i].hidAnticlockwise);
+  }
+}
+
+// A switch on the Auto Pilot or Audio panel (matrix column 1 to 4) was pressed (true) or released (false). Returns true if it was one of them.
+bool handlePanelSwitch(int row, int col, bool pressed) {
+  for (int i = 0; i < panelSwitchCount; i++) {
+    if (panelSwitches[i].row == row && panelSwitches[i].col == col) {
+      SendDebug(String(panelSwitches[i].name) + (pressed ? " pressed" : " released") + " (joystick button index " + String(panelSwitches[i].hidIndex) + ")");
+      sendButtonToHid(panelSwitches[i].hidIndex, pressed ? 1 : 0);
+      if (pressed) sendCommandToBridge(panelSwitches[i].command, 1);
+      return true;
+    }
+  }
+  return false;
+}
+// ############################################# END PANEL SWITCHES AND ENCODERS ##########################################
+
 // ############################################# BEGIN MATRIX SCANNER  ##########################################
-// Matrix Keypad Scanner with Debounce
-// Rows: D22-D25, Columns: D32-D35
+// Matrix Scanner with Debounce
+// Rows (ROW0-ROW3): D22-D25, columns (COL0-COL4): D26, D27, D28, D29 and D48. Each switch has a diode to its column.
+//   COL0  COM and NAV panel   (four frequency swap switches)
+//   COL1  Auto Pilot panel    (ENGAGE, HDG, CRS, ALT)       COL2  Auto Pilot panel (APPR, FD, BC, IAS)
+//   COL3  Audio panel         (COM1, BOTH, NAV2, DME)       COL4  Audio panel      (COM2, NAV1, MKR, ADF)
 
 // Pin definitions
-const int rowPins[4] = { 22, 23, 24, 25 };  // Row pins D22-D25
-const int colPins[4] = { 26, 27, 28, 29 };  // Column pins D32-D35
+const int rowPins[4] = { 22, 23, 24, 25 };      // Row pins D22-D25
+const int colPins[5] = { 26, 27, 28, 29, 48 };  // Column pins (COL4 is D48 on the Radio Auto Pilot PCB)
 
 // Matrix configuration
 const int ROWS = 4;
-const int COLS = 4;
+const int COLS = 5;
 
 // Debounce settings
 const unsigned long DEBOUNCE_DELAY = 50;     // 50ms debounce delay
@@ -504,10 +675,10 @@ bool keyPressed[ROWS][COLS];                 // Tracks if key is currently press
 
 // Optional: Define key mapping (customize as needed)
 char keyMap[ROWS][COLS] = {
-  { '1', '2', '3', 'A' },
-  { '4', '5', '6', 'B' },
-  { '7', '8', '9', 'C' },
-  { '*', '0', '#', 'D' }
+  { '1', '2', '3', 'A', 'E' },
+  { '4', '5', '6', 'B', 'F' },
+  { '7', '8', '9', 'C', 'G' },
+  { '*', '0', '#', 'D', 'H' }
 };
 
 // Phantom key presses: an unwired / floating matrix column reads LOW as soon as
@@ -642,13 +813,13 @@ void wakeDisplays() {
 void reportMatrixRaw() {
   for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], HIGH);
   delayMicroseconds(50);
-  String line = "Matrix raw idle (all rows HIGH), cols 0-3: ";
+  String line = "Matrix raw idle (all rows HIGH), cols 0-4: ";
   for (int c = 0; c < COLS; c++) line += (digitalRead(colPins[c]) ? "H" : "L");
   SendDebug(line);
   for (int r = 0; r < ROWS; r++) {
     for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], (i == r) ? LOW : HIGH);
     delayMicroseconds(50);
-    String rl = "Matrix raw row " + String(r) + " LOW, cols 0-3: ";
+    String rl = "Matrix raw row " + String(r) + " LOW, cols 0-4: ";
     for (int c = 0; c < COLS; c++) rl += (digitalRead(colPins[c]) ? "H" : "L");
     SendDebug(rl);
   }
@@ -672,6 +843,7 @@ void onKeyRelease(int row, int col) {
 
 // Custom key press handler - modify this for your application
 void handleKeyPress(int row, int col, char key) {
+  if (col >= 1 && handlePanelSwitch(row, col, true)) return;  // Auto Pilot and Audio panels
   if (row == 2 && col == 0) {
     SendDebug("COM1 Swap");
     if (Ethernet_In_Use == 1) {
@@ -751,8 +923,7 @@ void handleKeyPress(int row, int col, char key) {
 
 // Custom key release handler - modify this for your application
 void handleKeyRelease(int row, int col, char key) {
-  // Add any key release specific functionality here
-  // For example, you might want to clear a display or stop an action
+  if (col >= 1) handlePanelSwitch(row, col, false);  // releases the joystick button of an Auto Pilot or Audio panel switch
 }
 
 // Utility function to check if any key is currently pressed
@@ -1216,6 +1387,7 @@ void setup() {
 
   SendDebug("Start Matrix");
   initMatrixScanner();
+  initPanelEncoders();
 
   // Start the no-data timeout from the END of setup(), not from reset.
   lastMSFSDataMillis = millis();
@@ -1389,6 +1561,8 @@ void loop() {
 
 
   scanMatrix();
+  pollPanelEncoders();
+  serviceHidPulses();
 
   // Check for MSFS Data Updates for COM Radios for staters
   MSFSpacketsize = MSFSudp.parsePacket();
