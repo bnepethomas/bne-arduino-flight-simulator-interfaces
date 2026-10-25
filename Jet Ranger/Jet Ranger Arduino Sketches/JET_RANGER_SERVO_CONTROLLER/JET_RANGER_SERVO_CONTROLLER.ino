@@ -165,8 +165,8 @@ String SC_Fail = "0";          //SCF
 #define D_Baggage_Door A10
 #define D_Engine_Chip A7
 #define D_TR_Chip A8
-#define D_Fuel_Pump A12
-#define D_AFT_Fuel_Filter A11
+#define D_Fuel_Pump A11
+#define D_AFT_Fuel_Filter A12
 #define D_Gen_Fail A13
 #define D_Low_Fuel A14
 #define D_SC_Fail A15

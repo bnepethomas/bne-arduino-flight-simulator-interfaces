@@ -92,12 +92,15 @@ Nothing is sent for the first 1.5 seconds after power-up. The full list, with th
 | Audio | NAV1 | row 1, col 4 | Joystick 4, button 6 (101) | `RADIO_VOR1_IDENT_TOGGLE` |
 | Audio | MKR | row 2, col 4 | Joystick 4, button 7 (102) | `MARKER_SOUND_TOGGLE` |
 | Audio | ADF | row 3, col 4 | Joystick 4, button 8 (103) | `RADIO_ADF_IDENT_TOGGLE` |
-| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_DOWN` when closed, `GEAR_UP` when open |
-| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_DOWN` when closed, `FLAPS_UP` when open |
-| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_ON` when closed, `SPOILERS_OFF` when open |
+| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
+| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
+| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
 | ADF | Brakes button | ADF controller D32 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
 | ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
 | ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
+| ADF | Anti-ice switch | ADF controller D34 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
+| ADF | Hyd boost switch | ADF controller D33 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Caution dim switch | ADF controller D35 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
 
 If a knob turns the wrong way in the simulator, swap its two encoder pins in the sketch. The rows and columns come from the panel schematics; check each switch on the bench with the debug listener, which prints a line for every press (for example `AP HDG pressed (joystick button index 65)`), and `C,MATRIX:1` for the raw matrix.
 
@@ -142,8 +145,8 @@ The radio controller switches the backlights of the Audio, Auto Pilot and COM an
 
 ## Display behaviour
 
-- If no data arrives from the PC for 30 seconds and no knob or button is used, both OLEDs blank (as if the radio had no power). Turning a knob, pressing a button or new data switches them back on.
-- When the avionics bus is below 24 V the bridge tells the radio the power is off (`NAVCOM1:0`) and the COM and NAV displays go blank together; they light together again when the bus rises.
+- If no data arrives from the PC for 30 seconds and no knob or button is used, the COM, NAV, Auto Pilot and DME displays blank (as if the radio had no power) and the radio tells the ADF controller to blank its display and lamps too. Turning a knob, pressing a button or new data switches them back on.
+- When the avionics bus is below 24 V the bridge tells the radio the power is off (`NAVCOM1:0`) and the COM, NAV, Auto Pilot and DME displays (and the ADF panel's display) go blank together; they light together again when the bus rises.
 - At power-up the matrix is ignored for the first 1.5 seconds so a floating input cannot send false button presses. Each switch is checked every millisecond and reported about 12 ms after it changes, and a noisy reading cannot hold a release back.
 - At start-up the radio scans the I2C bus and sends what it finds, behind each multiplexer channel, to the debug monitor (lines starting `I2C`); send `C,I2CSCAN:1` to scan again. The Audio panel's OLED is the **DME display**: it shows `10M` on the top line and `0M` on the bottom line after start-up.
 
@@ -195,6 +198,7 @@ The radio controller (Auto Pilot and Audio panels) and the ADF controller send t
 | 96 to 103 | Joystick 4, buttons 1 to 8 | Audio switches: COM1, BOTH, NAV2, DME, COM2, NAV1, MKR, ADF |
 | 104 to 107 | Joystick 4, buttons 9 to 12 | ADF panel: landing gear, flaps, speed brakes, brakes |
 | 108 to 111 | Joystick 4, buttons 13 to 16 | ADF knobs (clockwise, anticlockwise): major, minor |
+| 112 to 114 | Joystick 4, buttons 17 to 19 | ADF panel: anti-ice, hyd boost, caution dim |
 
 Every one of these is also sent to the simulator bridge as a control (see the radio controller chapter), so you only need to bind the joystick buttons if you want to use them differently.
 

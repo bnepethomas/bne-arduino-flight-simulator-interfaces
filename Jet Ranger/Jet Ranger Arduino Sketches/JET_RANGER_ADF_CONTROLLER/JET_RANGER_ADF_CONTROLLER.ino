@@ -217,26 +217,58 @@ void initCharOLED() {
 #define LDG_LEFT_PIN 3
 #define LDG_RIGHT_PIN 4
 
+// Panel blanking, the same rules as the other boards. The panel (display, lamps and, with the main bus down or the no-data timeout, the backlight) goes
+// dark when: the Radio controller has blanked its displays ("C,DISPLAY:0": no avionics power, or no data or input for 30 s), or this board has
+// had no data packet from the bridge and no local input (knob, key or switch) for NO_DATA_TIMEOUT_MS. The backlight also goes off while the bridge
+// reports the main bus down (BPWR:0). Everything comes back at the same level when data or input resumes.
+#define NO_DATA_TIMEOUT_MS 30000UL
+bool displayOn = true;           // false while the Radio controller has its displays blanked
+bool noDataBlanked = false;      // true while the no-data timeout has fired
+bool backlightPowered = true;    // true until the bridge reports the main bus is down
+unsigned long lastActivityMillis = 0;
+bool lampWanted[3] = { false, false, false };  // nose, left, right: what the bridge (or SwingTester) asked for
+const uint8_t lampPins[3] = { LDG_NOSE_PIN, LDG_LEFT_PIN, LDG_RIGHT_PIN };
+
+bool panelBlank() {
+  return !displayOn || noDataBlanked;
+}
+
+void applyLandingGearLamps() {
+  for (int i = 0; i < 3; i++) digitalWrite(lampPins[i], (lampWanted[i] && !panelBlank()) ? HIGH : LOW);
+}
+
 void initLandingGearLamps() {
-  pinMode(LDG_NOSE_PIN, OUTPUT);
-  pinMode(LDG_LEFT_PIN, OUTPUT);
-  pinMode(LDG_RIGHT_PIN, OUTPUT);
-  digitalWrite(LDG_NOSE_PIN, LOW);
-  digitalWrite(LDG_LEFT_PIN, LOW);
-  digitalWrite(LDG_RIGHT_PIN, LOW);
+  for (int i = 0; i < 3; i++) pinMode(lampPins[i], OUTPUT);
+  applyLandingGearLamps();
 }
 
 // "LDGN", "1": returns true if the token was one of the landing gear lamps.
 bool setLandingGearLampFromToken(const String& name, const String& value) {
-  int pin = -1;
-  if (name == "LDGN") pin = LDG_NOSE_PIN;
-  else if (name == "LDGL") pin = LDG_LEFT_PIN;
-  else if (name == "LDGR") pin = LDG_RIGHT_PIN;
-  if (pin < 0) return false;
-  digitalWrite(pin, value.toInt() != 0 ? HIGH : LOW);
+  int lamp = -1;
+  if (name == "LDGN") lamp = 0;
+  else if (name == "LDGL") lamp = 1;
+  else if (name == "LDGR") lamp = 2;
+  if (lamp < 0) return false;
+  lampWanted[lamp] = (value.toInt() != 0);
+  applyLandingGearLamps();
   return true;
 }
 
+void applyOwnBacklight();  // defined with the panel brightness code below
+
+// Any data packet, brightness command or keep-alive from the PC, or any local input, restarts the no-data timeout and, if the panel was blanked
+// by it, brings the panel back.
+void noteActivity() {
+  lastActivityMillis = millis();
+  if (noDataBlanked) {
+    noDataBlanked = false;
+    applyLandingGearLamps();
+    applyOwnBacklight();
+    SendDebug("Data or input resumed - panel restored");
+  }
+}
+
+// "BPWR", "1": backlight power from the bridge (1 = main bus 20 V or more).
 void HandleDataString(String str) {
   int colon = str.indexOf(':');
   if (colon <= 0) return;
@@ -244,8 +276,18 @@ void HandleDataString(String str) {
   String value = str.substring(colon + 1);
   name.trim();
   value.trim();
+  if (name == "BPWR") {
+    bool powered = (value.toInt() != 0);
+    if (powered != backlightPowered) {
+      backlightPowered = powered;
+      applyOwnBacklight();
+      SendDebug(powered ? "Main bus on - backlight on" : "Main bus off - backlight off");
+    }
+    return;
+  }
   setLandingGearLampFromToken(name, value);
 }
+
 // ############################################# END LANDING GEAR LAMPS ##########################################
 
 // ############################################# BEGIN JOYSTICK BUTTONS AND PANEL SWITCHES ##########################################
@@ -320,6 +362,10 @@ AdfSwitch adfSwitches[] = {
   { 30, 105, "FLAPS_SET", NULL, "FLAPS", false, false, 0 },
   { 31, 106, "SPOILERS_SET", NULL, "SPEED BRAKES", false, false, 0 },
   { 32, 107, NULL, "PARKING_BRAKES", "BRAKES", false, false, 0 },
+  // Added to the PCB later (connectors J18, J17 and J19). Anti-ice sends its position (1 = on); hyd boost and caution dim are joystick buttons only.
+  { 34, 112, "ANTI_ICE_SET", NULL, "ANTI-ICE", false, false, 0 },
+  { 33, 113, NULL, NULL, "HYD BOOST", false, false, 0 },
+  { 35, 114, NULL, NULL, "CAUTION DIM", false, false, 0 },
 };
 unsigned long lastPositionSent = 0;
 
@@ -352,6 +398,7 @@ void pollAdfSwitches() {
     if (reading != s.closed && (millis() - s.changedAt) >= SWITCH_DEBOUNCE_MS) {
       s.closed = reading;
       if (millis() < panelQuietUntil) continue;  // start-up: record the state only
+      noteActivity();
       SendDebug(String(s.name) + (s.closed ? " closed" : " open") + " (joystick button index " + String(s.hidIndex) + ")");
       sendButtonToHid(s.hidIndex, s.closed ? 1 : 0);
       if (s.positionCommand != NULL) {
@@ -422,7 +469,13 @@ unsigned long lastKeyMillis = 0;
 bool displayDirty = true;
 unsigned long lastDisplayMillis = 0;
 
+// The Radio controller blanks its displays (no avionics power, or no data or input for 30 s) and sends "C,DISPLAY:0" so this one blanks at the same
+// time, and "C,DISPLAY:1" when they come back (displayOn, with the no-data timeout, see panelBlank()).
 void updateDisplay() {
+  if (panelBlank()) {
+    sendCommand(cmd_CLS);
+    return;
+  }
   char line[17];
   snprintf(line, sizeof(line), "ADF %4d kHz    ", adfKhz);
   sendCommand(0x80);
@@ -440,6 +493,7 @@ void updateDisplay() {
 
 void onKeyChar(char key) {
   lastKeyMillis = millis();
+  noteActivity();
   if (key >= '0' && key <= '9') {
     if (!idEntering) {
       idEntering = true;
@@ -588,8 +642,10 @@ int levelFromPot(int reading) {
   return constrain((reading * 15L + 511) / 1023, 0, 15);
 }
 
+// Off while the bridge reports the main bus down or the no-data timeout has fired, otherwise the current level (a C,B command, or the pot).
 void applyOwnBacklight() {
-  analogWrite(BACK_LIGHTS, map(brightnessLevel, 0, 15, 0, 255));
+  int pwm = (backlightPowered && !noDataBlanked) ? map(brightnessLevel, 0, 15, 0, 255) : 0;
+  analogWrite(BACK_LIGHTS, pwm);
 }
 
 void queueBrightness() {
@@ -748,6 +804,24 @@ void HandleControlString(String str) {
   if (command == "RESET") RebootBoard();
   else if (command == "MATRIX") reportMatrixRaw();
   else if (command == "POWER") sendPowerStatus();
+  else if (command == "DISPLAY") {
+    bool on = (str.substring(colon + 1).toInt() != 0);
+    if (on != displayOn) {
+      displayOn = on;
+      displayDirty = true;
+      applyLandingGearLamps();
+      SendDebug(on ? "Display on (Radio displays restored)" : "Display blanked (Radio displays blanked)");
+    }
+  } else if (command == "KEEPALIVE") noteActivity();
+#if !USE_BRIGHTNESS_POT
+  // Panel brightness from the other panels' pot or the SwingTester: C,B:0 to C,B:15 (while this board's own pot is switched off).
+  else if (command == "B") {
+    brightnessLevel = constrain((int)str.substring(colon + 1).toInt(), 0, 15);
+    applyOwnBacklight();
+    noteActivity();
+    SendDebug("Brightness " + String(brightnessLevel));
+  }
+#endif
 }
 
 void ProcessReceivedPacket() {
@@ -758,7 +832,10 @@ void ProcessReceivedPacket() {
   token = strtok(NULL, ",");
   while (token != NULL) {
     if (isControl) HandleControlString(String(token));
-    else HandleDataString(String(token));
+    else {
+      HandleDataString(String(token));
+      noteActivity();
+    }
     token = strtok(NULL, ",");
   }
 }
@@ -822,6 +899,7 @@ void setup() {
   initMatrixScanner();
   initAdfSwitches();
   initLandingGearLamps();
+  lastActivityMillis = millis();  // the no-data timeout starts from the end of setup()
 
   SendDebug("Setup Complete");
 }
@@ -851,6 +929,7 @@ void loop() {
   if (majorDetents != 0 && millis() >= panelQuietUntil) pulseButtonToHid(majorDetents > 0 ? 108 : 109);  // Joystick 4 buttons 13 and 14
   if (minorDetents != 0 && millis() >= panelQuietUntil) pulseButtonToHid(minorDetents > 0 ? 110 : 111);  // Joystick 4 buttons 15 and 16
   if (majorDetents != 0 || minorDetents != 0) {
+    noteActivity();
     int newKhz = constrain(adfKhz + majorDetents * ADF_MAJOR_STEP_KHZ + minorDetents * ADF_MINOR_STEP_KHZ, ADF_MIN_KHZ, ADF_MAX_KHZ);
     if (newKhz != adfKhz) {
       adfKhz = newKhz;
@@ -878,6 +957,15 @@ void loop() {
 
   pollBrightness();
   sendPendingBrightness();
+
+  // No-data timeout: no data packet from the bridge and no local input for NO_DATA_TIMEOUT_MS blanks the panel until something arrives.
+  if (!noDataBlanked && (millis() - lastActivityMillis) >= NO_DATA_TIMEOUT_MS) {
+    noDataBlanked = true;
+    applyLandingGearLamps();
+    applyOwnBacklight();
+    displayDirty = true;
+    SendDebug("no UDP data or local input for " + String(NO_DATA_TIMEOUT_MS / 1000) + "s, panel blanked");
+  }
 
   if (displayDirty && (millis() - lastDisplayMillis) >= 50) {
     displayDirty = false;

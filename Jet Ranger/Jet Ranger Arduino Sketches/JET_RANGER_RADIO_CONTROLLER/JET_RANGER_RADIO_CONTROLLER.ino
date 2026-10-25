@@ -447,6 +447,54 @@ void showDme(const char* topLine, const char* bottomLine) {
   send_string(line);
 }
 
+// The ADF controller's display goes blank and comes back together with the displays on this board: "C,DISPLAY:0" / "C,DISPLAY:1" is sent to it on
+// every change and again every ADF_DISPLAY_RESEND_MS (so a restarted ADF controller catches up). The ADF controller is not always connected: if
+// a send fails, sending is paused for ADF_RETRY_MS so only one send in that time pays the ARP timeout.
+IPAddress adfIP(172, 16, 1, 107);
+const unsigned int adfPort = 13136;
+#define ADF_RETRY_MS 30000UL
+#define ADF_DISPLAY_RESEND_MS 10000UL
+unsigned long adfDownUntil = 0;
+bool adfWasDown = false;
+unsigned long adfDisplayLastSent = 0;
+bool adfDisplayLastValue = true;
+
+void sendAdfDisplay(bool on) {
+  adfDisplayLastValue = on;
+  adfDisplayLastSent = millis();
+  if (Ethernet_In_Use != 1) return;
+  if ((long)(millis() - adfDownUntil) < 0) return;  // the ADF controller did not answer: skipped until the retry time
+  unsigned long started = millis();
+  udp.beginPacket(adfIP, adfPort);
+  udp.print(on ? "C,DISPLAY:1" : "C,DISPLAY:0");
+  bool sent = udp.endPacket();
+  if (!sent) {
+    adfDownUntil = millis() + ADF_RETRY_MS;
+    adfWasDown = true;
+    SendDebug("ADF controller 172.16.1.107 not answering (send gave up after " + String(millis() - started) + " ms): display commands paused for " + String(ADF_RETRY_MS / 1000) + " s");
+  } else if (adfWasDown) {
+    adfWasDown = false;
+    SendDebug("ADF controller is answering again");
+  }
+}
+
+// The text on the DME display, and the power state it was last drawn with.
+const char* dmeTopText = "10M";
+const char* dmeBottomText = "0M";
+bool dmeDrawnPower = true;
+
+// Draws the DME display: its text while the radio has power, blank otherwise (like the COM, NAV and Auto Pilot displays).
+void updateDme() {
+  dmeDrawnPower = powerAvailable;
+  sendAdfDisplay(powerAvailable);  // the ADF controller's display follows the radio displays
+  if (powerAvailable) {
+    showDme(dmeTopText, dmeBottomText);
+  } else {
+    tcaselect(DME_OLED_Port);
+    sendCommand(cmd_CLS);
+  }
+}
+
 // The PC bridges send frequencies with 2 or 3 decimals ("128.30", "127.8").
 // Pad to a fixed 7 characters ("128.300") so the two columns on each OLED line up
 // and COM2 / NAV2 are not pulled left behind the faceplate.
@@ -1018,6 +1066,7 @@ void wakeDisplays() {
     updateCOMM();
     applyPanelLeds();
     updateAP();
+    updateDme();
     applyBacklight();
     SendDebug("Local input - displays restored");
   }
@@ -1250,6 +1299,7 @@ void ProcessReceivedMSFSString() {
       apValuesChanged = false;
       updateAP();
     }
+    if (dmeDrawnPower != powerAvailable) updateDme();  // the radio power changed
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -1615,7 +1665,7 @@ void setup() {
   initCharOLED(0);
   initCharOLED(1);
   initCharOLED(DME_OLED_Port);
-  showDme("10M", "0M");  // start-up text on the DME display
+  showDme(dmeTopText, dmeBottomText);  // start-up text on the DME display
   initCharOLED(AP_OLED_Port);
   showAutoPilot("090", "110", "80", "0", "3200");  // start-up values: heading 090, course 110, airspeed 80, vertical speed 0, altitude 3200
   initPanelLeds();
@@ -1841,6 +1891,7 @@ void loop() {
     hidNeedsResync = false;
     resyncHidButtons();
   }
+  if ((long)(millis() - adfDisplayLastSent) >= (long)ADF_DISPLAY_RESEND_MS) sendAdfDisplay(adfDisplayLastValue);
 
   // Check for MSFS Data Updates for COM Radios for staters
   MSFSpacketsize = MSFSudp.parsePacket();
@@ -1863,6 +1914,7 @@ void loop() {
         updateNAV();
         updateCOMM();
         updateAP();
+        updateDme();
         applyBacklight();
         SendDebug("UDP data resumed - displays restored");
       }
@@ -1882,6 +1934,7 @@ void loop() {
     updateNAV();
     applyPanelLeds();
     updateAP();
+    updateDme();
     applyBacklight();
     SendDebug("no UDP data or local input for " + String(noDataTimeoutMs / 1000) + "s, displays blanked");
   }

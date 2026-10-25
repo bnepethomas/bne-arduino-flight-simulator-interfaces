@@ -106,12 +106,15 @@ Nothing is sent during the first 1.5 seconds after power-up (the quiet period). 
 | Audio | NAV1 | row 1, col 4 | Joystick 4, button 6 (101) | `RADIO_VOR1_IDENT_TOGGLE` |
 | Audio | MKR | row 2, col 4 | Joystick 4, button 7 (102) | `MARKER_SOUND_TOGGLE` |
 | Audio | ADF | row 3, col 4 | Joystick 4, button 8 (103) | `RADIO_ADF_IDENT_TOGGLE` |
-| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_DOWN` when closed, `GEAR_UP` when open |
-| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_DOWN` when closed, `FLAPS_UP` when open |
-| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_ON` when closed, `SPOILERS_OFF` when open |
+| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
+| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
+| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
 | ADF | Brakes button | ADF controller D32 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
 | ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
 | ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
+| ADF | Anti-ice switch | ADF controller D34 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
+| ADF | Hyd boost switch | ADF controller D33 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Caution dim switch | ADF controller D35 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
 
 The Radio controller sends the first 18 Auto Pilot rows and the 8 Audio rows; the ADF rows come from the ADF controller (see its chapter). If a knob turns the wrong way, swap its A and B pins in the `RotaryEncoder` lines for the five Auto Pilot knobs. Which row and column each switch is on comes from the panel schematics: the matrix columns are the Radio Auto Pilot PCB nets `COL1` to `COL4`, and `COL0` is the COM and NAV panel's four swap switches. Each key is sampled once per millisecond and debounced by integration: a counter steps towards down or up with every sample and the key changes state only when it reaches an end (about 12 ms), and each sample takes two readings a few microseconds apart so a noise spike is skipped. This replaced a 50 ms timer that restarted on every reading that differed from the last, which let noise on a column line hold a release back (the MAX7219 LED digit lines run beside the column lines in the panel cables). The knobs use the same polling encoder library, with acceleration, as the COM and NAV knobs.
 
@@ -159,7 +162,11 @@ Every Audio and Auto Pilot switch and knob click is sent to the USB HID board (1
 
 ## DME display
 
-The Audio panel's character OLED (the PCB net `AUDIO_OLED`, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2) is the DME display. `DME_OLED_Port` selects the channel. At start-up the sketch starts it with the same OLED sequence as the COM and NAV displays and writes `10M` on the top line and `0M` on the bottom line (`showDme()` pads each line to 16 characters so a shorter text replaces a longer one). Nothing else writes to it yet and the no-data blanking leaves it alone.
+The Audio panel's character OLED (the PCB net `AUDIO_OLED`, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2) is the DME display. `DME_OLED_Port` selects the channel. At start-up the sketch starts it with the same OLED sequence as the COM and NAV displays and writes `10M` on the top line and `0M` on the bottom line (`showDme()` pads each line to 16 characters so a shorter text replaces a longer one). Nothing else writes to it yet. It blanks and returns with the COM, NAV and Auto Pilot displays: `updateDme()` clears it while the radio has no power (the avionics bus is below 24 V) or the no-data timeout has fired, and redraws `10M` / `0M` when they come back (it is called wherever `updateAP()` is).
+
+## ADF controller display
+
+The radio also tells the ADF controller (172.16.1.107, port 13136) when its displays blank, so the ADF panel's OLED and landing gear lamps go dark and come back with them. `updateDme()` calls `sendAdfDisplay()`, which sends `C,DISPLAY:0` or `C,DISPLAY:1` on every change and again every 10 seconds (`ADF_DISPLAY_RESEND_MS`, so a restarted ADF controller catches up). The ADF controller may be missing: a failed send pauses these sends for 30 seconds (`ADF_RETRY_MS`) and the monitor shows `ADF controller 172.16.1.107 not answering (send gave up after N ms)` and `ADF controller is answering again`, the same way as the USB HID board, so at most one send in 30 seconds pays the ARP wait.
 
 ## Backlight
 
@@ -172,7 +179,7 @@ The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25
 ## Power and blanking
 
 - **Avionics power:** when the avionics bus is below 24 V the bridge sends `NAVCOM1:0` and the COM and NAV displays blank together; they light together again when the bus rises.
-- **No data for 30 seconds:** if no packet arrives and no knob or key is used, both OLEDs blank once. A packet, a knob movement or a key press restores them, and they blank again after another 30 seconds of silence.
+- **No data for 30 seconds:** if no packet arrives and no knob or key is used, the COM, NAV, Auto Pilot and DME displays blank once, and the ADF controller is told to blank too. A packet, a knob movement or a key press restores them, and they blank again after another 30 seconds of silence.
 - **Quiet period:** for 1.5 seconds (`matrixQuietMs`) after the matrix scanner starts it records state but raises no events, so a floating input cannot send false button presses at boot.
 
 ## Diagnostics

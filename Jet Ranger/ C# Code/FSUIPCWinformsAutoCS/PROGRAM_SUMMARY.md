@@ -233,3 +233,8 @@ unchecked against the simulator.
   OBS `0x0C4E` (three digits), airspeed `0x07E2` (knots), vertical speed `0x07F2` (feet per minute) and altitude `0x07D4` (metres x 65536, sent in feet), all read in the `RadioStack` group; a change goes out like a frequency change.
 - **Toggle switch positions:** `TryPositionCommand()` (before `TryPanelCommand()`) handles `GEAR_SET:1/0`, `FLAPS_SET:1/0` and `SPOILERS_SET:1/0` from the ADF controller as the FSUIPC controls `GEAR_SET`
   (1 or 0), `FLAPS_SET` and `SPOILERS_SET` (16383 or 0), so the simulator follows the switch instead of toggling. Built clean; not run against a simulator.
+
+## Anti-ice position and ADF / Upper backlight power (2026-10-25)
+
+- **`ANTI_ICE_SET:1/0`:** `TryPositionCommand()` also handles the ADF panel's anti-ice switch position and sends the FSUIPC control `ANTI_ICE_SET` (1 or 0). The DodoSim 206 V2 may ignore the plain control: bind its own `ANTI_ICE_SWITCH_SET` event to the joystick button in FSUIPC instead (hyd boost `HYDRAULICS_SWITCH_SET` and caution dim `CAUTION_LIGHT_SWITCH_SET` have no safe bridge command).
+- **ADF and Upper boards:** new `adfClient` (172.16.1.107:13136) and `upperClient` (172.16.1.103:13136) send `D,BPWR:1/0` (main bus 20 V or more) with the other boards' packets, so those boards' backlights follow the main bus and their 30 s no-data timeouts see the bridge. Built clean; not run against a simulator.

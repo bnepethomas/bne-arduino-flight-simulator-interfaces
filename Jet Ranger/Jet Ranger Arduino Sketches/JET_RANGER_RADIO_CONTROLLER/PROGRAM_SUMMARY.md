@@ -267,3 +267,9 @@ not yet flashed.
   release in 30 s pays the ARP timeout (N shows whether the 10 ms retransmission timeout is effective: about 80, not 1600). When the board answers again `hidNeedsResync` sends the held switches again
   (`resyncHidButtons()`). `SendDebug()` pauses 10 s after a failed send in the same way (`DEBUG_RETRY_MS`).
 - **Heartbeat voltage:** `COMM_NAV V5:5.02` (see the other boards' summaries). Compiled at 38,592 bytes flash (15%) / 5,222 bytes RAM (63%).
+
+## DME display blanking and the ADF display message (2026-10-25)
+
+- **DME display:** `updateDme()` (with `dmeTopText` / `dmeBottomText`, `10M` and `0M`, and `dmeDrawnPower`) blanks the Audio panel's OLED while the radio has no power or the no-data timeout has fired and redraws it when they come back; it is called wherever `updateAP()` is.
+- **ADF controller display:** `updateDme()` calls `sendAdfDisplay(on)`, which sends `C,DISPLAY:1` or `C,DISPLAY:0` to 172.16.1.107:13136 on every change and again every 10 s (`ADF_DISPLAY_RESEND_MS`) so the ADF controller blanks its OLED and landing gear lamps with the Radio's displays. A failed send pauses these sends for 30 s (`ADF_RETRY_MS`) and logs `ADF controller 172.16.1.107 not answering`, like the HID board.
+- Compiled at 39,422 bytes flash (15%) / 5,395 bytes RAM (65%). Flashed to COM20; not bench-tested.

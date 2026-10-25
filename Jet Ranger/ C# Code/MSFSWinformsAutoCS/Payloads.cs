@@ -147,6 +147,10 @@ namespace MSFSWinformsAutoCS
             => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0")      // backlight on only while the main bus is 20 V or more
              + ",PITCH:" + F1(-s.PitchDegrees) + ",BANK:" + F1(s.BankDegrees) + LampPayload(s);
 
+        // ADF Controller (.107): backlight power only (it also feeds the board's no-data timeout).
+        public static string Adf(SimSnapshot s)
+            => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0");
+
         // The radar altimeter is powered from the main bus: 0 when unpowered.
         public static string RadarAltitude(SimSnapshot s)
             => GaugesPowered(s) ? F0(s.RadarAltFeet) : "0";

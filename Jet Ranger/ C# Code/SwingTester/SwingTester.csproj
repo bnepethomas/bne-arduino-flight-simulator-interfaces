@@ -10,4 +10,8 @@
     <AssemblyName>SwingTester</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="10.0.13" />
+  </ItemGroup>
+
 </Project>

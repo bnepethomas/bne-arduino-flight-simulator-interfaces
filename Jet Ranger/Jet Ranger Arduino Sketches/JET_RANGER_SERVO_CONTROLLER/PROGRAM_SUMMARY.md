@@ -264,3 +264,7 @@ Compiled at 24,468 bytes flash (9%) / 2,530 bytes RAM (30%); the watchdog change
 The heartbeat now carries the board's 5 V rail after its name, for example `SERVO V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
 band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
 The monitor matches the first word of the heartbeat, so the indicator behaves as before.
+
+## Fuel pump and aft fuel filter pins swapped (2026-10-25)
+
+`D_Fuel_Pump` (lamp code `FPMP`) is now on A11 and `D_AFT_Fuel_Filter` (`FFLTR`) on A12 (they were A12 and A11). Compiled at 26,348 bytes flash (10%) / 2,536 bytes RAM (30%) and flashed to COM16; the two lamp outputs have not been checked on the bench since the swap.

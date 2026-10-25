@@ -5,8 +5,8 @@
 	(uuid "8a00b1ca-e561-4386-9590-9730de0281a4")
 	(paper "A3")
 	(title_block
-		(date "2026-10-19")
-		(rev "1.4")
+		(date "2026-10-25")
+		(rev "1.5")
 	)
 	(lib_symbols
 		(symbol "Arduino_NW_Template-rescue:GND-power"
@@ -168,6 +168,171 @@
 				)
 			)
 			(symbol "Conn_01x02_Female_1_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
 				(polyline
 					(pts
 						(xy -1.27 0) (xy -0.508 0)
@@ -7342,10 +7507,6 @@
 		(uuid "34d767be-5bf5-43ac-9872-cc604e5e1b66")
 	)
 	(no_connect
-		(at 350.52 82.55)
-		(uuid "35f0320d-0736-4614-b613-d353fb56b4f6")
-	)
-	(no_connect
 		(at 314.96 162.56)
 		(uuid "4c0d4636-16a0-4381-b081-dc04d8768087")
 	)
@@ -7374,10 +7535,6 @@
 		(uuid "90006f2e-10ed-4936-960c-2cdef563f46f")
 	)
 	(no_connect
-		(at 350.52 80.01)
-		(uuid "9f7dc1d0-048d-44c4-85f0-3b440a722831")
-	)
-	(no_connect
 		(at 350.52 115.57)
 		(uuid "b1227540-e378-4d80-b207-5fdc327b2936")
 	)
@@ -7388,10 +7545,6 @@
 	(no_connect
 		(at 314.96 160.02)
 		(uuid "bc4bbf58-e104-4a1f-be78-417b3ce83023")
-	)
-	(no_connect
-		(at 350.52 85.09)
-		(uuid "c869e04f-885d-4ab7-a8b8-dfa111b970b6")
 	)
 	(no_connect
 		(at 350.52 107.95)
@@ -9065,6 +9218,16 @@
 		)
 		(uuid "188468e7-73d9-4e42-9299-4d9a32583b52")
 	)
+	(label "HYD_BOOST"
+		(at 73.66 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1b969f9f-1d1f-42e9-bb12-e1ecd2dc4b4f")
+	)
 	(label "LED_LDG_RIGHT"
 		(at 302.26 172.72 180)
 		(effects
@@ -9194,6 +9357,16 @@
 			(justify left bottom)
 		)
 		(uuid "3f74cc18-c5d2-4349-bf68-6bc520e437fd")
+	)
+	(label "HYD_BOOST"
+		(at 350.52 80.01 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "42811fbe-09d0-43af-89d7-794eb9eea3da")
 	)
 	(label "GUAGE_BACKLIGHT_BRIGHT"
 		(at 160.02 85.09 0)
@@ -9626,6 +9799,16 @@
 		)
 		(uuid "ad817f79-16ab-4b4c-a229-7d043c82ce4d")
 	)
+	(label "ANTI_ICE"
+		(at 350.52 82.55 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "af933650-45c5-499a-b888-3d9dc92c40e1")
+	)
 	(label "+5v_IN"
 		(at 80.01 35.56 90)
 		(effects
@@ -9696,6 +9879,16 @@
 		)
 		(uuid "c98aff37-9b3d-4aad-8da6-661ea66a54a7")
 	)
+	(label "CAUTION_DIM"
+		(at 73.66 102.87 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ca342cd0-010c-4d8a-b672-95b1ab73fcee")
+	)
 	(label "SS"
 		(at 377.19 41.91 0)
 		(effects
@@ -9726,6 +9919,16 @@
 			(justify left bottom)
 		)
 		(uuid "d045ae49-7d78-44cf-a7e2-65ce435b42bb")
+	)
+	(label "ANTI_ICE"
+		(at 73.66 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d1857ca8-e3ce-4ab9-a7e9-4e4c3d762aa0")
 	)
 	(label "GND"
 		(at 302.26 180.34 180)
@@ -9910,6 +10113,16 @@
 			(justify left bottom)
 		)
 		(uuid "f9bf30fe-5522-4925-ae58-9e2393e43abe")
+	)
+	(label "CAUTION_DIM"
+		(at 350.52 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fa560d4c-29f1-47a7-bbb6-7df6d9e58f22")
 	)
 	(label "RED_LED"
 		(at 161.29 35.56 90)
@@ -10399,6 +10612,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GNDD")
+		(at 73.66 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0e3e9a33-5ffb-47b4-956c-981f037c02be")
+		(property "Reference" "#PWR016"
+			(at 73.66 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 73.7616 87.757 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 73.66 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 73.66 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 73.66 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "16eac48a-15bb-4419-a877-4ae6df639f03")
+		)
+		(instances
+			(project "JET RANGER ADF CONTROLLER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 355.6 229.87 270)
 		(unit 1)
@@ -10806,6 +11084,76 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 68.58 81.28 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1e2879c1-7609-4393-aae8-26cd61bc91e6")
+		(property "Reference" "J17"
+			(at 67.31 81.2799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "HYD_BOOST"
+			(at 67.31 83.8199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 68.58 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 68.58 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bfd85c3a-a5f6-44f4-b8ea-e7d7622eab14")
+		)
+		(pin "2"
+			(uuid "c6751d4a-f218-402b-ae58-d0f7258ff619")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J17")
 					(unit 1)
 				)
 			)
@@ -13579,6 +13927,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GNDD")
+		(at 73.66 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7abec1f3-5c53-4111-b183-4e75a4dfc9de")
+		(property "Reference" "#PWR021"
+			(at 73.66 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 73.7616 99.187 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 73.66 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 73.66 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 73.66 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f450b665-8ece-432c-92f2-598a5ae7d5ce")
+		)
+		(instances
+			(project "JET RANGER ADF CONTROLLER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR021")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Mechanical:MountingHole")
 		(at 387.35 243.84 0)
 		(unit 1)
@@ -13733,6 +14146,71 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GNDD")
+		(at 73.66 105.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8762e0e2-e1ad-4297-8a04-34e890fd9541")
+		(property "Reference" "#PWR023"
+			(at 73.66 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 73.7616 109.347 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 73.66 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 73.66 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 73.66 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bb3c1094-9a7f-48ca-9d4d-ae146db5f3fb")
+		)
+		(instances
+			(project "JET RANGER ADF CONTROLLER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -14736,6 +15214,76 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 68.58 102.87 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9bb37fff-de7f-4d3f-af16-58ff49c3140a")
+		(property "Reference" "J19"
+			(at 67.31 102.8699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "CAUTION_DIM"
+			(at 67.31 105.4099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 68.58 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 68.58 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fff9e296-7094-45a7-9792-187caa64494b")
+		)
+		(pin "2"
+			(uuid "6dff2a9f-e9c7-4bcd-a4e5-d79d887c9813")
+		)
+		(instances
+			(project "JET RANGER ADF CONTROLLER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J19")
 					(unit 1)
 				)
 			)
@@ -18435,6 +18983,76 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 68.58 92.71 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f2b76c6f-edb4-4eab-8b7e-1113b2d0fa47")
+		(property "Reference" "J18"
+			(at 67.31 92.7099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ANTI_ICE"
+			(at 67.31 95.2499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 68.58 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 68.58 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 68.58 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8c8d2084-d786-4aa9-9216-f625b59f58e0")
+		)
+		(pin "2"
+			(uuid "9f1b5bf4-02bf-474e-92c9-25e8b5c27379")
+		)
+		(instances
+			(project "JET RANGER ADF CONTROLLER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J18")
 					(unit 1)
 				)
 			)

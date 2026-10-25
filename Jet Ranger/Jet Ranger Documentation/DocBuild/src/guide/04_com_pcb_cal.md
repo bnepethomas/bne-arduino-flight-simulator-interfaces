@@ -57,7 +57,7 @@ The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp o
 | Jet Ranger Radio Auto Pilot | 1.3 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
 | Jet Ranger COM and NAV | not set | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
 | Jet Ranger Upper Controller | 1.4 | Upper controller | Mega shield for the switch matrix, backlight MOSFET, brightness input |
-| Jet Ranger ADF Controller | 1.4 | ADF controller | ADF knobs, keypad, panel brightness pot, 12 V monitor, gear lamps, I2C OLED, backlight MOSFET |
+| Jet Ranger ADF Controller | 1.5 | ADF controller | ADF knobs, keypad, panel brightness pot, 12 V monitor, gear lamps, anti-ice, hyd boost and caution dim switch inputs, I2C OLED, backlight MOSFET |
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |
 
 The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights. The schematic and board layout of every PCB are in the *PCB schematics and layouts* chapter at the end of this guide.

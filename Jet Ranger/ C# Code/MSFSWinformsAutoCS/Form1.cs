@@ -29,6 +29,8 @@ namespace MSFSWinformsAutoCS
         private DateTime gpsTimeLastPacketSent = DateTime.MinValue;
         private readonly UdpClient stepperClient = new UdpClient();       // 172.16.1.105 Stepper Controller
         private readonly UdpClient dualStepperClient = new UdpClient();   // 172.16.1.106 OLED Dual Stepper Controller
+        private readonly UdpClient adfClient = new UdpClient();           // 172.16.1.107 ADF Controller (backlight power)
+        private readonly UdpClient upperClient = new UdpClient();         // 172.16.1.103 Upper Controller (backlight power)
 
         // ----- SimConnect -----------------------------------------------------------------
         private const int WM_USER_SIMCONNECT = 0x0402;
@@ -404,6 +406,8 @@ namespace MSFSWinformsAutoCS
             servoClient.Connect("172.16.1.102", boardPort);
             stepperClient.Connect("172.16.1.105", boardPort);
             dualStepperClient.Connect("172.16.1.106", boardPort);
+            adfClient.Connect("172.16.1.107", boardPort);
+            upperClient.Connect("172.16.1.103", boardPort);
             gpsClient.Connect(GpsHost, GpsPort);
         }
 
@@ -737,6 +741,8 @@ namespace MSFSWinformsAutoCS
                 SendPacket(servoClient, Payloads.Servo(s));
                 SendPacket(stepperClient, Payloads.Stepper(s));
                 SendPacket(dualStepperClient, Payloads.DualStepper(s));
+                SendPacket(adfClient, Payloads.Adf(s));
+                SendPacket(upperClient, Payloads.Adf(s));  // the same backlight power packet
                 frontPanelTimeLastPacketSent = DateTime.Now;
             }
 
@@ -944,8 +950,8 @@ namespace MSFSWinformsAutoCS
         // "SPOILERS_SET:1/0", every time it changes and every few seconds, so the simulator follows the switch instead of toggling. 1 is gear down, flaps
         // fully down and speed brakes fully out (the SimConnect events take 0 or 1 for the gear handle and 0 to 16383 for the flaps and spoilers).
         private const int PositionEventBase = 2000;
-        private static readonly string[] PositionEventNames = { "GEAR_SET", "FLAPS_SET", "SPOILERS_SET" };
-        private static readonly uint[] PositionOnValues = { 1u, 16383u, 16383u };
+        private static readonly string[] PositionEventNames = { "GEAR_SET", "FLAPS_SET", "SPOILERS_SET", "ANTI_ICE_SET" };
+        private static readonly uint[] PositionOnValues = { 1u, 16383u, 16383u, 1u };
 
         private bool TryPositionCommand(string command)
         {

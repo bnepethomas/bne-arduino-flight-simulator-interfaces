@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 2255)
+    (start_pass_no 445)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -64,14 +64,14 @@
   )
   (class "kicad_default"
     "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/ADF_MJR_A"
-    "unconnected-(A1-PadD44)" "/INT_5V" SCLK "unconnected-(A1-PadD35)" "unconnected-(A1-PadD33)" "ADF_OLED_SD" "unconnected-(A1-PadD42)" "/KEYPAD_4"
+    "unconnected-(A1-PadD44)" "/INT_5V" SCLK "/CAUTION_DIM" "/HYD_BOOST" "ADF_OLED_SD" "unconnected-(A1-PadD42)" "/KEYPAD_4"
     "unconnected-(A1-PadD39)" "/PIN_20" "ES1_RST" "/LED_LDG_NOSE" "/ADF_MJR_B" MISO "/ADF_MNR_B" "unconnected-(A1-PadD38)"
     /RESET MOSI "/GREEN_LED" "/RED_LED" SS "Net-(J41-Pin_5)" "/KEYPAD_3" "Net-(U1-INT)"
     "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" "/GUAGE_BACKLIGHT_BRIGHT" +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
     /AREF "/RESET_pin" "Net-(D8-A)" "unconnected-(A1-PadD46)" "Net-(Q5-G)" "Net-(J41-Pin_6)" /FLAPS /IORF
     "Net-(J45-Pin_4)" "/SPEED_BRAKES" "/LED_LDG_LEFT" "unconnected-(A1-PadD45)" "Net-(J42-Pin_1)" "/12V-Monitor" "ADF_OLED_SC" "Net-(J41-Pin_4)"
     "Net-(J41-Pin_3)" "unconnected-(A1-PadD40)" "/ADF_MNR_A" "unconnected-(A1-PadD36)" "Net-(J45-Pin_5)" /BRAKES "unconnected-(A1-PadD41)" "Net-(J41-Pin_2)"
-    "unconnected-(A1-PadD34)" "/KEYPAD_1" "unconnected-(A1-PadD43)" "Net-(J7-Pin_1)" "/KEYPAD_2" "/PIN_21" "unconnected-(A1-PadD48)" "unconnected-(A1-PadD47)"
+    "/ANTI_ICE" "/KEYPAD_1" "unconnected-(A1-PadD43)" "Net-(J7-Pin_1)" "/KEYPAD_2" "/PIN_21" "unconnected-(A1-PadD48)" "unconnected-(A1-PadD47)"
     "Net-(J42-Pin_7)" "/KEYPAD_7" "/KEYPAD_5" "/KEYPAD_6" "/LED_LDG_RIGHT" "Net-(A1-D16{slash}TX2)" "Net-(J42-Pin_6)" "/LDG_GEAR"
     "unconnected-(A1-PadD37)" "Net-(J1-Pin_3)" "Net-(J1-Pin_4)" "Net-(J1-Pin_6)" "Net-(J1-Pin_10)" "Net-(J1-Pin_5)" "Net-(J1-Pin_9)" "Net-(J1-Pin_11)"
     "Net-(J1-Pin_7)" "Net-(J1-Pin_15)" "Net-(J1-Pin_13)" "Net-(J1-Pin_14)" "Net-(J1-Pin_8)" "Net-(J1-Pin_1)" "Net-(J1-Pin_16)" "Net-(J1-Pin_2)"

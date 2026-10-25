@@ -57,13 +57,18 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 - **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, Upper and HID).
 - **Swing ALL (in order)** runs the 18 gauge swings in the fixed order, **Stop** cancels the remaining waits, **OLEDs ON / OFF** fill or restore the Dual Stepper's four OLEDs, **Reset boards...** opens the reset dialog, and **Light OLEDs during Swing ALL** controls the OLEDs. **Temp OLED** with **Send TEMP** sends text to the Dual Stepper's temperature display.
 - **Lamps ON (in order)** and **Lamps OFF (in order)** with the **on gap** and **off gap** times, and **Light warning lamps during Swing ALL**.
-- **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board; **Backlight power ON / OFF** send `BPWR` to test the main bus rule.
+- **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Upper, Stepper, Dual Stepper and ADF); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule.
 - **Status line:** what was last sent and to which boards.
 - **Panel LEDs group** (far right): one toggle for each of the 19 Auto Pilot and Audio panel LEDs (gold when on), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0`). **All ON** and **All OFF** do all 19, **Chase** lights them one at a time for the *on gap* time (click again to stop), and **Board test (C,LEDTEST)** lights all 19 with the Radio's own test.
 - **Auto Pilot display group** (far right, below the panel LEDs): five boxes for HDG, VS, CRS, IAS and ALT (start-up values 090, 0, 110, 80 and 3200). **Send values** sends them to the Radio for the Auto Pilot panel's OLED and **Start-up values** puts the start-up values back.
 - **ADF panel landing gear lamps** (under the warning lamps): **Nose**, **Left** and **Right** toggles (gold when on) light the three lamps on the ADF panel through the ADF controller (172.16.1.107, set in the `ADF (.107)` box at the top), with **All ON** and **All OFF**.
+- **COM ports...** opens a window that lists the PC's COM ports with the board type, the USB serial number and whether another program has the port open, and can restart a USB device (see COM ports window below).
 - **Gauge rows** (left): the 18 gauges with the board each is on, the wait in seconds and a **Swing** button for each. The row being swung is highlighted gold.
 - **Warning lamps** (right): one button for each of the 15 lamps, in turn-off order. A lamp that is on is gold.
+
+![The COM ports window](screenshots/swing_tester_ports.png)
+
+**COM ports...** lists every COM port Windows knows: the port, Windows' description, the board type (guessed from the USB vendor and product ids), the USB serial number (genuine Arduino boards have one; most clones do not), whether another program has the port open (for example the Arduino IDE serial monitor, which blocks flashing), the status and the USB device id. It refreshes by itself when a device is plugged in or removed. **Copy list** puts the table on the clipboard. **Restart selected USB device** stops and starts the selected board's USB device with `pnputil` (the same as disabling and enabling it in Device Manager, so the port reappears; it cannot cut the power): Windows asks for administrator rights, and the port must not be open in another program.
 
 ![The Reset boards dialog](screenshots/swing_tester_reset.png)
 

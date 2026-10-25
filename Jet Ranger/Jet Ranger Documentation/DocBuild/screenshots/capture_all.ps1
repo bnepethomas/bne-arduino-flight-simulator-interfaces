@@ -44,7 +44,7 @@ function Split-Image($src, $prefix, $parts) {
 
 try {
     if (Want "swing") {
-        # SwingTester: main window and the Reset boards dialog (only opened and cancelled)
+        # SwingTester: main window, the Reset boards dialog (only opened and cancelled) and the COM ports window
         $p = Run "$root\SwingTester\bin\Release\net10.0-windows\SwingTester.exe"
         Shot $p "swing_tester.png"
         $main = Find-Window $p.Id "Jet Ranger Swing Tester"
@@ -52,6 +52,11 @@ try {
         Start-Sleep 1.5
         $dlg = Find-Window $p.Id "Reset boards"
         if ($dlg) { Shot $p "swing_tester_reset.png" "Reset boards"; Click-Button $dlg "Cancel" }
+        # COM ports window (reads the PC's ports only; nothing is restarted)
+        Click-Button $main "COM ports..."
+        Start-Sleep 2.5
+        $ports = Find-Window $p.Id "COM ports and USB devices"
+        if ($ports) { Shot $p "swing_tester_ports.png" "COM ports and USB devices" }
         Stop-Process -Id $p.Id -Force
     }
 

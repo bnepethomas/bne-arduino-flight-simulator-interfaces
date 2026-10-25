@@ -12,7 +12,8 @@
    - `ScanInputs()` drives each of the 16 rows low in turn with direct `PORTA` and `PORTC` writes and reads the columns with direct `PIND`, `PING` and `PINL` reads, building a 176-button state array;
    - `FindInputChanges()` debounces and, for each change, calls `SendButtonToHid(index, state)`;
    - `scanMatrix()` scans the 4 by 3 keypad and sends `SendKeyToHid(key, 1)` on press and `(key, 0)` on release;
-   - every 20 ms `ServiceControlPackets()` polls port 13136 and acts **only** on `C,RESET:1`; every other packet is ignored. The poll is slow on purpose so the extra W5500 access does not slow the matrix scan.
+   - every 20 ms `ServiceControlPackets()` polls port 13136 and acts on `C,RESET:1`, `C,B:0-15` (backlight brightness), `C,KEEPALIVE:1` and `D,BPWR:1/0` (backlight power); every data packet also restarts the no-data timeout. The poll is slow on purpose so the extra W5500 access does not slow the matrix scan;
+   - a no-data check turns the backlight off after 30 seconds with no data and no switch or key change (see Backlight).
 
 ## Pin usage
 
@@ -41,11 +42,15 @@ The Upper controller has its own address and MAC (`172.16.1.103`, `...83:03`); i
 
 `C,RESET:1` on port 13136 reboots the board with a software reset (see the network chapter). The code is the same as the Radio controller's and the sketch compiles, but it has **not been flashed or bench-tested** because the board was not connected.
 
+## Backlight
+
+The PCB's backlight driver (D5, the `BACKLIGHT_PWM` net to an IRF540N that switches the BACKLIGHT connector) is now driven by the sketch (25 October 2026), with the same rules as the other boards (see the network chapter): the backlight follows `D,BPWR:1/0` from the bridge (1 = main bus 20 V or more, assumed until the first arrives) and the last brightness set with `C,B:0-15` (default PWM 65 until one has been received, then the last commanded level every time power returns), and it goes out after **30 seconds** (`NO_DATA_TIMEOUT_MS`) with no data packet, brightness command or keep-alive and no switch or key change (`SendButtonToHid()` and `SendKeyToHid()` count as input). Any of those brings it back at the same level. The bridges send `D,BPWR:x` to the Upper controller (172.16.1.103) and the SwingTester's brightness slider, backlight power buttons and keep-alive include it. The brightness pot input on A0 is not read. The sketch compiles at 20,696 bytes of flash and 3,110 bytes of RAM; it has **not been flashed or bench-tested** (the board was not connected). It also still has no pause for a missing USB HID board (the Radio has one), so with the HID board unplugged each switch change can stall the matrix scan for up to about 80 ms.
+
 ## Known issues
 
 - The Upper controller PCB has a Warning Mute connector (J17) on `/ROW8`, Arduino D30, but the sketch's keypad uses analog pins A9 to A15, so J17 may not be read.
 - `CreateDcsBiosMessage()` has no bodies, so none of these switches do anything in DCS.
-- The PCB (v1.4) also has a backlight driver on D5 (`BACKLIGHT_PWM` to an IRF540N MOSFET that switches the BACKLIGHT connector) and a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16), but the sketch uses neither, and it ignores `C,B` packets.
+- The PCB (v1.4) has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16), but the sketch does not read it; the backlight is driven from `C,B` (see Backlight).
 
 # USB HID board (172.16.1.11)
 
@@ -96,6 +101,7 @@ The Radio controller (Auto Pilot and Audio panels) and the ADF controller send t
 | 96 to 103 | Joystick 4, buttons 1 to 8 | Audio panel switches: COM1, BOTH, NAV2, DME, COM2, NAV1, MKR, ADF |
 | 104 to 107 | Joystick 4, buttons 9 to 12 | ADF panel: landing gear, flaps, speed brakes, brakes |
 | 108 to 111 | Joystick 4, buttons 13 to 16 | ADF knobs, clockwise then anticlockwise: major, minor |
+| 112 to 114 | Joystick 4, buttons 17 to 19 | ADF panel: anti-ice, hyd boost, caution dim |
 
 Each of these is also sent to the bridge as a simulator control, so binding the joystick buttons in FSUIPC or MSFS is optional (see the Radio and ADF controller chapters for the full table).
 

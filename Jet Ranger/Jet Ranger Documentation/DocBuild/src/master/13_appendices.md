@@ -39,11 +39,11 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank, panel LEDs off), 1 = on |
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101 | Auto Pilot panel LEDs (CRS, HDG, IAS, ALT, APPR, FD, BC, AP ENGAGE): 1 = on |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101 | Audio panel LEDs: 1 = on |
-| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106 | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
+| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, Upper .103, ADF .107 | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
 
 ## Lamp tokens (Servo .102)
 
-`EOUT`, `RLOW`, `TOPW`, `TOTW`, `BHOT`, `BTMP`, `EC`, `TRC`, `TC`, `BD`, `FFLTR`, `FPMP`, `GENF`, `LOWF`, `SCF` on pins A1 to A15 in that order (see the Servo controller chapter).
+`EOUT`, `RLOW`, `TOPW`, `TOTW`, `BHOT`, `BTMP`, `EC`, `TRC`, `TC`, `BD`, `FPMP`, `FFLTR`, `GENF`, `LOWF`, `SCF` on pins A1 to A15 in that order (the fuel pump and aft fuel filter pins were swapped on 25 October 2026: `FPMP` is A11 and `FFLTR` is A12) (see the Servo controller chapter).
 
 ## Control tokens (`C,<COMMAND>:<value>`)
 
@@ -56,7 +56,8 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `MATRIX` | Radio and ADF controllers: print the raw keypad matrix to the debug stream |
 | `LEDTEST` | Radio controller: 1 lights all 19 Auto Pilot and Audio panel LEDs, 0 returns them to the simulator's state |
 | `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
-| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper and Dual Stepper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off), the Upper ignores it. The ADF controller can send it from its brightness pot, which is switched off for the moment |
+| `DISPLAY` | ADF controller: 0 blanks its OLED and landing gear lamps, 1 restores them (sent by the Radio controller with its own displays) |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Upper, Stepper, Dual Stepper and ADF; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller can send it from its brightness pot, which is switched off for the moment |
 
 ## Messages from the ADF controller to the PC (UDP 27003)
 

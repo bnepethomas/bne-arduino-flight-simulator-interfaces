@@ -86,9 +86,41 @@ void SendDebug(String MessageToSend) {
   }
 }
 
+// Backlight (the PCB's BACKLIGHT_PWM net, D5, drives the IRF540N that switches the panel backlight), the same rules as the Servo, Stepper, Dual
+// Stepper, Radio and ADF boards. The backlight follows the main bus (D,BPWR:1/0 from the bridge: 1 = main bus 20 V or more) and the last
+// brightness command (C,B:0 to C,B:15). Until a C,B command has been received it uses BacklightDefaultPwm; once one has, the last commanded level
+// is used every time power is applied. While the main bus is below 20 V the backlight is off. It is also off while the no-data timeout has fired
+// (no data packet from the bridge, no brightness command or keep-alive, and no switch or key change for NO_DATA_TIMEOUT_MS, including after
+// power-up with no PC), and comes back at the same level when data or input resumes.
+#define BACKLIGHT_PIN 5
+#define BacklightDefaultPwm 65
+#define NO_DATA_TIMEOUT_MS 30000UL
+bool backlightPowered = true;        // true until the bridge reports the main bus is down
+bool backlightNoData = false;        // true while the no-data timeout has fired
+int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
+unsigned long lastActivityMillis = 0;
+
+void applyBacklight() {
+  int pwm = 0;
+  if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  analogWrite(BACKLIGHT_PIN, pwm);
+}
+
+// Any data packet, brightness command or keep-alive from the PC, or any switch or key change, restarts the no-data timeout and, if the backlight
+// was put out by it, brings it back.
+void noteActivity() {
+  lastActivityMillis = millis();
+  if (backlightNoData) {
+    backlightNoData = false;
+    applyBacklight();
+    SendDebug("Data or input resumed - backlight restored");
+  }
+}
+
 // Forwards a button press/release from the row/column matrix to UDP_TO_HID,
 // which drives the corresponding virtual joystick button. Format: "idx,state".
 void SendButtonToHid(int idx, int state) {
+  noteActivity();
   if (Ethernet_In_Use == 1) {
     udp.beginPacket(hidIP, hidPort);
     udp.print(String(idx) + "," + String(state));
@@ -99,6 +131,7 @@ void SendButtonToHid(int idx, int state) {
 // Forwards a keypad press/release from the small numeric keypad to UDP_TO_HID,
 // which types the matching key on its virtual keyboard. Format: "KEY,key,state".
 void SendKeyToHid(char key, int state) {
+  noteActivity();
   if (Ethernet_In_Use == 1) {
     udp.beginPacket(hidIP, hidPort);
     udp.print("KEY," + String(key) + "," + String(state));
@@ -258,9 +291,10 @@ void RebootBoard() {
 // ###################### Control packets (UDP 13136) ######################
 // This board used to have no receiving socket at all. It now listens on the
 // same port the other boards use for "D,..." data and "C,..." control packets,
-// but only acts on the control packet "C,RESET:1" (reboot, see RebootBoard()
-// above); everything else is ignored. Polled every 20ms so the extra W5500
-// access does not slow the switch-matrix scan.
+// and acts on "C,RESET:1" (reboot, see RebootBoard() above), "C,B:0-15" (backlight
+// brightness), "C,KEEPALIVE:1" and "D,BPWR:1/0" (backlight power); every data packet also
+// restarts the no-data timeout. Everything else is ignored. Polled every 20ms so the extra
+// W5500 access does not slow the switch-matrix scan.
 EthernetUDP controlUDP;
 const unsigned int controlPort = 13136;
 unsigned long lastControlCheck = 0;
@@ -276,9 +310,39 @@ void ServiceControlPackets() {
   int len = controlUDP.read(buf, sizeof(buf) - 1);
   if (len <= 0) return;
   buf[len] = 0;
-  // "C,<COMMAND>:<value>"
-  if (len >= 7 && buf[0] == 'C' && buf[1] == ',' && strncmp(buf + 2, "RESET", 5) == 0) {
-    RebootBoard();
+  // "C,<COMMAND>:<value>,..." control packet or "D,<NAME>:<value>,..." data packet
+  char* token = strtok(buf, ",");
+  if (token == NULL || (token[0] != 'C' && token[0] != 'D')) return;
+  bool isControl = (token[0] == 'C');
+  if (!isControl) noteActivity();
+  token = strtok(NULL, ",");
+  while (token != NULL) {
+    char* colon = strchr(token, ':');
+    if (colon != NULL) {
+      *colon = 0;
+      int value = atoi(colon + 1);
+      if (isControl) {
+        if (strcmp(token, "RESET") == 0) {
+          RebootBoard();
+        } else if (strcmp(token, "KEEPALIVE") == 0) {
+          noteActivity();
+        } else if (strcmp(token, "B") == 0) {
+          // Panel brightness: C,B:0 .. C,B:15 (0 = off, 15 = full). Remembered, and applied now if the main bus is powered.
+          backlightCommandedPwm = map(constrain(value, 0, 15), 0, 15, 0, 255);
+          applyBacklight();
+          noteActivity();
+          SendDebug("Brightness " + String(constrain(value, 0, 15)) + " -> PWM " + String(backlightCommandedPwm) + (backlightPowered ? "" : " (main bus off, applied when power returns)"));
+        }
+      } else if (strcmp(token, "BPWR") == 0) {
+        bool powered = (value != 0);
+        if (powered != backlightPowered) {
+          backlightPowered = powered;
+          applyBacklight();
+          SendDebug(powered ? "Main bus on - backlight on" : "Main bus off - backlight off");
+        }
+      }
+    }
+    token = strtok(NULL, ",");
   }
 }
 // ###################################################################
@@ -302,6 +366,9 @@ String vccHeartbeatText() {
 }
 
 void setup() {
+
+  pinMode(BACKLIGHT_PIN, OUTPUT);
+  applyBacklight();  // BacklightDefaultPwm until a brightness command or the main bus says otherwise
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
@@ -361,6 +428,7 @@ void setup() {
   }
 
   KeyPadInit();
+  lastActivityMillis = millis();  // the no-data timeout starts from the end of setup()
 
   SendDebug("Setup Complete");
 }
@@ -1318,4 +1386,11 @@ void loop() {
   ScanInputs();
   scanMatrix();
   ServiceControlPackets();
+
+  // No-data timeout: no data packet from the bridge and no switch or key change for NO_DATA_TIMEOUT_MS puts the backlight out until something arrives.
+  if (!backlightNoData && (millis() - lastActivityMillis) >= NO_DATA_TIMEOUT_MS) {
+    backlightNoData = true;
+    applyBacklight();
+    SendDebug("no UDP data or local input for " + String(NO_DATA_TIMEOUT_MS / 1000) + "s, backlight off");
+  }
 }

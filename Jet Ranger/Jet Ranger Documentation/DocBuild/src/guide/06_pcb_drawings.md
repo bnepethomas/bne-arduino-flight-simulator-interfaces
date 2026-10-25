@@ -76,7 +76,7 @@ Title block revision 2 (2022-08-04). One board for each stepper gauge. One X27 o
 
 ## Jet Ranger ADF Controller
 
-Revision 1.4 (2026-10-19). Mega shield for the ADF controller (172.16.1.107). The ADF major and minor knobs (D6 to D9), the 7-pin keypad (D22 to D28), the landing gear, flaps, speed brake and brake inputs (D29 to D32), three landing gear lamps (D2 to D4), the I2C OLED, the backlight MOSFET, a panel brightness pot on A0 and a 12 V monitor on A15 (47 k and 10 k divider). 1.2 added the audio panel, 1.3 corrected the MOSFET and 1.4 added the 12 V monitor and the brightness pot.
+Revision 1.5 (2026-10-25). Mega shield for the ADF controller (172.16.1.107). The ADF major and minor knobs (D6 to D9), the keypad (D22 to D28, through pins 18 to 24 of the ADF connector J5), the landing gear, flaps, speed brake and brake inputs (D29 to D32), three new two-pin switch inputs for hyd boost (J17, D33), anti-ice (J18, D34) and caution dim (J19, D35), three landing gear lamps (D2 to D4), the I2C OLED, the backlight MOSFET (Q5, moved slightly to make room), a panel brightness pot on A0 and a 12 V monitor on A15 (47 k and 10 k divider). 1.2 added the audio panel, 1.3 corrected the MOSFET, 1.4 added the 12 V monitor and the brightness pot, and the newest change log entry (labelled 1.6 while the title block says 1.5) added the three switch inputs.
 
 ![Jet Ranger ADF Controller schematic](pcb/adf_controller_sch.jpg)
 

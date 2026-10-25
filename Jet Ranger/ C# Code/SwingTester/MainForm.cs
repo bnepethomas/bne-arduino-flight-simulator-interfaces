@@ -149,6 +149,7 @@ namespace SwingTester
         private readonly TextBox txtHidIp = new() { Text = "172.16.1.11", Width = 110 };
         private readonly TextBox txtAdfIp = new() { Text = "172.16.1.107", Width = 110 };
         private readonly Button btnReset = new() { Text = "Reset boards...", AutoSize = true };
+        private readonly Button btnPorts = new() { Text = "COM ports...", AutoSize = true };
         private readonly Button btnSwingAll = new() { Text = "Swing ALL (in order)", AutoSize = true };
         private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
         private readonly Button btnOledOn = new() { Text = "OLEDs ON", AutoSize = true };
@@ -162,8 +163,8 @@ namespace SwingTester
         private readonly NumericUpDown numLampGapMs = new() { Minimum = 0, Maximum = 5000, Increment = 100, Value = 400, Width = 70 };
         private readonly NumericUpDown numLampOnGapMs = new() { Minimum = 0, Maximum = 10000, Increment = 100, Value = 1000, Width = 70 };
         // Backlight brightness (C,B:0-15) to every board except the USB HID board, and backlight power (D,BPWR) for testing the main bus rule.
-        private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper };
-        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper };
+        private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper, BoardId.Adf };
+        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper, BoardId.Upper, BoardId.Adf };
         private readonly TrackBar trkBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 260, AutoSize = false, Height = 32 };
         private readonly Label lblBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
         private readonly Button btnBrightnessSend = new() { Text = "Send to all boards", AutoSize = true };
@@ -230,6 +231,7 @@ namespace SwingTester
             actions.Controls.Add(btnOledOn);
             actions.Controls.Add(btnOledOff);
             actions.Controls.Add(btnReset);
+            actions.Controls.Add(btnPorts);
             actions.Controls.Add(chkOled);
             chkOled.Margin = new Padding(12, 6, 3, 0);
             actions.Controls.Add(new Label { Text = "Temp OLED:", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
@@ -503,6 +505,7 @@ namespace SwingTester
             btnBacklightOff.Click += async (_, _) => await SendBacklightPowerAsync(false);
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
             btnReset.Click += async (_, _) => await ResetBoardsAsync();
+            btnPorts.Click += (_, _) => { using var ports = new PortsForm(); ports.ShowDialog(this); };
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
             btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
             btnLedsOn.Click += async (_, _) => await SetAllPanelLedsAsync(true);
@@ -938,7 +941,7 @@ namespace SwingTester
             try
             {
                 byte[] data = Encoding.ASCII.GetBytes("C,KEEPALIVE:1");
-                foreach (var board in new[] { BoardId.Stepper, BoardId.DualStepper, BoardId.Servo })
+                foreach (var board in new[] { BoardId.Stepper, BoardId.DualStepper, BoardId.Servo, BoardId.Upper, BoardId.Adf })
                     await udp.SendAsync(data, data.Length, IpFor(board), Port);
             }
             catch (Exception ex)

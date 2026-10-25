@@ -37,7 +37,7 @@ def pcb_map():
         ("Jet Ranger Upper Controller  v1.4", "Upper controller (.103)", ["key matrix, brightness pot on A0,", "backlight MOSFET on D5"], "purple"),
         ("Jet Ranger 13 Stepper  v1.6", "Stepper controller (.105)", ["backlight D5, VSI coil B D8", "IRF540N backlight MOSFET"], "amber"),
         ("Jet Ranger OLED Dual Stepper  v1.5", "Dual stepper controller (.106)", ["D2 / D32 short removed in 1.4", "IRF540N backlight MOSFET"], "amber"),
-        ("Jet Ranger ADF Controller  v1.4", "ADF controller (.107)", ["ADF knobs, keypad, brightness pot, 12 V monitor,", "gear lamps, I2C OLED, IRF540N backlight MOSFET"], "teal"),
+        ("Jet Ranger ADF Controller  v1.5", "ADF controller (.107)", ["knobs, keypad, brightness pot, 12 V monitor,", "gear lamps, anti-ice / hyd boost / caution dim"], "teal"),
         ("Audio, Auto Pilot and ADF panels  v1.1", "switch panels on the controllers", ["diode-matrix switch boards, LEDs", "and rotary encoders"], "gray"),
     ]
     for i, (pcb, board, lines, th) in enumerate(pcbs):

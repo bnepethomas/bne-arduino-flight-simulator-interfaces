@@ -194,3 +194,8 @@ Built clean (Release, 0 errors) and the window checked on screen; it has not bee
   `D,NAVCOM1:1,APHDG:..,APVS:..,APCRS:..,APIAS:..,APALT:..` to the Radio for the Auto Pilot panel's OLED. Each value is 1 to 5 characters without commas or colons.
 - **ADF panel landing gear lamps** group (under the warning lamps): **Nose**, **Left**, **Right** toggles (gold when on) and **All ON / All OFF**, sent as `D,LDGN:1,LDGL:0,LDGR:0` to the ADF controller; a new `ADF (.107)` address
   box at the top (172.16.1.107). The window is 1130 px wide and up to 980 px high. Verified on the bench: the three lamps toggled.
+
+## COM ports window and backlight lists (2026-10-25)
+
+- **COM ports...** button (next to *Reset boards...*) opens `PortsForm`: a grid of the PC's COM ports with Windows' description, the board type guessed from the USB VID:PID, the USB serial number (the last segment of the USB device id; a Windows-made id containing `&` means the board has none), whether another program has the port open (`CreateFile` access denied), the status and the USB device id. It reads WMI (`Win32_PnPEntity`, package `System.Management`), finds the USB device behind a composite function with `CM_Get_Parent`, and refreshes on `WM_DEVICECHANGE`. **Refresh**, **Copy list** (tab-separated) and **Restart selected USB device** (`pnputil /restart-device`, run elevated with a UAC prompt; stops and starts the driver, cannot cut the port's power).
+- **Boards in the lists:** the brightness slider (`C,B`) now also goes to the ADF (.107); *Backlight power ON / OFF* (`D,BPWR`) goes to the Radio, Servo, Stepper, Dual Stepper, Upper and ADF; the swing keep-alive (`C,KEEPALIVE:1`) goes to the Stepper, Dual Stepper, Servo, Upper and ADF.

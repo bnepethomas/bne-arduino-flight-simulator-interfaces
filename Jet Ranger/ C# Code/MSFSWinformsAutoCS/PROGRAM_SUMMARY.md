@@ -184,3 +184,8 @@ it is 0 (see their summaries).
   `APHDG`, `APCRS` (three digits, north is 360), `APIAS`, `APVS` and `APALT` in the radio packet (`Payloads.ApValueTokens()`).
 - **Toggle switch positions:** `TryPositionCommand()` sends `GEAR_SET:1/0`, `FLAPS_SET:1/0` and `SPOILERS_SET:1/0` from the ADF controller as the SimConnect events `GEAR_SET` (0 or 1), `FLAPS_SET` and `SPOILERS_SET`
   (0 or 16383), event numbers from 2000 (`PositionEventNames`). Built clean; not run against MSFS.
+
+## Anti-ice position and ADF / Upper backlight power (2026-10-25)
+
+- **`ANTI_ICE_SET:1/0`:** `PositionEventNames` / `PositionOnValues` gain `ANTI_ICE_SET` (value 1 or 0), mapped to the SimConnect event of the same name (event numbers from 2000).
+- **ADF and Upper boards:** new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.

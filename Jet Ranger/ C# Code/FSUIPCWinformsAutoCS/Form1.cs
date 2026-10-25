@@ -215,6 +215,10 @@ namespace FSUIPCTest
         // (stepperPayload/dualStepperPayload below).
         UdpClient stepperClient = new UdpClient();
         UdpClient dualStepperClient = new UdpClient();
+        // ADF Controller (172.16.1.107): gets the backlight power (BPWR) like the other boards, which also feeds its no-data timeout.
+        UdpClient adfClient = new UdpClient();
+        // Upper Controller (172.16.1.103): backlight power only, the same way.
+        UdpClient upperClient = new UdpClient();
         // Aircraft information for the GPS interface (LowranceAirMapGps): lat, lon, altitude, airspeed and
         // heading, sent twice a second. Change GpsHost if the GPS interface runs on another PC.
         UdpClient gpsClient = new UdpClient();
@@ -986,6 +990,13 @@ namespace FSUIPCTest
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
 
+                        // ADF Controller (.107): backlight power only.
+                        Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0"));
+                        adfClient.Send(adfSendData, adfSendData.Length);
+
+                        // Upper Controller (.103): backlight power only.
+                        upperClient.Send(adfSendData, adfSendData.Length);
+
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
 
@@ -1105,11 +1116,12 @@ namespace FSUIPCTest
             int colon = command.IndexOf(':');
             if (colon <= 0) return false;
             string name = command.Substring(0, colon).Trim();
-            if (name != "GEAR_SET" && name != "FLAPS_SET" && name != "SPOILERS_SET") return false;
+            if (name != "GEAR_SET" && name != "FLAPS_SET" && name != "SPOILERS_SET" && name != "ANTI_ICE_SET") return false;
             int value;
             if (!int.TryParse(command.Substring(colon + 1).Trim(), out value)) return true;
             bool on = value != 0;
             if (name == "GEAR_SET") FSUIPCConnection.SendControlToFS(FsControl.GEAR_SET, on ? 1 : 0);
+            else if (name == "ANTI_ICE_SET") FSUIPCConnection.SendControlToFS(FsControl.ANTI_ICE_SET, on ? 1 : 0);
             else if (name == "FLAPS_SET") FSUIPCConnection.SendControlToFS(FsControl.FLAPS_SET, on ? 16383 : 0);
             else FSUIPCConnection.SendControlToFS(FsControl.SPOILERS_SET, on ? 16383 : 0);
             return true;

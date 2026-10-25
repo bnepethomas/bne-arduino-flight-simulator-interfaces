@@ -92,8 +92,8 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `TRC` | Tail rotor chip | A8 |
 | `TC` | Transmission chip | A9 |
 | `BD` | Baggage door | A10 |
-| `FFLTR` | Aft fuel filter | A11 |
-| `FPMP` | Fuel pump | A12 |
+| `FFLTR` | Aft fuel filter | A12 |
+| `FPMP` | Fuel pump | A11 |
 | `GENF` | Generator fail | A13 |
 | `LOWF` | Low fuel | A14 |
 | `SCF` | SC fail (standby compass) | A15 |
@@ -111,7 +111,7 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | D | Audio panel LEDs on the radio controller (1 = on) |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | D | The values on the Auto Pilot panel's OLED (radio controller): heading and course as three digits (north is 360), airspeed in knots, vertical speed in feet per minute and altitude in feet |
 | `LDGN`, `LDGL`, `LDGR` | D | The landing gear lamps on the ADF panel (nose, left, right): 1 = lit |
-| `BPWR` | D | Backlight power for the Radio, Servo, Stepper and Dual Stepper: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets, after `PWR` in the Dual Stepper packet and after `NAVCOM1` in the Radio packet |
+| `BPWR` | D | Backlight power for the Radio, Servo, Stepper, Dual Stepper, Upper and ADF controllers: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets, after `PWR` in the Dual Stepper packet, after `NAVCOM1` in the Radio packet and on its own to the Upper and ADF boards |
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |

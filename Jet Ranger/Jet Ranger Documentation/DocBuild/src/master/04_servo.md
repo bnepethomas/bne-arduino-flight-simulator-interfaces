@@ -59,8 +59,8 @@ Do not drive a servo hard against its mechanical stop: a stalled servo draws hig
 | `TRC` | Tail rotor chip | A8 |
 | `TC` | Transmission chip | A9 |
 | `BD` | Baggage door | A10 |
-| `FFLTR` | Aft fuel filter | A11 |
-| `FPMP` | Fuel pump | A12 |
+| `FFLTR` | Aft fuel filter | A12 |
+| `FPMP` | Fuel pump | A11 |
 | `GENF` | Generator fail | A13 |
 | `LOWF` | Low fuel | A14 |
 | `SCF` | SC fail (standby compass) | A15 |
