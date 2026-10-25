@@ -680,6 +680,13 @@ float readV12(float vcc) {
   return pinVolts * (V12_R_TOP + V12_R_BOTTOM) / V12_R_BOTTOM * V12_CAL;
 }
 
+// " V5:5.02 V12:12.41" for the heartbeat: the 5 V and 12 V rails, shown by the JetRangerHealthMonitor.
+String adfHeartbeatVoltages() {
+  float v5 = readVccMillivolts() / 1000.0f;
+  float v12 = readV12(v5 > 0 ? v5 : 5.0f);
+  return " V5:" + String(v5, 2) + " V12:" + String(v12, 2);
+}
+
 void sendPowerStatus() {
   float v5 = readVccMillivolts() / 1000.0f;
   float v12 = readV12(v5 > 0 ? v5 : 5.0f);
@@ -832,6 +839,7 @@ void loop() {
     if (Ethernet_In_Use == 1) {
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("ADF_PANEL");
+      aliveudp.print(adfHeartbeatVoltages());
       aliveudp.endPacket();
     }
     lastalivesent = millis();

@@ -25,7 +25,7 @@ All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM and NAV frequency displays, eight tuning knobs, four frequency-swap switches; sends tuning and swap commands to the PC |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | Attitude indicator pitch and bank servos, 15 warning lamps, three front-panel switches (TOT clear, warning mute, fuel valve) |
 | `JET_RANGER_UPPER_CONTROLLER` | .103 | Overhead switch matrix (176 positions) and keypad; forwards changes to the USB HID board |
-| `JET_RANGER_ADF_CONTROLLER` | .107 | ADF major and minor knobs, aircraft ID keypad for radar following, panel brightness pot (sets the other panels' backlight), 12 V and 5 V rail monitoring with a status every 30 seconds; character OLED. Not flashed or bench-tested yet |
+| `JET_RANGER_ADF_CONTROLLER` | .107 | ADF major and minor knobs, aircraft ID keypad for radar following, gear, flaps, speed brake and brakes switches (joystick buttons and bridge commands), landing gear lamps, 12 V and 5 V rail monitoring with a status every 30 seconds; character OLED. The brightness pot on the PCB is switched off for the moment |
 | `UDP_TO_HID` | .11 | Leonardo-class board: UDP in, four 32-button joysticks and a keyboard out over USB |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | Stepper gauges: airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature, fuel quantity |
 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | .106 | Stepper gauges: engine and transmission oil, engine and rotor RPM, electrical load, fuel load, altimeter; four OLEDs (barometer, altimeter, clock, temperature) |
@@ -89,7 +89,7 @@ Open items:
 - The Upper controller PCB has a Warning Mute connector on D30, but the Upper sketch scans analog pins A9 to A15 for its keypad only, so it may not read it.
 - The Upper controller's remote reset has not been bench-tested; the board was not connected.
 - The estimates in the MSFS bridge for the FlyInside and CowaSim aircraft come from a few dial readings; check them at other power settings.
-- The Radio controller and Upper controller PCBs have the backlight driver on D5 (and the Upper a brightness pot on A0), but their sketches do not use them yet.
+- The Upper controller PCB has the backlight driver on D5 and a brightness pot input on A0, but its sketch does not use them yet. The ADF controller's brightness pot is switched off.
 - The Radio controller emulator still sends a bare frequency for every radio, so only COM1 tunes from it; the real board sends labelled COM2, NAV1 and NAV2 values, which both bridges understand.
 - The Dual Stepper's RAM use is high (79 percent); be careful adding code to it.
 - Calibration tables, swing times and waits come from bench measurements; recheck them after any mechanical change to a gauge.

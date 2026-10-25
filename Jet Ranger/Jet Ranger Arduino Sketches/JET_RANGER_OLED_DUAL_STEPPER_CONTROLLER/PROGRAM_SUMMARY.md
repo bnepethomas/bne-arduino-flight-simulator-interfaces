@@ -620,3 +620,9 @@ The backlight on pin 5 (`BACK_LIGHTS`) is now controlled by `applyBacklight()`:
   send `BPWR` first in the Stepper packet and after `PWR` in the Dual Stepper packet.
 
 Compiled at 58,312 bytes flash (22%) / 6,472 bytes RAM (79%, 1,720 bytes free, the compiler's low-memory warning still applies). The version flashed to COM5 earlier does not have the no-data backlight change; **not yet flashed or bench-tested**.
+
+## Heartbeat voltage (2026-10-25)
+
+The heartbeat now carries the board's 5 V rail after its name, for example `DUAL_STEPPER V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
+band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
+The monitor matches the first word of the heartbeat, so the indicator behaves as before.

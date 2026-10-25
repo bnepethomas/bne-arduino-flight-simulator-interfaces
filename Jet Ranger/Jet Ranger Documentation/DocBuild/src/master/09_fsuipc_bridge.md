@@ -34,6 +34,8 @@
 | `0x2EE0` | Flight director active: the FD LED |
 | `0x3122` | Radio audio switches (bit 7 COM1 transmit, 6 COM2 transmit, 5 COM receive both, 4 NAV1 sound, 3 NAV2 sound, 2 marker sound, 1 DME sound, 0 ADF1 sound): the Audio panel LEDs |
 | `0x0BAC`, `0x0BAE`, `0x0BB0` | Inner, middle and outer marker: the INNER, MIDDLE and OUTER LEDs |
+| `0x07CC`, `0x07D4`, `0x07E2`, `0x07F2` | Autopilot heading (degrees x 65536 / 360), altitude (metres x 65536), airspeed (knots) and vertical speed (feet per minute): the values on the Auto Pilot panel's OLED |
+| `0x0C4E` | NAV1 OBS setting (degrees): the CRS value on the Auto Pilot panel's OLED |
 | `0x0898` | Gas producer |
 | `0x0908`, `0x0896` | Rotor RPM and engine N2 |
 | `0x282C` | Battery load amps |
@@ -57,7 +59,7 @@ The Servo, Stepper and Dual Stepper boards each get their **own** packet in real
 | Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated because FSUIPC pitch is nose-down positive), `BANK` (degrees, one decimal), the 15 lamp codes `EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF` as `:1` or `:0` |
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
 | Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
-| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
+| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0) and the five Auto Pilot display values `APHDG`, `APCRS`, `APIAS`, `APVS` and `APALT` (`BuildPanelValuePayload()`: heading and course as three digits, north is 360, airspeed in knots, vertical speed in feet per minute and altitude in feet). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
 
 ## Aircraft information for the GPS interface
 
@@ -74,6 +76,7 @@ Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:y
 | `ALTERNATOR_ON`, `ALTERNATOR_OFF` | `TOGGLE_MASTER_ALTERNATOR` unconditionally (no alternator state is read) |
 | `COM2_STANDBY:`, `NAV1_STANDBY:`, `NAV2_STANDBY:` plus a frequency | Tunes that radio's standby frequency |
 | Auto Pilot, Audio and ADF panel controls: `AP_MASTER`, `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD`, `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD`, `VOR1_OBI_INC` / `_DEC`, `AP_ALT_VAR_INC` / `_DEC`, `AP_VS_VAR_INC` / `_DEC`, `AP_SPD_VAR_INC` / `_DEC`, `HEADING_BUG_INC` / `_DEC`, `COM1_TRANSMIT_SELECT`, `COM2_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR1_IDENT_TOGGLE`, `RADIO_VOR2_IDENT_TOGGLE`, `RADIO_DME1_IDENT_TOGGLE`, `RADIO_ADF_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `GEAR_UP`, `GEAR_DOWN`, `FLAPS_UP`, `FLAPS_DOWN`, `SPOILERS_ON`, `SPOILERS_OFF`, `PARKING_BRAKES` | The FSUIPC control of the same name, sent with parameter 0 (`TryPanelCommand()`, checked first so none of these can fall through to the COM1 parser). A `:N` suffix repeats it N times (1 to 50) for a knob turned quickly |
+| `GEAR_SET:1/0`, `FLAPS_SET:1/0`, `SPOILERS_SET:1/0` | The positions of the ADF panel's toggle switches (1 = gear down, flaps fully down, speed brakes fully out), sent on every change and every 5 seconds: `TryPositionCommand()` sends the FSUIPC control `GEAR_SET` (parameter 1 or 0), `FLAPS_SET` or `SPOILERS_SET` (16383 or 0) |
 | A bare number from 118.00 to 136.975 | COM1 standby: BCD-encoded and sent with `COM_STBY_RADIO_SET`. Any other unrecognised string ends up in this parser too |
 
 ## Notes and quirks

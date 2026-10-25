@@ -177,3 +177,10 @@ parser reads it back correctly); **not yet run against MSFS**.
 `Payloads.Servo()`, `Payloads.Stepper()` and `Payloads.DualStepper()` add `BPWR:1` / `BPWR:0` (1 while the main bus is 20 V or more, the same test as
 `GaugesPowered()`): first in the Stepper packet and after `PWR` in the Dual Stepper packet. The boards switch their backlight off when
 it is 0 (see their summaries).
+
+## Auto Pilot display values and position commands (2026-10-25)
+
+- **Auto Pilot display:** a third extra request (`PanelApValues`, every 6th frame) reads `AUTOPILOT HEADING LOCK DIR`, `NAV OBS:1`, `AUTOPILOT AIRSPEED HOLD VAR`, `AUTOPILOT VERTICAL HOLD VAR` and `AUTOPILOT ALTITUDE LOCK VAR`; they become
+  `APHDG`, `APCRS` (three digits, north is 360), `APIAS`, `APVS` and `APALT` in the radio packet (`Payloads.ApValueTokens()`).
+- **Toggle switch positions:** `TryPositionCommand()` sends `GEAR_SET:1/0`, `FLAPS_SET:1/0` and `SPOILERS_SET:1/0` from the ADF controller as the SimConnect events `GEAR_SET` (0 or 1), `FLAPS_SET` and `SPOILERS_SET`
+  (0 or 16383), event numbers from 2000 (`PositionEventNames`). Built clean; not run against MSFS.

@@ -1,17 +1,18 @@
 # Health Monitor (JetRangerHealthMonitor)
 
-A small Windows Forms dashboard (namespace `MegaHealthMonitor`) that watches for the 10 second heartbeat strings sent by the networked Arduino boards and shows one traffic light per board: Comm/Nav, Servo, Joystick, Upper Input, Stepper and Dual Stepper.
+A small Windows Forms dashboard (namespace `MegaHealthMonitor`) that watches for the 10 second heartbeat strings sent by the networked Arduino boards and shows one traffic light per board: Comm/Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF. A **Show Voltages** button adds a table of the last voltage reading from each board.
 
 ![Heartbeats in, one light per board out](diagrams/health_monitor.svg)
 
 ## Program flow
 
 1. `Form1_Load` starts a background task that binds a `UdpClient` to port **13137** and loops on `ReceiveAsync()`.
-2. Each packet is matched by **prefix** (not by sender address): `COMM_NAV`, `SERVO`, `JOYSTICK`, `UPPER_INPUT`, `STEPPER` or `DUAL_STEPPER`. A match updates that board's last-received time and turns its label green; each match can also be logged (sender and timestamp) to a list box.
+2. Each packet is matched by **prefix** (not by sender address): `COMM_NAV`, `SERVO`, `JOYSTICK`, `UPPER_INPUT`, `STEPPER`, `DUAL_STEPPER` or `ADF_PANEL`. A match updates that board's last-received time and turns its label green; each match can also be logged (sender and timestamp) to a list box.
 3. A timer calls `CheckHealth()` about once a second: 30 seconds or more since the last packet turns the indicator **red** (connection lost), 15 seconds or more **orange** (connection warning), otherwise it stays green.
 4. *Toggle logs* shows or hides the log list box and resizes the form.
+5. **Voltages.** Every board appends its 5 V rail to its heartbeat after its name (`SERVO V5:5.02`) and the ADF controller also its 12 V rail (`ADF_PANEL V5:5.03 V12:12.41`). `RecordVoltages()` keeps the last reading and its time for each board, and the *Show Voltages* button shows a table with one row per board: the last 5 V reading, the 12 V reading (only the ADF measures it; the other rows say "not measured") and the time of the last reading with "N s ago". A reading outside its limits (5 V: 4.75 to 5.25, 12 V: 10.8 to 15.0) is orange, and a reading older than 35 seconds, or none yet, is grey. A board that has not been reflashed since the voltage was added shows "no reading". `ApplyLayout()` sizes the window for whichever of the log list and the voltage table are showing.
 
-The monitor is a passive listener: it never sends anything and does not care which bridge is running. The Dual Stepper's prefix is deliberately distinct from `STEPPER` (the monitor uses `StartsWith`, so overlapping prefixes would light the wrong indicator). The ADF controller's `ADF_PANEL` heartbeat has no light yet.
+The monitor is a passive listener: it never sends anything and does not care which bridge is running. The Dual Stepper's prefix is deliberately distinct from `STEPPER` (the monitor uses `StartsWith`, so overlapping prefixes would light the wrong indicator). The monitor finds the voltages with a pattern (`V5:` and `V12:` followed by a number), so a heartbeat without them still lights the board's indicator.
 
 # Radio and Upper controller emulators
 
@@ -52,7 +53,7 @@ Notes: the raw panel still lists `FLAPS`, `AOA`, `GFORCE`, `SPDMAX` and `N1RAW`;
 
 # SwingTester
 
-A Windows Forms (.NET 10) bench tool that triggers each gauge's start-up swing over UDP, one gauge at a time or all of them in a fixed order. It also lights the warning lamps and, in a **Panel LEDs** group, each of the 19 Auto Pilot and Audio panel LEDs on its own (a toggle per LED sending `D,NAVCOM1:1,LED_xxx:1/0` to the Radio controller), all on or off, in a chase (one at a time, with the on gap), or with the Radio's own `C,LEDTEST` board test. Build with `dotnet build -c Release` in its folder; the executable is `bin\Release\net10.0-windows\SwingTester.exe`.
+A Windows Forms (.NET 10) bench tool that triggers each gauge's start-up swing over UDP, one gauge at a time or all of them in a fixed order. It also lights the warning lamps and, in a **Panel LEDs** group, each of the 19 Auto Pilot and Audio panel LEDs on its own (a toggle per LED sending `D,NAVCOM1:1,LED_xxx:1/0` to the Radio controller), all on or off, in a chase (one at a time, with the on gap), or with the Radio's own `C,LEDTEST` board test. The **Auto Pilot display** group sends the five values (HDG, VS, CRS, IAS, ALT) to the Radio for the Auto Pilot panel's OLED (`D,NAVCOM1:1,APHDG:090,APVS:0,APCRS:110,APIAS:80,APALT:3200`), with a *Start-up values* button, and the **ADF panel landing gear lamps** group (nose, left, right, All ON and All OFF) lights the lamps on the ADF controller (`D,LDGN:1,LDGL:0,LDGR:0`); an `ADF (.107)` box holds the ADF controller's address. Build with `dotnet build -c Release` in its folder; the executable is `bin\Release\net10.0-windows\SwingTester.exe`.
 
 ## How it works
 

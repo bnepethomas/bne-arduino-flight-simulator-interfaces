@@ -32,6 +32,8 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `ZULU` | Dual .106 | Zulu time as HHMM, for example `1430` |
 | `TEMP` | Dual .106 | Temperature text up to 8 characters, for example `25C` |
 | `PWR` | Dual .106 | 1 = all four OLEDs on, 0 = blank (main bus below 24 V). Sent first in the packet |
+| `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | Radio .101 | The values on the Auto Pilot panel's OLED: heading and course (three digits, north is 360), airspeed (knots), vertical speed (feet per minute, signed) and altitude (feet), up to 5 characters each |
+| `LDGN`, `LDGL`, `LDGR` | ADF .107 | The landing gear lamps (nose, left, right): 1 = lit |
 | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101 | COM1 and COM2 active and standby frequency, MHz |
 | `MAINBUS` | Radio .101 | Main bus voltage |
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank, panel LEDs off), 1 = on |
@@ -54,7 +56,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `MATRIX` | Radio and ADF controllers: print the raw keypad matrix to the debug stream |
 | `LEDTEST` | Radio controller: 1 lights all 19 Auto Pilot and Audio panel LEDs, 0 returns them to the simulator's state |
 | `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
-| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper and Dual Stepper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off), the Upper ignores it. The ADF controller's pot sends it to the other panels |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper and Dual Stepper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off), the Upper ignores it. The ADF controller can send it from its brightness pot, which is switched off for the moment |
 
 ## Messages from the ADF controller to the PC (UDP 27003)
 
@@ -66,7 +68,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 
 ## Messages from the Radio controller to the bridge (UDP 27001)
 
-`COM1_RADIO_SWAP`, `COM2_RADIO_SWAP`, `NAV1_RADIO_SWAP`, `NAV2_RADIO_SWAP`, `AVIONICS_MASTER_SET`, `MASTER_BATTERY_ON`, `MASTER_BATTERY_OFF`, `ALTERNATOR_ON`, `ALTERNATOR_OFF`, `COM2_STANDBY:<MHz>`, `NAV1_STANDBY:<MHz>`, `NAV2_STANDBY:<MHz>` and a bare number for the COM1 standby frequency. The Radio controller also sends the Auto Pilot and Audio panel controls and the ADF controller the gear, flaps, speed brake and brake controls, each as the name of the simulator control with an optional `:N` repeat count: `AP_MASTER`, `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD`, `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD`, `VOR1_OBI_INC`, `VOR1_OBI_DEC`, `AP_ALT_VAR_INC`, `AP_ALT_VAR_DEC`, `AP_VS_VAR_INC`, `AP_VS_VAR_DEC`, `AP_SPD_VAR_INC`, `AP_SPD_VAR_DEC`, `HEADING_BUG_INC`, `HEADING_BUG_DEC`, `COM1_TRANSMIT_SELECT`, `COM2_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR1_IDENT_TOGGLE`, `RADIO_VOR2_IDENT_TOGGLE`, `RADIO_DME1_IDENT_TOGGLE`, `RADIO_ADF_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `GEAR_UP`, `GEAR_DOWN`, `FLAPS_UP`, `FLAPS_DOWN`, `SPOILERS_ON`, `SPOILERS_OFF` and `PARKING_BRAKES`.
+`COM1_RADIO_SWAP`, `COM2_RADIO_SWAP`, `NAV1_RADIO_SWAP`, `NAV2_RADIO_SWAP`, `AVIONICS_MASTER_SET`, `MASTER_BATTERY_ON`, `MASTER_BATTERY_OFF`, `ALTERNATOR_ON`, `ALTERNATOR_OFF`, `COM2_STANDBY:<MHz>`, `NAV1_STANDBY:<MHz>`, `NAV2_STANDBY:<MHz>` and a bare number for the COM1 standby frequency. The ADF controller also sends the positions of its toggle switches as values: `GEAR_SET:1/0` (gear down / up), `FLAPS_SET:1/0` (flaps fully down / up) and `SPOILERS_SET:1/0` (speed brakes fully out / in), on every change and every 5 seconds. The Radio controller also sends the Auto Pilot and Audio panel controls and the ADF controller the gear, flaps, speed brake and brake controls, each as the name of the simulator control with an optional `:N` repeat count: `AP_MASTER`, `AP_HDG_HOLD`, `AP_NAV1_HOLD`, `AP_ALT_HOLD`, `AP_APR_HOLD`, `TOGGLE_FLIGHT_DIRECTOR`, `AP_BC_HOLD`, `AP_PANEL_SPEED_HOLD`, `VOR1_OBI_INC`, `VOR1_OBI_DEC`, `AP_ALT_VAR_INC`, `AP_ALT_VAR_DEC`, `AP_VS_VAR_INC`, `AP_VS_VAR_DEC`, `AP_SPD_VAR_INC`, `AP_SPD_VAR_DEC`, `HEADING_BUG_INC`, `HEADING_BUG_DEC`, `COM1_TRANSMIT_SELECT`, `COM2_TRANSMIT_SELECT`, `COM_RECEIVE_ALL_TOGGLE`, `RADIO_VOR1_IDENT_TOGGLE`, `RADIO_VOR2_IDENT_TOGGLE`, `RADIO_DME1_IDENT_TOGGLE`, `RADIO_ADF_IDENT_TOGGLE`, `MARKER_SOUND_TOGGLE`, `GEAR_UP`, `GEAR_DOWN`, `FLAPS_UP`, `FLAPS_DOWN`, `SPOILERS_ON`, `SPOILERS_OFF` and `PARKING_BRAKES`.
 
 # Appendix B: Building and flashing {-}
 

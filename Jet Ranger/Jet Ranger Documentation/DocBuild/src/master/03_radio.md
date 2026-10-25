@@ -53,6 +53,7 @@
 | `NAVCOM1` | Radio power: 1 = on, 0 = COM and NAV displays blank and the panel LEDs off | `NAVCOM1:1` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off (the radio assumes 1 until the first one arrives) | `BPWR:1` |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (see below): 1 = on, 0 = off | `LED_HDG:1` |
+| `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot display (see below), up to 5 characters each | `APHDG:090` |
 | `C,B:n` | Brightness 0 to 15 (control packet): the panel backlight level (0 off, 15 full) and the MAX7219 intensity of the panel LEDs | `C,B:5` |
 | `C,LEDTEST:n` | Control packet: 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
@@ -133,6 +134,28 @@ One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 1
 | | | | | | MIDDLE | `LED_MID` | 3 | E |
 
 The first two columns are the Auto Pilot panel and the others the Audio panel. The bridges send each LED as a `LED_xxx:0/1` token in the radio data packet. `HandleOutputValuePair()` handles these before its per-pair debug line (19 extra debug packets per radio packet would flood the debug stream), `applyPanelLeds()` writes only the LEDs that changed, and the LEDs follow the radio power: they are lit only while `NAVCOM1` is 1 and the no-data timeout has not blanked the displays. `C,LEDTEST:1` lights all 19 for checking the wiring, and `C,B:0-15` (for example from the ADF controller's pot or the SwingTester slider) sets the intensity: 0 shuts the MAX7219 down, 1 to 15 set the intensity. The SwingTester has a toggle for each LED, an All ON / OFF, a chase and the board test.
+
+## Auto Pilot display
+
+The Auto Pilot panel's character OLED (the PCB net `AP_OLED`, TCA9548A channel 2; `AP_OLED_Port`) sits behind a mask, so each of the five autopilot values has its own window on the 16-column, two-row display:
+
+| | Left hand end | Centre | Right hand end |
+|---|---|---|---|
+| Top row | HDG | | VS |
+| Bottom row | CRS | IAS | ALT |
+
+HDG and CRS start at column 0, IAS ends at column 8 so it is centred, and VS and ALT end at column 15. At start-up the display shows heading `090`, course `110`, airspeed `80`, vertical speed `0` and altitude `3200`:
+
+```
+090            0
+110    80   3200
+```
+
+(`showAutoPilot()` builds the two lines and `placeLeft()` and `placeRight()` position each value.) The bridges then send the real values as the tokens `APHDG`, `APCRS`, `APIAS`, `APVS` and `APALT` in the radio data packet: heading and course as three digits (north is 360), airspeed in knots, vertical speed in feet per minute (signed) and altitude in feet, each at most 5 characters. `setAutoPilotValueFromToken()` stores them (handled before the per-pair debug line, like the LED tokens) and `updateAP()` redraws the display when one changes; like the COM and NAV displays it goes blank while the radio has no power (`NAVCOM1:0`, or the no-data timeout) and returns with it. The FSUIPC bridge reads the autopilot heading (`0x07CC`), altitude (`0x07D4`), airspeed (`0x07E2`) and vertical speed (`0x07F2`) values and the NAV1 OBS (`0x0C4E`) for the course; the MSFS bridge reads `AUTOPILOT HEADING LOCK DIR`, `NAV OBS:1`, `AUTOPILOT AIRSPEED HOLD VAR`, `AUTOPILOT VERTICAL HOLD VAR` and `AUTOPILOT ALTITUDE LOCK VAR`. The SwingTester's **Auto Pilot display** group sends test values.
+
+## When the USB HID board is missing
+
+Every Audio and Auto Pilot switch and knob click is sent to the USB HID board (172.16.1.11). If the board is switched off or unplugged, the send fails after the W5500's ARP timeout (about 80 ms with the fast retransmission timeout, 1.6 seconds with the chip's default), and that wait used to be paid on every press and release, so the panel felt slow. Now a failed send to the HID board pauses joystick-button sends for **30 seconds** (`HID_RETRY_MS`), so only one press or release in that time pays the wait. The monitor shows `USB HID board 172.16.1.11 not answering (send gave up after N ms)` with the real wait, which also shows whether the fast timeout is working (N should be about 80), and `USB HID board is answering again` on recovery, when the switches that are held down are sent again. Debug sends to a host that does not answer are paused for 10 seconds in the same way (`DEBUG_RETRY_MS`).
 
 ## DME display
 

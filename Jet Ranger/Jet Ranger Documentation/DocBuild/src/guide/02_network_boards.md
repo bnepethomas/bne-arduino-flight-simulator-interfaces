@@ -13,7 +13,7 @@ All devices sit on one wired `172.16.1.x` subnet with fixed addresses; there is 
 | Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
 | Stepper board | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper board | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
-| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` (no light in the Health Monitor yet) |
+| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` |
 
 Every live board has its own IP and MAC address. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
 
@@ -45,7 +45,7 @@ $u.Send($b, $b.Length, '172.16.1.102', 13136)
 
 ![Board life cycle](diagrams/board_lifecycle.svg)
 
-After start-up and its self-test a gauge board checks UDP 13136 every 5 ms and moves each needle smoothly towards its target. It sends its keep-alive every 10 seconds. If no packet arrives for **30 seconds** every needle returns to zero (the Servo board also switches its lamps off, the Dual Stepper blanks its OLEDs and the Radio blanks its displays); the next packet brings everything back.
+After start-up and its self-test a gauge board checks UDP 13136 every 5 ms and moves each needle smoothly towards its target. It sends its keep-alive every 10 seconds, with its 5 V rail after the board name (and the ADF controller its 12 V rail as well) for the Health Monitor. If no packet arrives for **30 seconds** every needle returns to zero (the Servo board also switches its lamps off, the Dual Stepper blanks its OLEDs and the Radio blanks its displays); the next packet brings everything back.
 
 ![Remote reset](diagrams/remote_reset.svg)
 
@@ -79,7 +79,7 @@ The Radio, Servo, Stepper and Dual Stepper boards drive their panel backlights f
 - **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The **ADF controller's** brightness pot sends the level to the Radio, Servo, Upper, Stepper and Dual Stepper boards when you move it, and once at start-up. The Radio also uses the level for its panel LEDs. The Upper controller accepts the command but does not drive a backlight yet.
+The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs. The Upper controller accepts the command but does not drive a backlight yet.
 
 # Arduino servo controller
 

@@ -51,3 +51,11 @@ not sender IP, so any board sending the right prefix is accepted:
 No dependency on which sim-bridge app (`FSUIPCWinformsAutoCS` /
 `MSFSWinformsAutoCS`) is running — this monitor only cares about the
 Arduino boards, not the flight sim connection.
+
+## ADF and voltages (2026-10-25)
+
+- **ADF:** a seventh indicator, `lblAdf`, for the `ADF_PANEL` heartbeat (orange after 15 s, red after 30 s, logged like the others).
+- **Voltage table:** every board now adds its 5 V rail to its heartbeat after its name (`SERVO V5:5.02`) and the ADF controller also its 12 V rail (`ADF_PANEL V5:5.03 V12:12.41`). `RecordVoltages()` finds `V5:` and `V12:`
+  with a regular expression and keeps the last reading and its time per board; the **Show Voltages** button (`cmdToggleVoltages`) shows a `ListView` (`lvVoltages`) with one row per board: 5 V, 12 V (only the ADF; the others
+  say "not measured") and the time with "N s ago". Readings outside 4.75 to 5.25 V (5 V) or 10.8 to 15.0 V (12 V) are orange; a reading older than 35 s, or none, is grey. `ApplyLayout()` sizes the window for the log list and
+  the table. Tested with simulated heartbeats. A board that has not been reflashed shows "no reading" but its indicator still works.

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="460" viewBox="0 0 880 460">
-<rect width="880" height="460" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500">
+<rect width="880" height="500" fill="#FFFFFF"/>
 <defs>
-<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
-<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
 <marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
 <marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
 </defs>
 <rect x="16.0" y="24.0" width="250.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="47.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Radio controller</text>
@@ -31,15 +31,22 @@
 <text x="28.0" y="357.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Dual stepper</text>
 <text x="284.0" y="354.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"DUAL_STEPPER"</text>
 <path d="M 282.0 370.0 L 400.0 370.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
-<text x="290.0" y="14.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">every 10 s</text>
-<rect x="400.0" y="24.0" width="200.0" height="372.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<rect x="16.0" y="396.0" width="250.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="419.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF controller</text>
+<text x="284.0" y="416.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"ADF_PANEL"</text>
+<path d="M 282.0 432.0 L 400.0 432.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<text x="290.0" y="14.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">every 10 s, with V5 (ADF also V12)</text>
+<rect x="400.0" y="24.0" width="200.0" height="410.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
 <text x="500.0" y="46.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Health Monitor</text>
 <text x="500.0" y="70.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">UDP 13137</text>
 <text x="500.0" y="87.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">matches the message by</text>
 <text x="500.0" y="105.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">its prefix (not the</text>
-<text x="500.0" y="122.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">sender address)</text>
-<path d="M 600.0 210.0 L 640.0 210.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
-<rect x="640.0" y="24.0" width="224.0" height="372.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="500.0" y="122.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">sender address);</text>
+<text x="500.0" y="140.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">Show Voltages: last</text>
+<text x="500.0" y="157.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">V5 / V12 reading</text>
+<text x="500.0" y="175.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">from each board</text>
+<path d="M 600.0 230.0 L 640.0 230.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="640.0" y="24.0" width="224.0" height="410.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="654.0" y="47.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">One light per board</text>
 <rect x="660.0" y="76.0" width="184.0" height="84.0" rx="8" ry="8" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
 <text x="752.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">green</text>
@@ -50,5 +57,5 @@
 <rect x="660.0" y="276.0" width="184.0" height="84.0" rx="8" ry="8" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
 <text x="752.0" y="306.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">red</text>
 <text x="752.0" y="328.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">30 s: connection lost</text>
-<text x="16.0" y="440.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The monitor only listens; it never sends anything. It does not care which bridge is running.</text>
+<text x="16.0" y="482.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The monitor only listens; it never sends anything. It does not care which bridge is running.</text>
 </svg>

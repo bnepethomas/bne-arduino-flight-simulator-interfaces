@@ -11,6 +11,7 @@
 | All gauges drop to zero after 30 seconds | No packets arriving (watchdog) | Bridge running and connected; simulator not paused; network link |
 | A board feels slower, or its knobs and needles stutter, while the PC (or another board) is off | Each packet sent to a missing device waits up to 80 ms for an ARP answer (the fast Ethernet timeout) | Switch the missing device on, or reduce debug traffic; see *Unreachable hosts and the fast Ethernet timeout* in the Network chapter |
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |
+| Pressing an Audio or Auto Pilot switch is slow, or a joystick button seems delayed | The USB HID board is switched off or unplugged: each send to it waits for an answer that never comes | The radio now pauses joystick sends for 30 seconds after one fails and says so in the monitor (`USB HID board ... not answering`); connect the HID board and the buttons return |
 | Servo buzzes or jitters | Weak servo supply | Separate 5 to 6 V supply for servos, common ground with the Mega |
 | A backlight is off | Main bus below 20 V (`BPWR:0`), no packets for 30 seconds, or brightness set to 0 | Check the main bus voltage in the bridge window; check the bridge is running; send a brightness with the SwingTester slider |
 | A backlight stays on at power-up with no PC | Old firmware without the no-data rule, or the board has never been flashed with the backlight code | Flash the current Radio, Servo, Stepper and Dual Stepper sketches; the backlight should go out about 30 seconds after power-up |
@@ -108,11 +109,13 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `NAVCOM1` | D | 0 = avionics bus below 24 V (radio COM and NAV displays blank, panel LEDs off), 1 = on |
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | D | Auto Pilot panel LEDs on the radio controller (1 = on) |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | D | Audio panel LEDs on the radio controller (1 = on) |
+| `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | D | The values on the Auto Pilot panel's OLED (radio controller): heading and course as three digits (north is 360), airspeed in knots, vertical speed in feet per minute and altitude in feet |
+| `LDGN`, `LDGL`, `LDGR` | D | The landing gear lamps on the ADF panel (nose, left, right): 1 = lit |
 | `BPWR` | D | Backlight power for the Radio, Servo, Stepper and Dual Stepper: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets, after `PWR` in the Dual Stepper packet and after `NAVCOM1` in the Radio packet |
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |
-| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Radio, Servo, Stepper and Dual Stepper (the Radio also sets the brightness of its Auto Pilot and Audio panel LEDs from it); the Upper ignores it. The ADF controller's pot sends it to the other panels |
+| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Radio, Servo, Stepper and Dual Stepper (the Radio also sets the brightness of its Auto Pilot and Audio panel LEDs from it); the Upper ignores it. The ADF controller can send it from its brightness pot, which is switched off for the moment |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
 | `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (SwingTester sends it during a run) |

@@ -258,3 +258,9 @@ Stepper and Dual Stepper boards:
 
 Compiled at 24,468 bytes flash (9%) / 2,530 bytes RAM (30%); the watchdog change is **not yet flashed or bench-tested**. This replaces the earlier note that
 `C,B:n` was accepted but did nothing.
+
+## Heartbeat voltage (2026-10-25)
+
+The heartbeat now carries the board's 5 V rail after its name, for example `SERVO V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
+band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
+The monitor matches the first word of the heartbeat, so the indicator behaves as before.

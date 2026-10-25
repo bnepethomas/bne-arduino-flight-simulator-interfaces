@@ -256,3 +256,14 @@ not yet flashed.
 - No C# project in this repository currently listens on `172.16.1.10:27000`
   — the debug log stream (`SendDebug`) has no in-repo consumer; it would
   need to be watched with a generic UDP listener/packet capture.
+
+## Auto Pilot display, USB HID board missing, heartbeat voltage (2026-10-25)
+
+- **Auto Pilot display:** the Auto Pilot panel's OLED (TCA9548A channel 2, `AP_OLED_Port`) sits behind a mask, so `showAutoPilot(hdg, crs, ias, vs, alt)` puts HDG at the left end and VS at the right end of the top
+  row, CRS at the left end, IAS centred (ending at column 8) and ALT at the right end of the bottom row (`placeLeft()` / `placeRight()`, 16 columns). Start-up values 090, 110, 80, 0 and 3200
+  (`090            0` / `110    80   3200`). The bridges send `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` (at most 5 characters) in the radio data packet; `setAutoPilotValueFromToken()` stores them,
+  `updateAP()` redraws on a change and blanks the display with the radio power (`apDrawnPower`), like the COM and NAV displays.
+- **USB HID board missing:** a failed `udp.endPacket()` to 172.16.1.11 pauses `sendButtonToHid()` for `HID_RETRY_MS` (30 s) and logs `USB HID board ... not answering (send gave up after N ms)`, so only one press or
+  release in 30 s pays the ARP timeout (N shows whether the 10 ms retransmission timeout is effective: about 80, not 1600). When the board answers again `hidNeedsResync` sends the held switches again
+  (`resyncHidButtons()`). `SendDebug()` pauses 10 s after a failed send in the same way (`DEBUG_RETRY_MS`).
+- **Heartbeat voltage:** `COMM_NAV V5:5.02` (see the other boards' summaries). Compiled at 38,592 bytes flash (15%) / 5,222 bytes RAM (63%).

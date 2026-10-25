@@ -91,12 +91,21 @@ try {
         $hm = Run "$root\JetRangerHealthMonitor\bin\Release\net10.0-windows\JetRangerHealthMonitor.exe"
         $u = New-Object System.Net.Sockets.UdpClient
         function Beat($tokens) { foreach ($t in $tokens) { $b = [Text.Encoding]::ASCII.GetBytes($t); [void]$u.Send($b, $b.Length, "127.0.0.1", 13137) } }
-        $all = "COMM_NAV", "SERVO", "JOYSTICK", "UPPER_INPUT", "STEPPER", "DUAL_STEPPER"
+        # heartbeats carry the 5 V rail (and the ADF also the 12 V rail) after the board name
+        $all = "COMM_NAV V5:5.02", "SERVO V5:4.98", "JOYSTICK V5:5.01", "UPPER_INPUT V5:5.03", "STEPPER V5:5.00", "DUAL_STEPPER V5:4.97", "ADF_PANEL V5:5.03 V12:12.41"
         Beat $all
         Start-Sleep 2
         Shot $hm "health_monitor.png"
         $win = Find-Window $hm.Id $null
-        $btn = $win.FindAll($script:TS::Descendants, (Cond ([System.Windows.Automation.ControlType]::Button))) | Select-Object -First 1
+        # the voltage table: Show Voltages, then back to the log view
+        Click-Button $win "Show Voltages"
+        Start-Sleep 1
+        Beat $all
+        Start-Sleep 1
+        Shot $hm "health_monitor_voltages.png"
+        Click-Button $win "Hide Voltages"
+        Start-Sleep 1
+        $btn = $win.FindFirst($script:TS::Descendants, (Name-Cond "Hide Logs"))
         [WinShot]::Click([IntPtr]$btn.Current.NativeWindowHandle)
         Start-Sleep 1
         Beat $all
@@ -104,7 +113,7 @@ try {
         Shot $hm "health_monitor_logs_hidden.png"
         [WinShot]::Click([IntPtr]$btn.Current.NativeWindowHandle)
         # keep four boards alive, let Stepper and Dual Stepper go quiet: orange after 15 s, red after 30 s
-        $alive = "COMM_NAV", "SERVO", "JOYSTICK", "UPPER_INPUT"
+        $alive = "COMM_NAV V5:5.02", "SERVO V5:4.98", "JOYSTICK V5:5.01", "UPPER_INPUT V5:5.03", "ADF_PANEL V5:5.03 V12:12.41"
         $t0 = Get-Date
         $warn = $false; $lost = $false
         while (-not $lost) {

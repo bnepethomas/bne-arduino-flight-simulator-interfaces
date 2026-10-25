@@ -112,7 +112,7 @@ def adf_blocks():
     s.arrow([(266, 70), (300, 190)], None, color=BLUE)
     s.card(16, 140, 250, 120, "Keypad 4 x 3", ["rows D22 - D25, columns D26 - D28", "0 - 9 type the aircraft ID", "# sends it, * deletes a digit"], "white", title_size=14, line_size=12.5)
     s.arrow([(266, 200), (300, 245)], None, color=BLUE)
-    s.card(16, 280, 250, 100, "Panel brightness pot", ["wiper to A0 (5 V to ground)", "level 0 - 15"], "white", title_size=14, line_size=12.5)
+    s.card(16, 280, 250, 100, "Brightness pot (switched off)", ["wiper to A0 (5 V to ground)", "not read for the moment"], "gray", title_size=14, line_size=12.5)
     s.arrow([(266, 330), (300, 300)], None, color=BLUE)
     s.card(16, 400, 250, 110, "Power monitors", ["12 V: A15, 47k / 10k divider", "5 V: AVcc against the 1.1 V", "band-gap (AREF left at AVcc)"], "white", title_size=14, line_size=12.5)
     s.arrow([(266, 455), (330, 340)], None, color=BLUE)
@@ -120,13 +120,13 @@ def adf_blocks():
     s.arrow([(580, 190), (614, 80)], None, color=LINE)
     s.card(614, 130, 250, 150, "UDP 27003 to the PC", ["ADF_FREQ:<kHz>", "RADAR_FOLLOW_ID:<digits>", "POWER,V12:..,V5:..,STATUS:OK", "(power status every 30 s)"], "amber", title_size=14, line_size=12.5)
     s.arrow([(580, 230), (614, 220)], None, color=AMBER)
-    s.card(614, 300, 250, 120, "C,B:0-15 on UDP 13136", ["to Radio .101, Servo .102,", "Upper .103, Stepper .105 and", "Dual Stepper .106"], "green", title_size=14, line_size=12.5)
+    s.card(614, 300, 250, 120, "Switches to the simulator", ["D29-D32: GEAR_SET:1/0, FLAPS_SET,", "SPOILERS_SET to the bridge (27001);", "joystick buttons 104-111 to HID 4210"], "green", title_size=14, line_size=12.5)
     s.arrow([(580, 300), (614, 350)], None, color=GREEN)
-    s.card(300, 400, 280, 100, "UDP 13136 in", ["C,RESET:1  C,MATRIX:1  C,POWER:1", "(data packets are ignored)"], "white", title_size=14, line_size=12.5, center=True)
+    s.card(300, 400, 280, 100, "UDP 13136 in", ["C,RESET:1  C,MATRIX:1  C,POWER:1", "D,LDGN / LDGL / LDGR: 1 = lamp lit"], "white", title_size=14, line_size=12.5, center=True)
     s.arrow([(440, 400), (440, 340)], None, color=BLUE)
-    s.card(614, 440, 250, 100, "Own backlight", ["D5 PWM, IRF540N MOSFET,", "follows the pot"], "white", title_size=14, line_size=12.5)
+    s.card(614, 440, 250, 100, "Own backlight and lamps", ["D5 PWM (fixed default level),", "landing gear lamps D2 - D4"], "white", title_size=14, line_size=12.5)
     s.arrow([(580, 320), (614, 480)], None, color=LINE)
-    s.text(16, 570, "Landing gear lamps (D2 - D4) and the gear, flaps, speed brake and brake inputs (D29 - D32) are not used yet.", size=12.5, fill=INK2)
+    s.text(16, 570, "The toggle switches send their position as a value (every change and every 5 s); the brakes push button sends PARKING_BRAKES.", size=12.5, fill=INK2)
     return s
 
 

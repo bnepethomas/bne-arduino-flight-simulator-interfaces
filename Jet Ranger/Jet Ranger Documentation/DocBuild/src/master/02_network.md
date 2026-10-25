@@ -15,7 +15,7 @@ All devices sit on one wired `172.16.1.0/24` network with fixed addresses; there
 | Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
 | Stepper controller | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper controller | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
-| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` (the Health Monitor has no light for it) |
+| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` |
 
 Every live board has its own IP and MAC address.
 
@@ -61,7 +61,7 @@ $u.Send($b, $b.Length, '172.16.1.102', 13136)
 1. **Start-up:** status LEDs flash, the Ethernet module is reset, the board gets its static address and opens its sockets; the red LED flashes for a few seconds while the link settles.
 2. **Self-test:** the gauge boards sweep each gauge (the Servo board also lights all lamps) and park at the calibrated zero.
 3. **Running:** every 5 ms the board checks UDP 13136, stores each value as a new target and moves the needle towards it with smooth acceleration.
-4. **Heartbeat:** every 10 seconds the board sends its heartbeat text to the Health Monitor.
+4. **Heartbeat:** every 10 seconds the board sends its heartbeat text to the Health Monitor, followed by its 5 V rail (`SERVO V5:5.02`; the ADF controller also adds its 12 V rail, `ADF_PANEL V5:5.03 V12:12.41`). The Health Monitor matches the first word and shows the voltages in its voltage table. The 5 V rail is the ADC reference (AVcc) measured against the chip's 1.1 V band-gap.
 5. **No-data watchdog:** if no packet (data or control) arrives for 30 seconds, every gauge returns to its calibrated zero. The Servo board also switches its lamps off, the Dual Stepper blanks its OLEDs and the Radio blanks its displays. The timer starts at the end of `setup()` so that a long self-test cannot use it up. Normal operation resumes with the next packet.
 
 All sketches call `Ethernet.setRetransmissionTimeout(10)` after `Ethernet.begin()`. The W5500 default of 200 ms times 8 retries can block a UDP send for 1.6 seconds if the destination does not answer ARP (for example the PC is off); with 10 ms the worst case is about 80 ms, so one dead destination cannot stall gauge movement or button scanning.
@@ -86,7 +86,7 @@ The Radio, Servo, Stepper and Dual Stepper boards drive their panel backlights f
 - **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns.
 - **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
 
-The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper and Dual Stepper. The ADF controller's brightness pot sends `C,B` to the Radio, Servo, Upper, Stepper and Dual Stepper boards whenever its level changes (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs. The Upper controller accepts `C,B` but does nothing with it yet.
+The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper and Dual Stepper. The ADF controller can send `C,B` from its brightness pot to the other boards, but the pot is switched off for the moment (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs. The Upper controller accepts `C,B` but does nothing with it yet.
 
 ## Remote reset
 

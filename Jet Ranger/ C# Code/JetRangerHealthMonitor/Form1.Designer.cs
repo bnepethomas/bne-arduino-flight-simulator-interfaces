@@ -38,6 +38,13 @@
             lblUpperInput = new Label();
             lblStepper = new Label();
             lblDualStepper = new Label();
+            lblAdf = new Label();
+            cmdToggleVoltages = new Button();
+            lvVoltages = new ListView();
+            colBoard = new ColumnHeader();
+            col5V = new ColumnHeader();
+            col12V = new ColumnHeader();
+            colLast = new ColumnHeader();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -131,11 +138,68 @@
             lblDualStepper.TabIndex = 7;
             lblDualStepper.Text = "Dual Stepper";
             //
+            // lblAdf
+            //
+            lblAdf.AutoSize = true;
+            lblAdf.BackColor = Color.White;
+            lblAdf.ForeColor = SystemColors.ControlText;
+            lblAdf.Location = new Point(416, 9);
+            lblAdf.Name = "lblAdf";
+            lblAdf.Size = new Size(28, 15);
+            lblAdf.TabIndex = 8;
+            lblAdf.Text = "ADF";
+            //
+            // cmdToggleVoltages
+            //
+            cmdToggleVoltages.Location = new Point(93, 38);
+            cmdToggleVoltages.Name = "cmdToggleVoltages";
+            cmdToggleVoltages.Size = new Size(110, 23);
+            cmdToggleVoltages.TabIndex = 9;
+            cmdToggleVoltages.Text = "Show Voltages";
+            cmdToggleVoltages.UseVisualStyleBackColor = true;
+            cmdToggleVoltages.Click += cmdToggleVoltages_Click;
+            //
+            // lvVoltages
+            //
+            lvVoltages.Columns.AddRange(new ColumnHeader[] { colBoard, col5V, col12V, colLast });
+            lvVoltages.FullRowSelect = true;
+            lvVoltages.GridLines = true;
+            lvVoltages.Location = new Point(12, 274);
+            lvVoltages.Name = "lvVoltages";
+            lvVoltages.Size = new Size(441, 178);
+            lvVoltages.TabIndex = 10;
+            lvVoltages.UseCompatibleStateImageBehavior = false;
+            lvVoltages.View = View.Details;
+            lvVoltages.Visible = false;
+            //
+            // colBoard
+            //
+            colBoard.Text = "Board";
+            colBoard.Width = 115;
+            //
+            // col5V
+            //
+            col5V.Text = "5 V rail";
+            col5V.Width = 70;
+            //
+            // col12V
+            //
+            col12V.Text = "12 V rail";
+            col12V.Width = 95;
+            //
+            // colLast
+            //
+            colLast.Text = "Last reading";
+            colLast.Width = 155;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lvVoltages);
+            Controls.Add(cmdToggleVoltages);
+            Controls.Add(lblAdf);
             Controls.Add(lblDualStepper);
             Controls.Add(lblStepper);
             Controls.Add(lblUpperInput);
@@ -162,5 +226,12 @@
         private Label lblUpperInput;
         private Label lblStepper;
         private Label lblDualStepper;
+        private Label lblAdf;
+        private Button cmdToggleVoltages;
+        private ListView lvVoltages;
+        private ColumnHeader colBoard;
+        private ColumnHeader col5V;
+        private ColumnHeader col12V;
+        private ColumnHeader colLast;
     }
 }

@@ -107,3 +107,9 @@ not yet flashed.
   this repository.
 - Its actual button/keyboard output is consumed by the **UDP_TO_HID**
   Arduino sketch (not a C# program), at `172.16.1.11:4210`.
+
+## Heartbeat voltage (2026-10-25)
+
+The heartbeat now carries the board's 5 V rail after its name, for example `UPPER_INPUT V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
+band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
+The monitor matches the first word of the heartbeat, so the indicator behaves as before.

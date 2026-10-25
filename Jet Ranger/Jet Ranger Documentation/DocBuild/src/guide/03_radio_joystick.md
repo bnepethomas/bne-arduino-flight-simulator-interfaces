@@ -36,6 +36,7 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | `NAVCOM1` | Radio power (0 = off): the COM and NAV displays and the panel LEDs go off | `NAVCOM1:1` |
 | `MAINBUS` | Main bus voltage | |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
+| `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot panel's OLED | `APHDG:090` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off | `BPWR:1` |
 | `C,B:n` | Brightness 0 to 15: the panel backlight level (0 off) and the panel LEDs' intensity | `C,B:5` |
 | `C,LEDTEST:n` | 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
@@ -119,6 +120,21 @@ One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panel
 | | | | | | MIDDLE | `LED_MID` | 3 | E |
 
 The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 19 for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the SwingTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **SwingTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
+
+## Auto Pilot display
+
+The Auto Pilot panel's OLED sits behind a mask, so each value has its own window on the two 16-character lines: **HDG** at the left hand end of the top row and **VS** at the right hand end, **CRS** at the left hand end of the bottom row, **IAS** in the centre of the bottom row and **ALT** at its right hand end. At start-up it shows heading 090, course 110, airspeed 80, vertical speed 0 and altitude 3200:
+
+```
+090            0
+110    80   3200
+```
+
+The bridges then keep the five values up to date from the simulator's autopilot: the heading bug, the NAV1 course (OBS), the autopilot airspeed, vertical speed and altitude settings (heading and course as three digits, north is 360). The display goes blank with the radio power and comes back with it, like the COM and NAV displays. The **SwingTester** has an *Auto Pilot display* group to send test values.
+
+## When the USB HID board is not connected
+
+Every Audio and Auto Pilot switch and knob click is also sent to the USB HID board. If that board is switched off or unplugged, the radio now notices when a send fails, stops sending joystick buttons for 30 seconds, and says so in the monitor (`USB HID board 172.16.1.11 not answering`), so the panel stays responsive. When the board returns the buttons that are held down are sent again.
 
 ## Backlight
 

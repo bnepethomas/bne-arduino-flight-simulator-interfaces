@@ -187,3 +187,10 @@ Built clean (Release, 0 errors) and the window checked on screen; it has not bee
   (swings, `OLEDTEST`, lamps) was run against the real boards on 2026-10-11 with
   a script, and every swing completed; the SwingTester window itself was not
   clicked through.
+
+## Auto Pilot display and ADF landing gear lamps (2026-10-25)
+
+- **Auto Pilot display** group (far right, under the panel LEDs): five boxes (HDG, VS, CRS, IAS, ALT; start-up values 090, 0, 110, 80, 3200) and **Send values** / **Start-up values**, which send
+  `D,NAVCOM1:1,APHDG:..,APVS:..,APCRS:..,APIAS:..,APALT:..` to the Radio for the Auto Pilot panel's OLED. Each value is 1 to 5 characters without commas or colons.
+- **ADF panel landing gear lamps** group (under the warning lamps): **Nose**, **Left**, **Right** toggles (gold when on) and **All ON / All OFF**, sent as `D,LDGN:1,LDGL:0,LDGR:0` to the ADF controller; a new `ADF (.107)` address
+  box at the top (172.16.1.107). The window is 1130 px wide and up to 980 px high. Verified on the bench: the three lamps toggled.

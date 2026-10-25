@@ -2,14 +2,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="600" viewBox="0 0 880 600">
 <rect width="880" height="600" fill="#FFFFFF"/>
 <defs>
-<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
-<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
-<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
-<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
 <marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
 <marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
 <marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
 <marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
 </defs>
 <rect x="300.0" y="150.0" width="280.0" height="190.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
 <text x="440.0" y="173.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
@@ -28,10 +28,10 @@
 <text x="28.0" y="205.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">0 - 9 type the aircraft ID</text>
 <text x="28.0" y="222.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start"># sends it, * deletes a digit</text>
 <path d="M 266.0 200.0 L 300.0 245.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
-<rect x="16.0" y="280.0" width="250.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="28.0" y="304.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Panel brightness pot</text>
+<rect x="16.0" y="280.0" width="250.0" height="100.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="304.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Brightness pot (switched off)</text>
 <text x="28.0" y="327.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">wiper to A0 (5 V to ground)</text>
-<text x="28.0" y="345.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">level 0 - 15</text>
+<text x="28.0" y="345.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">not read for the moment</text>
 <path d="M 266.0 330.0 L 300.0 300.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="16.0" y="400.0" width="250.0" height="110.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="424.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Power monitors</text>
@@ -52,20 +52,20 @@
 <text x="626.0" y="230.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(power status every 30 s)</text>
 <path d="M 580.0 230.0 L 614.0 220.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
 <rect x="614.0" y="300.0" width="250.0" height="120.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
-<text x="626.0" y="324.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">C,B:0-15 on UDP 13136</text>
-<text x="626.0" y="347.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">to Radio .101, Servo .102,</text>
-<text x="626.0" y="365.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Upper .103, Stepper .105 and</text>
-<text x="626.0" y="382.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual Stepper .106</text>
+<text x="626.0" y="324.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Switches to the simulator</text>
+<text x="626.0" y="347.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D29-D32: GEAR_SET:1/0, FLAPS_SET,</text>
+<text x="626.0" y="365.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SPOILERS_SET to the bridge (27001);</text>
+<text x="626.0" y="382.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">joystick buttons 104-111 to HID 4210</text>
 <path d="M 580.0 300.0 L 614.0 350.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)"/>
 <rect x="300.0" y="400.0" width="280.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="440.0" y="422.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">UDP 13136 in</text>
 <text x="440.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">C,RESET:1  C,MATRIX:1  C,POWER:1</text>
-<text x="440.0" y="463.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">(data packets are ignored)</text>
+<text x="440.0" y="463.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">D,LDGN / LDGL / LDGR: 1 = lamp lit</text>
 <path d="M 440.0 400.0 L 440.0 340.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="614.0" y="440.0" width="250.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="626.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Own backlight</text>
-<text x="626.0" y="487.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D5 PWM, IRF540N MOSFET,</text>
-<text x="626.0" y="505.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">follows the pot</text>
+<text x="626.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Own backlight and lamps</text>
+<text x="626.0" y="487.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D5 PWM (fixed default level),</text>
+<text x="626.0" y="505.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">landing gear lamps D2 - D4</text>
 <path d="M 580.0 320.0 L 614.0 480.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
-<text x="16.0" y="570.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Landing gear lamps (D2 - D4) and the gear, flaps, speed brake and brake inputs (D29 - D32) are not used yet.</text>
+<text x="16.0" y="570.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The toggle switches send their position as a value (every change and every 5 s); the brakes push button sends PARKING_BRAKES.</text>
 </svg>

@@ -226,3 +226,10 @@ unchecked against the simulator.
 
 `BPWR:1` / `BPWR:0` leads the Servo and Stepper packets and follows `PWR` in the Dual Stepper packet: 1 while the main bus (offset `0x2840`) is
 20 V or more. The boards use it to switch their backlight off when the main bus is down (see their summaries).
+
+## Auto Pilot display values and position commands (2026-10-25)
+
+- **Auto Pilot display:** the radio packet also carries `APHDG`, `APCRS`, `APIAS`, `APVS` and `APALT` (`BuildPanelValuePayload()`): heading from `0x07CC` (degrees x 65536 / 360, three digits, north is 360), course from the NAV1
+  OBS `0x0C4E` (three digits), airspeed `0x07E2` (knots), vertical speed `0x07F2` (feet per minute) and altitude `0x07D4` (metres x 65536, sent in feet), all read in the `RadioStack` group; a change goes out like a frequency change.
+- **Toggle switch positions:** `TryPositionCommand()` (before `TryPanelCommand()`) handles `GEAR_SET:1/0`, `FLAPS_SET:1/0` and `SPOILERS_SET:1/0` from the ADF controller as the FSUIPC controls `GEAR_SET`
+  (1 or 0), `FLAPS_SET` and `SPOILERS_SET` (16383 or 0), so the simulator follows the switch instead of toggling. Built clean; not run against a simulator.

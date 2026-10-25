@@ -6,7 +6,7 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 |---|---|---|
 | FSUIPCWinformsAutoCS | Bridge for Prepar3D and FSX | Bridges |
 | MSFSWinformsAutoCS | Bridge for MSFS 2020 and 2024 | Bridges |
-| JetRangerHealthMonitor | Shows which boards are alive | Health Monitor |
+| JetRangerHealthMonitor | Shows which boards are alive and the last voltage reading from each | Health Monitor |
 | SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot and Audio panel LEDs, resets boards, sets brightness | SwingTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
 | JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards | Emulators |
@@ -32,9 +32,15 @@ Run only one bridge at a time.
 
 ## Health Monitor
 
-![JetRangerHealthMonitor: all six boards heard](screenshots/health_monitor.png)
+![JetRangerHealthMonitor: all seven boards heard](screenshots/health_monitor.png)
 
-One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper and Dual Stepper. Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
+One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF. Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
+
+The **Show Voltages** button opens a table with one row per board:
+
+![Voltage table](screenshots/health_monitor_voltages.png)
+
+Each board adds its 5 V rail to its heartbeat, and the ADF also adds its 12 V rail, so the table shows the last 5 V reading from every board, the **12 V** reading for the ADF only (the other rows say "not measured") and when the reading arrived. A reading outside its limits (5 V outside 4.75 to 5.25, 12 V outside 10.8 to 15.0) is orange, and a reading that is more than 35 seconds old, or that has not arrived yet, is grey. A board that has not been reflashed since the voltages were added shows "no reading" but still lights green. *Hide Voltages* closes the table.
 
 ![Logs hidden](screenshots/health_monitor_logs_hidden.png)
 
@@ -54,6 +60,8 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 - **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board; **Backlight power ON / OFF** send `BPWR` to test the main bus rule.
 - **Status line:** what was last sent and to which boards.
 - **Panel LEDs group** (far right): one toggle for each of the 19 Auto Pilot and Audio panel LEDs (gold when on), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0`). **All ON** and **All OFF** do all 19, **Chase** lights them one at a time for the *on gap* time (click again to stop), and **Board test (C,LEDTEST)** lights all 19 with the Radio's own test.
+- **Auto Pilot display group** (far right, below the panel LEDs): five boxes for HDG, VS, CRS, IAS and ALT (start-up values 090, 0, 110, 80 and 3200). **Send values** sends them to the Radio for the Auto Pilot panel's OLED and **Start-up values** puts the start-up values back.
+- **ADF panel landing gear lamps** (under the warning lamps): **Nose**, **Left** and **Right** toggles (gold when on) light the three lamps on the ADF panel through the ADF controller (172.16.1.107, set in the `ADF (.107)` box at the top), with **All ON** and **All OFF**.
 - **Gauge rows** (left): the 18 gauges with the board each is on, the wait in seconds and a **Swing** button for each. The row being swung is highlighted gold.
 - **Warning lamps** (right): one button for each of the 15 lamps, in turn-off order. A lamp that is on is gold.
 

@@ -91,3 +91,9 @@ purely to translate network commands into USB HID output.)
   DCS-BIOS/DCS World or MSFS control-binding software on that PC can pick
   up the button presses like any other USB game controller — that's an OS
   HID interaction, not an IP one.
+
+## Heartbeat voltage (2026-10-25)
+
+The heartbeat now carries the board's 5 V rail after its name, for example `JOYSTICK V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
+band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
+The monitor matches the first word of the heartbeat, so the indicator behaves as before.

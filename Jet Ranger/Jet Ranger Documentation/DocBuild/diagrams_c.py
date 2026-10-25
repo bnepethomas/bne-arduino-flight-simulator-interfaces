@@ -172,19 +172,19 @@ def torque_curves():
 
 @diagram
 def health_monitor():
-    s = Svg(880, 460)
+    s = Svg(880, 500)
     boards = [("Radio controller", "COMM_NAV"), ("Servo controller", "SERVO"), ("Upper controller", "UPPER_INPUT"),
-              ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER")]
+              ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER"), ("ADF controller", "ADF_PANEL")]
     y = 24
     for name, tok in boards:
         s.card(16, y, 250, 52, name, [], "white", title_size=13.5)
         s.text(284, y + 20, f'"{tok}"', size=13, mono=True)
         s.arrow([(282, y + 36), (400, y + 36)], None, color=BLUE)
         y += 62
-    s.text(290, 14, "every 10 s", size=12, fill=INK2)
-    s.card(400, 24, 200, 372, "Health Monitor", ["UDP 13137", "matches the message by", "its prefix (not the", "sender address)"], "blue", title_size=14.5, line_size=12.5, center=True)
-    s.arrow([(600, 210), (640, 210)], None)
-    s.frame(640, 24, 224, 372, "One light per board", theme="gray")
+    s.text(290, 14, "every 10 s, with V5 (ADF also V12)", size=12, fill=INK2)
+    s.card(400, 24, 200, 410, "Health Monitor", ["UDP 13137", "matches the message by", "its prefix (not the", "sender address);", "Show Voltages: last", "V5 / V12 reading", "from each board"], "blue", title_size=14.5, line_size=12.5, center=True)
+    s.arrow([(600, 230), (640, 230)], None)
+    s.frame(640, 24, 224, 410, "One light per board", theme="gray")
     s.rect(660, 76, 184, 84, "#E7F4EA", GREEN, rx=8)
     s.text(752, 106, "green", size=15, weight=700, anchor="middle")
     s.text(752, 128, "heard within 15 s", size=12.5, anchor="middle")
@@ -194,7 +194,7 @@ def health_monitor():
     s.rect(660, 276, 184, 84, "#FDECEA", RED, rx=8)
     s.text(752, 306, "red", size=15, weight=700, anchor="middle")
     s.text(752, 328, "30 s: connection lost", size=12.5, anchor="middle")
-    s.text(16, 440, "The monitor only listens; it never sends anything. It does not care which bridge is running.", size=12.5, fill=INK2)
+    s.text(16, 482, "The monitor only listens; it never sends anything. It does not care which bridge is running.", size=12.5, fill=INK2)
     return s
 
 

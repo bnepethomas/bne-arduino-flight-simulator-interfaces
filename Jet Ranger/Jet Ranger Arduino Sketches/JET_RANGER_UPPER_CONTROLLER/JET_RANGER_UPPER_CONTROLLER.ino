@@ -283,6 +283,24 @@ void ServiceControlPackets() {
 }
 // ###################################################################
 
+// The 5 V rail (the ADC's AVcc reference) in volts, measured against the internal 1.1 V band-gap, as text for the heartbeat: " V5:5.02". The
+// JetRangerHealthMonitor matches heartbeats by their first word, so the voltage after it does not change which board it is, and the monitor shows the
+// last reading from each board.
+String vccHeartbeatText() {
+  ADMUX = _BV(REFS0) | _BV(MUX4) | _BV(MUX3) | _BV(MUX2) | _BV(MUX1);
+  ADCSRB &= ~_BV(MUX5);
+  delay(2);  // let the band-gap settle after the reference change
+  long sum = 0;
+  for (int i = 0; i < 9; i++) {
+    ADCSRA |= _BV(ADSC);
+    while (bit_is_set(ADCSRA, ADSC)) {}
+    if (i > 0) sum += ADC;  // first conversion thrown away
+  }
+  long reading = sum / 8;
+  if (reading <= 0) return "";
+  return " V5:" + String(1125.3f / reading, 2);
+}
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -1291,6 +1309,7 @@ void loop() {
     if (Ethernet_In_Use == 1) {
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("UPPER_INPUT");
+      aliveudp.print(vccHeartbeatText());
       aliveudp.endPacket();
     }
     lastalivesent = millis();
