@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
-%TF.CreationDate,2026-10-25T13:09:05+10:00*%
-%TF.ProjectId,JET RANGER ADF CONTROLLER,4a455420-5241-44e4-9745-522041444620,1.5*%
+%TF.CreationDate,2026-10-26T05:42:55+10:00*%
+%TF.ProjectId,JET RANGER ADF CONTROLLER,4a455420-5241-44e4-9745-522041444620,1.6*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Drillmap*%
 %TF.FilePolarity,Positive*%
 %FSLAX45Y45*%
 G04 Gerber Fmt 4.5, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 9.0.7) date 2026-10-25 13:09:05*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-10-26 05:42:55*
 %MOMM*%
 %LPD*%
 G01*

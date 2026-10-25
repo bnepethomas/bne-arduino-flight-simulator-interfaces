@@ -5,8 +5,8 @@
 	(uuid "8a00b1ca-e561-4386-9590-9730de0281a4")
 	(paper "A3")
 	(title_block
-		(date "2026-10-25")
-		(rev "1.5")
+		(date "2026-10-26")
+		(rev "1.6")
 	)
 	(lib_symbols
 		(symbol "Arduino_NW_Template-rescue:GND-power"
@@ -168,171 +168,6 @@
 				)
 			)
 			(symbol "Conn_01x02_Female_1_1"
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.508 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 -2.54) (xy -0.508 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -0.508)
-					(mid -0.5058 0)
-					(end 0 0.508)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -3.048)
-					(mid -0.5058 -2.54)
-					(end 0 -2.032)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -2.54 0)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Connector:Conn_01x02_Socket"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x02_Socket"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x02, script generated"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x02_Socket_1_1"
 				(polyline
 					(pts
 						(xy -1.27 0) (xy -0.508 0)
@@ -821,6 +656,339 @@
 						)
 					)
 					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector:Conn_01x06_Socket"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x06_Socket"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x06, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x06_Socket_1_1"
+				(polyline
+					(pts
+						(xy -1.27 5.08) (xy -0.508 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -7.62) (xy -0.508 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 4.572)
+					(mid -0.5058 5.08)
+					(end 0 5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 2.032)
+					(mid -0.5058 2.54)
+					(end 0 3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -5.588)
+					(mid -0.5058 -5.08)
+					(end 0 -4.572)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -8.128)
+					(mid -0.5058 -7.62)
+					(end 0 -7.112)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8272,6 +8440,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 90.17) (xy 116.84 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9aac9b09-786d-4ee2-806e-026dae0a457b")
+	)
+	(wire
+		(pts
 			(xy 26.67 52.07) (xy 33.02 52.07)
 		)
 		(stroke
@@ -9219,7 +9397,7 @@
 		(uuid "188468e7-73d9-4e42-9299-4d9a32583b52")
 	)
 	(label "HYD_BOOST"
-		(at 73.66 81.28 0)
+		(at 102.87 92.71 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9819,6 +9997,16 @@
 		)
 		(uuid "afaa76a7-be7e-416b-99f7-e0a3b25fa929")
 	)
+	(label "+12v-IN"
+		(at 102.87 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b4c82881-e9e5-4640-8498-1fd5689c2786")
+	)
 	(label "ADF_MJR_B"
 		(at 379.73 34.29 180)
 		(effects
@@ -9848,6 +10036,16 @@
 			(justify left bottom)
 		)
 		(uuid "b6dfd5f7-a5ed-4c23-9ff2-e66f0d195bca")
+	)
+	(label "BACKLIGHT_PANELS"
+		(at 102.87 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b8c6df75-461e-44c8-9e16-53f928eb338e")
 	)
 	(label "SPEED_BRAKES"
 		(at 314.96 187.96 0)
@@ -9880,7 +10078,7 @@
 		(uuid "c98aff37-9b3d-4aad-8da6-661ea66a54a7")
 	)
 	(label "CAUTION_DIM"
-		(at 73.66 102.87 0)
+		(at 102.87 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9921,7 +10119,7 @@
 		(uuid "d045ae49-7d78-44cf-a7e2-65ce435b42bb")
 	)
 	(label "ANTI_ICE"
-		(at 73.66 92.71 0)
+		(at 102.87 95.25 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10612,71 +10810,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GNDD")
-		(at 73.66 83.82 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0e3e9a33-5ffb-47b4-956c-981f037c02be")
-		(property "Reference" "#PWR016"
-			(at 73.66 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GNDD"
-			(at 73.7616 87.757 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 73.66 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 73.66 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 73.66 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "16eac48a-15bb-4419-a877-4ae6df639f03")
-		)
-		(instances
-			(project "JET RANGER ADF CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR016")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 355.6 229.87 270)
 		(unit 1)
@@ -11084,76 +11217,6 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 68.58 81.28 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1e2879c1-7609-4393-aae8-26cd61bc91e6")
-		(property "Reference" "J17"
-			(at 67.31 81.2799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "HYD_BOOST"
-			(at 67.31 83.8199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 68.58 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 68.58 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 68.58 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bfd85c3a-a5f6-44f4-b8ea-e7d7622eab14")
-		)
-		(pin "2"
-			(uuid "c6751d4a-f218-402b-ae58-d0f7258ff619")
-		)
-		(instances
-			(project ""
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J17")
 					(unit 1)
 				)
 			)
@@ -13927,71 +13990,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GNDD")
-		(at 73.66 95.25 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7abec1f3-5c53-4111-b183-4e75a4dfc9de")
-		(property "Reference" "#PWR021"
-			(at 73.66 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GNDD"
-			(at 73.7616 99.187 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 73.66 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 73.66 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 73.66 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f450b665-8ece-432c-92f2-598a5ae7d5ce")
-		)
-		(instances
-			(project "JET RANGER ADF CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR021")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Mechanical:MountingHole")
 		(at 387.35 243.84 0)
 		(unit 1)
@@ -14153,7 +14151,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDD")
-		(at 73.66 105.41 0)
+		(at 116.84 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14161,7 +14159,7 @@
 		(dnp no)
 		(uuid "8762e0e2-e1ad-4297-8a04-34e890fd9541")
 		(property "Reference" "#PWR023"
-			(at 73.66 111.76 0)
+			(at 116.84 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14170,7 +14168,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 73.7616 109.347 0)
+			(at 116.9416 94.107 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14178,7 +14176,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 105.41 0)
+			(at 116.84 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14187,7 +14185,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 105.41 0)
+			(at 116.84 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14196,7 +14194,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 73.66 105.41 0)
+			(at 116.84 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15214,76 +15212,6 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 68.58 102.87 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9bb37fff-de7f-4d3f-af16-58ff49c3140a")
-		(property "Reference" "J19"
-			(at 67.31 102.8699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "CAUTION_DIM"
-			(at 67.31 105.4099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 68.58 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 68.58 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 68.58 102.87 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fff9e296-7094-45a7-9792-187caa64494b")
-		)
-		(pin "2"
-			(uuid "6dff2a9f-e9c7-4bcd-a4e5-d79d887c9813")
-		)
-		(instances
-			(project "JET RANGER ADF CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J19")
 					(unit 1)
 				)
 			)
@@ -18263,6 +18191,88 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x06_Socket")
+		(at 97.79 90.17 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e76e2475-0226-46e0-932e-644fb977234b")
+		(property "Reference" "J20"
+			(at 96.52 90.1699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "HYD_BOOST"
+			(at 96.52 92.7099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+			(at 97.79 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 97.79 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "e4bb08e7-c7ca-4be0-942a-2fa8fbb70f04")
+		)
+		(pin "1"
+			(uuid "c36cffba-a042-4df9-bc2e-3e71f47bf652")
+		)
+		(pin "2"
+			(uuid "8ce09807-81b6-40ef-a22f-ab3639f1c032")
+		)
+		(pin "3"
+			(uuid "ba8e3797-0e66-4953-a907-aeae25bde753")
+		)
+		(pin "4"
+			(uuid "d9568b1b-281c-4583-9642-320e6c6fb012")
+		)
+		(pin "6"
+			(uuid "924fd7b1-4c1b-4c4a-a715-5bd84de41824")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_FET:IRF540N")
 		(at 278.13 236.22 0)
 		(unit 1)
@@ -18983,76 +18993,6 @@
 			(project "JET RANGER ADF CONTROLLER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 68.58 92.71 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f2b76c6f-edb4-4eab-8b7e-1113b2d0fa47")
-		(property "Reference" "J18"
-			(at 67.31 92.7099 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "ANTI_ICE"
-			(at 67.31 95.2499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 68.58 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 68.58 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 68.58 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8c8d2084-d786-4aa9-9216-f625b59f58e0")
-		)
-		(pin "2"
-			(uuid "9f1b5bf4-02bf-474e-92c9-25e8b5c27379")
-		)
-		(instances
-			(project "JET RANGER ADF CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J18")
 					(unit 1)
 				)
 			)

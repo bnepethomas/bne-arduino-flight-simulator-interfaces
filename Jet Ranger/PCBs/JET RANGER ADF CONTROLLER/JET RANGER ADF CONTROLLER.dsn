@@ -202,10 +202,8 @@
     )
   )
   (placement
-    (component "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-      (place J19 102000.000000 -107500.000000 front 0.000000 (PN CAUTION_DIM))
-      (place J18 93725.000000 -107520.000000 front 0.000000 (PN ANTI_ICE))
-      (place J17 94000.000000 -117000.000000 front 0.000000 (PN HYD_BOOST))
+    (component "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+      (place J20 93380.000000 -115500.000000 front 0.000000 (PN HYD_BOOST))
     )
     (component Fuse:Fuse_Littelfuse_395Series
       (place F1 110750.000000 -105050.000000 front -90.000000 (PN Polyfuse))
@@ -298,29 +296,45 @@
     )
   )
   (library
-    (image "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+    (image "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
       (outline (path signal 120  -1670 2000  -1670 -2000))
       (outline (path signal 120  -800 3030  -800 2430))
       (outline (path signal 120  -800 2430  800 2430))
       (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  0 -1990  2540 -1990))
+      (outline (path signal 120  0 -1990  12700 -1990))
       (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 120  250 -1460  2290 -1460))
+      (outline (path signal 120  250 -1460  12450 -1460))
       (outline (path signal 120  250 -2990  250 -1990))
       (outline (path signal 120  800 2430  800 3030))
       (outline (path signal 120  1740 3030  1740 2430))
       (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  2290 -1460  2540 -1990))
-      (outline (path signal 120  2290 -2990  2290 -1990))
-      (outline (path signal 120  2540 -1990  2540 -2990))
       (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  -1380 3030  3920 3030  3920 -2990  -1380 -2990  -1380 3030))
-      (outline (path signal 50  -1770 3420  4320 3420  4320 -3380  -1770 -3380  -1770 3420))
+      (outline (path signal 120  4280 3030  4280 2430))
+      (outline (path signal 120  4280 2430  5880 2430))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  6820 3030  6820 2430))
+      (outline (path signal 120  6820 2430  8420 2430))
+      (outline (path signal 120  8420 2430  8420 3030))
+      (outline (path signal 120  9360 3030  9360 2430))
+      (outline (path signal 120  9360 2430  10960 2430))
+      (outline (path signal 120  10960 2430  10960 3030))
+      (outline (path signal 120  11900 3030  11900 2430))
+      (outline (path signal 120  11900 2430  13500 2430))
+      (outline (path signal 120  12450 -1460  12700 -1990))
+      (outline (path signal 120  12450 -2990  12450 -1990))
+      (outline (path signal 120  12700 -1990  12700 -2990))
+      (outline (path signal 120  13500 2430  13500 3030))
+      (outline (path signal 120  -1380 3030  14080 3030  14080 -2990  -1380 -2990  -1380 3030))
+      (outline (path signal 50  -1770 3420  14470 3420  14470 -3380  -1770 -3380  -1770 3420))
       (outline (path signal 100  -1270 500  -562.893 0))
       (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 2920  3810 2920  3810 -2880  -1270 -2880  -1270 2920))
+      (outline (path signal 100  -1270 2920  13970 2920  13970 -2880  -1270 -2880  -1270 2920))
       (pin RoundRect[A]Pad_1740.000000x2190.000000_250.951000_um_0.000000_0 1 0 0)
       (pin Oval[A]Pad_1740.000000x2190.000000_um 2 2540 0)
+      (pin Oval[A]Pad_1740.000000x2190.000000_um 3 5080 0)
+      (pin Oval[A]Pad_1740.000000x2190.000000_um 4 7620 0)
+      (pin Oval[A]Pad_1740.000000x2190.000000_um 5 10160 0)
+      (pin Oval[A]Pad_1740.000000x2190.000000_um 6 12700 0)
     )
     (image Fuse:Fuse_Littelfuse_395Series
       (outline (path signal 120  6910 -2120  -1830 -2120))
@@ -1172,9 +1186,9 @@
       (pins D1-2 R1-2)
     )
     (net GND
-      (pins J19-2 J18-2 J17-2 J5-9 J2-1 D4-1 J50-2 J4-2 R4-2 D8-1 D3-1 C1-2 Q5-3 U1-A1
-        U1-A2 U1-B1 D1-1 J40-6 J40-7 R21-1 C2-2 D2-1 J7-2 J45-7 J51-2 J16-3 A1-GND1
-        A1-GND2 A1-GND3 A1-GND5 A1-GND6)
+      (pins J20-3 J5-9 J2-1 D4-1 J50-2 J4-2 R4-2 D8-1 D3-1 C1-2 Q5-3 U1-A1 U1-A2 U1-B1
+        D1-1 J40-6 J40-7 R21-1 C2-2 D2-1 J7-2 J45-7 J51-2 J16-3 A1-GND1 A1-GND2 A1-GND3
+        A1-GND5 A1-GND6)
     )
     (net "Net-(D2-A)"
       (pins R2-2 D2-2)
@@ -1189,7 +1203,7 @@
       (pins J50-1 F2-1 R1-1 J15-2)
     )
     (net "/+12v-IN"
-      (pins F1-1 J5-1 R3-1 R2-1)
+      (pins J20-1 F1-1 J5-1 R3-1 R2-1)
     )
     (net /ADF_MJR_A
       (pins J5-10 J44-7 A1-D6)
@@ -1204,10 +1218,10 @@
       (pins U1-A4 A1-D52)
     )
     (net /CAUTION_DIM
-      (pins J19-1 A1-D35)
+      (pins J20-6 A1-D35)
     )
     (net /HYD_BOOST
-      (pins J17-1 A1-D33)
+      (pins J20-4 A1-D33)
     )
     (net ADF_OLED_SD
       (pins J5-8 J45-9 A1-SDA)
@@ -1363,7 +1377,7 @@
       (pins J41-2 A1-A1)
     )
     (net /ANTI_ICE
-      (pins J18-1 A1-D34)
+      (pins J20-5 A1-D34)
     )
     (net /KEYPAD_1
       (pins J5-18 A1-D28)
@@ -1540,7 +1554,7 @@
       (pins J4-1 F2-2)
     )
     (net /BACKLIGHT_PANELS
-      (pins J5-2 Q5-2)
+      (pins J20-2 J5-2 Q5-2)
     )
     (net "Net-(J6-Pin_16)"
       (pins J6-16 J8-16)
