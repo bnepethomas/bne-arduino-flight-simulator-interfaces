@@ -1,0 +1,23 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "c322eafb-27e3-4780-b176-6649578ef161")
+	(paper "A4")
+	(title_block
+		(date "2026-10-26")
+		(rev "1.0")
+	)
+	(lib_symbols)
+	(text "Change Log - Jet Ranger Upper + ADF Controller\n1.0 26 Oct 2026 Merged the Upper Controller and the ADF Controller (v1.6) onto one Mega.\n    Started from ADF Controller v1.6. Added the Upper Controller's ROWS (J30), COLS (J31),\n    keypad (J32), panel backlight (J33), WARNING MUTE (J17) and TOT TEST (J18) with D5/D6,\n    and the 10K column pull-ups (R40-R47).\n    Matrix: rows D22-D30 (ROW0-8), columns D38-D45 (COL0-7). Upper keypad A9-A15.\n    ADF switches moved from D29-D35 to D31-D37, ADF keypad from D22-D28 to A1-A7,\n    12V monitor from A15 to A8. ADF panel connectors J5 and J20 keep their pinouts.\n    Removed the 1x16 breakout headers J9-J14 to make room. Tracks for changed nets removed: re-route.\n\nADF Controller history\n1.2 ADDED AUDIO PANEL\n1.3 Correct MOSFET mispinout - selected IRF540\n1.4 Added 12V power rail monitors and pot for panel brightness\n1.5 Added Swtch Inpus for Lower panel Anti Ice, Hyd Boost, and Caution Dim\n1.6 Moved to single connector for lower panel"
+		(exclude_from_sim no)
+		(at 30.48 36.068 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "867608f6-351e-4e16-8152-7dbbc1b91c36")
+	)
+)
