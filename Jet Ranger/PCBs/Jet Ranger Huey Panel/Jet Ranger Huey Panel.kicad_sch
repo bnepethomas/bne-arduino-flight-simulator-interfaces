@@ -1729,6 +1729,16 @@
 		)
 		(uuid "1f921e3e-37c6-4e47-8e75-415a98c574a3")
 	)
+	(label "DC_GENERATOR"
+		(at 210.82 135.89 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "39503fa9-0905-4fa6-bf58-287cd76bcf9c")
+	)
 	(label "Row 1"
 		(at 274.32 138.43 180)
 		(effects
@@ -1759,6 +1769,26 @@
 		)
 		(uuid "3f74cc18-c5d2-4349-bf68-6bc520e437fd")
 	)
+	(label "ENG_OIL"
+		(at 187.96 120.65 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "40a7c3a0-95e6-4e56-bd75-b26c5cf69fd5")
+	)
+	(label "XMSN_OIL_PRESS"
+		(at 210.82 123.19 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "422e3ad9-e1b2-400b-9f8e-e1167fc8da68")
+	)
 	(label "GUAGE_BACKLIGHT_BRIGHT"
 		(at 160.02 85.09 0)
 		(effects
@@ -1768,6 +1798,16 @@
 			(justify left bottom)
 		)
 		(uuid "433e9512-0ea2-4802-9618-b28088632325")
+	)
+	(label "INST_INVERTER"
+		(at 210.82 133.35 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4db1f275-6224-4215-bff3-4eb0728ff983")
 	)
 	(label "12V-Monitor"
 		(at 194.31 88.9 0)
@@ -1779,6 +1819,36 @@
 		)
 		(uuid "50c2643d-f042-4431-a07c-662cc7e4c1c5")
 	)
+	(label "IFF"
+		(at 210.82 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "561393b8-a6ce-4470-a6cb-e14377c05d04")
+	)
+	(label "ENG_CHIP"
+		(at 187.96 129.54 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5be7c662-9cd6-4477-8b40-6af5ba2481e9")
+	)
+	(label "20_MINUTE_FUEL"
+		(at 187.96 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "725ed982-7e18-43a1-b0fc-d45ac154a104")
+	)
 	(label "Row 1"
 		(at 274.32 184.15 180)
 		(effects
@@ -1788,6 +1858,16 @@
 			(justify right bottom)
 		)
 		(uuid "7888b15e-e9e8-4811-98b4-5f5ee5730751")
+	)
+	(label "FUEL_FILTER"
+		(at 187.96 142.24 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "94010a84-5f1e-4eeb-b4e1-b3492207676e")
 	)
 	(label "Row 1"
 		(at 274.32 104.14 180)
@@ -1808,6 +1888,16 @@
 			(justify right bottom)
 		)
 		(uuid "a119b436-ab93-4372-aeb2-45082ba1c252")
+	)
+	(label "ENG_INLET_AIR"
+		(at 210.82 130.81 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a4546f5f-37f8-4e46-a2c3-80ab55955823")
 	)
 	(label "+12v-IN"
 		(at 102.87 85.09 0)
@@ -1839,6 +1929,36 @@
 		)
 		(uuid "bfee8fc2-85e9-43da-baf1-9ce3d79cfc08")
 	)
+	(label "ENG_ICE_DETECT"
+		(at 187.96 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c08165b7-e9b6-490f-a020-91b642e0473c")
+	)
+	(label "RIGHT_FUEL_BOOST"
+		(at 187.96 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c61499ba-8c73-4cd7-8bcb-428a71d492f7")
+	)
+	(label "EXT_POWER"
+		(at 210.82 138.43 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c8740494-5371-48c1-81b1-9bbc80699570")
+	)
 	(label "CAUTION_DIM"
 		(at 102.87 97.79 0)
 		(effects
@@ -1848,6 +1968,16 @@
 			(justify left bottom)
 		)
 		(uuid "ca342cd0-010c-4d8a-b672-95b1ab73fcee")
+	)
+	(label "AUX_FUEL_LOW"
+		(at 210.82 120.65 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cdf34234-1ab1-433c-8316-d6b9153cfc8c")
 	)
 	(label "ANTI_ICE"
 		(at 102.87 95.25 0)
@@ -1859,6 +1989,46 @@
 		)
 		(uuid "d1857ca8-e3ce-4ab9-a7e9-4e4c3d762aa0")
 	)
+	(label "ENG_FUEL_PUMP"
+		(at 187.96 134.62 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d8f8389a-2483-4fe0-b21b-d6435014113b")
+	)
+	(label "CHIP_DETECTOR"
+		(at 210.82 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d9871c2b-9681-49b9-b164-20c63665a9ab")
+	)
+	(label "GOV_EMER"
+		(at 187.96 144.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e2a4d0ee-c77f-4f12-9eb7-73b8fa5d31eb")
+	)
+	(label "XMSN_OIL_HOT"
+		(at 210.82 125.73 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ed47639c-9c23-4073-ac22-304c0f0c1e9d")
+	)
 	(label "Row 1"
 		(at 274.32 149.86 180)
 		(effects
@@ -1868,6 +2038,36 @@
 			(justify right bottom)
 		)
 		(uuid "edc34bd7-4bfe-41e2-96e1-ab385088e208")
+	)
+	(label "LEFT_FUEL_BOOST"
+		(at 187.96 132.08 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f998c103-3e68-4970-a0a1-63adac9a8372")
+	)
+	(label "HYD_PRESS"
+		(at 210.82 128.27 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fb50429b-76f1-496e-a090-86e8a3b41c1f")
+	)
+	(label "ENG_ICE"
+		(at 187.96 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fb90fdfc-a127-4494-9578-ab40068af8cf")
 	)
 	(label "Row 1"
 		(at 274.32 69.85 180)
