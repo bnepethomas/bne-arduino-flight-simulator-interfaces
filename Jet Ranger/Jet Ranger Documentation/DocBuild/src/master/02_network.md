@@ -29,6 +29,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
 | 5010 | DCS (DCS-BIOS) to the DCS bridge | The DCS-BIOS export stream, multicast 239.255.50.10, on the PC |
 | 49000 | X-Plane and the X-Plane bridge | The bridge sends dataref requests to X-Plane's receive port and X-Plane answers to the bridge's own port; X-Plane's beacon is multicast 239.255.1.1 port 49707 |
+| 13136 on 127.0.0.101 to .107 | Bridge to the panel emulators | The same board packets, to the emulators on the PC (see the Panel emulators chapter) |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
 | 7788 | Local on the boards | Source port opened at start-up for outgoing packets |

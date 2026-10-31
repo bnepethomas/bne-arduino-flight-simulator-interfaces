@@ -238,3 +238,11 @@ unchecked against the simulator.
 
 - **`ANTI_ICE_SET:1/0`:** `TryPositionCommand()` also handles the ADF panel's anti-ice switch position and sends the FSUIPC control `ANTI_ICE_SET` (1 or 0). The DodoSim 206 V2 may ignore the plain control: bind its own `ANTI_ICE_SWITCH_SET` event to the joystick button in FSUIPC instead (hyd boost `HYDRAULICS_SWITCH_SET` and caution dim `CAUTION_LIGHT_SWITCH_SET` have no safe bridge command).
 - **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to a retired address and should be removed) new `adfClient` (172.16.1.107:13136) and `upperClient` (172.16.1.103:13136) send `D,BPWR:1/0` (main bus 20 V or more) with the other boards' packets, so those boards' backlights follow the main bus and their 30 s no-data timeouts see the bridge. Built clean; not run against a simulator.
+
+## Panel emulators (added 1 November 2026)
+
+The window has two check boxes under the Avionics Master box, **Send to the boards** (on) and **Send to the emulators** (off). Ticked, every board packet is also sent to `JetRangerPanelEmulator`
+(UDP 13136 on 127.0.0.<the board's last number>, for example 127.0.0.105 for the Stepper); with **Send to the boards** unticked the emulators get them alone and no packet goes to
+a board. Command line: `--emulators` (emulators as well as the boards), `--emulators-only`, `--emulator-net <a.b.c>` (the first three numbers of the emulators' addresses, default
+127.0.0). `BoardTargets.cs` holds a second UDP client for each board client and sends to the board and/or the emulator; the GPS interface is not a board and is unaffected.
+The seven board sends in `Form1.cs` go through `BoardTargets` (the retired Upper .103 is a board with no emulator). Built and the window checked; no simulator data has been sent through it to the emulators yet.

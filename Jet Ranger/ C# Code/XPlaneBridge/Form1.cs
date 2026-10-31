@@ -33,6 +33,8 @@ namespace XPlaneBridge
         readonly Label lblProfile = new() { AutoSize = true };
         readonly ComboBox cboProfile = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 240 };
         readonly CheckBox chkSend = new() { Text = "Send to the boards", Checked = true, AutoSize = true };
+        readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
+        readonly BoardTargets targets = new();
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSearch = new() { Text = "Search datarefs...", AutoSize = true };
         readonly ListView lvValues = new() { View = View.Details, FullRowSelect = true, GridLines = true, Dock = DockStyle.Fill };
@@ -49,6 +51,9 @@ namespace XPlaneBridge
             profileDir = args.GetValueOrDefault("profile-dir") ?? Path.Combine(AppContext.BaseDirectory, "profiles");
             datarefFile = args.GetValueOrDefault("datarefs") ?? DefaultDatarefFile();
             if (args.ContainsKey("no-send")) chkSend.Checked = false;
+            targets.ReadCommandLine(Environment.GetCommandLineArgs());
+            chkSend.Checked = chkSend.Checked && targets.ToBoards;
+            chkEmu.Checked = targets.ToEmulators;
 
             string? boardHost = args.GetValueOrDefault("board-host");
             foreach (var (name, host) in Boards.All)
@@ -56,6 +61,7 @@ namespace XPlaneBridge
                 var c = new UdpClient();
                 c.Connect(boardHost ?? host, Boards.ControlPort);
                 clients[name] = c;
+                targets.Register(c, host);
             }
             gpsClient.Connect(GpsHost, GpsPort);
 
@@ -66,7 +72,7 @@ namespace XPlaneBridge
             var top = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 8, 8, 0), FlowDirection = FlowDirection.TopDown };
             top.Controls.AddRange(new Control[] { lblXPlane, lblProfile });
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend, chkEmu });
 
             lvValues.Columns.Add("Token", 170);
             lvValues.Columns.Add("X-Plane dataref", 400);
@@ -216,7 +222,9 @@ namespace XPlaneBridge
                 lvValues.Items[i].SubItems[3].Text = r?.Sent ?? "";
                 lvValues.Items[i].SubItems[5].Text = r?.Status ?? "no data";
             }
-            if (!chkSend.Checked || tokens.Count == 0) return;
+            if ((!chkSend.Checked && !chkEmu.Checked) || tokens.Count == 0) return;
+            targets.ToBoards = chkSend.Checked;
+            targets.ToEmulators = chkEmu.Checked;
             Send(Payloads.Build(tokens));
         }
 
@@ -232,12 +240,14 @@ namespace XPlaneBridge
                 bool changed = radio && (!lastRadioPacket.TryGetValue(board, out var last) || last != packet);
                 if (radio ? ((changed && ms >= 200) || ms >= 5000) : ms >= 90)
                 {
-                    Transmit(clients[board], packet);
+                    TransmitBoard(clients[board], packet);
                     lastSent[board] = now;
                     if (radio) lastRadioPacket[board] = packet;
                 }
             }
         }
+
+        void TransmitBoard(UdpClient client, string packet) => targets.Send(client, Encoding.ASCII.GetBytes(packet));
 
         static void Transmit(UdpClient client, string packet)
         {

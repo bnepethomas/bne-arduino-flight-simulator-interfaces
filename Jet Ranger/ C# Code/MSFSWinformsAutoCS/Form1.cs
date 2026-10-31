@@ -385,12 +385,32 @@ namespace MSFSWinformsAutoCS
         private DateTime radioTimeLastPacketSent = DateTime.Now;
         private DateTime frontPanelTimeLastPacketSent = DateTime.Now;
 
+
+        // The destination check boxes: the real boards, the panel emulators, or both (command line --emulators, --emulators-only, --emulator-net).
+        private readonly BoardTargets targets = new();
+        private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
+        private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+
+        private void SetUpTargets()
+        {
+            targets.ReadCommandLine(Environment.GetCommandLineArgs());
+            chkBoards.Checked = targets.ToBoards;
+            chkEmulators.Checked = targets.ToEmulators;
+            chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
+            chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
+            textBox1.Top += 52;                 // make room under the Avionics Master box for the two check boxes
+            textBox1.Height -= 52;
+            Controls.Add(chkBoards);
+            Controls.Add(chkEmulators);
+        }
+
         // A ListView showing the warning lamp states
         private ListView? _lightList;
 
         public Form1()
         {
             InitializeComponent();
+            SetUpTargets();
             ConnectUdpClients();
             configureForm();
             BuildLightList();
@@ -408,17 +428,24 @@ namespace MSFSWinformsAutoCS
             dualStepperClient.Connect("172.16.1.106", boardPort);
             adfClient.Connect("172.16.1.107", boardPort);
             upperClient.Connect("172.16.1.103", boardPort);
+            targets.Register(radioClient, "172.16.1.101");
+            targets.Register(servoClient, "172.16.1.102");
+            targets.Register(stepperClient, "172.16.1.105");
+            targets.Register(dualStepperClient, "172.16.1.106");
+            targets.Register(adfClient, "172.16.1.107");
+            targets.Register(upperClient, "172.16.1.103");
             gpsClient.Connect(GpsHost, GpsPort);
         }
 
         // UDP to a board that is switched off can raise a socket error on a later send (ICMP
         // port unreachable); that must never stop the bridge.
-        private static void SendPacket(UdpClient client, string payload)
+        private void SendPacket(UdpClient client, string payload)
         {
             try
             {
                 byte[] data = Encoding.ASCII.GetBytes(payload);
-                client.Send(data, data.Length);
+                if (targets.Handles(client)) targets.Send(client, data);        // a board: to the board, the emulator or both
+                else client.Send(data, data.Length);                            // the GPS interface
             }
             catch (SocketException)
             {

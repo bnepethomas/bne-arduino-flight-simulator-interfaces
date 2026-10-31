@@ -100,3 +100,11 @@ has no profile (the common values alone still work). All 15 checks pass (the fif
 
 Calibrating the 16 needle-position gauges against the live cockpit (they run on first-guess scales), a bus voltage for the Huey, a profile for any other aircraft, inputs (joystick buttons already work through the USB HID board; DCS-BIOS commands on UDP 7778 would set exact switch positions), the radio commands on port 27001,
 radio frequencies and the autopilot values, and the landing gear lamps. (Documentation: master document and User Guide, done 31 October 2026.)
+
+## Panel emulators (added 1 November 2026)
+
+The window has a second check box, **Send to the emulators** (off by default), beside **Send to the boards**. Ticked, every board packet is also sent to `JetRangerPanelEmulator`
+(UDP 13136 on 127.0.0.<the board's last number>, for example 127.0.0.105 for the Stepper); with **Send to the boards** unticked the emulators get them alone and no packet goes to
+a board. Command line: `--emulators` (emulators as well as the boards), `--emulators-only`, `--emulator-net <a.b.c>` (the first three numbers of the emulators' addresses, default
+127.0.0). `BoardTargets.cs` holds a second UDP client for each board client and sends to the board and/or the emulator; the GPS interface is not a board and is unaffected.
+Tested with the real bridge and the five emulators: `JetRangerPanelEmulator\tests\test_bridges_to_emulators.py` (Huey LED, IAS, radar altitude and altitude shown by the emulators).

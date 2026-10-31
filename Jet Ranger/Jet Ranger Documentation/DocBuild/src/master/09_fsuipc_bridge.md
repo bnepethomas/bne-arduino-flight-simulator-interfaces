@@ -86,3 +86,7 @@ Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:y
 - `TURB_ENG_ITT_1` is assigned twice per tick (percent, then temperature), so the temperature wins.
 - Run only one bridge at a time; the MSFS bridge also listens on UDP 27001.
 - Built clean and run against Prepar3D v6.1 sending about 10 packets per second per board.
+
+## Panel emulators
+
+**Panel emulators.** The window has two check boxes under the Avionics Master box, **Send to the boards** (on) and **Send to the emulators** (off), and the command line takes `--emulators` (also send to the emulators), `--emulators-only` and `--emulator-net <a.b.c>`. Each board's packet then also goes to `JetRangerPanelEmulator` on 127.0.0.<the board's number> (see the Panel emulators chapter). No simulator data has gone through this bridge to the emulators yet.

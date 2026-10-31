@@ -52,7 +52,8 @@ All programs are in `Jet Ranger/ C# Code/` (note the leading space in the folder
 | `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, tests the Auto Pilot and Audio panel LEDs one by one, resets boards, and sets the backlight and LED brightness |
 | `LowranceAirMapGps` | Makes the PC a GPS source for a Lowrance AirMap 2000C: NMEA over a serial port, fed by the bridges over UDP, defaulting to Brisbane Airport |
 | `LowranceAirMapGpsBenchTester` | Bench sender for the GPS interface: typed values, 8-way cursor, country / city / airport selection, Fly mode and a date / time clock |
-| `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | Stand-ins for the radio and upper boards when they are disconnected |
+| `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | Stand-ins for the radio and upper boards' **inputs** (knobs, keys) when they are disconnected |
+| `JetRangerPanelEmulator` | Stand-ins for the five controller boards' **outputs**: windows for the Radio, Servo, Stepper, Dual Stepper and ADF and Upper controllers that draw the gauges, lamps, LEDs and OLEDs from the same packets; every bridge can send to them (`--emulators`) instead of, or as well as, the boards |
 
 Python helpers in `Jet Ranger Python Code/`: a SimConnect exporter, a UDP test receiver and a wake-on-LAN script. The UDP debug listener (port 27000) is a small Python reflector that prints every board's debug text and can forward a copy to a second listener.
 

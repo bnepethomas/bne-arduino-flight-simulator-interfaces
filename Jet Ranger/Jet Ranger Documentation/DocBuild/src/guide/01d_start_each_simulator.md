@@ -38,6 +38,8 @@ Windows may refuse to run `.ps1` scripts directly (*running scripts is disabled 
 | `-XPlaneHost` | X-Plane only: the PC X-Plane runs on, when it is not this one |
 | `-StartSimulator` | Also starts the simulator, from the path (or `steam://` address) set in `Start Jet Ranger.json`; nothing is started for a simulator with no path set |
 | `-NoGps`, `-NoHealthMonitor`, `-NoReflector` | Leave that part out |
+| `-Emulators` | Also open the panel emulators and send the bridge's output to them as well as the boards |
+| `-EmulatorsOnly` | Open the panel emulators and send to them only, for trying a simulator with no cockpit connected |
 | `-DryRun` | Shows what would be done without starting or stopping anything |
 | `-Stop` | Stops the bridges, the GPS interface and the Health Monitor (the reflector and the simulator are left running) |
 
@@ -103,6 +105,10 @@ Script: `"Start Jet Ranger.bat" -Simulator DCS -DcsTimeZone 4`.
 8. The GPS interface follows the aircraft's position, altitude, airspeed and heading, and X-Plane's zulu clock and date (the PC's year).
 
 Script: `"Start Jet Ranger.bat" -Simulator XPlane`.
+
+## Trying a simulator with no cockpit (the panel emulators)
+
+Start the script with `-EmulatorsOnly` (for example `"Start Jet Ranger.bat" -Simulator DCS -DcsTimeZone 4 -EmulatorsOnly`). It opens the five emulator windows and starts the bridge with `--emulators-only`, so nothing goes to a real board and the gauges, lamps, LEDs and displays are shown on the PC. Use `-Emulators` to feed the emulators and the real boards together. The emulators are described in the Program windows chapter.
 
 ## If something does not come up
 

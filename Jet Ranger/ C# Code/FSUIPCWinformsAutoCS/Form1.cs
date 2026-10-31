@@ -348,9 +348,34 @@ namespace FSUIPCTest
         private bool Low_Fuel = false;              //LOWF
         private bool SC_Fail = false;               //SCF
 
+        // The destination check boxes: the real boards, the panel emulators, or both (command line --emulators, --emulators-only, --emulator-net).
+        private readonly BoardTargets targets = new();
+        private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
+        private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+
+        private void SetUpTargets()
+        {
+            targets.ReadCommandLine(Environment.GetCommandLineArgs());
+            chkBoards.Checked = targets.ToBoards;
+            chkEmulators.Checked = targets.ToEmulators;
+            chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
+            chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
+            textBox1.Top += 52;                 // make room under the Avionics Master box for the two check boxes
+            textBox1.Height -= 52;
+            Controls.Add(chkBoards);
+            Controls.Add(chkEmulators);
+        }
+
         public Form1()
         {
             InitializeComponent();
+            SetUpTargets();
+            targets.Register(udpClient, "172.16.1.101");
+            targets.Register(frontPanelClient, "172.16.1.102");
+            targets.Register(stepperClient, "172.16.1.105");
+            targets.Register(dualStepperClient, "172.16.1.106");
+            targets.Register(adfClient, "172.16.1.107");
+            targets.Register(upperClient, "172.16.1.103");
             configureForm();
             BuildLightList();
             // Start the connection timer to look for a flight sim
@@ -597,7 +622,7 @@ namespace FSUIPCTest
                     radioPayload += panelLedText;
                     radioPayload += panelValueText;
                     Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
-                    udpClient.Send(radioSendData, radioSendData.Length);
+                    targets.Send(udpClient, radioSendData);
                     RadioTimeLastPacketSent = DateTime.Now;
                 }
 
@@ -941,7 +966,7 @@ namespace FSUIPCTest
                             + ",BANK:" + f1(sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES)
                             + lampPayload;
                         Byte[] servoSendData = Encoding.ASCII.GetBytes(servoPayload);
-                        frontPanelClient.Send(servoSendData, servoSendData.Length);
+                        targets.Send(frontPanelClient, servoSendData);
 
                         // Single-board Stepper (.105, JET_RANGER_STEPPER_CONTROLLER): airspeed
                         // (knots), VSI (fpm), radar altitude AGL (feet - the already
@@ -961,7 +986,7 @@ namespace FSUIPCTest
                             + ",ITT:" + f0(sFrontPanel.TURB_ENG_ITT_1)
                             + ",N1:" + f0(sFrontPanel.TURB_ENG_CORRECTED_N1_1);
                         Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
-                        stepperClient.Send(stepperSendData, stepperSendData.Length);
+                        targets.Send(stepperClient, stepperSendData);
 
                         // Dual Stepper (.106, JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER): altimeter
                         // feet and its OLED, turbine/rotor speed (percent, one decimal), Zulu time
@@ -988,14 +1013,14 @@ namespace FSUIPCTest
                             + ",ELECTRICALLOAD:" + f0(sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS)
                             + ",TEMP:" + f0(ambientC) + "C";
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
-                        dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
+                        targets.Send(dualStepperClient, dualStepperSendData);
 
                         // ADF Controller (.107): backlight power only.
                         Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0"));
-                        adfClient.Send(adfSendData, adfSendData.Length);
+                        targets.Send(adfClient, adfSendData);
 
                         // Upper Controller (.103): backlight power only.
-                        upperClient.Send(adfSendData, adfSendData.Length);
+                        targets.Send(upperClient, adfSendData);
 
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }

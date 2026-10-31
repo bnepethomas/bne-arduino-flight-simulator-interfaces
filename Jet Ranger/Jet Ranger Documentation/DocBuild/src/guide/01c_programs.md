@@ -11,7 +11,8 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 | JetRangerHealthMonitor | Shows which boards are alive and the last voltage reading from each | Health Monitor |
 | SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot, Audio and Huey panel LEDs, resets boards, sets brightness | SwingTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
-| JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards | Emulators |
+| JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards' knobs and keys | Emulators |
+| JetRangerPanelEmulator | Shows what each controller board would show: gauges, lamps, LEDs and OLEDs | Panel emulators |
 | LowranceAirMapGps | Feeds the Lowrance AirMap 2000C | GPS interface |
 | LowranceAirMapGpsBenchTester | Sends aircraft data to the GPS interface for testing | GPS bench tester |
 
@@ -25,6 +26,7 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 
 Both bridges have one window with the same layout.
 
+- **Send to the boards** and **Send to the emulators** check boxes (under the Avionics Master box): the bridge sends to the real boards, to the panel emulators (see Panel emulators), or to both. The boards box is on and the emulators box off unless you start the bridge with `--emulators` or `--emulators-only`.
 - **Avionics Master** check box: follows the simulator's avionics master switch and can also be used to switch it.
 - **Readout box** (left): the values being sent to the boards, one per line (airspeed, altitude, bus voltages, engine and transmission values, radio frequencies and, in the MSFS bridge, the GPS position and heading). It is empty until the simulator is connected.
 - **Annunciator list** (right): every warning lamp with its state, ON or OFF. The FSUIPC bridge lists the 21 lamp bits of the DodoSim aircraft; the MSFS bridge lists the 15 lamps of the panel.
@@ -36,7 +38,7 @@ Run only one bridge at a time.
 
 ![XPlaneBridge (X-Plane) against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
 
-**DCSBiosBridge** and **XPlaneBridge** have a different window: a status line (the DCS-BIOS stream and aircraft, or the X-Plane address and whether data is arriving), a **Profile** box (Automatic, or an aircraft chosen by hand), **Reload profiles**, a **Send to the boards** check box, a table of every token with its source control or dataref, the raw value, the value sent and the board, and a log at the bottom. The DCS bridge also has **Suggest controls** (finds controls for a new profile), **Calibrate selected...** and **Clear its calibration** for the Huey needle gauges; the X-Plane bridge has **Search datarefs...**. See Running the DCS bridge and Running the X-Plane bridge.
+**DCSBiosBridge** and **XPlaneBridge** have a different window (with the same **Send to the boards** and **Send to the emulators** check boxes): a status line (the DCS-BIOS stream and aircraft, or the X-Plane address and whether data is arriving), a **Profile** box (Automatic, or an aircraft chosen by hand), **Reload profiles**, a **Send to the boards** check box, a table of every token with its source control or dataref, the raw value, the value sent and the board, and a log at the bottom. The DCS bridge also has **Suggest controls** (finds controls for a new profile), **Calibrate selected...** and **Clear its calibration** for the Huey needle gauges; the X-Plane bridge has **Search datarefs...**. See Running the DCS bridge and Running the X-Plane bridge.
 
 ## Health Monitor
 
@@ -109,6 +111,34 @@ The **Radio controller emulator** stands in for the radio board. Set the reflect
 ![JetRangerUpperControllerEmulator](screenshots/upper_emulator.png)
 
 The **Upper controller emulator** stands in for the upper panel (now on the combined ADF and Upper board; the switch numbers are unchanged). Set the USB HID board's address and port at the top (172.16.1.11, 4210). There is one toggle button per switch the firmware uses, in groups: Cabin Heat, Air, Circuit Breakers, Instruments, Electrical and Lights. A button turns green when its switch is on, and each press sends the switch change to the USB HID board.
+
+## Panel emulators
+
+![The launcher](screenshots/emulator_launcher.png)
+
+`JetRangerPanelEmulator` shows what each controller board would show, so you can try a bridge with no cockpit connected. Start it (or run the start-up script with `-Emulators`), press **Open all five** (or one button) and start a bridge with **Send to the emulators** ticked, or with `--emulators` or `--emulators-only`. The emulators listen on the same port as the boards, at 127.0.0.101 (Radio), .102 (Servo), .105 (Stepper), .106 (Dual Stepper) and .107 (ADF and Upper), on the PC the bridge runs on. Nothing is sent to them by anything else.
+
+Every emulator window has a status bar with its address, the number of packets received and the last packet, and *live* or *no data for n s - blank*. The backlight goes dark with `BPWR:0` and after 30 seconds with no data, as on the real boards; after 30 seconds without data the needles also return to zero.
+
+![Stepper controller emulator](screenshots/emulator_stepper.png)
+
+**Stepper controller:** airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature and fuel quantity.
+
+![Dual Stepper controller emulator](screenshots/emulator_dual_stepper.png)
+
+**Dual Stepper controller:** the oil, transmission, rotor, engine, electrical load and fuel pressure gauges, the altimeter and the four OLEDs (barometer, altitude, zulu clock, temperature).
+
+![Servo controller emulator](screenshots/emulator_servo.png)
+
+**Servo controller:** the attitude indicator and the 15 warning lamps.
+
+![Radio controller emulator](screenshots/emulator_radio.png)
+
+**Radio controller:** the COM, NAV, Auto Pilot and DME displays, the 19 panel LEDs and the 20 Huey Warning Panel lamps. The NAV displays keep their start-up value, because the PC sends only the COM frequencies.
+
+![ADF and Upper controller emulator](screenshots/emulator_adf.png)
+
+**ADF and Upper controller:** the landing gear lamps and the ADF display. The Upper switches and keypads are inputs and are not shown; use the Radio and Upper controller emulators above for knobs and keys. The panel emulators do not appear in the Health Monitor.
 
 ## GPS interface
 

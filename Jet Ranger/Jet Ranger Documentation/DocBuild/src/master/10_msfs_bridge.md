@@ -112,3 +112,7 @@ Five lamps are driven; the other ten are aircraft specific (DodoSim supplies the
 - There is no hysteresis on the 20 V and 24 V thresholds.
 - The FlyInside electrical load dial stays at about 50 percent whatever the load.
 - The FlyInside transmission pressure estimate is 35 psi at normal rotor speed, which is below the 40 psi lamp threshold, so the `TOPW` lamp stays on with that aircraft.
+
+## Panel emulators
+
+**Panel emulators.** The window has two check boxes under the Avionics Master box, **Send to the boards** (on) and **Send to the emulators** (off), and the command line takes `--emulators` (also send to the emulators), `--emulators-only` and `--emulator-net <a.b.c>`. Each board's packet then also goes to `JetRangerPanelEmulator` on 127.0.0.<the board's number> (see the Panel emulators chapter). No simulator data has gone through this bridge to the emulators yet.

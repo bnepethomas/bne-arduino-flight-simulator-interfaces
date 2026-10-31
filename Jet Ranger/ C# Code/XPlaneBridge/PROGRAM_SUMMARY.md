@@ -51,3 +51,11 @@ off half way), and checks the packets on UDP 13136 and 27002. Only the processes
 
 Inputs (the panels' switches already reach X-Plane through the USB HID board as a joystick, so none are sent here), the radio commands on port 27001, port 27003 (ADF frequency and
 radar follow ID), landing gear lamps, an aircraft profile for the X-Plane default fixed-wing and twin helicopters, running it against a real X-Plane. (Documentation: master document and User Guide, done 31 October 2026.)
+
+## Panel emulators (added 1 November 2026)
+
+The window has a second check box, **Send to the emulators** (off by default), beside **Send to the boards**. Ticked, every board packet is also sent to `JetRangerPanelEmulator`
+(UDP 13136 on 127.0.0.<the board's last number>, for example 127.0.0.105 for the Stepper); with **Send to the boards** unticked the emulators get them alone and no packet goes to
+a board. Command line: `--emulators` (emulators as well as the boards), `--emulators-only`, `--emulator-net <a.b.c>` (the first three numbers of the emulators' addresses, default
+127.0.0). `BoardTargets.cs` holds a second UDP client for each board client and sends to the board and/or the emulator; the GPS interface is not a board and is unaffected.
+Tested with the real bridge, the fake X-Plane and the five emulators: `JetRangerPanelEmulator\tests\test_bridges_to_emulators.py`.

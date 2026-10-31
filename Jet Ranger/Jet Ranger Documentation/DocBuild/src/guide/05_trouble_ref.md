@@ -12,6 +12,8 @@
 | A Huey gauge reads wrong or sits against a stop | The needle-position scale is a first guess (*uncalibrated*) | Calibrate it in the DCS bridge (select the row, Calibrate selected...) at two or more readings |
 | The X-Plane bridge says no data yet | X-Plane not running, UDP receive off, or the wrong host or port | Allow incoming UDP in X-Plane's network settings; use `--xplane-host` and `--xplane-port`; check the Windows firewall |
 | One gauge stays at zero with the X-Plane bridge | The aircraft does not fill in that dataref | Use Search datarefs... and add the right one to a profile file |
+| An emulator window stays blank or says *waiting for packets* | The bridge's **Send to the emulators** box is not ticked (start it with `--emulators` or `--emulators-only`), the emulator is not open for that board, or another program holds that emulator address |
+| An emulator says *cannot listen on 127.0.0.nnn* | The same emulator is already open (one program can listen on an address at a time): close the other copy |
 | All gauges drop to zero after 30 seconds | No packets arriving (watchdog) | Bridge running and connected; simulator not paused; network link |
 | A board feels slower, or its knobs and needles stutter, while the PC (or another board) is off | Each packet sent to a missing device waits up to 80 ms for an ARP answer (the fast Ethernet timeout) | Switch the missing device on, or reduce debug traffic; see *Unreachable hosts and the fast Ethernet timeout* in the Network chapter |
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |

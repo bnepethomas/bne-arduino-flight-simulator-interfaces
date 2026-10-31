@@ -189,3 +189,11 @@ it is 0 (see their summaries).
 
 - **`ANTI_ICE_SET:1/0`:** `PositionEventNames` / `PositionOnValues` gain `ANTI_ICE_SET` (value 1 or 0), mapped to the SimConnect event of the same name (event numbers from 2000).
 - **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to a retired address and should be removed) new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.
+
+## Panel emulators (added 1 November 2026)
+
+The window has two check boxes under the Avionics Master box, **Send to the boards** (on) and **Send to the emulators** (off). Ticked, every board packet is also sent to `JetRangerPanelEmulator`
+(UDP 13136 on 127.0.0.<the board's last number>, for example 127.0.0.105 for the Stepper); with **Send to the boards** unticked the emulators get them alone and no packet goes to
+a board. Command line: `--emulators` (emulators as well as the boards), `--emulators-only`, `--emulator-net <a.b.c>` (the first three numbers of the emulators' addresses, default
+127.0.0). `BoardTargets.cs` holds a second UDP client for each board client and sends to the board and/or the emulator; the GPS interface is not a board and is unaffected.
+The `SendPacket` helper sends the board clients' packets through `BoardTargets` (the retired Upper .103 is a board with no emulator). Built and the window checked; no simulator data has been sent through it to the emulators yet.

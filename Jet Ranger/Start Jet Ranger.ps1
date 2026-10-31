@@ -12,6 +12,8 @@
     .\Start Jet Ranger.ps1 -Simulator XPlane -XPlaneHost 192.168.1.20
     .\Start Jet Ranger.ps1 -Simulator MSFS -StartSimulator
     .\Start Jet Ranger.ps1 -Simulator P3D -NoGps
+    .\Start Jet Ranger.ps1 -Simulator DCS -Emulators       also opens the panel emulators and sends the bridge's output to them as well as to the boards
+    .\Start Jet Ranger.ps1 -Simulator DCS -EmulatorsOnly   opens the panel emulators and sends to them only (no boards needed)
     .\Start Jet Ranger.ps1 -Simulator DCS -DryRun   shows what would be done without starting anything
     .\Start Jet Ranger.ps1 -Stop                    stops the bridges, the GPS interface and the Health Monitor (not the reflector or the simulator)
 
@@ -29,6 +31,8 @@ param(
     [switch]$NoGps,
     [switch]$NoHealthMonitor,
     [switch]$NoReflector,
+    [switch]$Emulators,
+    [switch]$EmulatorsOnly,
     [switch]$Stop,
     [switch]$DryRun
 )
@@ -52,6 +56,7 @@ $Programs = @{
     XPlane  = @{ Project = "XPlaneBridge";         Exe = "XPlaneBridge" }
     Health  = @{ Project = "JetRangerHealthMonitor"; Exe = "JetRangerHealthMonitor" }
     Gps     = @{ Project = "LowranceAirMapGps";    Exe = "LowranceAirMapGps" }
+    Emulator = @{ Project = "JetRangerPanelEmulator"; Exe = "JetRangerPanelEmulator" }
 }
 $BridgeNames = @("FSUIPCWinformsAutoCS", "MSFSWinformsAutoCS", "DCSBiosBridge", "XPlaneBridge")
 
@@ -92,6 +97,7 @@ if ($Stop) {
     foreach ($n in $BridgeNames) { Stop-Program $n "bridge" }
     Stop-Program "LowranceAirMapGps" "GPS interface"
     Stop-Program "JetRangerHealthMonitor" "Health Monitor"
+    Stop-Program "JetRangerPanelEmulator" "panel emulators"
     Say "The UDP reflector and the simulator are left running." "DarkGray"
     return
 }
@@ -116,6 +122,7 @@ $missing = @()
 $wanted = @($bridgeKey)
 if (-not $NoHealthMonitor) { $wanted += "Health" }
 if (-not $NoGps) { $wanted += "Gps" }
+if ($Emulators -or $EmulatorsOnly) { $wanted += "Emulator" }
 foreach ($k in $wanted) {
     $e = Find-Exe $k
     if ($e) { $exe[$k] = $e } else { $missing += $Programs[$k].Project }
@@ -149,6 +156,10 @@ if ($NoHealthMonitor) { Say "  skipped" "DarkGray" } else { Start-Program "Healt
 Say "4. Lowrance GPS interface (UDP 27002)"
 if ($NoGps) { Say "  skipped" "DarkGray" } else { Start-Program "GPS interface" $exe["Gps"] }
 
+# Panel emulators: the five emulator windows, which the bridge then feeds (instead of, or as well as, the real boards).
+Say "4b. Panel emulators (127.0.0.101 to .107)"
+if ($Emulators -or $EmulatorsOnly) { Start-Program "panel emulators" $exe["Emulator"] @("--board", "all") } else { Say "  not used (-Emulators or -EmulatorsOnly to use them)" "DarkGray" }
+
 # 5. The simulator itself, only when asked and only from a configured path.
 Say "5. Simulator"
 $simExe = $null
@@ -177,6 +188,7 @@ if ($Simulator -eq "XPlane") {
     if (-not $xh) { $xh = CfgValue "XPlaneHost" }
     if ($xh) { $bridgeArgs += @("--xplane-host", $xh) }
 }
+if ($EmulatorsOnly) { $bridgeArgs += "--emulators-only" } elseif ($Emulators) { $bridgeArgs += "--emulators" }
 Start-Program "$Simulator bridge" $exe[$bridgeKey] $bridgeArgs
 
 # 7. Check what is running and who owns the GPS port.

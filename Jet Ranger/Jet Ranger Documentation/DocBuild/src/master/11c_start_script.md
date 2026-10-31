@@ -23,6 +23,8 @@ A program that is already running is left alone, so the script can be run again,
 | `-XPlaneHost <host>` | X-Plane's host, when it is not this PC |
 | `-StartSimulator` | Also start the simulator from the settings file |
 | `-NoGps`, `-NoHealthMonitor`, `-NoReflector` | Leave that part out |
+| `-Emulators` | Also open the panel emulators and send the bridge's output to them as well as the boards |
+| `-EmulatorsOnly` | Open the panel emulators and send to them only (no boards needed) |
 | `-DryRun` | Print what would be done; start and stop nothing |
 | `-Stop` | Stop the bridges, the GPS interface and the Health Monitor (not the reflector or the simulator) |
 

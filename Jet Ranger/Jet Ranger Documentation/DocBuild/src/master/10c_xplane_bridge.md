@@ -34,7 +34,7 @@ The rotor speeds and bus scales are first guesses: check them against the cockpi
 
 ![XPlaneBridge against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
 
-The window shows the X-Plane address and whether data is arriving, the **Profile** box, **Reload**, **Search datarefs...** (words matched against the names and descriptions in `DataRefs.txt`, best first, in the log), **Send to the boards**, a table of tokens with dataref, raw value, value sent and board, and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--xplane-host`, `--xplane-port`, `--datarefs <DataRefs.txt>` (default `C:\X-Plane 12\Resources\plugins\DataRefs.txt`), `--profile-dir`, `--module <name>`, `--no-send` and `--logfile`.
+The window shows the X-Plane address and whether data is arriving, the **Profile** box, **Reload**, **Search datarefs...** (words matched against the names and descriptions in `DataRefs.txt`, best first, in the log), **Send to the boards**, a table of tokens with dataref, raw value, value sent and board, and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--xplane-host`, `--xplane-port`, `--datarefs <DataRefs.txt>` (default `C:\X-Plane 12\Resources\plugins\DataRefs.txt`), `--profile-dir`, `--module <name>`, `--no-send`, `--logfile`, and `--emulators`, `--emulators-only` and `--emulator-net <a.b.c>` (with the **Send to the emulators** box, see the Panel emulators chapter: the packets also go to `JetRangerPanelEmulator`).
 
 ## Testing without X-Plane
 

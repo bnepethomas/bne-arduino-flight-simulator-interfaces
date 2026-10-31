@@ -42,6 +42,8 @@ namespace DCSBiosBridge
         readonly Label lblProfile = new() { AutoSize = true };
         readonly ComboBox cboProfile = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 220 };
         readonly CheckBox chkSend = new() { Text = "Send to the boards", Checked = true, AutoSize = true };
+        readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
+        readonly BoardTargets targets = new();
         readonly NumericUpDown numZone = new() { Minimum = -12, Maximum = 14, DecimalPlaces = 1, Increment = 0.5M, Width = 55 };
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSuggest = new() { Text = "Suggest controls", AutoSize = true };
@@ -61,6 +63,9 @@ namespace DCSBiosBridge
             profileDir = args.GetValueOrDefault("profile-dir") ?? Path.Combine(AppContext.BaseDirectory, "profiles");
             jsonDir = args.GetValueOrDefault("json-dir") ?? DefaultJsonDir();
             if (args.ContainsKey("no-send")) chkSend.Checked = false;
+            targets.ReadCommandLine(Environment.GetCommandLineArgs());
+            chkSend.Checked = chkSend.Checked && targets.ToBoards;
+            chkEmu.Checked = targets.ToEmulators;
             if (decimal.TryParse(args.GetValueOrDefault("utc-offset"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var zone) && zone >= numZone.Minimum && zone <= numZone.Maximum) numZone.Value = zone;
 
             string? boardHost = args.GetValueOrDefault("board-host");
@@ -69,6 +74,7 @@ namespace DCSBiosBridge
                 var c = new UdpClient();
                 c.Connect(boardHost ?? host, Boards.ControlPort);
                 clients[name] = c;
+                targets.Register(c, host);
             }
             gpsClient.Connect(GpsHost, GpsPort);
 
@@ -76,7 +82,7 @@ namespace DCSBiosBridge
             top.Controls.AddRange(new Control[] { lblStream, lblAircraft, lblProfile });
             top.FlowDirection = FlowDirection.TopDown;
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, chkEmu, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
 
             lvValues.Columns.Add("Token", 180);
             lvValues.Columns.Add("DCS-BIOS control", 230);
@@ -288,7 +294,9 @@ namespace DCSBiosBridge
                 lvValues.Items[i].SubItems[3].Text = r?.Sent ?? "";
                 lvValues.Items[i].SubItems[5].Text = r?.Status ?? "";
             }
-            if (!live || !chkSend.Checked || tokens.Count == 0) return;
+            if (!live || (!chkSend.Checked && !chkEmu.Checked) || tokens.Count == 0) return;
+            targets.ToBoards = chkSend.Checked;
+            targets.ToEmulators = chkEmu.Checked;
             Send(Payloads.Build(tokens));
         }
 
@@ -304,12 +312,14 @@ namespace DCSBiosBridge
                 bool changed = radio && (!lastRadioPacket.TryGetValue(board, out var last) || last != packet);
                 if (radio ? ((changed && ms >= 200) || ms >= 5000) : ms >= 90)
                 {
-                    Transmit(clients[board], packet);
+                    TransmitBoard(clients[board], packet);
                     lastSent[board] = now;
                     if (radio) lastRadioPacket[board] = packet;
                 }
             }
         }
+
+        void TransmitBoard(UdpClient client, string packet) => targets.Send(client, Encoding.ASCII.GetBytes(packet));
 
         static void Transmit(UdpClient client, string packet)
         {

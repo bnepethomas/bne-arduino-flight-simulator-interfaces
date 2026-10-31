@@ -85,7 +85,8 @@ I2C scan reported over UDP. Its RAM use is high (75% or more).
 | `JetRangerHealthMonitor` | traffic-light dashboard for the 10 s board heartbeats |
 | `StepperVSITester` | bench tester sending calibrated and raw values (steppers, dual stepper, servo pitch/bank) and the Temperature OLED text |
 | `SwingTester` | runs each gauge's startup swing individually or all 18 in a set order, lights the OLEDs and the 15 warning lamps during the run, resets boards, sets the backlight brightness (`C,B:0-15`, every board except the HID board) and sends a keepalive so the watchdogs do not fire |
-| `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | stand-ins for the radio and upper boards |
+| `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | stand-ins for the radio and upper boards' inputs (knobs, keys) |
+| `JetRangerPanelEmulator` | stand-ins for the five controller boards' outputs: windows for the Radio, Servo, Stepper, Dual Stepper and ADF and Upper controllers draw the gauges, lamps, LEDs and OLEDs from the same UDP packets (127.0.0.101 to .107, port 13136); every bridge has a `--emulators` / `--emulators-only` option and Send to the emulators box |
 
 `Start Jet Ranger.ps1` (and `.bat`, in the `Jet Ranger` folder) starts the PC programs for MSFS, P3D / FSX, DCS or X-Plane in order: reflector check, Health Monitor, the Lowrance GPS interface, optionally the simulator, then the one bridge (`-Stop` stops them again, `-DryRun` shows what it would do; settings in `Start Jet Ranger.json`).
 
