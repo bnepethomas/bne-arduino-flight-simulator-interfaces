@@ -1,0 +1,12 @@
+{
+  "module": "TestModule",
+  "jsonFile": "TestModule.json",
+  "aircraft": [ "TestModule" ],
+  "values": [
+    { "token": "LED_H_ENG_OIL", "control": "LAMP_A", "type": "lamp" },
+    { "token": "LED_H_ENG_ICE", "control": "LAMP_B", "type": "lamp" },
+    { "token": "LED_H_IFF",     "control": "LAMP_C", "type": "lamp" },
+    { "token": "IAS",           "control": "TEST_IAS", "type": "analog", "scale": 200.0, "decimals": 1 },
+    { "token": "MAINBUS",       "control": "TEST_BUS", "type": "analog", "scale": 30.0, "decimals": 1 }
+  ]
+}

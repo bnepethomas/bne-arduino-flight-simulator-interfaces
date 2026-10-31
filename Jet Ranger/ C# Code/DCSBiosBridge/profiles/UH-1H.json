@@ -1,0 +1,33 @@
+{
+  // Bell UH-1H Huey profile (DCS-BIOS module "UH-1H"). The left column is the generic token the Jet Ranger boards understand (LED_H_* are the 20 Huey
+  // Warning Panel LEDs on the Radio controller); "control" is the DCS-BIOS control identifier that supplies it. The identifiers (CL_A0 to CL_J1, the
+  // "Caution Lights Panel" indicator lights) are from DCS-BIOS v0.11.8, Scripts\DCS-BIOS\lib\modules\aircraft_modules\UH-1H.lua, and match the DCS cockpit
+  // arguments 91 to 110 that the 2017 export script read. DCS-BIOS gives them their memory addresses when DCS starts and writes them to
+  // Saved Games\DCS\Scripts\DCS-BIOS\doc\json\UH-1H.json, which the bridge reads: start DCS once with DCS-BIOS installed before using this profile.
+  // No bus voltage is mapped (DC_VOLTAGE and DC_V are 0 to 1 needle positions with no known voltage scale), so the aircraft counts as powered while data flows.
+  "module": "UH-1H",
+  "jsonFile": "UH-1H.json",
+  "aircraft": [ "UH-1H", "Bell47_2" ],
+  "values": [
+    { "token": "LED_H_ENG_OIL",          "control": "CL_A0", "hint": "ENGINE OIL PRESS",            "type": "lamp" },
+    { "token": "LED_H_ENG_ICE",          "control": "CL_B0", "hint": "ENGINE ICING",                "type": "lamp" },
+    { "token": "LED_H_ENG_ICE_DETECT",   "control": "CL_C0", "hint": "ENGINE ICE JET",              "type": "lamp" },
+    { "token": "LED_H_ENG_CHIP",         "control": "CL_D0", "hint": "ENGINE CHIP DET",             "type": "lamp" },
+    { "token": "LED_H_LEFT_FUEL_BOOST",  "control": "CL_E0", "hint": "LEFT FUEL BOOST",             "type": "lamp" },
+    { "token": "LED_H_RIGHT_FUEL_BOOST", "control": "CL_F0", "hint": "RIGHT FUEL BOOST",            "type": "lamp" },
+    { "token": "LED_H_ENG_FUEL_PUMP",    "control": "CL_G0", "hint": "ENG FUEL PUMP",               "type": "lamp" },
+    { "token": "LED_H_20_MINUTE_FUEL",   "control": "CL_H0", "hint": "20 MIN FUEL",                 "type": "lamp" },
+    { "token": "LED_H_FUEL_FILTER",      "control": "CL_I0", "hint": "FUEL FILTER",                 "type": "lamp" },
+    { "token": "LED_H_GOV_EMER",         "control": "CL_J0", "hint": "GOV EMER",                    "type": "lamp" },
+    { "token": "LED_H_AUX_FUEL_LOW",     "control": "CL_A1", "hint": "AUX FUEL LOW",                "type": "lamp" },
+    { "token": "LED_H_XMSN_OIL_PRESS",   "control": "CL_B1", "hint": "XMSN OIL PRESS",              "type": "lamp" },
+    { "token": "LED_H_XMSN_OIL_HOT",     "control": "CL_C1", "hint": "XMSN OIL HOT",                "type": "lamp" },
+    { "token": "LED_H_HYD_PRESS",        "control": "CL_D1", "hint": "HYD PRESSURE",                "type": "lamp" },
+    { "token": "LED_H_ENG_INLET_AIR",    "control": "CL_E1", "hint": "ENGINE INLET AIR",            "type": "lamp" },
+    { "token": "LED_H_INST_INVERTER",    "control": "CL_F1", "hint": "INST INVERTER",               "type": "lamp" },
+    { "token": "LED_H_DC_GENERATOR",     "control": "CL_G1", "hint": "DC GENERATOR",                "type": "lamp" },
+    { "token": "LED_H_EXT_POWER",        "control": "CL_H1", "hint": "EXTERNAL POWER",              "type": "lamp" },
+    { "token": "LED_H_CHIP_DETECTOR",    "control": "CL_I1", "hint": "CHIP DETECTOR",               "type": "lamp" },
+    { "token": "LED_H_IFF",              "control": "CL_J1", "hint": "IFF",                         "type": "lamp" }
+  ]
+}

@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>DCSBiosBridge</RootNamespace>
+    <AssemblyName>DCSBiosBridge</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The aircraft profiles are copied next to the program so they can be edited without rebuilding. -->
+    <None Include="profiles\**\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
