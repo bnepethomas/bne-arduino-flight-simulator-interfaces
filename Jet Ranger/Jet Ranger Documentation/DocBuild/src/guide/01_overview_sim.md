@@ -81,11 +81,44 @@ These estimates were fitted to a few dial readings and may be a few percent off 
 
 Start FSUIPC with the simulator, then run `FSUIPCWinformsAutoCS.exe`. The status bar shows when it is connected to Prepar3D. The window lists the values being sent and the 21 annunciator bits. The bridge sends about 10 packets per second to each board and listens on UDP 27001 for the radio board's commands (frequency swaps, standby tuning, battery, alternator, avionics master).
 
+## Installing DCS-BIOS (DCS World)
+
+The DCS bridge reads **DCS-BIOS**, a free open-source add-on (DCS-Skunkworks, GitHub: `DCS-Skunkworks/dcs-bios`) that makes DCS broadcast its cockpit state to other programs on the PC. It is installed **once per PC** and is already installed on the cockpit PC (version 0.11.8). DCS-BIOS only reads from DCS; it changes nothing in the simulation unless something sends it commands, and the DCS bridge does not.
+
+1. **Close DCS.**
+2. **Download the release.** On the Releases page of `github.com/DCS-Skunkworks/dcs-bios` download the release zip, for example `DCS-BIOS_v0.11.8.zip`. Use the release zip, not the *Source code* download: the release carries the aircraft files (`doc\json`) that the bridge reads.
+3. **Find your DCS Saved Games folder:** `C:\Users\<you>\Saved Games\DCS` (press Windows+R and type `%USERPROFILE%\Saved Games` to open the parent). If you fly the open beta use `DCS.openbeta` instead; use the folder your DCS actually writes its `Logs` folder in. If it has no `Scripts` folder, create one.
+4. **Copy the `DCS-BIOS` folder** from the zip into that `Scripts` folder, so that you end up with `Saved Games\DCS\Scripts\DCS-BIOS\BIOS.lua` next to `BIOSConfig.lua`, `lib` and `doc`.
+5. **Make DCS load it.** DCS runs the file `Saved Games\DCS\Scripts\Export.lua` when a mission starts. Open it in Notepad (create it if it does not exist) and make sure it contains this line:
+
+```
+dofile(lfs.writedir() .. [[Scripts\DCS-BIOS\BIOS.lua]])
+```
+
+   If `Export.lua` already exists because another tool uses it (for example Tacview or SimpleRadio Standalone), **do not replace it**: add this line at the end, on a line of its own, and leave the other lines as they are. DCS only runs this one file, so every tool's line has to be in it.
+6. **Start DCS, start a mission and get into the cockpit.**
+7. **Check it worked.**
+   - `Saved Games\DCS\Logs\DCS-BIOS.log` now exists and ends with lines such as `starting dcs-bios` and `mission start with aircraft: UH-1H`.
+   - Start `DCSBiosBridge.exe` (or the start-up script): the stream line turns green (*receiving*) and shows the aircraft name.
+
+DCS-BIOS sends its data on UDP multicast 239.255.50.10 port 5010 for programs on the PC and listens for commands on port 7778; the settings are in `Scripts\DCS-BIOS\BIOSConfig.lua` and need no change. If Windows asks whether to let DCS use the network, allow it on private networks. With `dev_mode` on in `BIOSConfig.lua` (as in the release installed here) DCS-BIOS also rewrites its aircraft files in `Scripts\DCS-BIOS\doc\json` when DCS runs, so they follow the DCS version you fly.
+
+**Updating DCS-BIOS.** Close DCS, delete the old `Scripts\DCS-BIOS` folder, copy the new release's `DCS-BIOS` folder in its place and leave `Export.lua` as it is. Check the aircraft you fly still shows *receiving* afterwards.
+
+**Removing it.** Delete the `dofile` line from `Export.lua` and the `Scripts\DCS-BIOS` folder.
+
+| Symptom | What to check |
+|---|---|
+| No `DCS-BIOS.log`, and the bridge says *no data yet* | The `dofile` line is not in `Saved Games\DCS\Scripts\Export.lua` (or the file is in the wrong Saved Games folder, `DCS` against `DCS.openbeta`); the `DCS-BIOS` folder is not directly inside `Scripts` |
+| Another tool stopped working after the install | `Export.lua` was replaced instead of having the line added: put that tool's lines back |
+| The log exists but the bridge still says *no data yet* | You are not in a mission yet (stay in the cockpit, not the menu), or another program is using UDP 5010 |
+| The bridge says *receiving* but the aircraft has no profile | Any aircraft still drives airspeed, altitude, heading and the GPS; only the UH-1H has lamps and gauges so far |
+
 ## Running the DCS bridge (DCS World)
 
 The DCS bridge reads **DCS-BIOS**, a free add-on that makes DCS broadcast its cockpit state on the PC. It only sends data to the panel: the panel's switches reach DCS as joystick buttons (bind them in DCS as usual), and the radio knobs do not tune DCS radios yet.
 
-1. Install DCS-BIOS once (it is already installed on the cockpit PC, version 0.11.8, in `Saved Games\DCS\Scripts`, with a one line `Export.lua`). Start DCS and load a mission with an aircraft; DCS-BIOS writes its aircraft files into `Saved Games\DCS\Scripts\DCS-BIOS\doc\json`.
+1. Install DCS-BIOS once (see Installing DCS-BIOS above; it is already installed on the cockpit PC). Start DCS and load a mission with an aircraft; DCS-BIOS keeps its aircraft files in `Saved Games\DCS\Scripts\DCS-BIOS\doc\json`.
 2. Build `DCSBiosBridge` (in the repository's `C# Code` folder) and run `DCSBiosBridge.exe` from its `bin` folder. Close the other bridges first.
 3. The window shows the stream status, the aircraft name DCS-BIOS reports and the profile it chose. With **Send to the boards** ticked the values go to the boards; the token table shows each value and where it came from.
 4. **UH-1H Huey.** The 20 caution lights drive the Huey Warning Panel LEDs on the Radio controller; they light only while the Radio is powered, that is while the aircraft has power. The radar altitude goes to the radar altitude gauge. For every aircraft the airspeed, altitude, heading and position are sent (the GPS interface follows the aircraft).

@@ -81,7 +81,7 @@ Script: `"Start Jet Ranger.bat" -Simulator P3D` (or `FSX`).
 ## DCS World
 
 1. Reflector, Health Monitor and GPS interface as above.
-2. DCS-BIOS must be installed once (see Running the DCS bridge): `Saved Games\DCS\Scripts\DCS-BIOS` and the `Export.lua` line. It is already installed on the cockpit PC.
+2. DCS-BIOS must be installed once (see Installing DCS-BIOS): `Saved Games\DCS\Scripts\DCS-BIOS` and the `Export.lua` line. It is already installed on the cockpit PC.
 3. Start DCS and **load a mission and sit in the cockpit** of the aircraft (the UH-1H Huey has a profile; any aircraft drives the airspeed, altitude, heading and GPS). DCS-BIOS only sends data while a mission is running.
 4. Run `DCSBiosBridge.exe`. The stream line turns green (*receiving*) and shows the aircraft name and the profile it chose.
 5. Set **Mission time zone (hours from UTC)** to the theatre's offset (or give `-DcsTimeZone` to the script), so the GPS time is right. The date is the PC's.
