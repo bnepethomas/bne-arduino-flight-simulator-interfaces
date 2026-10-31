@@ -44,6 +44,6 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [x] **Update the to do list** (done 2026-10-31).
 - [x] **Commit and push** the 2026-10-31 documentation (done 2026-10-31).
 - [x] **Add an installation appendix** (done 2026-10-31): top-side pictures of the five controller PCBs with only the external connectors labelled (Appendix F of the master document, chapter 19 of the User Guide), drawn by `DocBuild/export_install_views.py`. The Huey Warning Panel connectors are left out.
-- [ ] **Commit and push** the installation appendix.
+- [x] **Commit and push** the installation appendix. (done 2026-10-31)
 - [x] **Add the instrument map appendix** (done 2026-10-31): every gauge, lamp and display with the connector that drives it (Appendix G of the master document, chapter 20 of the User Guide), plus the A3 drawing as `Jet Ranger Instrument Map A3` (SVG, PDF, PNG), made by `DocBuild/make_instrument_map.py`.
-- [ ] **Commit and push** the installation appendix, the DCS bridge, the X-Plane bridge and the instrument map.
+- [x] **Commit and push** the installation appendix, the DCS bridge, the X-Plane bridge and the instrument map. (done 2026-10-31)
