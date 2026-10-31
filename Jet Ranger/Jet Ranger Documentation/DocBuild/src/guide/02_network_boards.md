@@ -10,12 +10,11 @@ All devices sit on one wired `172.16.1.x` subnet with fixed addresses; there is 
 | USB HID board | 172.16.1.11 | DE:AD:BE:EF:FE:ED | `JOYSTICK` |
 | Radio controller | 172.16.1.101 | A8:61:0A:9E:83:01 | `COMM_NAV` |
 | Servo board | 172.16.1.102 | A8:61:0A:9E:83:02 | `SERVO` |
-| Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
 | Stepper board | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper board | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
-| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` |
+| ADF and Upper controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` and `UPPER_INPUT` |
 
-Every live board has its own IP and MAC address. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
+Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the SwingTester still send some packets to .103, which go nowhere. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
 
 | UDP port | Direction | Purpose |
 |---|---|---|
@@ -23,7 +22,7 @@ Every live board has its own IP and MAC address. The firmware sends its debug an
 | 27001 | Radio and ADF controllers to PC bridge | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (for example `AP_MASTER`, `GEAR_DOWN`) |
 | 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
 | 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status (no bridge reads it yet) |
-| 4210 | Servo, Upper, Radio and ADF controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
+| 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
 
@@ -53,7 +52,7 @@ The control packet `C,RESET:1` reboots a board about 2 seconds later. The SwingT
 
 ## Unreachable hosts and the fast Ethernet timeout
 
-Every sketch (Radio, Servo, Upper, Stepper, Dual Stepper, ADF and the USB HID board) sends UDP packets to other devices: debug text and keep-alives to the PC, commands from the Radio to the bridge, switch changes from the Upper controller to the USB HID board, and brightness from the ADF controller to the other panels. Before the Ethernet module can send to an address on the network it has to learn that address's MAC address by an ARP request. If the destination is switched off, unplugged or not yet running (the PC, or another board that is still starting), nobody answers.
+Every sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper and the USB HID board) sends UDP packets to other devices: debug text and keep-alives to the PC, commands from the Radio to the bridge, switch changes from the ADF and Upper controller to the USB HID board, and brightness from the ADF controller to the other panels. Before the Ethernet module can send to an address on the network it has to learn that address's MAC address by an ARP request. If the destination is switched off, unplugged or not yet running (the PC, or another board that is still starting), nobody answers.
 
 The W5500 Ethernet chip then waits and asks again. Its default is a 200 ms timeout with 8 attempts, so one send to a missing device can hold the sketch up for about **1.6 seconds**. The sketch cannot do anything else while it waits: encoders and switches are not scanned, needles do not move, and every debug line sent to a PC that is off would cost another 1.6 seconds.
 
@@ -73,13 +72,13 @@ The bridge turns parts of the panel off when the simulated electrics drop: lamps
 
 ![How the backlight level is decided](diagrams/backlight_logic.svg)
 
-The Radio, Servo, Stepper, Dual Stepper, Upper and ADF boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB (on the Radio these are the Audio, Auto Pilot and COM and NAV panels; its "no data" rule is the same 30 seconds that blanks its displays, restarted by any knob or key; on the Upper and ADF boards a switch, key or knob restarts it). Three things decide the level:
+The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB (on the Radio these are the Audio, Auto Pilot and COM and NAV panels; its "no data" rule is the same 30 seconds that blanks its displays, restarted by any knob or key; on the ADF and Upper board a switch, key or knob restarts it). Three things decide the level:
 
 - **Main bus power (`BPWR`).** The bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that, which switches the backlight off. Until the first `BPWR` arrives the board leaves the backlight on.
 - **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the Upper and ADF boards). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs. The ADF controller also blanks its display and lamps with the Radio's displays.
+The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs. The ADF controller also blanks its display and lamps with the Radio's displays.
 
 # Arduino servo controller
 
@@ -177,7 +176,7 @@ The **StepperVSITester** app can send every token and raw token to this board wi
 
 ![Swing ALL sequence](diagrams/swing_sequence.svg)
 
-It lights the OLEDs and the lamps during the run and sends a keep-alive so the boards' 30 second watchdogs do not fire. *Reset boards...* reboots the boards you tick (Radio, Servo, Upper, Stepper, Dual Stepper, USB HID) by sending each one `C,RESET:1`; each restarts about 2 seconds later and repeats its power-up test.
+It lights the OLEDs and the lamps during the run and sends a keep-alive so the boards' 30 second watchdogs do not fire. *Reset boards...* reboots the boards you tick (Radio, Servo, Upper (the retired .103 address), Stepper, Dual Stepper, USB HID) by sending each one `C,RESET:1` (the ADF and Upper board .107 is not in the list yet); each restarts about 2 seconds later and repeats its power-up test.
 
 ## Known issues
 

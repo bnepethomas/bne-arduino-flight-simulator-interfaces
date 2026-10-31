@@ -1,4 +1,6 @@
-# JET_RANGER_UPPER_CONTROLLER — Program Summary
+# JET_RANGER_UPPER_CONTROLLER - Program Summary
+
+> **Retired (31 October 2026).** This sketch (172.16.1.103, the Jet Ranger Upper Controller PCB) was merged into `JET_RANGER_ADF_CONTROLLER`, which now runs on the combined Jet Ranger Upper ADF Controller PCB at 172.16.1.107 and scans the overhead switch matrix (now 9 rows by 8 columns, indexes 0 to 95) and the Upper keypad as well as the ADF panel. This summary describes the old board and is kept for reference; see `JET_RANGER_ADF_CONTROLLER/PROGRAM_SUMMARY.md`.
 
 Arduino Mega 2560 + W5500 Ethernet shield. Scans the large overhead/upper
 panel switch matrix (up to 256 inputs, 176 used) plus a small numeric

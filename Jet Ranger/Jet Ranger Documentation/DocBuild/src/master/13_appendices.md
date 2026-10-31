@@ -33,13 +33,14 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `TEMP` | Dual .106 | Temperature text up to 8 characters, for example `25C` |
 | `PWR` | Dual .106 | 1 = all four OLEDs on, 0 = blank (main bus below 24 V). Sent first in the packet |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | Radio .101 | The values on the Auto Pilot panel's OLED: heading and course (three digits, north is 360), airspeed (knots), vertical speed (feet per minute, signed) and altitude (feet), up to 5 characters each |
-| `LDGN`, `LDGL`, `LDGR` | ADF .107 | The landing gear lamps (nose, left, right): 1 = lit |
+| `LDGN`, `LDGL`, `LDGR` | ADF and Upper .107 | The landing gear lamps (nose, left, right): 1 = lit |
 | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101 | COM1 and COM2 active and standby frequency, MHz |
 | `MAINBUS` | Radio .101 | Main bus voltage |
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank, panel LEDs off), 1 = on |
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101 | Auto Pilot panel LEDs (CRS, HDG, IAS, ALT, APPR, FD, BC, AP ENGAGE): 1 = on |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101 | Audio panel LEDs: 1 = on |
-| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, Upper .103, ADF .107 | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
+| `LED_H_ENG_OIL`, `LED_H_ENG_ICE`, `LED_H_ENG_ICE_DETECT`, `LED_H_ENG_CHIP`, `LED_H_LEFT_FUEL_BOOST`, `LED_H_ENG_FUEL_PUMP`, `LED_H_RIGHT_FUEL_BOOST`, `LED_H_20_MINUTE_FUEL`, `LED_H_AUX_FUEL_LOW`, `LED_H_XMSN_OIL_PRESS`, `LED_H_XMSN_OIL_HOT`, `LED_H_HYD_PRESS`, `LED_H_ENG_INLET_AIR`, `LED_H_INST_INVERTER`, `LED_H_DC_GENERATOR`, `LED_H_EXT_POWER`, `LED_H_FUEL_FILTER`, `LED_H_GOV_EMER`, `LED_H_CHIP_DETECTOR`, `LED_H_IFF` | Radio .101 | Huey Warning Panel LEDs: 1 = on (not sent by the bridges yet) |
+| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, ADF and Upper .107 (the bridges still also send it to the retired Upper .103) | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
 
 ## Lamp tokens (Servo .102)
 
@@ -53,11 +54,11 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `OLEDTEST` | 1 fills the four Dual Stepper OLEDs solid white, 0 restores them |
 | `KEEPALIVE` | Ignored command that still counts as received data and restarts the 30 second no-data timer |
 | `RESET` | Reboot the board about 2 seconds later (port 13136; USB HID board on 4210) |
-| `MATRIX` | Radio and ADF controllers: print the raw keypad matrix to the debug stream |
-| `LEDTEST` | Radio controller: 1 lights all 19 Auto Pilot and Audio panel LEDs, 0 returns them to the simulator's state |
+| `MATRIX` | Radio and ADF controllers: print the raw matrix or ADF keypad readings to the debug stream |
+| `LEDTEST` | Radio controller: 1 lights all 39 Auto Pilot, Audio and Huey panel LEDs, 0 returns them to the simulator's state |
 | `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
-| `DISPLAY` | ADF controller: 0 blanks its OLED and landing gear lamps, 1 restores them (sent by the Radio controller with its own displays) |
-| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Upper, Stepper, Dual Stepper and ADF; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller can send it from its brightness pot, which is switched off for the moment |
+| `DISPLAY` | ADF and Upper controller: 0 blanks its OLED and landing gear lamps, 1 restores them (sent by the Radio controller with its own displays) |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper, Dual Stepper and ADF and Upper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller can send it from its brightness pot, which is switched off for the moment |
 
 ## Messages from the ADF controller to the PC (UDP 27003)
 
@@ -96,10 +97,9 @@ Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE s
 |---|---|---|---|
 | Radio controller | .101 | Mega 2560 (replacement board) | COM20 |
 | Servo controller | .102 | Mega 2560 clone | COM16 |
-| Upper controller | .103 | Mega 2560 | not recorded |
 | Stepper controller | .105 | Mega 2560 | COM4 |
 | Dual stepper controller | .106 | Mega 2560 | COM5 |
-| ADF controller | .107 | Mega 2560 | not recorded |
+| ADF and Upper controller (combined) | .107 | Mega 2560 | COM26 |
 | USB HID board | .11 | Arduino Leonardo | COM8 |
 
 The Lowrance GPS cable is not one of these boards: the GPS interface asks for its serial port the first time it runs and remembers it. These are the ports used at the last flash of each board. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.
@@ -132,7 +132,7 @@ This document and the User Guide are generated, not typeset by hand. The sources
 | Item | Purpose |
 |---|---|
 | `src/master/*.md`, `src/guide/*.md` | Text of this document and the User Guide |
-| `diagrams_a.py` to `diagrams_d.py`, `svgdraw.py`, `make_diagrams.py` | The 34 diagrams, written as Python functions that draw SVG; `python make_diagrams.py` regenerates them |
+| `diagrams_a.py` to `diagrams_e.py`, `svgdraw.py`, `make_diagrams.py` | The 35 diagrams, written as Python functions that draw SVG; `python make_diagrams.py` regenerates them |
 | `build_docs.py`, `run_lo.ps1` | Builds the `.odt` and `.pdf` through LibreOffice's Python interface (`run_lo.ps1 build_docs.py master`) |
 | `pdf2png.ps1`, `montage.ps1`, `svg2png.py` | Helpers for checking pages and diagrams visually |
 

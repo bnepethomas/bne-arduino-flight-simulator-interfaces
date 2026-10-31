@@ -7,7 +7,7 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 | FSUIPCWinformsAutoCS | Bridge for Prepar3D and FSX | Bridges |
 | MSFSWinformsAutoCS | Bridge for MSFS 2020 and 2024 | Bridges |
 | JetRangerHealthMonitor | Shows which boards are alive and the last voltage reading from each | Health Monitor |
-| SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot and Audio panel LEDs, resets boards, sets brightness | SwingTester |
+| SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot, Audio and Huey panel LEDs, resets boards, sets brightness | SwingTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
 | JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards | Emulators |
 | LowranceAirMapGps | Feeds the Lowrance AirMap 2000C | GPS interface |
@@ -34,7 +34,7 @@ Run only one bridge at a time.
 
 ![JetRangerHealthMonitor: all seven boards heard](screenshots/health_monitor.png)
 
-One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF. Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
+One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF (the combined ADF and Upper board lights both the Upper Input and ADF labels). Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
 
 The **Show Voltages** button opens a table with one row per board:
 
@@ -54,12 +54,12 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 
 ![SwingTester main window](screenshots/swing_tester.png)
 
-- **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, Upper and HID).
+- **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, Upper, ADF and HID; the Upper address .103 is the retired board, the ADF and Upper board is .107).
 - **Swing ALL (in order)** runs the 18 gauge swings in the fixed order, **Stop** cancels the remaining waits, **OLEDs ON / OFF** fill or restore the Dual Stepper's four OLEDs, **Reset boards...** opens the reset dialog, and **Light OLEDs during Swing ALL** controls the OLEDs. **Temp OLED** with **Send TEMP** sends text to the Dual Stepper's temperature display.
 - **Lamps ON (in order)** and **Lamps OFF (in order)** with the **on gap** and **off gap** times, and **Light warning lamps during Swing ALL**.
-- **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Upper, Stepper, Dual Stepper and ADF); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule.
+- **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Stepper, Dual Stepper and ADF and Upper, and the retired Upper address); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule.
 - **Status line:** what was last sent and to which boards.
-- **Panel LEDs group** (far right): one toggle for each of the 19 Auto Pilot and Audio panel LEDs (gold when on), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0`). **All ON** and **All OFF** do all 19, **Chase** lights them one at a time for the *on gap* time (click again to stop), and **Board test (C,LEDTEST)** lights all 19 with the Radio's own test.
+- **Panel LEDs group** (far right): one toggle for each of the 39 Auto Pilot, Audio and Huey Warning Panel LEDs (gold when on; the Huey LEDs are in two columns, *Huey Warning Panel* and *(continued)*), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0` or `LED_H_xxx`). **All ON** and **All OFF** do all 39, **Chase** lights them one at a time for the *on gap* time (click again to stop; a full chase of 39 takes about 39 seconds at the default), and **Board test (C,LEDTEST)** lights all 39 with the Radio's own test. The Radio on COM20 was flashed with the Huey build on 31 October 2026; the LEDs have not been checked on the panel yet.
 - **Auto Pilot display group** (far right, below the panel LEDs): five boxes for HDG, VS, CRS, IAS and ALT (start-up values 090, 0, 110, 80 and 3200). **Send values** sends them to the Radio for the Auto Pilot panel's OLED and **Start-up values** puts the start-up values back.
 - **ADF panel landing gear lamps** (under the warning lamps): **Nose**, **Left** and **Right** toggles (gold when on) light the three lamps on the ADF panel through the ADF controller (172.16.1.107, set in the `ADF (.107)` box at the top), with **All ON** and **All OFF**.
 - **COM ports...** opens a window that lists the PC's COM ports with the board type, the USB serial number and whether another program has the port open, and can restart a USB device (see COM ports window below).
@@ -100,7 +100,7 @@ The **Radio controller emulator** stands in for the radio board. Set the reflect
 
 ![JetRangerUpperControllerEmulator](screenshots/upper_emulator.png)
 
-The **Upper controller emulator** stands in for the upper board. Set the USB HID board's address and port at the top (172.16.1.11, 4210). There is one toggle button per switch the firmware uses, in groups: Cabin Heat, Air, Circuit Breakers, Instruments, Electrical and Lights. A button turns green when its switch is on, and each press sends the switch change to the USB HID board.
+The **Upper controller emulator** stands in for the upper panel (now on the combined ADF and Upper board; the switch numbers are unchanged). Set the USB HID board's address and port at the top (172.16.1.11, 4210). There is one toggle button per switch the firmware uses, in groups: Cabin Heat, Air, Circuit Breakers, Instruments, Electrical and Lights. A button turns green when its switch is on, and each press sends the switch change to the USB HID board.
 
 ## GPS interface
 

@@ -16,7 +16,7 @@
 <text x="284.0" y="106.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"SERVO"</text>
 <path d="M 282.0 122.0 L 400.0 122.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="16.0" y="148.0" width="250.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="28.0" y="171.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper controller</text>
+<text x="28.0" y="171.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper (ADF + Upper board)</text>
 <text x="284.0" y="168.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"UPPER_INPUT"</text>
 <path d="M 282.0 184.0 L 400.0 184.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="16.0" y="210.0" width="250.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
@@ -32,10 +32,10 @@
 <text x="284.0" y="354.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"DUAL_STEPPER"</text>
 <path d="M 282.0 370.0 L 400.0 370.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
 <rect x="16.0" y="396.0" width="250.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="28.0" y="419.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF controller</text>
+<text x="28.0" y="419.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF + Upper controller</text>
 <text x="284.0" y="416.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">"ADF_PANEL"</text>
 <path d="M 282.0 432.0 L 400.0 432.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
-<text x="290.0" y="14.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">every 10 s, with V5 (ADF also V12)</text>
+<text x="290.0" y="14.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">every 10 s, with V5 (the ADF + Upper board also V12)</text>
 <rect x="400.0" y="24.0" width="200.0" height="410.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
 <text x="500.0" y="46.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Health Monitor</text>
 <text x="500.0" y="70.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">UDP 13137</text>

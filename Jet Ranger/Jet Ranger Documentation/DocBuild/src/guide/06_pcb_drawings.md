@@ -34,16 +34,6 @@ Revision 1.4 (2026-10-18). Mega shield for the Servo controller (172.16.1.102). 
 
 <!-- pagebreak -->
 
-## Jet Ranger Upper Controller
-
-Revision 1.4 (2026-10-18). Mega shield for the Upper controller (172.16.1.103). The overhead switch matrix and keypad inputs, the backlight MOSFET (D5), a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`) and the USR-ES1 Ethernet module. Version 1.4 corrected the MOSFET pin-out.
-
-![Jet Ranger Upper Controller schematic](pcb/upper_controller_sch.jpg)
-
-![Jet Ranger Upper Controller board layout](pcb/upper_controller_pcb.jpg)
-
-<!-- pagebreak -->
-
 ## Jet Ranger 13 Stepper
 
 Title block revision 1.6 (2026-10-18); the change log lists changes up to 1.5. Mega shield for the Stepper controller (172.16.1.105). Fourteen six-pin gauge sockets for the X27 steppers, a 12 V lamp supply with polyfuses, the USR-ES1 Ethernet module and the backlight MOSFET. 1.4 moved the LEDs away from the USB connectors and 1.5 selected the IRF540N.
@@ -74,13 +64,13 @@ Title block revision 2 (2022-08-04). One board for each stepper gauge. One X27 o
 
 <!-- pagebreak -->
 
-## Jet Ranger ADF Controller
+## Jet Ranger Upper ADF Controller
 
-Revision 1.5 (2026-10-25). Mega shield for the ADF controller (172.16.1.107). The ADF major and minor knobs (D6 to D9), the keypad (D22 to D28, through pins 18 to 24 of the ADF connector J5), the landing gear, flaps, speed brake and brake inputs (D29 to D32), three new two-pin switch inputs for hyd boost (J17, D33), anti-ice (J18, D34) and caution dim (J19, D35), three landing gear lamps (D2 to D4), the I2C OLED, the backlight MOSFET (Q5, moved slightly to make room), a panel brightness pot on A0 and a 12 V monitor on A15 (47 k and 10 k divider). 1.2 added the audio panel, 1.3 corrected the MOSFET, 1.4 added the 12 V monitor and the brightness pot, and the newest change log entry (labelled 1.6 while the title block says 1.5) added the three switch inputs.
+Revision 1.0 (2026-10-26). The combined ADF and Upper controller (172.16.1.107), the reference PCB for the ADF controller. It merges the Jet Ranger Upper Controller (1.4) and the Jet Ranger ADF Controller (1.6) onto one Mega, started from the ADF Controller. The ADF major and minor knobs (D6 to D9), the ADF keypad (A1 to A7, connector J41), the landing gear, flaps, speed brake and brake inputs (D31 to D34), the hyd boost, anti-ice and caution dim inputs (D35 to D37, J20), three landing gear lamps (D2 to D4), the I2C OLED, the Upper switch matrix (rows D22 to D30 on J30, columns D38 to D45 on J31 with 10 k pull-ups), the Upper keypad (A9 to A15, J32), the Warning Mute (J17) and TOT Test (J18) switches, the backlight MOSFET (D5, panel backlight on J33), a panel brightness pot on A0 and a 12 V monitor on A8 (47 k and 10 k divider). The 1x16 breakout headers J9 to J14 were removed to make room. The layout is routed (no unconnected items in KiCad's design rule check).
 
-![Jet Ranger ADF Controller schematic](pcb/adf_controller_sch.jpg)
+![Jet Ranger Upper ADF Controller schematic](pcb/upper_adf_controller_sch.jpg)
 
-![Jet Ranger ADF Controller board layout](pcb/adf_controller_pcb.jpg)
+![Jet Ranger Upper ADF Controller board layout](pcb/upper_adf_controller_pcb.jpg)
 
 <!-- pagebreak -->
 

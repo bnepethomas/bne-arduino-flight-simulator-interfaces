@@ -3,7 +3,7 @@
 Arduino board with native USB HID support (e.g. Leonardo/Micro-class, using
 `Joystick.h`/`Keyboard.h`) + W5500 Ethernet shield. Acts as a network-to-USB
 bridge: it receives button/key commands over UDP from
-`JET_RANGER_UPPER_CONTROLLER` and re-emits them to Windows as four virtual
+`JET_RANGER_ADF_CONTROLLER` (the combined ADF and Upper board, which took over the old `JET_RANGER_UPPER_CONTROLLER`'s overhead switch matrix and keypad on 31 October 2026), the Servo and the Radio controllers and re-emits them to Windows as four virtual
 32-button joysticks (128 buttons total) plus standard keyboard key
 presses, so DCS-BIOS/MSFS/DCS World see ordinary USB game controllers and a
 keyboard.
@@ -80,9 +80,11 @@ purely to translate network commands into USB HID output.)
 
 ## C# programs this sketch communicates with
 
-- None directly — its only IP peer in the current fleet is
-  `JET_RANGER_UPPER_CONTROLLER` (an Arduino, not a C# program), which sends
-  it button/key commands on port 4210.
+- None directly — its IP peers in the current fleet are the Arduino boards
+  `JET_RANGER_ADF_CONTROLLER` (ADF and Upper panels: matrix indexes 0 to 95,
+  ADF switches and knobs 104 to 114, Upper keypad keys), the Servo and the
+  Radio controllers (Auto Pilot 64 to 81, Audio 96 to 103, Huey Warning Panel
+  switches 115 to 117), which send it button/key commands on port 4210.
 - **JetRangerHealthMonitor** — listens on UDP **13137** and lights the
   "JoyStick" indicator green on receipt of this sketch's keepalive.
 - No C# project in this repository listens on `172.16.1.10:27000` (the log

@@ -15,15 +15,21 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 ## Firmware and software
 
-- [ ] **Flash the Upper controller** with the new backlight code (D5 backlight, `D,BPWR`, `C,B` brightness and the 30 s no-data timeout). It was not connected, so it has only been compiled. The Upper still has no pause for a missing USB HID board (the Radio has one), so with the HID board unplugged each switch change can stall the matrix scan for up to about 80 ms.
+- [x] **Merge the Upper controller sketch into the ADF controller sketch** (done 2026-10-31; flashed to COM26). The combined Upper ADF Controller PCB is now the reference PCB for the ADF controller and the old Upper board (172.16.1.103) is retired. Also fixed that day: the 12 V monitor is on A8 (it read 5.33 V from A15 with 12.3 V on the board) and the ADF keypad lines arrive in reverse order (rows A7 to A4, columns A3 to A1; every key now reports correctly).
+- [x] **Flash the Radio controller (COM20) with the Huey build** (done 2026-10-31): Huey Warning Panel switches on A8 to A10 and the 20 LEDs on MAX7219 digits 4 to 7; 40,552 bytes flash and 5,949 bytes RAM (72 percent). The panel is hand wired for now. The Auto Pilot and Audio LEDs will be dimmer than before (scan limit 7 instead of 3).
+- [ ] **Remove the retired Upper address 172.16.1.103** from the bridges (`upperClient` in both), the SwingTester (the Upper IP box, brightness, backlight power, keep-alive and *Reset boards...* lists) and the Health Monitor's Upper light, and add the ADF and Upper board (.107) to the SwingTester's *Reset boards...* list.
+- [ ] **Decide where the Huey LED states come from** (which simulator state drives each of the 20 `LED_H_xxx` tokens) and make the bridges send them. Neither bridge sends them yet.
+- [ ] **The ADF sketch has no pause for a missing USB HID board** (the Radio has one), so with the HID board unplugged each switch or key change can stall the scan for up to about 80 ms.
 - [ ] **Map the three new ADF switches in FSUIPC for the Dodo.** Joystick 4 buttons 17, 18 and 19 (indexes 112, 113 and 114) go to the Dodo events `ANTI_ICE_SWITCH_SET`, `HYDRAULICS_SWITCH_SET` and `CAUTION_LIGHT_SWITCH_SET`, with 1 on press and 0 on release. Use either this mapping or the bridge's `ANTI_ICE_SET` command for anti-ice, not both. The Dodo may ignore the plain `ANTI_ICE_SET` event.
 - [ ] **Bridge support for port 27003.** Neither bridge reads the ADF frequency and radar follow ID the ADF controller sends, and neither sends the landing gear lamp states (the gear position SimVars and offsets are not read).
 - [ ] **Reflash any board that was flashed before its 5 V heartbeat reading was added**, so the Health Monitor's voltage table shows a reading for it. Check the table for "no reading".
-- [ ] **Restart the bridge you use** after the latest build, so it sends `ANTI_ICE_SET` and the backlight power packets to the ADF and Upper.
+- [ ] **Restart the bridge you use** after the latest build, so it sends `ANTI_ICE_SET` and the backlight power packets to the ADF and Upper board.
 
 ## Testing on the bench
 
-- [ ] **ADF panel:** the anti-ice, hyd boost and caution dim switches (debug lines such as `ANTI-ICE closed (joystick button index 112)`), the display and lamps blanking and returning with the Radio, and the backlight following `BPWR`, `C,B` and the 30 s no-data timeout.
+- [ ] **ADF panel on the combined board:** all seven switches at their new pins (gear D31, flaps D32, speed brakes D33, brakes D34, hyd boost D35, anti-ice D36, caution dim D37; debug lines such as `ANTI-ICE closed (joystick button index 112)`), the display and lamps blanking and returning with the Radio, and the backlight following `BPWR`, `C,B` and the 30 s no-data timeout. The 12 V reading and the keypad are done (2026-10-31).
+- [ ] **Upper panel on the combined board:** every matrix switch (debug lines `Front Input - <index>:<state>`, joystick buttons on Joystick 1 to 3), the Warning Mute and TOT Test connectors (indexes 88 and 89), the Upper keypad (`Upper key pressed: <key>`, keys typed on the HID board), and that the ADF knobs still tune smoothly while the matrix is scanned.
+- [ ] **Huey Warning Panel:** the switches (Joystick 4 buttons 20 to 22), the lamp test while TEST is closed, and each LED from the SwingTester, (the Radio was flashed with the Huey build on 2026-10-31).
 - [ ] **Radio:** the DME display blanking and returning with the other Radio displays.
 - [ ] **Servo:** the fuel pump and fuel filter outputs after the pin swap (fuel pump now A11, aft fuel filter A12).
 - [ ] **SwingTester COM ports window:** the list was checked with six boards plugged in on 2026-10-25 (board type, serial numbers, "open elsewhere"); still to try **Restart selected USB device** on a board.
@@ -32,3 +38,6 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 - [x] **Update the documentation** (done 2026-10-25, including the ADF Controller PCB revision 1.5 images and notes) for the changes: the three new ADF switches and `ANTI_ICE_SET`, the DME and ADF blanking, the ADF and Upper backlight and timeout rules, the bridges' new ADF and Upper packets, the SwingTester COM ports window, and the Servo fuel pin swap. Then regenerate the documents.
 - [x] **Commit and push** (done 2026-10-25).
+- [x] **Update the documentation again** (done 2026-10-31): the ADF and Upper merge (chapters, pin tables, joystick indexes, heartbeat names, COM26, the Upper ADF Controller PCB rev 1.0 images and notes, diagrams), the 12 V and keypad fixes, and the Huey Warning Panel switches, LEDs and SwingTester tests (firmware only: the Huey panel is hand wired, so its PCB is deliberately left out of the documentation). Then regenerate the documents.
+- [x] **Update the to do list** (done 2026-10-31).
+- [x] **Commit and push** the 2026-10-31 documentation (done 2026-10-31).

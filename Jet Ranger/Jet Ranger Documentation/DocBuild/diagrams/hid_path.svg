@@ -8,10 +8,10 @@
 <marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
 </defs>
 <rect x="16.0" y="20.0" width="250.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="28.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper controller  .103</text>
-<text x="28.0" y="67.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">16 x 11 switch matrix + keypad</text>
+<text x="28.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF + Upper controller  .107</text>
+<text x="28.0" y="67.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">9 x 8 switch matrix + keypad</text>
 <text x="28.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">index = row x 11 + column</text>
-<text x="28.0" y="102.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">heartbeat UPPER_INPUT</text>
+<text x="28.0" y="102.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">heartbeats ADF_PANEL, UPPER_INPUT</text>
 <rect x="16.0" y="140.0" width="250.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo controller  .102</text>
 <text x="28.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">WARNING MUTE  index 7</text>

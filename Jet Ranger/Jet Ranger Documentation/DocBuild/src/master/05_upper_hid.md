@@ -1,60 +1,17 @@
-# Upper controller (172.16.1.103)
+# Upper panel (now on the ADF controller)
 
-`JET_RANGER_UPPER_CONTROLLER` runs on an Arduino Mega 2560 with a W5500 Ethernet module. It scans the overhead switch matrix (up to 256 positions, 176 used) and a small numeric keypad, and sends every change over UDP to the USB HID board, which presents them to Windows as joystick buttons and keystrokes. The sketch also contains DCS-BIOS code for DCS World over the USB serial link, but `CreateDcsBiosMessage()` is still a stub, so only the joystick path works.
+The overhead switch matrix and the small numeric keypad used to have their own board, `JET_RANGER_UPPER_CONTROLLER` (172.16.1.103, the **Jet Ranger Upper Controller** PCB). On 31 October 2026 that sketch was **merged into the ADF controller sketch** and runs on the combined **Jet Ranger Upper ADF Controller** PCB at **172.16.1.107**; the pins, scan method, backlight rules and known issues are in the ADF and Upper controller chapter. What stays the same for everything downstream:
 
-![Upper controller blocks](diagrams/upper_blocks.svg)
+- each matrix switch is still sent to the USB HID board as `index,state` with `index = row x 11 + column`, so the joystick button numbers (0 to 95, Joystick 1 to 3) and the table below are unchanged. The matrix is now 9 rows by 8 columns (72 positions, indexes 0 to 95) instead of 16 by 11 (176 positions);
+- the keypad is still sent as `KEY,key,state`;
+- the remote reset (`C,RESET:1`), `C,B` brightness, `C,KEEPALIVE:1` and `D,BPWR` are handled by the ADF controller's code, which has the same rules;
+- the Health Monitor's Upper light is fed by an `UPPER_INPUT` heartbeat that the merged board sends next to its `ADF_PANEL` one.
 
-## Program flow
-
-1. **Setup:** set the status LEDs, reset the W5500, start Ethernet and open the sockets (red LED flashes for 3 seconds), configure pins 22 to 37 as matrix row outputs and 38 to 49 as column inputs with pull-ups, clear the button and debounce arrays and start the keypad.
-2. **Main loop:**
-   - toggle the status LEDs every 200 ms and send the `UPPER_INPUT` heartbeat every 10 seconds;
-   - `ScanInputs()` drives each of the 16 rows low in turn with direct `PORTA` and `PORTC` writes and reads the columns with direct `PIND`, `PING` and `PINL` reads, building a 176-button state array;
-   - `FindInputChanges()` debounces and, for each change, calls `SendButtonToHid(index, state)`;
-   - `scanMatrix()` scans the 4 by 3 keypad and sends `SendKeyToHid(key, 1)` on press and `(key, 0)` on release;
-   - every 20 ms `ServiceControlPackets()` polls port 13136 and acts on `C,RESET:1`, `C,B:0-15` (backlight brightness), `C,KEEPALIVE:1` and `D,BPWR:1/0` (backlight power); every data packet also restarts the no-data timeout. The poll is slow on purpose so the extra W5500 access does not slow the matrix scan;
-   - a no-data check turns the backlight off after 30 seconds with no data and no switch or key change (see Backlight).
-
-## Pin usage
-
-| Pin | Function |
-|---|---|
-| 14 | Green status LED |
-| 15 | Red status LED |
-| 53 | W5500 reset |
-| 22 to 37 | 16 matrix row drivers |
-| 38 to 49 | Matrix column inputs; pins 50 to 53 are the Ethernet SPI bus, so the last four columns are fixed at 1 (unused) |
-| A10, A12, A14, A15 | Keypad rows |
-| A9, A11, A13 | Keypad columns |
-| USB serial | DCS-BIOS link to a DCS World PC (separate from the Ethernet path) |
-
-## What it sends
-
-| To | Port | Content |
-|---|---|---|
-| 172.16.1.11 (USB HID board) | 4210 | `index,state` for matrix switches and `KEY,key,state` for keypad keys |
-| 172.16.1.10 | 27000 | Debug text |
-| 172.16.1.10 | 13137 | `UPPER_INPUT` heartbeat every 10 seconds |
-
-The Upper controller has its own address and MAC (`172.16.1.103`, `...83:03`); it never listens for simulator data, so no bridge sends to it.
-
-## Remote reset
-
-`C,RESET:1` on port 13136 reboots the board with a software reset (see the network chapter). The code is the same as the Radio controller's and the sketch compiles, but it has **not been flashed or bench-tested** because the board was not connected.
-
-## Backlight
-
-The PCB's backlight driver (D5, the `BACKLIGHT_PWM` net to an IRF540N that switches the BACKLIGHT connector) is now driven by the sketch (25 October 2026), with the same rules as the other boards (see the network chapter): the backlight follows `D,BPWR:1/0` from the bridge (1 = main bus 20 V or more, assumed until the first arrives) and the last brightness set with `C,B:0-15` (default PWM 65 until one has been received, then the last commanded level every time power returns), and it goes out after **30 seconds** (`NO_DATA_TIMEOUT_MS`) with no data packet, brightness command or keep-alive and no switch or key change (`SendButtonToHid()` and `SendKeyToHid()` count as input). Any of those brings it back at the same level. The bridges send `D,BPWR:x` to the Upper controller (172.16.1.103) and the SwingTester's brightness slider, backlight power buttons and keep-alive include it. The brightness pot input on A0 is not read. The sketch compiles at 20,696 bytes of flash and 3,110 bytes of RAM; it has **not been flashed or bench-tested** (the board was not connected). It also still has no pause for a missing USB HID board (the Radio has one), so with the HID board unplugged each switch change can stall the matrix scan for up to about 80 ms.
-
-## Known issues
-
-- The Upper controller PCB has a Warning Mute connector (J17) on `/ROW8`, Arduino D30, but the sketch's keypad uses analog pins A9 to A15, so J17 may not be read.
-- `CreateDcsBiosMessage()` has no bodies, so none of these switches do anything in DCS.
-- The PCB (v1.4) has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16), but the sketch does not read it; the backlight is driven from `C,B` (see Backlight).
+The old sketch (`JET_RANGER_UPPER_CONTROLLER.ino`) is retired but still in the repository for reference. Its DCS-BIOS code (`CreateDcsBiosMessage()`, every case empty) was not carried over, so nothing here is sent to DCS World. The old Upper board's remote reset and backlight code were never bench-tested because the board was not connected.
 
 # USB HID board (172.16.1.11)
 
-`UDP_TO_HID` runs on an Arduino with native USB (Leonardo class, board option `arduino:avr:leonardo`) and a W5500 Ethernet module. It is a network-to-USB bridge: it receives button and key commands over UDP from the Upper controller, the Servo controller, the Radio controller (Auto Pilot and Audio panels) and the ADF controller and re-emits them to Windows as **four virtual 32-button joysticks (128 buttons) and a keyboard**. The joysticks have buttons only: no axes and no hat switches.
+`UDP_TO_HID` runs on an Arduino with native USB (Leonardo class, board option `arduino:avr:leonardo`) and a W5500 Ethernet module. It is a network-to-USB bridge: it receives button and key commands over UDP from the Servo controller, the Radio controller (Auto Pilot and Audio panels) and the ADF and Upper controller (the ADF panel switches and knobs, the Upper switch matrix and the Upper keypad) and re-emits them to Windows as **four virtual 32-button joysticks (128 buttons) and a keyboard**. The joysticks have buttons only: no axes and no hat switches.
 
 ![From switch to joystick button](diagrams/hid_path.svg)
 
@@ -76,7 +33,7 @@ The PCB's backlight driver (D5, the `BACKLIGHT_PWM` net to an IRF540N that switc
 
 ## How a switch becomes a joystick button
 
-1. The Upper controller numbers each matrix position as `index = row x 11 + column` (0 to 175).
+1. The Upper matrix (on the ADF and Upper controller) numbers each position as `index = row x 11 + column` (0 to 95: 9 rows by 8 columns).
 2. When a switch changes it sends `index,state` to `172.16.1.11:4210` with state 1 = switch on.
 3. The HID board holds that button down while the switch is on.
 4. Keypad keys are sent as `KEY,<key>,<state>` and typed as keyboard keys 0 to 9, `*` and `#`.
@@ -88,11 +45,11 @@ The PCB's backlight driver (D5, the `BACKLIGHT_PWM` net to an IRF540N that switc
 | 32 to 63 | Joystick 2 |
 | 64 to 95 | Joystick 3 |
 | 96 to 127 | Joystick 4 |
-| 128 to 175 | Not sent to Windows (out of range) |
+| 128 and above | Not sent to Windows (out of range); nothing sends these any more |
 
 ## Auto Pilot, Audio and ADF panel buttons
 
-The Radio controller (Auto Pilot and Audio panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio and ADF panels). Nothing else uses those buttons: the Upper controller's assigned switches are all below index 40, and the Servo's are 7 to 9. The Upper matrix positions that map onto indexes 64 to 127 (rows 5 to 11) are wired but have no switch on them, so if switches are ever fitted there they would clash with these buttons. Windows numbers buttons from 1 (button = index mod 32 + 1). A knob click is a 40 ms press, clockwise and anticlockwise on adjacent buttons.
+The Radio controller (Auto Pilot and Audio panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio and ADF panels). Nothing else uses those buttons: the Upper matrix's assigned switches are all below index 40, and the Servo's are 7 to 9. The Upper matrix positions in rows 6 to 8 (indexes 66 to 73, 77 to 84 and 88 to 95) fall inside Joystick 3 and are wired but have no switch on them (88 and 89 are the Warning Mute and TOT Test connectors), so if switches are ever fitted at 66 to 73 or 77 to 81 they would clash with the Auto Pilot buttons. The matrix no longer reaches the Audio and ADF range (96 and above). Windows numbers buttons from 1 (button = index mod 32 + 1). A knob click is a 40 ms press, clockwise and anticlockwise on adjacent buttons.
 
 | Index | Windows button | Source |
 |---|---|---|

@@ -10,7 +10,7 @@
 <text x="111.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Warning Mute,</text>
 <text x="111.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Fuel Valve, TOT Clear...</text>
 <rect x="240.0" y="20.0" width="190.0" height="94.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="335.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo / Upper Mega</text>
+<text x="335.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo / ADF-Upper Mega</text>
 <text x="335.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">debounced change -&gt;</text>
 <text x="335.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">index,state</text>
 <rect x="464.0" y="20.0" width="190.0" height="94.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>

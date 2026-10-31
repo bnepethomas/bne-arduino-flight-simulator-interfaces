@@ -43,7 +43,7 @@ not sender IP, so any board sending the right prefix is accepted:
 
 - **[JET_RANGER_RADIO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_RADIO_CONTROLLER/JET_RANGER_RADIO_CONTROLLER.ino)** — `"COMM_NAV"` every 10s.
 - **[JET_RANGER_SERVO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_SERVO_CONTROLLER/JET_RANGER_SERVO_CONTROLLER.ino)** — `"SERVO"` every 10s.
-- **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)** — `"UPPER_INPUT"` every 10s.
+- **[JET_RANGER_ADF_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_ADF_CONTROLLER/JET_RANGER_ADF_CONTROLLER.ino)** (the combined ADF and Upper board, 172.16.1.107) — `"ADF_PANEL"` and `"UPPER_INPUT"` every 10s, each with `V5:` and `V12:` readings. The old `JET_RANGER_UPPER_CONTROLLER` (retired 31 October 2026) sent only `"UPPER_INPUT"`.
 - **[UDP_TO_HID](../../Jet%20Ranger%20Arduino%20Sketches/UDP_TO_HID/UDP_TO_HID.ino)** — `"JOYSTICK"` every 10s.
 - **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER.ino)** — `"STEPPER"` every 10s (added alongside this app's Stepper indicator).
 - **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)** — `"DUAL_STEPPER"` every 10s. Deliberately a distinct prefix from `JET_RANGER_STEPPER_CONTROLLER`'s `"STEPPER"` (not just a longer string that happens to start the same way) — this app matches by `StartsWith()`, so if the two boards' prefixes had overlapped (e.g. `"STEPPER"` vs `"STEPPER_DUAL"`), one would have lit up the other's indicator too.

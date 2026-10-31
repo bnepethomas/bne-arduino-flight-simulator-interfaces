@@ -21,7 +21,7 @@
 <text x="290.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">debug: RESET received</text>
 <rect x="420.0" y="166.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
 <text x="520.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arm watchdog 2 s</text>
-<text x="520.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Radio, Upper: jump to 0</text>
+<text x="520.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Radio, ADF/Upper: jump to 0</text>
 <rect x="650.0" y="166.0" width="210.0" height="56.0" rx="10" ry="10" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
 <text x="755.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Reboot</text>
 <text x="755.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">setup() runs again</text>

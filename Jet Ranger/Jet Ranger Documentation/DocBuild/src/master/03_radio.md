@@ -1,6 +1,6 @@
 # Radio controller (172.16.1.101)
 
-`JET_RANGER_RADIO_CONTROLLER` runs on an Arduino Mega 2560 with a W5500 Ethernet module. It shows the COM and NAV frequencies on two character OLEDs, reads eight rotary encoders (COM1, COM2, NAV1 and NAV2, each with a major and a minor knob) and a 4 by 5 button matrix, and keeps the radio panel in step with the simulator. It also serves the **Auto Pilot and Audio panels**: it reads their switches and the Auto Pilot's five knobs (sent as joystick buttons and as simulator controls) and drives their 19 LEDs through a MAX7219.
+`JET_RANGER_RADIO_CONTROLLER` runs on an Arduino Mega 2560 with a W5500 Ethernet module. It shows the COM and NAV frequencies on two character OLEDs, reads eight rotary encoders (COM1, COM2, NAV1 and NAV2, each with a major and a minor knob) and a 4 by 5 button matrix, and keeps the radio panel in step with the simulator. It also serves the **Auto Pilot and Audio panels**: it reads their switches and the Auto Pilot's five knobs (sent as joystick buttons and as simulator controls) and drives their 19 LEDs through a MAX7219. The same MAX7219 also drives the 20 caution LEDs of the **Huey Warning Panel**, whose three switches the sketch reads too (that panel is wired by hand at the moment; see Huey Warning Panel switches and LEDs).
 
 ![Radio controller blocks](diagrams/radio_blocks.svg)
 
@@ -42,6 +42,7 @@
 | 7, 6 | Auto Pilot IAS knob (`IAS_A`, `IAS_B`) |
 | 8, 9 | Auto Pilot HDG knob (`HDG_A`, `HDG_B`) |
 | A15, A14, A13 | MAX7219 `DIN`, `CLK` and `LOAD` (the panel LEDs) |
+| A8, A9, A10 | Huey Warning Panel switches: brightness / dim, test and reset (to ground when on) |
 
 ## Data from the PC (UDP 13136)
 
@@ -53,9 +54,10 @@
 | `NAVCOM1` | Radio power: 1 = on, 0 = COM and NAV displays blank and the panel LEDs off | `NAVCOM1:1` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off (the radio assumes 1 until the first one arrives) | `BPWR:1` |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (see below): 1 = on, 0 = off | `LED_HDG:1` |
+| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (see below): 1 = on, 0 = off. The bridges do not send these yet | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot display (see below), up to 5 characters each | `APHDG:090` |
 | `C,B:n` | Brightness 0 to 15 (control packet): the panel backlight level (0 off, 15 full) and the MAX7219 intensity of the panel LEDs | `C,B:5` |
-| `C,LEDTEST:n` | Control packet: 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
+| `C,LEDTEST:n` | Control packet: 1 lights all 39 panel LEDs (Auto Pilot, Audio and Huey), 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
 The bridges send COM frequencies with two decimals; the radio pads every frequency to `xxx.xxx` (7 characters) so that the 16-column line (7 + 2 + 7) never slides COM2 or NAV2 behind the faceplate. The PC does not send NAV frequencies back.
 
@@ -81,7 +83,7 @@ The Jet Ranger Auto Pilot Panel and Audio Panel PCBs plug into the Radio Auto Pi
 1. as a **joystick button** on the USB HID board (UDP `172.16.1.11:4210`, `index,state`), in the buttons nothing else uses: **Joystick 3** (indexes 64 to 95) for the Auto Pilot panel and **Joystick 4** (96 to 127) for the Audio and ADF panels. A switch holds its button down while it is pressed. A knob click is sent as a 40 ms press (the `HID_PULSE_MS` release goes out from the main loop), clockwise on one button and anticlockwise on the next;
 2. as a **command to the PC bridge** (UDP 27001), the name of the simulator control, which the FSUIPC and MSFS bridges recognise (see their chapters). A switch sends its command when pressed; a knob sends one command for each click, with a `:N` repeat count when it is turned quickly (`HEADING_BUG_INC:5`).
 
-Nothing is sent during the first 1.5 seconds after power-up (the quiet period). Windows numbers joystick buttons from 1, so index 64 is Joystick 3 button 1. These indexes correspond to Upper controller matrix positions that are wired but have no switch on them (the Upper's assigned switches are all below index 40).
+Nothing is sent during the first 1.5 seconds after power-up (the quiet period). Windows numbers joystick buttons from 1, so index 64 is Joystick 3 button 1. These indexes correspond to Upper matrix positions (now on the ADF and Upper controller) that are wired but have no switch on them (the Upper's assigned switches are all below index 40).
 
 | Panel | Control | Matrix or pin | Joystick button (index) | Command to the bridge (UDP 27001) |
 |---|---|---|---|---|
@@ -106,21 +108,24 @@ Nothing is sent during the first 1.5 seconds after power-up (the quiet period). 
 | Audio | NAV1 | row 1, col 4 | Joystick 4, button 6 (101) | `RADIO_VOR1_IDENT_TOGGLE` |
 | Audio | MKR | row 2, col 4 | Joystick 4, button 7 (102) | `MARKER_SOUND_TOGGLE` |
 | Audio | ADF | row 3, col 4 | Joystick 4, button 8 (103) | `RADIO_ADF_IDENT_TOGGLE` |
-| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
-| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
-| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
-| ADF | Brakes button | ADF controller D32 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
+| ADF | Landing gear switch | ADF controller D31 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
+| ADF | Flaps switch | ADF controller D32 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
+| ADF | Speed brakes switch | ADF controller D33 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
+| ADF | Brakes button | ADF controller D34 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
 | ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
 | ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
-| ADF | Anti-ice switch | ADF controller D34 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
-| ADF | Hyd boost switch | ADF controller D33 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
-| ADF | Caution dim switch | ADF controller D35 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Anti-ice switch | ADF controller D36 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
+| ADF | Hyd boost switch | ADF controller D35 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Caution dim switch | ADF controller D37 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
+| Huey | TEST switch | A9 | Joystick 4, button 20 (115) | none (bind the joystick button in the simulator) |
+| Huey | RESET switch | A10 | Joystick 4, button 21 (116) | none |
+| Huey | BRT / DIM switch | A8 | Joystick 4, button 22 (117) | none |
 
-The Radio controller sends the first 18 Auto Pilot rows and the 8 Audio rows; the ADF rows come from the ADF controller (see its chapter). If a knob turns the wrong way, swap its A and B pins in the `RotaryEncoder` lines for the five Auto Pilot knobs. Which row and column each switch is on comes from the panel schematics: the matrix columns are the Radio Auto Pilot PCB nets `COL1` to `COL4`, and `COL0` is the COM and NAV panel's four swap switches. Each key is sampled once per millisecond and debounced by integration: a counter steps towards down or up with every sample and the key changes state only when it reaches an end (about 12 ms), and each sample takes two readings a few microseconds apart so a noise spike is skipped. This replaced a 50 ms timer that restarted on every reading that differed from the last, which let noise on a column line hold a release back (the MAX7219 LED digit lines run beside the column lines in the panel cables). The knobs use the same polling encoder library, with acceleration, as the COM and NAV knobs.
+The Radio controller sends the first 18 Auto Pilot rows, the 8 Audio rows and the 3 Huey rows; the ADF rows come from the ADF and Upper controller (see its chapter). If a knob turns the wrong way, swap its A and B pins in the `RotaryEncoder` lines for the five Auto Pilot knobs. Which row and column each switch is on comes from the panel schematics: the matrix columns are the Radio Auto Pilot PCB nets `COL1` to `COL4`, and `COL0` is the COM and NAV panel's four swap switches. Each key is sampled once per millisecond and debounced by integration: a counter steps towards down or up with every sample and the key changes state only when it reaches an end (about 12 ms), and each sample takes two readings a few microseconds apart so a noise spike is skipped. This replaced a 50 ms timer that restarted on every reading that differed from the last, which let noise on a column line hold a release back (the MAX7219 LED digit lines run beside the column lines in the panel cables). The knobs use the same polling encoder library, with acceleration, as the COM and NAV knobs.
 
 ## Auto Pilot and Audio panel LEDs (MAX7219)
 
-One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 10 kohm) drives 19 LEDs: DIN on A15, CLK on A14, LOAD on A13 (LedControl library, scan limit 3, intensity 8 until a `C,B` arrives). Its segment pins A to G and DP are the PCB nets `ANNODE_00` to `ANNODE_07` and its digit pins 0 to 7 are `CATHODE_00` to `CATHODE_07`; each panel LED sits between one segment (anode) and one digit (cathode). The Auto Pilot panel uses digits 0 and 1 (connector `AUTOPILOT`) and the Audio panel digits 2 and 3 (connector `AUDIO`). LedControl's `setLed(0, digit, column)` uses column 0 for DP and 1 to 7 for A to G; in the chip's own digit registers (address = digit + 1) bit 7 is DP, bit 6 is A and bit 0 is G.
+One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 10 kohm) drives 39 LEDs: DIN on A15, CLK on A14, LOAD on A13 (LedControl library, scan limit 7 since the Huey panel was added, intensity 8 until a `C,B` arrives; the scan limit was 3 before, and with all eight digits scanned each LED is lit for half as long, so the Auto Pilot and Audio LEDs are dimmer than they were). Its segment pins A to G and DP are the PCB nets `ANNODE_00` to `ANNODE_07` and its digit pins 0 to 7 are `CATHODE_00` to `CATHODE_07`; each panel LED sits between one segment (anode) and one digit (cathode). The Auto Pilot panel uses digits 0 and 1 (connector `AUTOPILOT`) and the Audio panel digits 2 and 3 (connector `AUDIO`). LedControl's `setLed(0, digit, column)` uses column 0 for DP and 1 to 7 for A to G; in the chip's own digit registers (address = digit + 1) bit 7 is DP, bit 6 is A and bit 0 is G.
 
 | LED | Token | MAX7219 digit | Segment | | LED | Token | MAX7219 digit | Segment |
 |---|---|---|---|---|---|---|---|---|
@@ -136,7 +141,29 @@ One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 1
 | | | | | | ADF | `LED_ADF` | 3 | D |
 | | | | | | MIDDLE | `LED_MID` | 3 | E |
 
-The first two columns are the Auto Pilot panel and the others the Audio panel. The bridges send each LED as a `LED_xxx:0/1` token in the radio data packet. `HandleOutputValuePair()` handles these before its per-pair debug line (19 extra debug packets per radio packet would flood the debug stream), `applyPanelLeds()` writes only the LEDs that changed, and the LEDs follow the radio power: they are lit only while `NAVCOM1` is 1 and the no-data timeout has not blanked the displays. `C,LEDTEST:1` lights all 19 for checking the wiring, and `C,B:0-15` (for example from the ADF controller's pot or the SwingTester slider) sets the intensity: 0 shuts the MAX7219 down, 1 to 15 set the intensity. The SwingTester has a toggle for each LED, an All ON / OFF, a chase and the board test.
+The first two columns are the Auto Pilot panel and the others the Audio panel. The bridges send each LED as a `LED_xxx:0/1` token in the radio data packet. `HandleOutputValuePair()` handles these before its per-pair debug line (19 extra debug packets per radio packet would flood the debug stream), `applyPanelLeds()` writes only the LEDs that changed, and the LEDs follow the radio power: they are lit only while `NAVCOM1` is 1 and the no-data timeout has not blanked the displays. `C,LEDTEST:1` lights all 39 for checking the wiring, and `C,B:0-15` (for example from the ADF controller's pot or the SwingTester slider) sets the intensity: 0 shuts the MAX7219 down, 1 to 15 set the intensity. The SwingTester has a toggle for each LED, an All ON / OFF, a chase and the board test.
+
+## Huey Warning Panel switches and LEDs
+
+The Huey Warning Panel (20 caution LEDs, three switches) is **wired by hand to the Radio controller at the moment**; there is no PCB for it in this documentation. The sketch supports it as follows (the Radio on COM20 was flashed with this build on 31 October 2026, 40,552 bytes of flash and 5,949 bytes of RAM, 72 percent; it has not been checked on the panel yet):
+
+- **LEDs:** the 20 LEDs are on the same MAX7219 as the other panels, on its digits 4 to 7 and the same segment lines. They are the tokens `LED_H_xxx` in `panelLedTable[]`, handled exactly like the Auto Pilot and Audio LEDs (`applyPanelLeds()`, the radio-power rule, the `C,B` intensity and `C,LEDTEST`).
+- **Switches:** TEST (A9), RESET (A10) and BRT / DIM (A8) are read with the internal pull-ups (a closed switch is on) and a 30 ms debounce. TEST and RESET are the two positions of one switch, so one of them is always closed. Each is a joystick button on the USB HID board, held while closed: Joystick 4 buttons 20 to 22 (indexes 115 to 117). Nothing is sent during the start-up quiet period, and afterwards the buttons are brought into line with the switches. They are resent when the HID board comes back.
+- **Lamp test:** while TEST is closed all 20 Huey LEDs are lit (only while the radio has power), without any command from the PC.
+- **Bridges:** neither bridge sends `LED_H_xxx` yet, so the LEDs only light from the SwingTester, the lamp test or a test packet. Which simulator state drives each lamp is not decided.
+
+| LED | Token | MAX7219 digit | Segment | | LED | Token | MAX7219 digit | Segment |
+|---|---|---|---|---|---|---|---|---|
+| ENG OIL | `LED_H_ENG_OIL` | 4 | A | | AUX FUEL LOW | `LED_H_AUX_FUEL_LOW` | 5 | A |
+| ENG ICE | `LED_H_ENG_ICE` | 4 | B | | XMSN OIL PRESS | `LED_H_XMSN_OIL_PRESS` | 5 | B |
+| ENG ICE DETECT | `LED_H_ENG_ICE_DETECT` | 4 | C | | XMSN OIL HOT | `LED_H_XMSN_OIL_HOT` | 5 | C |
+| ENG CHIP | `LED_H_ENG_CHIP` | 4 | D | | HYD PRESS | `LED_H_HYD_PRESS` | 5 | D |
+| LEFT FUEL BOOST | `LED_H_LEFT_FUEL_BOOST` | 4 | E | | ENG INLET AIR | `LED_H_ENG_INLET_AIR` | 5 | E |
+| ENG FUEL PUMP | `LED_H_ENG_FUEL_PUMP` | 4 | F | | INST INVERTER | `LED_H_INST_INVERTER` | 5 | F |
+| RIGHT FUEL BOOST | `LED_H_RIGHT_FUEL_BOOST` | 4 | G | | DC GENERATOR | `LED_H_DC_GENERATOR` | 5 | G |
+| 20 MINUTE FUEL | `LED_H_20_MINUTE_FUEL` | 4 | DP | | EXT POWER | `LED_H_EXT_POWER` | 5 | DP |
+| FUEL FILTER | `LED_H_FUEL_FILTER` | 6 | G | | CHIP DETECTOR | `LED_H_CHIP_DETECTOR` | 7 | G |
+| GOV EMER | `LED_H_GOV_EMER` | 6 | DP | | IFF | `LED_H_IFF` | 7 | DP |
 
 ## Auto Pilot display
 

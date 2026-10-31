@@ -149,8 +149,8 @@ Compiled at 30,108 bytes flash (11%) / 4,823 bytes RAM (58%); not flashed or tes
 
 ## Auto Pilot and Audio panel LEDs (MAX7219)
 
-One MAX7219 on the Radio Auto Pilot PCB drives 19 LEDs: DIN = A15, CLK = A14, LOAD = A13 (LedControl library, one device, scan limit 3, intensity 8 until a `C,B`
-arrives). Segments A to G and DP are `ANNODE_00` to `ANNODE_07`, digits 0 to 7 are `CATHODE_00` to `CATHODE_07`; a panel LED sits between one segment and one
+One MAX7219 on the Radio Auto Pilot PCB drives 39 LEDs (19 on the Auto Pilot and Audio panels, 20 on the Huey Warning Panel): DIN = A15, CLK = A14, LOAD = A13 (LedControl library, one device, scan limit 7 since the Huey panel was added (it was 3), intensity 8 until a `C,B`
+arrives; with eight digits scanned each LED is lit half as long, so the Auto Pilot and Audio LEDs are dimmer than before). Segments A to G and DP are `ANNODE_00` to `ANNODE_07`, digits 0 to 7 are `CATHODE_00` to `CATHODE_07`; a panel LED sits between one segment and one
 digit. LedControl `setLed(0, digit, column)` uses column 0 for DP and 1 to 7 for A to G.
 
 | LED | Token | Digit | Segment | | LED | Token | Digit | Segment |
@@ -169,9 +169,33 @@ digit. LedControl `setLed(0, digit, column)` uses column 0 for DP and 1 to 7 for
 
 The first two columns are the Auto Pilot panel (digits 0 and 1), the others the Audio panel (digits 2 and 3). The bridges send each LED as `LED_xxx:0/1` in the radio
 data packet (see the FSUIPC and MSFS bridges). `HandleOutputValuePair()` handles them before its per-pair debug line. The LEDs are lit only while `powerAvailable`
-is true (NAVCOM1:1 and not blanked by the no-data timeout), and `applyPanelLeds()` writes only the LEDs that changed. `C,LEDTEST:1` lights all 19, `C,LEDTEST:0`
+is true (NAVCOM1:1 and not blanked by the no-data timeout), and `applyPanelLeds()` writes only the LEDs that changed. `C,LEDTEST:1` lights all 39, `C,LEDTEST:0`
 returns them to the simulator state. **`C,B:0-15`** sets the MAX7219 intensity (0 shuts the display down, 1 to 15 set the intensity). Compiled at 27,610 bytes
 flash (10%) / 3,724 bytes RAM (45%); not flashed or tested on the board yet.
+
+## Huey Warning Panel switches and LEDs (31 October 2026)
+
+The Huey Warning Panel is **hand wired** to the Radio controller at the moment (there is no PCB for it in the documentation). The sketch supports it:
+
+- **LEDs:** 20 more rows in `panelLedTable[]` (`LED_H_xxx` tokens, `HUEY_LED_COUNT`, `hueyLedFirst`) on MAX7219 digits 4 to 7, handled exactly like the other panel LEDs. LedControl column 0 is DP and 1 to 7 are A to G.
+
+| LED | Token | Digit | Segment | | LED | Token | Digit | Segment |
+|---|---|---|---|---|---|---|---|---|
+| ENG OIL | `LED_H_ENG_OIL` | 4 | A | | AUX FUEL LOW | `LED_H_AUX_FUEL_LOW` | 5 | A |
+| ENG ICE | `LED_H_ENG_ICE` | 4 | B | | XMSN OIL PRESS | `LED_H_XMSN_OIL_PRESS` | 5 | B |
+| ENG ICE DETECT | `LED_H_ENG_ICE_DETECT` | 4 | C | | XMSN OIL HOT | `LED_H_XMSN_OIL_HOT` | 5 | C |
+| ENG CHIP | `LED_H_ENG_CHIP` | 4 | D | | HYD PRESS | `LED_H_HYD_PRESS` | 5 | D |
+| LEFT FUEL BOOST | `LED_H_LEFT_FUEL_BOOST` | 4 | E | | ENG INLET AIR | `LED_H_ENG_INLET_AIR` | 5 | E |
+| ENG FUEL PUMP | `LED_H_ENG_FUEL_PUMP` | 4 | F | | INST INVERTER | `LED_H_INST_INVERTER` | 5 | F |
+| RIGHT FUEL BOOST | `LED_H_RIGHT_FUEL_BOOST` | 4 | G | | DC GENERATOR | `LED_H_DC_GENERATOR` | 5 | G |
+| 20 MINUTE FUEL | `LED_H_20_MINUTE_FUEL` | 4 | DP | | EXT POWER | `LED_H_EXT_POWER` | 5 | DP |
+| FUEL FILTER | `LED_H_FUEL_FILTER` | 6 | G | | CHIP DETECTOR | `LED_H_CHIP_DETECTOR` | 7 | G |
+| GOV EMER | `LED_H_GOV_EMER` | 6 | DP | | IFF | `LED_H_IFF` | 7 | DP |
+
+- **Switches:** `hueySwitches[]`: TEST on A9 (Joystick 4 button 20, index 115), RESET on A10 (116) and BRT / DIM on A8 (117), to ground when on, `INPUT_PULLUP`, 30 ms debounce, `initHueySwitches()` and `pollHueySwitches()` (called after `scanMatrix()` in the loop). TEST and RESET are the two positions of one switch. Each is a joystick button on the USB HID board, held while closed; nothing is sent during the quiet period and the buttons are resent when the HID board answers again (`resyncHidButtons()`).
+- **Lamp test:** while TEST is closed (`hueyTestHeld`) all 20 Huey LEDs light, only while the radio has power (`applyPanelLeds()`).
+- **Bridges:** neither bridge sends `LED_H_xxx` yet. The SwingTester has a toggle for each (and All ON/OFF, Chase, board test).
+- Compiled at 40,552 bytes flash (16%) / 5,949 bytes RAM (72%). Flashed on COM20 on 31 October 2026; the switches and LEDs have not been checked on the panel yet.
 
 ## Remote reset over UDP
 
@@ -231,8 +255,9 @@ not yet flashed.
 | Local port `aliveport` | 13137 (bound, used to send keepalives) |
 
 > **Fixed:** `JET_RANGER_UPPER_CONTROLLER` previously hard-coded this same
-> IP (`172.16.1.101`) and MAC. It has been renumbered to `172.16.1.103` /
-> MAC `...83:03`, so this address is now unique to the Radio Controller.
+> IP (`172.16.1.101`) and MAC. It was renumbered to `172.16.1.103` /
+> MAC `...83:03`, so this address is unique to the Radio Controller. (That
+> sketch has since been merged into `JET_RANGER_ADF_CONTROLLER`, 172.16.1.107.)
 
 ## Remote endpoints this sketch talks to
 

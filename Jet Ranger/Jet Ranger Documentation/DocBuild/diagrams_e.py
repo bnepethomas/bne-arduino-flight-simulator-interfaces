@@ -125,7 +125,7 @@ def backlight_circuit():
         "Servo (J6-J10, J15-J19)",
         "13 Stepper (12 gauge sockets)",
         "Dual Stepper (gauge sockets)",
-        "Radio Auto Pilot, Upper, ADF controller",
+        "Radio Auto Pilot, Upper ADF controller",
     ], "gray", title_size=13.5, line_size=12, center=False)
     s.text(16, 366, "Revisions 1.3 to 1.5 (18 October 2026) replaced the generic MOSFET symbol, which had source and drain swapped, with the IRF540N.", size=12.5, fill=INK2)
     s.text(16, 386, "A board built from an earlier revision has the transistor pinned wrongly: check it, or fit it the right way round.", size=12.5, fill=INK2)

@@ -84,7 +84,7 @@ The **Reset boards...** button opens a dialog with a tick box per board - Radio
 USB HID board (.11), all ticked by default (untick any that are not connected) -
 and **Reset** sends `C,RESET:1` to each ticked board (port 13136; the HID board
 listens on 4210). The Radio, Upper and HID addresses are extra boxes at the
-top. Each board reboots about 2 s later through its watchdog and runs its
+top. The Upper address (.103) is the retired board (merged into the ADF controller on 31 October 2026); the combined ADF and Upper board (.107) is not in this list yet. Each board reboots about 2 s later through its watchdog and runs its
 start-up again (the Dual Stepper takes about a minute; the HID board briefly
 drops its USB joysticks and keyboard). The status line lists the boards the
 command was sent to. The button is disabled while a run is active.
@@ -153,10 +153,10 @@ OLEDs left on manually will still time out after 30s.
 
 ## Brightness
 
-A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper
+A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103, retired), Stepper (.105) and Dual Stepper
 (.106) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
 The status line lists the boards sent to. The Radio, Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
-Radio also sets the intensity of its panel LEDs from it (0 off, 1 to 15), and the Upper controller ignores it. The board IP boxes at the top are used.
+Radio also sets the intensity of its panel LEDs from it (0 off, 1 to 15), and the ADF and Upper board follows it. The board IP boxes at the top are used.
 
 **Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Radio, Servo, Stepper and Dual Stepper, the packet the bridges send from the
 main bus voltage (1 at 20 V or more): the backlight goes off at 0 and, on 1, returns to the last brightness commanded. These are for
@@ -167,17 +167,17 @@ buttons delivered `D,BPWR:0` and `D,BPWR:1` three times each, and moving the sli
 
 ## Panel LEDs (Radio .101)
 
-The **Panel LEDs (Radio .101, MAX7219)** group on the right has one toggle button for each of the 19 LEDs on the Auto Pilot panel (CRS, HDG, IAS,
-ALT, APPR, FD, BC, AP ENGAGE) and the Audio panel (COM1, BOTH, NAV2, DME, OUTER, INNER, COM2, NAV1, MKR, ADF, MIDDLE). A button lights or clears
+The **Panel LEDs (Radio .101, MAX7219)** group on the right has one toggle button for each of the 39 LEDs on the Auto Pilot panel (CRS, HDG, IAS,
+ALT, APPR, FD, BC, AP ENGAGE), the Audio panel (COM1, BOTH, NAV2, DME, OUTER, INNER, COM2, NAV1, MKR, ADF, MIDDLE) and the Huey Warning Panel (20 LEDs, tokens `LED_H_xxx`: ENG OIL, ENG ICE, ENG ICE DETECT, ENG CHIP, LEFT FUEL BOOST, ENG FUEL PUMP, RIGHT FUEL BOOST, 20 MINUTE FUEL, AUX FUEL LOW, XMSN OIL PRESS, XMSN OIL HOT, HYD PRESS, ENG INLET AIR, INST INVERTER, DC GENERATOR, EXT POWER, FUEL FILTER, GOV EMER, CHIP DETECTOR, IFF), in four groups: *Auto Pilot*, *Audio*, and the Huey LEDs in two columns headed *Huey Warning Panel* and *(continued)*. A button lights or clears
 that one LED by sending `D,NAVCOM1:1,LED_<name>:1/0` to the Radio controller (`NAVCOM1:1` keeps the radio's power flag on, because the LEDs follow it;
 the radio remembers every LED's state, so only the changed one is sent). The button is gold while its LED is on. Other buttons:
 
-- **All ON / All OFF**: all 19 LEDs in one packet.
-- **Chase**: lights each LED on its own, in table order, for the *on gap* time (default 1 s), then clears them all. Click again (**Stop chase**) to stop.
-- **Board test (C,LEDTEST)**: toggles `C,LEDTEST:1` / `C,LEDTEST:0`, the Radio's own test that lights all 19 LEDs at the MAX7219 regardless of state.
+- **All ON / All OFF**: all 39 LEDs in one packet (about 700 bytes, inside the Radio's 1000-byte buffer).
+- **Chase**: lights each LED on its own, in table order, for the *on gap* time (default 1 s; a full chase of 39 takes about 39 s), then clears them all. Click again (**Stop chase**) to stop.
+- **Board test (C,LEDTEST)**: toggles `C,LEDTEST:1` / `C,LEDTEST:0`, the Radio's own test that lights all 39 LEDs at the MAX7219 regardless of state.
 
-The brightness slider also reaches the LEDs: the Radio sets the MAX7219 intensity from `C,B`. The window is wider (1130 px) to fit the extra group.
-Built clean (Release, 0 errors) and the window checked on screen; it has not been run against the Radio board.
+The brightness slider also reaches the LEDs: the Radio sets the MAX7219 intensity from `C,B`. The window is wider (default 1260 px, with narrower 118 px LED buttons) to fit the extra groups.
+Built clean (Release, 0 errors) and the window checked on screen (31 October 2026); the Radio on COM20 was flashed with the Huey build the same day, but the Huey LEDs have not been tried from the SwingTester on the panel yet.
 
 ## Requirements / status
 

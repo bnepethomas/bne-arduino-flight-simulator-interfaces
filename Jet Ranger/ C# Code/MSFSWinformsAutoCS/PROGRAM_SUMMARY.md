@@ -188,4 +188,4 @@ it is 0 (see their summaries).
 ## Anti-ice position and ADF / Upper backlight power (2026-10-25)
 
 - **`ANTI_ICE_SET:1/0`:** `PositionEventNames` / `PositionOnValues` gain `ANTI_ICE_SET` (value 1 or 0), mapped to the SimConnect event of the same name (event numbers from 2000).
-- **ADF and Upper boards:** new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.
+- **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to a retired address and should be removed) new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.

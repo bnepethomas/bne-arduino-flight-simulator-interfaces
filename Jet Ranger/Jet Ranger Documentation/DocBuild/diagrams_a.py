@@ -36,10 +36,9 @@ def system_overview():
     boards = [
         ("Radio controller  .101", ["COM/NAV OLEDs, knobs, buttons"], "white"),
         ("Servo controller  .102", ["attitude servos, 15 lamps"], "white"),
-        ("Upper controller  .103", ["overhead switch matrix"], "white"),
         ("Stepper controller  .105", ["IAS, VSI, torque, N1, ITT ..."], "white"),
         ("OLED dual stepper  .106", ["oil, load, RPM, altimeter, OLEDs"], "white"),
-        ("ADF controller  .107", ["ADF knobs, aircraft ID keypad, brightness"], "white"),
+        ("ADF + Upper controller  .107", ["ADF knobs, ID keypad, overhead switches"], "white"),
         ("USB HID board  .11", ["UDP 4210  ->  USB joysticks"], "amber"),
     ]
     y = 66
@@ -65,19 +64,18 @@ def network_map():
     boards = [
         (".101", "Radio", ["in: 13136", "out: 27001", "27000, 13137"], "white"),
         (".102", "Servo", ["in: 13136", "out: 4210", "27000, 13137"], "white"),
-        (".103", "Upper", ["in: 13136*", "out: 4210", "27000, 13137"], "white"),
         (".105", "Stepper", ["in: 13136", "out: 27000", "13137"], "white"),
         (".106", "Dual stepper", ["in: 13136", "out: 27000", "13137"], "white"),
-        (".107", "ADF", ["in: 13136*", "out: 27003", "27000, 13137"], "white"),
+        (".107", "ADF + Upper", ["in: 13136*", "out: 27003, 4210", "27000, 13137"], "white"),
         (".11", "USB HID", ["in: 4210", "out: 27000", "13137"], "amber"),
     ]
-    w, gap = 118, 4.3
+    w, gap = 136, 7.2
     x = 14
     for ip, name, ln, th in boards:
         s.card(x, 214, w, 126, name, [f"172.16.1{ip}"] + ln, th, title_size=14.5, line_size=12.5, center=True)
         s.arrow([(x + w / 2, 170), (x + w / 2, 214)], None, color=BLUE if th == "white" else AMBER, both=True)
         x += w + gap
-    s.text(440, 372, "* the Upper controller only acts on C,RESET:1 and the ADF controller on C,RESET, C,MATRIX and C,POWER", size=12.5, fill=INK2, anchor="middle")
+    s.text(440, 372, "* the ADF + Upper board acts on control packets (C,RESET, C,B, C,DISPLAY ...) and BPWR; the old Upper (.103) is retired", size=12.5, fill=INK2, anchor="middle")
     s.frame(14, 392, 852, 204, "What the ports carry", theme="gray")
     rows = [
         ("13136", "data (D,...) and control (C,...) packets from the PC to a board"),
@@ -201,7 +199,7 @@ def remote_reset():
     s.card(190, 40, 230, 56, "Reset boards...", ["C,RESET:1 to each ticked board"], "blue", title_size=13.5, line_size=12, center=True)
     s.arrow([(305, 96), (305, 166)], "UDP 13136 (HID: 4210)", label_dx=82, label_dy=0)
     s.card(190, 166, 200, 56, "Acknowledge", ["debug: RESET received"], "gray", title_size=13.5, line_size=12, center=True)
-    s.card(420, 166, 200, 56, "Arm watchdog 2 s", ["Radio, Upper: jump to 0"], "amber", title_size=13.5, line_size=12, center=True)
+    s.card(420, 166, 200, 56, "Arm watchdog 2 s", ["Radio, ADF/Upper: jump to 0"], "amber", title_size=13.5, line_size=12, center=True)
     s.card(650, 166, 210, 56, "Reboot", ["setup() runs again"], "red", title_size=13.5, line_size=12, center=True)
     s.arrow([(390, 194), (420, 194)], None)
     s.arrow([(620, 194), (650, 194)], None)

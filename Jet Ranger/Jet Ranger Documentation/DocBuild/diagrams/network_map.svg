@@ -15,56 +15,49 @@
 <rect x="30.0" y="148.0" width="820.0" height="22.0" rx="6" ry="6" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
 <text x="46.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start">Ethernet switch  172.16.1.0/24</text>
 <path d="M 440.0 106.0 L 440.0 148.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="14.0" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="73.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio</text>
-<text x="73.0" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.101</text>
-<text x="73.0" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
-<text x="73.0" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27001</text>
-<text x="73.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
-<path d="M 73.0 170.0 L 73.0 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="136.3" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="195.3" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo</text>
-<text x="195.3" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.102</text>
-<text x="195.3" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
-<text x="195.3" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 4210</text>
-<text x="195.3" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
-<path d="M 195.3 170.0 L 195.3 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="258.6" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="317.6" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Upper</text>
-<text x="317.6" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.103</text>
-<text x="317.6" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136*</text>
-<text x="317.6" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 4210</text>
-<text x="317.6" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
-<path d="M 317.6 170.0 L 317.6 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="380.9" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="439.9" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Stepper</text>
-<text x="439.9" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.105</text>
-<text x="439.9" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
-<text x="439.9" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
-<text x="439.9" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
-<path d="M 439.9 170.0 L 439.9 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="503.2" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="562.2" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Dual stepper</text>
-<text x="562.2" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.106</text>
-<text x="562.2" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
-<text x="562.2" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
-<text x="562.2" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
-<path d="M 562.2 170.0 L 562.2 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="625.5" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="684.5" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">ADF</text>
-<text x="684.5" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.107</text>
-<text x="684.5" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136*</text>
-<text x="684.5" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27003</text>
-<text x="684.5" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
-<path d="M 684.5 170.0 L 684.5 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="747.8" y="214.0" width="118.0" height="126.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
-<text x="806.8" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID</text>
-<text x="806.8" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.11</text>
-<text x="806.8" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 4210</text>
-<text x="806.8" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
-<text x="806.8" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
-<path d="M 806.8 170.0 L 806.8 214.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
-<text x="440.0" y="372.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">* the Upper controller only acts on C,RESET:1 and the ADF controller on C,RESET, C,MATRIX and C,POWER</text>
+<rect x="14.0" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="82.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio</text>
+<text x="82.0" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.101</text>
+<text x="82.0" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="82.0" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27001</text>
+<text x="82.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 82.0 170.0 L 82.0 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="157.2" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="225.2" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo</text>
+<text x="225.2" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.102</text>
+<text x="225.2" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="225.2" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 4210</text>
+<text x="225.2" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 225.2 170.0 L 225.2 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="300.4" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="368.4" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Stepper</text>
+<text x="368.4" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.105</text>
+<text x="368.4" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="368.4" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="368.4" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 368.4 170.0 L 368.4 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="443.6" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="511.6" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Dual stepper</text>
+<text x="511.6" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.106</text>
+<text x="511.6" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="511.6" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="511.6" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 511.6 170.0 L 511.6 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="586.8" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="654.8" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">ADF + Upper</text>
+<text x="654.8" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.107</text>
+<text x="654.8" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136*</text>
+<text x="654.8" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27003, 4210</text>
+<text x="654.8" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 654.8 170.0 L 654.8 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="730.0" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="798.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID</text>
+<text x="798.0" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.11</text>
+<text x="798.0" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 4210</text>
+<text x="798.0" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="798.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 798.0 170.0 L 798.0 214.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
+<text x="440.0" y="372.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">* the ADF + Upper board acts on control packets (C,RESET, C,B, C,DISPLAY ...) and BPWR; the old Upper (.103) is retired</text>
 <rect x="14.0" y="392.0" width="852.0" height="204.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="415.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">What the ports carry</text>
 <rect x="28.0" y="426.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>

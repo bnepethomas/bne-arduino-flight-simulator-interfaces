@@ -9,10 +9,9 @@ def com_ports():
     rows = [
         ("Radio controller", "172.16.1.101", "Mega 2560 (replacement)", "COM20", "green"),
         ("Servo controller", "172.16.1.102", "Mega 2560 clone", "COM16", "green"),
-        ("Upper controller", "172.16.1.103", "Mega 2560", "not recorded", "gray"),
         ("Stepper controller", "172.16.1.105", "Mega 2560", "COM4", "blue"),
         ("Dual stepper controller", "172.16.1.106", "Mega 2560", "COM5", "blue"),
-        ("ADF controller", "172.16.1.107", "Mega 2560", "not recorded", "gray"),
+        ("ADF + Upper controller", "172.16.1.107", "Mega 2560", "COM26", "blue"),
         ("USB HID board", "172.16.1.11", "Arduino Leonardo", "COM8", "amber"),
     ]
     y = 20
@@ -34,10 +33,9 @@ def pcb_map():
         ("Jet Ranger Radio Auto Pilot  v1.3", "Radio controller (.101)", ["autopilot knobs, volume pots, MAX7219 display", "lines; backlight MOSFET on D5"], "blue"),
         ("Jet Ranger COM and NAV", "Radio controller (.101)", ["four swap switches in a diode matrix:", "column D26, rows D22-D25"], "blue"),
         ("Jet Ranger Front Panel Servo  v1.4", "Servo controller (.102)", ["switches D43, D47, D48; backlight D5", "MOSFET pin-out corrected in 1.4"], "green"),
-        ("Jet Ranger Upper Controller  v1.4", "Upper controller (.103)", ["key matrix, brightness pot on A0,", "backlight MOSFET on D5"], "purple"),
         ("Jet Ranger 13 Stepper  v1.6", "Stepper controller (.105)", ["backlight D5, VSI coil B D8", "IRF540N backlight MOSFET"], "amber"),
         ("Jet Ranger OLED Dual Stepper  v1.5", "Dual stepper controller (.106)", ["D2 / D32 short removed in 1.4", "IRF540N backlight MOSFET"], "amber"),
-        ("Jet Ranger ADF Controller  v1.5", "ADF controller (.107)", ["knobs, keypad, brightness pot, 12 V monitor,", "gear lamps, anti-ice / hyd boost / caution dim"], "teal"),
+        ("Jet Ranger Upper ADF Controller  v1.0", "ADF + Upper controller (.107)", ["ADF and Upper merged: knobs, keypads, switch matrix,", "12 V monitor (A8), gear lamps, backlight D5"], "teal"),
         ("Audio, Auto Pilot and ADF panels  v1.1", "switch panels on the controllers", ["diode-matrix switch boards, LEDs", "and rotary encoders"], "gray"),
     ]
     for i, (pcb, board, lines, th) in enumerate(pcbs):
@@ -112,7 +110,7 @@ def calibration_flow():
 def joystick_binding():
     s = Svg(880, 470)
     s.card(16, 20, 190, 94, "Cockpit switch", ["Warning Mute,", "Fuel Valve, TOT Clear..."], "white", center=True)
-    s.card(240, 20, 190, 94, "Servo / Upper Mega", ["debounced change ->", "index,state"], "gray", center=True)
+    s.card(240, 20, 190, 94, "Servo / ADF-Upper Mega", ["debounced change ->", "index,state"], "gray", center=True)
     s.card(464, 20, 190, 94, "USB HID board", ["joystick 1..4,", "button 0..31"], "amber", center=True)
     s.card(688, 20, 176, 94, "Windows", ["game controller", "(joy.cpl)"], "white", center=True)
     for a, b in ((206, 240), (430, 464), (654, 688)):

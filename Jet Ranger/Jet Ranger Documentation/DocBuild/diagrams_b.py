@@ -1,4 +1,4 @@
-"""Per-board diagrams: Radio, Servo, lamps, Stepper, Dual Stepper, Upper, HID path."""
+"""Per-board diagrams: Radio, Servo, lamps, Stepper, Dual Stepper, ADF and Upper, HID path."""
 from dgcommon import diagram, Svg, INK, INK2, LINE, text_width, BLUE, GREEN, AMBER, RED
 
 
@@ -87,53 +87,42 @@ def lamp_map():
 
 
 @diagram
-def upper_blocks():
-    s = Svg(880, 520)
-    mega(s, 300, 140, 280, 190, "Arduino Mega 2560", ["JET_RANGER_UPPER_CONTROLLER", "172.16.1.103", "status LEDs 14 / 15, reset 53"])
-    s.card(16, 30, 250, 130, "Switch matrix 16 x 11", ["rows 22 - 37 driven low in turn", "columns 38 - 49 read with pull-ups", "176 of 256 positions wired", "index = row x 11 + column"], "white", title_size=14, line_size=12.5)
-    s.arrow([(266, 100), (300, 190)], None, color=BLUE)
-    s.card(16, 190, 250, 100, "Numeric keypad 4 x 3", ["rows A10, A12, A14, A15", "columns A9, A11, A13"], "white", title_size=14, line_size=12.5)
-    s.arrow([(266, 240), (300, 250)], None, color=BLUE)
-    s.card(614, 30, 250, 110, "USB serial", ["DCS-BIOS link to a DCS World PC", "(switch mapping is a stub)"], "gray", title_size=14, line_size=12.5)
-    s.arrow([(580, 180), (614, 100)], None, color=LINE)
-    s.card(614, 170, 250, 160, "UDP 4210 to the HID board", ["switch change: \"<index>,<state>\"", "keypad key:   \"KEY,<key>,<state>\"", "state 1 = pressed or on", "0 = released or off"], "amber", title_size=13.5, line_size=12.5)
-    s.arrow([(580, 250), (614, 250)], None, color=AMBER)
-    s.card(300, 380, 280, 80, "UDP 13136 in", ["only C,RESET:1 is acted on", "(software reset: jump to 0)"], "white", title_size=14, line_size=12.5, center=True)
-    s.arrow([(440, 380), (440, 330)], None, color=BLUE)
-    s.card(16, 330, 250, 130, "Notes", ["Not flashed or tested after the", "reset and timeout changes (board", "not connected).", "Warning Mute pad D30 is not read."], "white", title_size=14, line_size=12.5)
-    return s
-
-
-@diagram
 def adf_blocks():
-    s = Svg(880, 600)
-    mega(s, 300, 150, 280, 190, "Arduino Mega 2560", ["JET_RANGER_ADF_CONTROLLER", "172.16.1.107", "status LEDs 14 / 15, reset 53"])
-    s.card(16, 20, 250, 100, "ADF knobs", ["major D6 / D7: 100 kHz per click", "minor D8 / D9: 1 kHz per click", "range 190 to 1799 kHz"], "white", title_size=14, line_size=12.5)
-    s.arrow([(266, 70), (300, 190)], None, color=BLUE)
-    s.card(16, 140, 250, 120, "Keypad 4 x 3", ["rows D22 - D25, columns D26 - D28", "0 - 9 type the aircraft ID", "# sends it, * deletes a digit"], "white", title_size=14, line_size=12.5)
-    s.arrow([(266, 200), (300, 245)], None, color=BLUE)
-    s.card(16, 280, 250, 100, "Brightness pot (switched off)", ["wiper to A0 (5 V to ground)", "not read for the moment"], "gray", title_size=14, line_size=12.5)
-    s.arrow([(266, 330), (300, 300)], None, color=BLUE)
-    s.card(16, 400, 250, 110, "Power monitors", ["12 V: A15, 47k / 10k divider", "5 V: AVcc against the 1.1 V", "band-gap (AREF left at AVcc)"], "white", title_size=14, line_size=12.5)
-    s.arrow([(266, 455), (330, 340)], None, color=BLUE)
-    s.card(614, 20, 250, 90, "Character OLED", ["I2C 0x3C, SDA 20 / SCL 21", "ADF kHz and aircraft ID"], "gray", title_size=14, line_size=12.5)
-    s.arrow([(580, 190), (614, 80)], None, color=LINE)
-    s.card(614, 130, 250, 150, "UDP 27003 to the PC", ["ADF_FREQ:<kHz>", "RADAR_FOLLOW_ID:<digits>", "POWER,V12:..,V5:..,STATUS:OK", "(power status every 30 s)"], "amber", title_size=14, line_size=12.5)
-    s.arrow([(580, 230), (614, 220)], None, color=AMBER)
-    s.card(614, 300, 250, 130, "Switches to the simulator", ["D29-D35 to the bridge (27001):", "GEAR / FLAPS / SPOILERS / ANTI_ICE_SET", "(1/0); joystick buttons 104-107,", "112-114 to the HID board (4210)"], "green", title_size=14, line_size=12.5)
-    s.arrow([(580, 300), (614, 350)], None, color=GREEN)
-    s.card(300, 400, 280, 100, "UDP 13136 in", ["C,RESET:1  C,MATRIX:1  C,POWER:1", "C,B:0-15  C,DISPLAY:0/1  C,KEEPALIVE:1", "D,LDGN/LDGL/LDGR (lamps), D,BPWR:1/0"], "white", title_size=14, line_size=12.5, center=True)
-    s.arrow([(440, 400), (440, 340)], None, color=BLUE)
-    s.card(614, 440, 250, 100, "Own backlight and lamps", ["D5 PWM: BPWR, C,B, 30 s no-data;", "OLED and lamps D2 - D4 blank with", "the Radio displays (C,DISPLAY)"], "white", title_size=14, line_size=12.5)
-    s.arrow([(580, 320), (614, 480)], None, color=LINE)
-    s.text(16, 570, "The toggle switches send their position as a value (every change and every 5 s); the brakes push button sends PARKING_BRAKES.", size=12.5, fill=INK2)
+    s = Svg(880, 700)
+    mega(s, 300, 170, 280, 190, "Arduino Mega 2560", ["JET_RANGER_ADF_CONTROLLER", "172.16.1.107  (ADF + Upper)", "status LEDs 14 / 15, reset 53"])
+    s.card(16, 20, 250, 90, "ADF knobs", ["major D6 / D7: 100 kHz per click", "minor D8 / D9: 1 kHz per click", "range 190 to 1799 kHz"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 65), (300, 200)], None, color=BLUE)
+    s.card(16, 122, 250, 96, "ADF keypad 4 x 3", ["rows A7 - A4, columns A3 - A1", "0 - 9 type the aircraft ID", "# sends it, * deletes a digit"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 170), (300, 235)], None, color=BLUE)
+    s.card(16, 230, 250, 104, "Upper switch matrix 9 x 8", ["rows D22 - D30, columns D38 - D45", "one row per pass of the loop", "index = row x 11 + column (0 - 95)"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 282), (300, 270)], None, color=BLUE)
+    s.card(16, 346, 250, 80, "Upper keypad 4 x 3", ["rows A10, A12, A14, A15", "columns A9, A11, A13"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 386), (300, 310)], None, color=BLUE)
+    s.card(16, 438, 250, 80, "Brightness pot (switched off)", ["wiper to A0 (5 V to ground)", "not read for the moment"], "gray", title_size=14, line_size=12.5)
+    s.arrow([(266, 478), (330, 360)], None, color=BLUE)
+    s.card(16, 530, 250, 104, "Power monitors", ["12 V: A8, 47k / 10k divider", "5 V: AVcc against the 1.1 V", "band-gap (AREF left at AVcc)"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 582), (360, 360)], None, color=BLUE)
+    s.card(614, 20, 250, 80, "Character OLED", ["I2C 0x3C, SDA 20 / SCL 21", "ADF kHz and aircraft ID"], "gray", title_size=14, line_size=12.5)
+    s.arrow([(580, 210), (614, 70)], None, color=LINE)
+    s.card(614, 116, 250, 140, "UDP 27003 to the PC", ["ADF_FREQ:<kHz>", "RADAR_FOLLOW_ID:<digits>", "POWER,V12:..,V5:..,STATUS:OK", "(power status every 30 s)"], "amber", title_size=14, line_size=12.5)
+    s.arrow([(580, 250), (614, 200)], None, color=AMBER)
+    s.card(614, 272, 250, 130, "Switches to the simulator", ["D31-D37 to the bridge (27001):", "GEAR_SET, FLAPS_SET,", "SPOILERS_SET, ANTI_ICE_SET (1/0)", "buttons 104-107, 112-114 to HID"], "green", title_size=14, line_size=12.5)
+    s.arrow([(580, 300), (614, 330)], None, color=GREEN)
+    s.card(614, 418, 250, 100, "Upper panel to the HID board", ["UDP 4210: \"<index>,<state>\" (0 - 95)", "keypad: \"KEY,<key>,<state>\"", "heartbeats ADF_PANEL + UPPER_INPUT"], "amber", title_size=13.5, line_size=12.5)
+    s.arrow([(580, 330), (614, 460)], None, color=AMBER)
+    s.card(614, 534, 250, 100, "Own backlight and lamps", ["D5 PWM: BPWR, C,B, 30 s no-data;", "OLED and lamps D2 - D4 blank with", "the Radio displays (C,DISPLAY)"], "white", title_size=14, line_size=12.5)
+    s.arrow([(580, 350), (614, 570)], None, color=LINE)
+    s.card(300, 420, 280, 100, "UDP 13136 in", ["C,RESET:1  C,MATRIX:1  C,POWER:1", "C,B:0-15  C,DISPLAY:0/1  C,KEEPALIVE:1", "D,LDGN/LDGL/LDGR (lamps), D,BPWR:1/0"], "white", title_size=14, line_size=12.5, center=True)
+    s.arrow([(440, 420), (440, 360)], None, color=BLUE)
+    s.text(16, 668, "The toggle switches send their position as a value (every change and every 5 s); the brakes push button sends PARKING_BRAKES.", size=12.5, fill=INK2)
+    s.text(16, 688, "The Upper panel (switch matrix and keypad) was the separate Upper controller, 172.16.1.103, until it was merged into this sketch.", size=12.5, fill=INK2)
     return s
 
 
 @diagram
 def hid_path():
     s = Svg(880, 600)
-    s.card(16, 20, 250, 96, "Upper controller  .103", ["16 x 11 switch matrix + keypad", "index = row x 11 + column", "heartbeat UPPER_INPUT"], "white", title_size=14, line_size=12.5)
+    s.card(16, 20, 250, 96, "ADF + Upper controller  .107", ["9 x 8 switch matrix + keypad", "index = row x 11 + column", "heartbeats ADF_PANEL, UPPER_INPUT"], "white", title_size=14, line_size=12.5)
     s.card(16, 140, 250, 96, "Servo controller  .102", ["WARNING MUTE  index 7", "TOT CLEAR     index 8", "FUEL VALVE    index 9"], "white", title_size=14, line_size=12.5)
     s.card(330, 70, 220, 120, "USB HID board  .11", ["Arduino Leonardo", "UDP 4210 in", "heartbeat JOYSTICK"], "amber", title_size=14, line_size=12.5, center=True)
     s.arrow([(266, 68), (330, 110)], "idx,state", color=AMBER, label_dy=-8)

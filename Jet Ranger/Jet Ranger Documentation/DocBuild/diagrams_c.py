@@ -173,15 +173,15 @@ def torque_curves():
 @diagram
 def health_monitor():
     s = Svg(880, 500)
-    boards = [("Radio controller", "COMM_NAV"), ("Servo controller", "SERVO"), ("Upper controller", "UPPER_INPUT"),
-              ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER"), ("ADF controller", "ADF_PANEL")]
+    boards = [("Radio controller", "COMM_NAV"), ("Servo controller", "SERVO"), ("Upper (ADF + Upper board)", "UPPER_INPUT"),
+              ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER"), ("ADF + Upper controller", "ADF_PANEL")]
     y = 24
     for name, tok in boards:
         s.card(16, y, 250, 52, name, [], "white", title_size=13.5)
         s.text(284, y + 20, f'"{tok}"', size=13, mono=True)
         s.arrow([(282, y + 36), (400, y + 36)], None, color=BLUE)
         y += 62
-    s.text(290, 14, "every 10 s, with V5 (ADF also V12)", size=12, fill=INK2)
+    s.text(290, 14, "every 10 s, with V5 (the ADF + Upper board also V12)", size=12, fill=INK2)
     s.card(400, 24, 200, 410, "Health Monitor", ["UDP 13137", "matches the message by", "its prefix (not the", "sender address);", "Show Voltages: last", "V5 / V12 reading", "from each board"], "blue", title_size=14.5, line_size=12.5, center=True)
     s.arrow([(600, 230), (640, 230)], None)
     s.frame(640, 24, 224, 410, "One light per board", theme="gray")

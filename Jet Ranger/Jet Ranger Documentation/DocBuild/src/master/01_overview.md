@@ -24,8 +24,8 @@ All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560
 |---|---|---|
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM and NAV frequency displays, eight tuning knobs, four frequency-swap switches; sends tuning and swap commands to the PC |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | Attitude indicator pitch and bank servos, 15 warning lamps, three front-panel switches (TOT clear, warning mute, fuel valve) |
-| `JET_RANGER_UPPER_CONTROLLER` | .103 | Overhead switch matrix (176 positions) and keypad; forwards changes to the USB HID board |
-| `JET_RANGER_ADF_CONTROLLER` | .107 | ADF major and minor knobs, aircraft ID keypad for radar following, gear, flaps, speed brake and brakes switches (joystick buttons and bridge commands), landing gear lamps, 12 V and 5 V rail monitoring with a status every 30 seconds; character OLED. The brightness pot on the PCB is switched off for the moment |
+| `JET_RANGER_ADF_CONTROLLER` | .107 | The combined ADF and Upper board: ADF major and minor knobs, aircraft ID keypad for radar following, seven panel switches (gear, flaps, speed brakes, brakes, anti-ice, hyd boost, caution dim; joystick buttons and bridge commands), landing gear lamps, 12 V and 5 V rail monitoring with a status every 30 seconds, character OLED, and (merged in from the old Upper controller on 31 October 2026) the overhead switch matrix (72 positions) and the Upper keypad, forwarded to the USB HID board. The brightness pot on the PCB is switched off for the moment |
+| `JET_RANGER_UPPER_CONTROLLER` | (.103, retired) | The old overhead switch matrix and keypad board; its code now runs inside the ADF controller sketch. The folder is kept for reference |
 | `UDP_TO_HID` | .11 | Leonardo-class board: UDP in, four 32-button joysticks and a keyboard out over USB |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | Stepper gauges: airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature, fuel quantity |
 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | .106 | Stepper gauges: engine and transmission oil, engine and rotor RPM, electrical load, fuel load, altimeter; four OLEDs (barometer, altimeter, clock, temperature) |
@@ -65,31 +65,30 @@ KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of ever
 | Jet Ranger Radio Auto Pilot | 1.3 | Radio controller |
 | Jet Ranger COM and NAV | no revision set | Radio panel (four swap switches, encoders) |
 | Jet Ranger Front Panel Servo | 1.4 | Servo controller |
-| Jet Ranger Upper Controller | 1.4 | Upper controller |
+| Jet Ranger Upper ADF Controller | 1.0 | ADF and Upper controller (the reference PCB for the ADF controller; replaces the Jet Ranger Upper Controller 1.4 and Jet Ranger ADF Controller 1.6 boards) |
 | Jet Ranger 13 Stepper | 1.6 | Stepper controller |
 | Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper controller |
 | Jet Ranger X27 Small Stepper | not set | One per stepper gauge |
-| Jet Ranger ADF Controller | 1.4 | ADF controller |
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 | Switch panels for the Radio Auto Pilot and ADF controllers |
 | Annunciator, Altimeter, Large Guage, Simkits gauge boards | | Other panels and gauges |
 
-On 18 October 2026 the six controller boards (Servo, Upper, 13 Stepper, Dual Stepper, Radio Auto Pilot and ADF Controller) were revised to fix the **backlight MOSFET**: the schematic symbol had source and drain swapped and the part is now an IRF540N. All six drive their panel backlights from Mega pin D5 through this transistor (see the PCB notes chapter).
+On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepper, Dual Stepper, Radio Auto Pilot and ADF Controller) were revised to fix the **backlight MOSFET**: the schematic symbol had source and drain swapped and the part is now an IRF540N. All of them drive their panel backlights from Mega pin D5 through this transistor (see the PCB notes chapter). The Upper and ADF boards were then combined into one, the Jet Ranger Upper ADF Controller (revision 1.0, 26 October 2026), so there are now five controller boards.
 
 ![The active PCBs, their revision and the sketches they belong to](diagrams/pcb_map.svg)
 
 ## Where things stand
 
-Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the Upper controller, and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger.
+Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the old Upper controller (whose code now runs on the ADF controller), and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger.
 
 Backlight control (Servo, Stepper and Dual Stepper boards, and later the Radio controller) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.
 
 Open items:
 
 - The three servo-board switches reach the HID board but are not sent to the PC itself (the bridges treat an unrecognised string on port 27001 as a radio frequency, so they would need updating first).
-- The Upper controller PCB has a Warning Mute connector on D30, but the Upper sketch scans analog pins A9 to A15 for its keypad only, so it may not read it.
-- The Upper controller's remote reset has not been bench-tested; the board was not connected.
+- The Upper switch matrix and Upper keypad now run on the combined ADF and Upper board (merged on 31 October 2026) and have not been bench-tested there. Its Warning Mute and TOT Test connectors are read by the matrix (indexes 88 and 89).
+- The bridges and the SwingTester still send to the retired Upper address 172.16.1.103; the entries should be removed.
 - The estimates in the MSFS bridge for the FlyInside and CowaSim aircraft come from a few dial readings; check them at other power settings.
-- The Upper controller PCB has the backlight driver on D5 and a brightness pot input on A0, but its sketch does not use them yet. The ADF controller's brightness pot is switched off.
+- The brightness pot input on A0 of the combined board is switched off in the sketch (`USE_BRIGHTNESS_POT` is 0); its backlight follows `BPWR`, `C,B` and the no-data timeout.
 - The Radio controller emulator still sends a bare frequency for every radio, so only COM1 tunes from it; the real board sends labelled COM2, NAV1 and NAV2 values, which both bridges understand.
 - The Dual Stepper's RAM use is high (79 percent); be careful adding code to it.
 - Calibration tables, swing times and waits come from bench measurements; recheck them after any mechanical change to a gauge.

@@ -21,7 +21,8 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | NAV2 major and minor knob | 42, 43 and 45, 44 | Encoder A, B |
 | Button matrix | rows 22 to 25, columns 26, 27, 28, 29 and 48 | 4 by 5: column 0 the COM and NAV swap switches, columns 1 and 2 the Auto Pilot panel, columns 3 and 4 the Audio panel |
 | Auto Pilot knobs | CRS 11, 12; ALT A4, A5; VS 46, 47; IAS 7, 6; HDG 8, 9 | Encoder A, B |
-| Panel LEDs (MAX7219) | DIN A15, CLK A14, LOAD A13 | 19 LEDs on the Auto Pilot and Audio panels |
+| Panel LEDs (MAX7219) | DIN A15, CLK A14, LOAD A13 | 19 LEDs on the Auto Pilot and Audio panels and the 20 Huey Warning Panel LEDs |
+| Huey Warning Panel switches | A9 TEST, A10 RESET, A8 BRT / DIM | Switches to ground; the panel is hand wired at the moment (see Huey Warning Panel) |
 | Backlight | D5 | IRF540N MOSFET for the Audio, Auto Pilot and COM and NAV panel backlights |
 | OLEDs | I2C through the TCA9548A (0x70) | Port 0 = NAV OLED, port 1 = COM OLED, both at 0x3C |
 | Status LEDs | 14 green, 15 red | Red flashes while Ethernet starts |
@@ -36,10 +37,11 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | `NAVCOM1` | Radio power (0 = off): the COM and NAV displays and the panel LEDs go off | `NAVCOM1:1` |
 | `MAINBUS` | Main bus voltage | |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
+| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (1 = on); the bridges do not send these yet | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot panel's OLED | `APHDG:090` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off | `BPWR:1` |
 | `C,B:n` | Brightness 0 to 15: the panel backlight level (0 off) and the panel LEDs' intensity | `C,B:5` |
-| `C,LEDTEST:n` | 1 lights all 19 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
+| `C,LEDTEST:n` | 1 lights all 39 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
 
 ## Commands to the PC (UDP 27001)
 
@@ -92,21 +94,24 @@ Nothing is sent for the first 1.5 seconds after power-up. The full list, with th
 | Audio | NAV1 | row 1, col 4 | Joystick 4, button 6 (101) | `RADIO_VOR1_IDENT_TOGGLE` |
 | Audio | MKR | row 2, col 4 | Joystick 4, button 7 (102) | `MARKER_SOUND_TOGGLE` |
 | Audio | ADF | row 3, col 4 | Joystick 4, button 8 (103) | `RADIO_ADF_IDENT_TOGGLE` |
-| ADF | Landing gear switch | ADF controller D29 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
-| ADF | Flaps switch | ADF controller D30 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
-| ADF | Speed brakes switch | ADF controller D31 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
-| ADF | Brakes button | ADF controller D32 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
+| ADF | Landing gear switch | ADF controller D31 | Joystick 4, button 9 (104) | `GEAR_SET:1` when closed, `GEAR_SET:0` when open |
+| ADF | Flaps switch | ADF controller D32 | Joystick 4, button 10 (105) | `FLAPS_SET:1` when closed, `FLAPS_SET:0` when open |
+| ADF | Speed brakes switch | ADF controller D33 | Joystick 4, button 11 (106) | `SPOILERS_SET:1` when closed, `SPOILERS_SET:0` when open |
+| ADF | Brakes button | ADF controller D34 | Joystick 4, button 12 (107) | `PARKING_BRAKES` when pressed |
 | ADF | ADF major knob clockwise, anticlockwise | ADF controller D6, D7 | Joystick 4, buttons 13, 14 (108, 109) | none (the knob tunes the ADF frequency, `ADF_FREQ`) |
 | ADF | ADF minor knob clockwise, anticlockwise | ADF controller D8, D9 | Joystick 4, buttons 15, 16 (110, 111) | none |
-| ADF | Anti-ice switch | ADF controller D34 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
-| ADF | Hyd boost switch | ADF controller D33 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
-| ADF | Caution dim switch | ADF controller D35 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Anti-ice switch | ADF controller D36 | Joystick 4, button 17 (112) | `ANTI_ICE_SET:1` when closed, `ANTI_ICE_SET:0` when open |
+| ADF | Hyd boost switch | ADF controller D35 | Joystick 4, button 18 (113) | none (bind the joystick button in FSUIPC for the Dodo) |
+| ADF | Caution dim switch | ADF controller D37 | Joystick 4, button 19 (114) | none (bind the joystick button in FSUIPC for the Dodo) |
+| Huey | TEST switch | Radio controller A9 | Joystick 4, button 20 (115) | none (bind the joystick button in the simulator) |
+| Huey | RESET switch | Radio controller A10 | Joystick 4, button 21 (116) | none |
+| Huey | BRT / DIM switch | Radio controller A8 | Joystick 4, button 22 (117) | none |
 
 If a knob turns the wrong way in the simulator, swap its two encoder pins in the sketch. The rows and columns come from the panel schematics; check each switch on the bench with the debug listener, which prints a line for every press (for example `AP HDG pressed (joystick button index 65)`), and `C,MATRIX:1` for the raw matrix.
 
 ## Auto Pilot and Audio panel LEDs
 
-One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panels. Each LED sits between one segment and one digit of the chip:
+One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panels (and, since the Huey Warning Panel was added to the sketch, 20 more: see Huey Warning Panel below). Each LED sits between one segment and one digit of the chip:
 
 | LED | Token | MAX7219 digit | Segment | | LED | Token | MAX7219 digit | Segment |
 |---|---|---|---|---|---|---|---|---|
@@ -122,7 +127,11 @@ One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panel
 | | | | | | ADF | `LED_ADF` | 3 | D |
 | | | | | | MIDDLE | `LED_MID` | 3 | E |
 
-The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 19 for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the SwingTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **SwingTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
+The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 39 (including the Huey panel's) for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the SwingTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **SwingTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
+
+## Huey Warning Panel
+
+The Huey Warning Panel has 20 caution LEDs and three switches. **It is wired by hand to the Radio controller at the moment** (there is no PCB for it in this guide), and the Radio sketch supports it. The LEDs are on the same MAX7219 as the other two panels, digits 4 to 7, with the tokens `LED_H_ENG_OIL`, `LED_H_ENG_ICE`, `LED_H_ENG_ICE_DETECT`, `LED_H_ENG_CHIP`, `LED_H_LEFT_FUEL_BOOST`, `LED_H_ENG_FUEL_PUMP`, `LED_H_RIGHT_FUEL_BOOST`, `LED_H_20_MINUTE_FUEL`, `LED_H_AUX_FUEL_LOW`, `LED_H_XMSN_OIL_PRESS`, `LED_H_XMSN_OIL_HOT`, `LED_H_HYD_PRESS`, `LED_H_ENG_INLET_AIR`, `LED_H_INST_INVERTER`, `LED_H_DC_GENERATOR`, `LED_H_EXT_POWER`, `LED_H_FUEL_FILTER`, `LED_H_GOV_EMER`, `LED_H_CHIP_DETECTOR` and `LED_H_IFF`. The three switches (TEST on A9, RESET on A10, BRT / DIM on A8; TEST and RESET are the two positions of one switch) are joystick buttons 20 to 22 on Joystick 4 (indexes 115 to 117). **While TEST is closed all 20 LEDs light** (only while the radio has power). The bridges do not send the `LED_H_xxx` tokens yet, so for now the LEDs light only from the SwingTester (the *Panel LEDs* group has a toggle for each), the lamp test or a test packet. Scanning eight digits instead of four makes the Auto Pilot and Audio LEDs dimmer than before. The Radio on COM20 was flashed with this code on 31 October 2026; the switches and LEDs have not been checked on the panel yet.
 
 ## Auto Pilot display
 
@@ -161,19 +170,19 @@ The radio controller switches the backlights of the Audio, Auto Pilot and COM an
 
 # Joystick (HID) interface
 
-Overhead and console switches reach the simulator as ordinary USB joystick buttons. The upper controller scans the switches and sends each change over UDP to a small USB board, `UDP_TO_HID`, which Windows sees as four joysticks and a keyboard. The joysticks have buttons only: no axes and no hat switches. Bind them like any other controller, in FSUIPC for Prepar3D and FSX or in the MSFS controls menu.
+Overhead and console switches reach the simulator as ordinary USB joystick buttons. The ADF and Upper controller scans the overhead switches (the old Upper controller's job) and sends each change over UDP to a small USB board, `UDP_TO_HID`, which Windows sees as four joysticks and a keyboard. The joysticks have buttons only: no axes and no hat switches. Bind them like any other controller, in FSUIPC for Prepar3D and FSX or in the MSFS controls menu.
 
 ![From switch to joystick button](diagrams/hid_path.svg)
 
 | Board | Sketch | Address | Role |
 |---|---|---|---|
-| Upper controller (Mega 2560) | `JET_RANGER_UPPER_CONTROLLER.ino` | 172.16.1.103 | Scans a 16 by 11 switch matrix (rows on pins 22 to 37, columns on 38 to 48) and a 4 by 3 keypad (A9 to A15) |
+| ADF and Upper controller (Mega 2560) | `JET_RANGER_ADF_CONTROLLER.ino` | 172.16.1.107 | Scans a 9 by 8 switch matrix (rows on pins 22 to 30, columns on 38 to 45) and a 4 by 3 keypad (A9 to A15), as well as the ADF panel. It replaces the old Upper controller (`JET_RANGER_UPPER_CONTROLLER.ino`, 172.16.1.103) |
 | USB HID board (Leonardo class) | `UDP_TO_HID.ino` | 172.16.1.11 | Listens on UDP 4210 and presents 4 joysticks of 32 buttons plus a keyboard |
 | Servo board (Mega 2560) | `JET_RANGER_SERVO_CONTROLLER.ino` | 172.16.1.102 | Also sends three front-panel switches (warning mute, TOT clear, fuel valve) as index 7, 8 and 9 |
 
 ## How a switch becomes a joystick button
 
-1. The upper controller numbers each matrix position as `index = row x 11 + column` (0 to 175).
+1. The ADF and Upper controller numbers each matrix position as `index = row x 11 + column` (0 to 95). The numbering is the old Upper board's, so existing bindings still apply; the matrix is now 9 rows by 8 columns instead of 16 by 11.
 2. When a switch changes it sends `index,state` to `172.16.1.11:4210`, with state 1 = switch on and 0 = off.
 3. The HID board picks joystick = index div 32 and button = index mod 32, then holds that button down while the switch is on.
 4. Keypad keys are sent as `KEY,<key>,<state>` and typed as keyboard keys 0 to 9, `*` and `#`.
@@ -185,11 +194,11 @@ Overhead and console switches reach the simulator as ordinary USB joystick butto
 | 32 to 63 | Joystick 2 |
 | 64 to 95 | Joystick 3 |
 | 96 to 127 | Joystick 4 |
-| 128 to 175 | Not sent to Windows (out of range) |
+| 128 and above | Not sent to Windows (out of range); nothing sends these any more |
 
 ## Auto Pilot, Audio and ADF panel buttons
 
-The radio controller (Auto Pilot and Audio panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio and ADF panels), buttons nothing else uses. Windows numbers them from 1:
+The radio controller (Auto Pilot, Audio and Huey panels) and the ADF controller send their switches and knob clicks in **Joystick 3** (indexes 64 to 95, Auto Pilot panel) and **Joystick 4** (96 to 127, Audio, ADF and Huey panels), buttons nothing else uses (the Upper matrix's rows 6 to 8, indexes 66 to 95, are wired but have no switches; do not fit any at 66 to 73 or 77 to 81). Windows numbers them from 1:
 
 | Index | Windows button | Source |
 |---|---|---|
@@ -199,6 +208,7 @@ The radio controller (Auto Pilot and Audio panels) and the ADF controller send t
 | 104 to 107 | Joystick 4, buttons 9 to 12 | ADF panel: landing gear, flaps, speed brakes, brakes |
 | 108 to 111 | Joystick 4, buttons 13 to 16 | ADF knobs (clockwise, anticlockwise): major, minor |
 | 112 to 114 | Joystick 4, buttons 17 to 19 | ADF panel: anti-ice, hyd boost, caution dim |
+| 115 to 117 | Joystick 4, buttons 20 to 22 | Huey Warning Panel: TEST, RESET, BRT / DIM |
 
 Every one of these is also sent to the simulator bridge as a control (see the radio controller chapter), so you only need to bind the joystick buttons if you want to use them differently.
 
@@ -254,6 +264,6 @@ If FSUIPC does not see a switch, check that Windows shows the button moving in `
 ## Known issues
 
 - The HID board's own test button on pin 5 also drives Joystick 1 button 1, the same button as HTR 0.
-- `CreateDcsBiosMessage()` is still a stub, so these switches do nothing in DCS; only the joystick path works.
+- The old Upper sketch's DCS-BIOS stubs were not carried into the merged ADF and Upper sketch, so nothing is sent to DCS; only the joystick path works.
 - The HID board reboots when it receives `C,RESET:1` (or `RESET`) on UDP 4210. Its USB connection drops while it restarts, so Windows briefly loses the four joysticks and the keyboard; re-check any game that has them open.
 - The servo board's three switches use indexes 7, 8 and 9, which Windows shows as Joystick 1 buttons 8, 9 and 10. If they were meant to be Windows buttons 7, 8 and 9, button 7 is already the Air heat switch (index 6), so the indexes would have to move.

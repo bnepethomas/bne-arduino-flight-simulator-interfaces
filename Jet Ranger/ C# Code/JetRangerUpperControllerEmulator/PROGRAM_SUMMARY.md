@@ -15,7 +15,7 @@ switch that the board's firmware actually acts on, and sends the same
    `Button` per switch.
 2. **`Switches`** is a fixed `(Index, Label, Group)` table built from the
    `// comment`s in `CreateDcsBiosMessage()` in
-   `JET_RANGER_UPPER_CONTROLLER.ino` — only row/column matrix indices that
+   `JET_RANGER_UPPER_CONTROLLER.ino` (retired 31 October 2026: the Upper panel now runs on the combined ADF and Upper board, `JET_RANGER_ADF_CONTROLLER`, with the same `row x 11 + column` indexes, 0 to 95) — only row/column matrix indices that
    carry a comment there are wired to a real switch, so only those 22
    indices appear here. Indices 7‑10, 18‑21, 29‑38, 40‑175 exist in the
    firmware's matrix but drive nothing and are intentionally omitted.
