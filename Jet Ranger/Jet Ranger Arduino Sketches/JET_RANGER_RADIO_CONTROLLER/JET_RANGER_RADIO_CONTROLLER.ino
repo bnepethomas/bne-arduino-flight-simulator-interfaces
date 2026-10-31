@@ -566,7 +566,10 @@ void applyBacklight() {
 // a panel LED is lit by one segment of one digit. Serial lines: DIN = A15, CLK = A14, LOAD (CS) = A13 (/MAX_7219-DIN, -CLOCK, -LOAD).
 // The PC bridges send each LED as a "LED_xxx:0/1" pair in the radio data packet; the LEDs are only lit while the radio has power
 // (NAVCOM1:1, the avionics bus 24 V or more) and data or local input is arriving, the same rule that blanks the COM and NAV displays.
-// "C,LEDTEST:1" lights all 19 LEDs, "C,LEDTEST:0" puts them back to the simulator's state.
+// "C,LEDTEST:1" lights all the LEDs, "C,LEDTEST:0" puts them back to the simulator's state.
+// The Huey Warning Panel's 20 caution LEDs are on digits 4 to 7 (CATHODE_04 to CATHODE_07, the panel's LED_CATHODE connector goes on J23)
+// and the same segment lines (ANNODE_00 to ANNODE_07, the panel's LED_ANNODE connector goes on J22); they are the "LED_H_xxx" tokens below. The panel's own backlight LEDs are on the
+// backlight net, not on the MAX7219. Scanning all eight digits instead of four halves each LED's duty, so the LEDs are dimmer at the same intensity.
 #include <LedControl.h>
 
 #define MAX7219_DIN A15
@@ -607,13 +610,38 @@ PanelLed panelLedTable[] = {
   { "LED_MKR", 3, 3, false, false },
   { "LED_ADF", 3, 4, false, false },
   { "LED_MID", 3, 5, false, false },
+  // Huey Warning Panel (the panel's LED_ANNODE connector on J22, LED_CATHODE on J23): digits 4 to 7. Column = ANNODE_0n + 1,
+  // except ANNODE_07, which is the DP column 0. The names are the panel's own (D1 to D22 on its PCB).
+  { "LED_H_ENG_OIL", 4, 1, false, false },          // ANNODE_00
+  { "LED_H_ENG_ICE", 4, 2, false, false },          // ANNODE_01
+  { "LED_H_ENG_ICE_DETECT", 4, 3, false, false },   // ANNODE_02
+  { "LED_H_ENG_CHIP", 4, 4, false, false },         // ANNODE_03
+  { "LED_H_LEFT_FUEL_BOOST", 4, 5, false, false },  // ANNODE_04
+  { "LED_H_ENG_FUEL_PUMP", 4, 6, false, false },    // ANNODE_05
+  { "LED_H_RIGHT_FUEL_BOOST", 4, 7, false, false }, // ANNODE_06
+  { "LED_H_20_MINUTE_FUEL", 4, 0, false, false },   // ANNODE_07
+  { "LED_H_AUX_FUEL_LOW", 5, 1, false, false },     // digit 5 (CATHODE_05)
+  { "LED_H_XMSN_OIL_PRESS", 5, 2, false, false },
+  { "LED_H_XMSN_OIL_HOT", 5, 3, false, false },
+  { "LED_H_HYD_PRESS", 5, 4, false, false },
+  { "LED_H_ENG_INLET_AIR", 5, 5, false, false },
+  { "LED_H_INST_INVERTER", 5, 6, false, false },
+  { "LED_H_DC_GENERATOR", 5, 7, false, false },
+  { "LED_H_EXT_POWER", 5, 0, false, false },
+  { "LED_H_FUEL_FILTER", 6, 7, false, false },      // digit 6 (CATHODE_06)
+  { "LED_H_GOV_EMER", 6, 0, false, false },
+  { "LED_H_CHIP_DETECTOR", 7, 7, false, false },    // digit 7 (CATHODE_07)
+  { "LED_H_IFF", 7, 0, false, false },
 };
 const int panelLedCount = sizeof(panelLedTable) / sizeof(panelLedTable[0]);
+#define HUEY_LED_COUNT 20  // the last 20 entries above
+const int hueyLedFirst = panelLedCount - HUEY_LED_COUNT;
 bool panelLedTest = false;
+bool hueyTestHeld = false;  // the Huey panel's TEST switch is in the TEST position: its 20 LEDs are lit
 
 void initPanelLeds() {
   panelLeds.shutdown(0, false);  // wake from power-down
-  panelLeds.setScanLimit(0, 3);  // only digits 0 to 3 are wired to panel LEDs
+  panelLeds.setScanLimit(0, 7);  // digits 0 to 3: Auto Pilot and Audio panels, digits 4 to 7: Huey Warning Panel
   panelLeds.setIntensity(0, MAX7219_INTENSITY);
   panelLeds.clearDisplay(0);
 }
@@ -623,7 +651,7 @@ void initPanelLeds() {
 void applyPanelLeds() {
   bool powered = powerAvailable;
   for (int i = 0; i < panelLedCount; i++) {
-    bool on = panelLedTest || (powered && panelLedTable[i].wanted);
+    bool on = panelLedTest || (powered && (panelLedTable[i].wanted || (hueyTestHeld && i >= hueyLedFirst)));
     if (on != panelLedTable[i].shown) {
       panelLeds.setLed(0, panelLedTable[i].digit, panelLedTable[i].column, on);
       panelLedTable[i].shown = on;
@@ -1094,10 +1122,73 @@ void reportMatrixRaw() {
   for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], HIGH);
 }
 
+// ############################################# BEGIN HUEY WARNING PANEL SWITCHES ##########################################
+// The Huey Warning Panel's three switches (its SWITCHES connector goes on J20: GND, H_BRT_DIM, H_TEST, H_RESET) are read directly on Mega pins,
+// with the internal pull-ups, and are "on" when they close to ground. TEST and RESET are the two positions of one SPDT switch, so one of them is
+// always closed. Each switch is a joystick button on the USB HID board (Joystick 4, buttons 20 to 22, indexes 115 to 117), held while the
+// switch is closed. While TEST is closed the 20 Huey LEDs are lit (a lamp test, only while the radio has power). Nothing is sent during the
+// start-up quiet period; once it is over the joystick buttons are brought into line with the switches as they are.
+#define HUEY_SWITCH_DEBOUNCE_MS 30
+struct HueySwitch {
+  uint8_t pin;
+  uint8_t hidIndex;
+  const char* name;
+  bool closed;       // debounced state
+  bool lastReading;  // raw reading last time
+  unsigned long changedAt;
+};
+
+HueySwitch hueySwitches[] = {
+  { A9, 115, "HUEY TEST", false, false, 0 },
+  { A10, 116, "HUEY RESET", false, false, 0 },
+  { A8, 117, "HUEY BRT/DIM", false, false, 0 },
+};
+const int hueySwitchCount = sizeof(hueySwitches) / sizeof(hueySwitches[0]);
+bool hueySwitchStartSent = false;
+
+void initHueySwitches() {
+  for (int i = 0; i < hueySwitchCount; i++) {
+    pinMode(hueySwitches[i].pin, INPUT_PULLUP);
+    hueySwitches[i].lastReading = (digitalRead(hueySwitches[i].pin) == LOW);
+    hueySwitches[i].closed = hueySwitches[i].lastReading;
+  }
+  hueyTestHeld = hueySwitches[0].closed;
+}
+
+void pollHueySwitches() {
+  for (int i = 0; i < hueySwitchCount; i++) {
+    HueySwitch& s = hueySwitches[i];
+    bool reading = (digitalRead(s.pin) == LOW);
+    if (reading != s.lastReading) {
+      s.lastReading = reading;
+      s.changedAt = millis();
+    }
+    if (reading != s.closed && (millis() - s.changedAt) >= HUEY_SWITCH_DEBOUNCE_MS) {
+      s.closed = reading;
+      if (i == 0) {
+        hueyTestHeld = s.closed;
+        applyPanelLeds();
+      }
+      if (millis() < matrixQuietUntil) continue;  // start-up: record the state only
+      wakeDisplays();
+      SendDebug(String(s.name) + (s.closed ? " closed" : " open") + " (joystick button index " + String(s.hidIndex) + ")");
+      sendButtonToHid(s.hidIndex, s.closed ? 1 : 0);
+    }
+  }
+  if (!hueySwitchStartSent && millis() >= matrixQuietUntil) {
+    hueySwitchStartSent = true;
+    for (int i = 0; i < hueySwitchCount; i++) sendButtonToHid(hueySwitches[i].hidIndex, hueySwitches[i].closed ? 1 : 0);
+  }
+}
+// ############################################# END HUEY WARNING PANEL SWITCHES ##########################################
+
 // After the HID board has been missing, the switches that are held down are pressed again on it (called from loop()).
 void resyncHidButtons() {
   for (int i = 0; i < panelSwitchCount; i++) {
     if (keyPressed[panelSwitches[i].row][panelSwitches[i].col]) sendButtonToHid(panelSwitches[i].hidIndex, 1);
+  }
+  for (int i = 0; i < hueySwitchCount; i++) {
+    if (hueySwitches[i].closed) sendButtonToHid(hueySwitches[i].hidIndex, 1);
   }
 }
 
@@ -1539,7 +1630,7 @@ void HandleControlString(String str) {
     // I2C scan: C,I2CSCAN:1 sends what answers on the I2C bus and behind each TCA9548A channel to the debug monitor (see scanI2C())
     if (command == "I2CSCAN") scanI2C();
 
-    // Panel LED test: C,LEDTEST:1 lights all 19 MAX7219 LEDs, C,LEDTEST:0 returns them to the simulator's state
+    // Panel LED test: C,LEDTEST:1 lights all the MAX7219 LEDs (Auto Pilot, Audio and Huey panels), C,LEDTEST:0 returns them to the simulator's state
     if (command == "LEDTEST") {
       panelLedTest = (isetting != 0);
       applyPanelLeds();
@@ -1710,6 +1801,7 @@ void setup() {
 
   SendDebug("Start Matrix");
   initMatrixScanner();
+  initHueySwitches();
   initPanelEncoders();
 
   // Start the no-data timeout from the END of setup(), not from reset.
@@ -1885,6 +1977,7 @@ void loop() {
 
 
   scanMatrix();
+  pollHueySwitches();
   pollPanelEncoders();
   serviceHidPulses();
   if (hidNeedsResync) {

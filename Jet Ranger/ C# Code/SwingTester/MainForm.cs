@@ -82,8 +82,9 @@ namespace SwingTester
             ("Rotor Low RPM",          "RLOW"),
         };
 
-        // The 19 panel LEDs driven by the MAX7219 on the Radio controller (172.16.1.101): "D,LED_xxx:1/0" data packets. Auto Pilot panel
-        // first, then Audio panel (see the Radio Auto Pilot PCB: digits 0-1 = Auto Pilot panel, digits 2-3 = Audio panel).
+        // The 39 panel LEDs driven by the MAX7219 on the Radio controller (172.16.1.101): "D,LED_xxx:1/0" data packets. Auto Pilot panel
+        // first, then Audio panel, then the Huey Warning Panel's 20 caution LEDs (see the Radio Auto Pilot PCB: digits 0-1 = Auto Pilot panel,
+        // digits 2-3 = Audio panel, digits 4-7 = Huey Warning Panel). The Huey LEDs are split over two columns ("Huey 1" and "Huey 2").
         private static readonly (string Panel, string Name, string Token)[] PanelLeds =
         {
             ("Auto Pilot", "CRS",        "LED_CRS"),
@@ -105,7 +106,29 @@ namespace SwingTester
             ("Audio",      "MKR",        "LED_MKR"),
             ("Audio",      "ADF",        "LED_ADF"),
             ("Audio",      "MIDDLE",     "LED_MID"),
+            ("Huey 1",     "ENG OIL",        "LED_H_ENG_OIL"),
+            ("Huey 1",     "ENG ICE",        "LED_H_ENG_ICE"),
+            ("Huey 1",     "ENG ICE DETECT", "LED_H_ENG_ICE_DETECT"),
+            ("Huey 1",     "ENG CHIP",       "LED_H_ENG_CHIP"),
+            ("Huey 1",     "L FUEL BOOST",   "LED_H_LEFT_FUEL_BOOST"),
+            ("Huey 1",     "ENG FUEL PUMP",  "LED_H_ENG_FUEL_PUMP"),
+            ("Huey 1",     "R FUEL BOOST",   "LED_H_RIGHT_FUEL_BOOST"),
+            ("Huey 1",     "20 MIN FUEL",    "LED_H_20_MINUTE_FUEL"),
+            ("Huey 1",     "AUX FUEL LOW",   "LED_H_AUX_FUEL_LOW"),
+            ("Huey 1",     "XMSN OIL PRESS", "LED_H_XMSN_OIL_PRESS"),
+            ("Huey 2",     "XMSN OIL HOT",   "LED_H_XMSN_OIL_HOT"),
+            ("Huey 2",     "HYD PRESS",      "LED_H_HYD_PRESS"),
+            ("Huey 2",     "ENG INLET AIR",  "LED_H_ENG_INLET_AIR"),
+            ("Huey 2",     "INST INVERTER",  "LED_H_INST_INVERTER"),
+            ("Huey 2",     "DC GENERATOR",   "LED_H_DC_GENERATOR"),
+            ("Huey 2",     "EXT POWER",      "LED_H_EXT_POWER"),
+            ("Huey 2",     "FUEL FILTER",    "LED_H_FUEL_FILTER"),
+            ("Huey 2",     "GOV EMER",       "LED_H_GOV_EMER"),
+            ("Huey 2",     "CHIP DETECTOR",  "LED_H_CHIP_DETECTOR"),
+            ("Huey 2",     "IFF",            "LED_H_IFF"),
         };
+
+        private static string PanelTitle(string panel) => panel.StartsWith("Huey") ? "Huey" : panel;
 
         private readonly CheckBox[] ledChecks = new CheckBox[PanelLeds.Length];
         private bool suppressLedEvents;
@@ -194,7 +217,7 @@ namespace SwingTester
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
             int workHeight = Screen.PrimaryScreen?.WorkingArea.Height ?? 900;
-            ClientSize = new Size(1130, Math.Min(980, workHeight - 60));
+            ClientSize = new Size(1260, Math.Min(980, workHeight - 60));
             MinimumSize = new Size(640, 400);
 
             var top = new FlowLayoutPanel
@@ -386,10 +409,10 @@ namespace SwingTester
             ledButtons.Controls.Add(chkLedHardwareTest);
             ledOuter.Controls.Add(ledButtons);
             var ledColumns = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight };
-            foreach (string panel in new[] { "Auto Pilot", "Audio" })
+            foreach (string panel in new[] { "Auto Pilot", "Audio", "Huey 1", "Huey 2" })
             {
                 var column = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
-                column.Controls.Add(new Label { Text = panel + " panel", AutoSize = true, Font = new Font("Segoe UI", 9f, FontStyle.Bold), Margin = new Padding(3, 6, 3, 3) });
+                column.Controls.Add(new Label { Text = panel == "Huey 1" ? "Huey Warning Panel" : panel == "Huey 2" ? "(continued)" : panel + " panel", AutoSize = true, Font = new Font("Segoe UI", 9f, FontStyle.Bold), Margin = new Padding(3, 6, 3, 3) });
                 for (int i = 0; i < PanelLeds.Length; i++)
                 {
                     if (PanelLeds[i].Panel != panel) continue;
@@ -399,7 +422,7 @@ namespace SwingTester
                         Text = PanelLeds[i].Name,
                         Appearance = Appearance.Button,
                         AutoSize = false,
-                        Size = new Size(130, 28),
+                        Size = new Size(118, 28),
                         TextAlign = ContentAlignment.MiddleLeft,
                         Margin = new Padding(3, 3, 6, 3)
                     };
@@ -784,7 +807,7 @@ namespace SwingTester
             try
             {
                 await SendPacketAsync(BoardId.Radio, $"D,NAVCOM1:1,{PanelLeds[index].Token}:{(on ? 1 : 0)}");
-                lblStatus.Text = $"LED {PanelLeds[index].Panel} panel {PanelLeds[index].Name}: {(on ? "ON" : "OFF")} ({PanelLeds[index].Token}).";
+                lblStatus.Text = $"LED {PanelTitle(PanelLeds[index].Panel)} panel {PanelLeds[index].Name}: {(on ? "ON" : "OFF")} ({PanelLeds[index].Token}).";
             }
             catch (Exception ex)
             {
@@ -792,7 +815,7 @@ namespace SwingTester
             }
         }
 
-        /// <summary>All 19 panel LEDs on (or off) in one packet.</summary>
+        /// <summary>All 39 panel LEDs (Auto Pilot, Audio and Huey) on (or off) in one packet.</summary>
         private async Task SetAllPanelLedsAsync(bool on)
         {
             try
@@ -826,7 +849,7 @@ namespace SwingTester
                     string body = string.Join(",", PanelLeds.Select((l, n) => $"{l.Token}:{(n == i ? 1 : 0)}"));
                     await SendPacketAsync(BoardId.Radio, "D,NAVCOM1:1," + body);
                     for (int n = 0; n < PanelLeds.Length; n++) SetLedCheck(n, n == i);
-                    lblStatus.Text = $"LED chase: {PanelLeds[i].Panel} panel {PanelLeds[i].Name} ({PanelLeds[i].Token}).";
+                    lblStatus.Text = $"LED chase: {PanelTitle(PanelLeds[i].Panel)} panel {PanelLeds[i].Name} ({PanelLeds[i].Token}).";
                     await Task.Delay((int)numLampOnGapMs.Value, token);
                 }
                 lblStatus.Text = "LED chase finished.";
@@ -848,7 +871,7 @@ namespace SwingTester
             }
         }
 
-        /// <summary>The board's own test: "C,LEDTEST:1" lights all 19 LEDs at the MAX7219, "C,LEDTEST:0" returns them to the last sent state.</summary>
+        /// <summary>The board's own test: "C,LEDTEST:1" lights all the LEDs at the MAX7219 (Auto Pilot, Audio and Huey panels), "C,LEDTEST:0" returns them to the last sent state.</summary>
         private async Task SendLedHardwareTestAsync(bool on)
         {
             try

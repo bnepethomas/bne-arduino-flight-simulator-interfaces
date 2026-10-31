@@ -75,16 +75,16 @@ BACK_LIGHTS
 // to 0 (unmeasured, safe no-op) - must be #define'd here, before
 // setup(), since the startup swings use them too.
 #define VSIZeroOffset 0
-#define IASZeroOffset 0
-#define AGLZeroOffset 10
-#define EGTZeroOffset 0
+#define IASZeroOffset 9
+#define AGLZeroOffset 4
+#define EGTZeroOffset 10
 #define EOTZeroOffset 0
 #define EOPZeroOffset 0
 #define XOTZeroOffset 0
 #define XOPZeroOffset 0
 #define GPZeroOffset 0
 #define FAZeroOffset 0
-#define TQZeroOffset 23
+#define TQZeroOffset 1
 
 int Ethernet_In_Use = 1;
 int Reflector_In_Use = 1;

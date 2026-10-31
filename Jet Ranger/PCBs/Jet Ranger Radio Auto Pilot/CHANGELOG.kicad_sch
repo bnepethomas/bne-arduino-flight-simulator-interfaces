@@ -5,7 +5,7 @@
 	(uuid "c322eafb-27e3-4780-b176-6649578ef161")
 	(paper "A4")
 	(lib_symbols)
-	(text "20261017 1.2 ADDED AUDIO PANEL\n20261018 1.3 Corrected MOSFET mis-pinout"
+	(text "20261017 1.2 ADDED AUDIO PANEL\n20261018 1.3 Corrected MOSFET mis-pinout\n20261031 1.4 Added Huey Warning Panel connections: switches J20 (A8 to A10), backlight J21, LED anodes J22 and cathodes J23"
 		(exclude_from_sim no)
 		(at 59.69 36.068 0)
 		(effects

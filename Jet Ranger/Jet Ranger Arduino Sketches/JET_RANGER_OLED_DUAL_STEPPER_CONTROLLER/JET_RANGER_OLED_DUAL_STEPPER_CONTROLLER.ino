@@ -233,8 +233,8 @@ void applyBacklight() {
 // setTS()/setRS() where they're mainly used.
 // TSoffset has since been given a real value (20); RSoffset is still an
 // unmeasured 0.
-#define TSoffset 10
-#define RSoffset 0
+#define TSoffset 13
+#define RSoffset 8
 
 // Fine-trim zero offsets (steps) for the remaining calibrated gauges, same
 // purpose/pattern as TSoffset/RSoffset above (and as the per-gauge
@@ -249,7 +249,7 @@ void applyBacklight() {
 #define EOPZeroOffset 0
 #define XOTZeroOffset 16
 #define XOPZeroOffset 5
-#define FuelLoadZeroOffset 55
+#define FuelLoadZeroOffset 10
 #define ElectricalLoadZeroOffset 24
 
 // New gauges ported from Stepper-Tuning-Harness (same pin assignments as

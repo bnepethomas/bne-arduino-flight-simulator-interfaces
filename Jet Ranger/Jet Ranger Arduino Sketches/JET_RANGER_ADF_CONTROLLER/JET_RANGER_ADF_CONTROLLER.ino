@@ -8,17 +8,23 @@
   //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
-  Drives the Jet Ranger ADF Controller PCB (rev 1.4). Built from the Jet Ranger Radio controller sketch
-  (same Ethernet start-up, debug stream, heartbeat, encoder library, matrix scanner and character OLED code).
+  Drives the Jet Ranger Upper ADF Controller PCB, the combined ADF and Upper board (the reference PCB for this sketch). Built from the Jet Ranger
+  Radio controller sketch (same Ethernet start-up, debug stream, heartbeat, encoder library, matrix scanner and character OLED code), with the
+  former Jet Ranger Upper controller sketch merged in: the Upper panel switch matrix and numeric keypad are scanned here too, and this one board
+  (172.16.1.107) does the work of the old ADF (.107) and Upper (.103) boards. The old Upper sketch's DCS-BIOS stubs (every case was empty) are not carried over.
 
   What it does
     - ADF major and minor tuning knobs (D6/D7 and D8/D9). The major knob moves the ADF frequency in 100 kHz steps,
       the minor knob in 1 kHz steps (it speeds up when turned quickly). Range 190 to 1799 kHz.
-    - Key matrix (D22 to D28, 4 rows by 3 columns) to type the ID of the aircraft to follow on the radar:
+    - ADF keypad (A1 to A7, 4 rows by 3 columns) to type the ID of the aircraft to follow on the radar:
       digits 0-9 build the ID, '#' sends it, '*' deletes the last digit (on an empty entry '*' stops following).
+    - Upper panel switch matrix (9 rows D22 to D30 by 8 columns D38 to D45): every switch is sent to the USB HID board as a joystick button,
+      "index,state", with index = row * 11 + column (0 to 95, Joystick 1 to 3; the old 11 column numbering is kept so the existing joystick
+      button assignments still apply).
+    - Upper panel numeric keypad (A9 to A15, 4 rows by 3 columns): typed on the USB HID board's virtual keyboard, "KEY,key,state".
     - Panel brightness pot on A0. It sets this board's own backlight (D5, IRF540N) and is sent as "C,B:0-15" to the
-      other panels (Radio .101, Servo .102, Upper .103, Stepper .105, Dual Stepper .106) whenever the setting changes.
-    - 12 V rail monitor on A15 (47k / 10k divider, 0.1 uF filter) and 5 V rail monitor (the ADC's AVcc reference, which is the
+      other panels (Radio .101, Servo .102, Stepper .105, Dual Stepper .106) whenever the setting changes.
+    - 12 V rail monitor on A8 (47k / 10k divider, 0.1 uF filter) and 5 V rail monitor (the ADC's AVcc reference, which is the
       5 V rail the AREF pin is tied to, measured against the internal 1.1 V band-gap). A power status update is sent every
       30 seconds.
     - Character OLED (2 lines of 16) on I2C shows the ADF frequency and the aircraft ID being entered or followed.
@@ -28,7 +34,7 @@
     "C,POWER:1" send a power status now). Debug text goes to 172.16.1.10:27000 and a heartbeat ("ADF_PANEL") to :13137.
     Events for the PC go to 172.16.1.10:27003 (not 27001: the FSUIPC and MSFS bridges treat anything they do not recognise
     on 27001 as a COM1 standby frequency). The bridges do not read port 27003 yet.
-    The landing gear, flaps, speed brake and brakes switches (D29 to D32) and the two ADF knobs are also sent as joystick buttons to
+    The landing gear, flaps, speed brake and brakes switches (D31 to D34) and the two ADF knobs are also sent as joystick buttons to
     the USB HID board (172.16.1.11:4210, Joystick 4, indexes 104 to 111). The gear, flaps and speed brake switches are toggle switches, so
     their POSITION is sent to the bridge on UDP 27001 as a value, "GEAR_SET:1" (down) or "GEAR_SET:0" (up), "FLAPS_SET:1/0" and
     "SPOILERS_SET:1/0", when the switch changes and again every few seconds so the simulator always follows the switch; the brakes push
@@ -37,17 +43,22 @@
       RADAR_FOLLOW_ID:<digits>     the aircraft ID typed on the keypad; RADAR_FOLLOW_ID:0 = stop following
       POWER,V12:12.41,V5:5.02,STATUS:OK     every 30 seconds (STATUS is OK, or the rails that are out of range)
 
-  Pins (from the PCB)
+  Pins (from the Upper ADF Controller PCB)
     D2 D3 D4  landing gear lamps (nose, left, right): driven by "D,LDGN:1/0,LDGL:1/0,LDGR:1/0" data packets (high = lit); no bridge sends them yet
     D5        BACKLIGHT_PWM (IRF540N)
     D6 D7     ADF major encoder A, B
     D8 D9     ADF minor encoder A, B
     D14 D15   green and red status LEDs
     D20 D21   I2C (OLED)
-    D22-D25   keypad rows, D26-D28 keypad columns (connector pins 1-4 and 5-7: this order is unverified, see C,MATRIX:1)
-    D29-D32   landing gear, flaps, speed brake and brake switches (closed to ground = on)
+    D22-D30   Upper switch matrix rows ROW0 to ROW8 (ROW8 also feeds the warning mute and TOT test switches)
+    D31-D34   landing gear, flaps, speed brake and brake switches (closed to ground = on)
+    D35-D37   hydraulic boost, anti-ice and caution dim switches
+    D38-D45   Upper switch matrix columns COL0 to COL7 (10k pull-ups on the PCB)
     D53       Ethernet module reset
-    A0        panel brightness pot (wiper), A15  12 V monitor
+    A0        panel brightness pot (wiper)
+    A1-A7     ADF keypad (J41 pins 2-8): columns A3 A2 A1, rows A7 A6 A5 A4 (reversed on this PCB; see C,MATRIX:1 to check)
+    A8        12 V monitor
+    A9-A15    Upper numeric keypad (J32 pins 1-7): rows A10 A12 A14 A15, columns A9 A11 A13
 
   Do not call analogReference() in this sketch: the 5 V measurement and the pot / 12 V readings all use the default AVcc
   reference.
@@ -339,7 +350,7 @@ void sendCommandToBridge(const char* command) {
   udp.endPacket();
 }
 
-// The four switches on the ADF panel, to ground when on. The landing gear, flaps and speed brake switches are toggle switches, so their position
+// The seven switches on the ADF panel, to ground when on. The landing gear, flaps and speed brake switches are toggle switches, so their position
 // is sent to the bridge as a value (positionCommand, with :1 when the switch is closed and :0 when it is open: gear down, flaps down, speed brakes
 // out) every time it changes and again every POSITION_RESEND_MS, rather than as an event that the simulator could toggle. The brakes are a push
 // button: pressing it sends pressCommand (the parking brake toggle) and releasing it sends nothing. If a switch works the wrong way round in the
@@ -358,14 +369,14 @@ struct AdfSwitch {
 };
 
 AdfSwitch adfSwitches[] = {
-  { 29, 104, "GEAR_SET", NULL, "LANDING GEAR", false, false, 0 },
-  { 30, 105, "FLAPS_SET", NULL, "FLAPS", false, false, 0 },
-  { 31, 106, "SPOILERS_SET", NULL, "SPEED BRAKES", false, false, 0 },
-  { 32, 107, NULL, "PARKING_BRAKES", "BRAKES", false, false, 0 },
-  // Added to the PCB later (connectors J18, J17 and J19). Anti-ice sends its position (1 = on); hyd boost and caution dim are joystick buttons only.
-  { 34, 112, "ANTI_ICE_SET", NULL, "ANTI-ICE", false, false, 0 },
-  { 33, 113, NULL, NULL, "HYD BOOST", false, false, 0 },
-  { 35, 114, NULL, NULL, "CAUTION DIM", false, false, 0 },
+  { 31, 104, "GEAR_SET", NULL, "LANDING GEAR", false, false, 0 },
+  { 32, 105, "FLAPS_SET", NULL, "FLAPS", false, false, 0 },
+  { 33, 106, "SPOILERS_SET", NULL, "SPEED BRAKES", false, false, 0 },
+  { 34, 107, NULL, "PARKING_BRAKES", "BRAKES", false, false, 0 },
+  // Anti-ice sends its position (1 = on); hyd boost and caution dim are joystick buttons only.
+  { 36, 112, "ANTI_ICE_SET", NULL, "ANTI-ICE", false, false, 0 },
+  { 35, 113, NULL, NULL, "HYD BOOST", false, false, 0 },
+  { 37, 114, NULL, NULL, "CAUTION DIM", false, false, 0 },
 };
 unsigned long lastPositionSent = 0;
 
@@ -423,6 +434,105 @@ void pollAdfSwitches() {
   }
 }
 // ############################################# END JOYSTICK BUTTONS AND PANEL SWITCHES ##########################################
+
+// ############################################# BEGIN UPPER PANEL SWITCH MATRIX AND KEYPAD ##########################################
+// From the former Jet Ranger Upper controller. Matrix: rows ROW0-ROW8 (D22-D30) are driven LOW one at a time, the others idle HIGH; columns COL0-COL7
+// (D38-D45, with 10k pull-ups on the PCB) are read, and a switch closed to ground reads LOW. A change is sent to the USB HID board as a joystick button,
+// "index,state", where index = row * UPPER_ROW_STRIDE + column. The stride stays at the old board's 11 columns so the joystick button numbers (0 to 95)
+// are the same as before. One row is scanned per pass of the main loop, so the ADF knobs keep being polled between rows (a whole scan takes 9 passes).
+#define UPPER_ROWS 9
+#define UPPER_COLS 8
+#define UPPER_ROW_STRIDE 11
+#define UPPER_SCAN_DELAY_US 80  // let the row line settle before the columns are read
+#define UPPER_DEBOUNCE_MS 20    // after a change is reported, further changes of that switch are ignored for this long
+const uint8_t upperRowPins[UPPER_ROWS] = { 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+const uint8_t upperColPins[UPPER_COLS] = { 38, 39, 40, 41, 42, 43, 44, 45 };
+bool upperClosed[UPPER_ROWS][UPPER_COLS];               // last state reported
+unsigned long upperHoldoff[UPPER_ROWS][UPPER_COLS];     // no change is reported before this time
+uint8_t upperNextRow = 0;
+
+// The numeric keypad (J32, A9-A15): rows are driven LOW one at a time and the columns read with pull-ups. A key press and release are sent to the USB HID
+// board, which types the key on its virtual keyboard: "KEY,key,state".
+const uint8_t upperKeyRowPins[4] = { A10, A12, A14, A15 };
+const uint8_t upperKeyColPins[3] = { A9, A11, A13 };
+const char upperKeyMap[4][3] = {
+  { '2', '1', '3' },
+  { '0', '*', '#' },
+  { '8', '7', '9' },
+  { '5', '4', '6' }
+};
+bool upperKeyDown[4][3];
+unsigned long upperKeyHoldoff[4][3];
+
+void sendKeyToHid(char key, int state) {
+  if (Ethernet_In_Use != 1) return;
+  udp.beginPacket(hidIP, hidPort);
+  udp.print("KEY," + String(key) + "," + String(state));
+  udp.endPacket();
+}
+
+void initUpperPanel() {
+  for (int r = 0; r < UPPER_ROWS; r++) {
+    pinMode(upperRowPins[r], OUTPUT);
+    digitalWrite(upperRowPins[r], HIGH);
+  }
+  for (int c = 0; c < UPPER_COLS; c++) pinMode(upperColPins[c], INPUT_PULLUP);
+  for (int r = 0; r < UPPER_ROWS; r++) {
+    for (int c = 0; c < UPPER_COLS; c++) {
+      upperClosed[r][c] = false;
+      upperHoldoff[r][c] = 0;
+    }
+  }
+  for (int r = 0; r < 4; r++) {
+    pinMode(upperKeyRowPins[r], OUTPUT);
+    digitalWrite(upperKeyRowPins[r], HIGH);
+  }
+  for (int c = 0; c < 3; c++) pinMode(upperKeyColPins[c], INPUT_PULLUP);
+  for (int r = 0; r < 4; r++) {
+    for (int c = 0; c < 3; c++) {
+      upperKeyDown[r][c] = false;
+      upperKeyHoldoff[r][c] = 0;
+    }
+  }
+}
+
+void scanUpperMatrixRow() {
+  int row = upperNextRow;
+  upperNextRow = (upperNextRow + 1) % UPPER_ROWS;
+  digitalWrite(upperRowPins[row], LOW);
+  delayMicroseconds(UPPER_SCAN_DELAY_US);
+  for (int col = 0; col < UPPER_COLS; col++) {
+    bool closed = (digitalRead(upperColPins[col]) == LOW);
+    if (closed != upperClosed[row][col] && millis() > upperHoldoff[row][col]) {
+      upperHoldoff[row][col] = millis() + UPPER_DEBOUNCE_MS;
+      upperClosed[row][col] = closed;
+      int index = row * UPPER_ROW_STRIDE + col;
+      noteActivity();
+      sendButtonToHid(index, closed ? 1 : 0);
+      SendDebug("Front Input - " + String(index) + ":" + String(closed ? 1 : 0));
+    }
+  }
+  digitalWrite(upperRowPins[row], HIGH);
+}
+
+void scanUpperKeypad() {
+  for (int row = 0; row < 4; row++) {
+    digitalWrite(upperKeyRowPins[row], LOW);
+    delayMicroseconds(10);
+    for (int col = 0; col < 3; col++) {
+      bool down = (digitalRead(upperKeyColPins[col]) == LOW);
+      if (down != upperKeyDown[row][col] && millis() > upperKeyHoldoff[row][col]) {
+        upperKeyHoldoff[row][col] = millis() + UPPER_DEBOUNCE_MS;
+        upperKeyDown[row][col] = down;
+        noteActivity();
+        sendKeyToHid(upperKeyMap[row][col], down ? 1 : 0);
+        if (down) SendDebug("Upper key pressed: " + String(upperKeyMap[row][col]));
+      }
+    }
+    digitalWrite(upperKeyRowPins[row], HIGH);
+  }
+}
+// ############################################# END UPPER PANEL SWITCH MATRIX AND KEYPAD ##########################################
 
 // ############################################# BEGIN ADF TUNING ##########################################
 // ADF frequency in kHz. The major knob is 100 kHz per click, the minor knob 1 kHz per click (faster when spun).
@@ -526,9 +636,11 @@ void onKeyChar(char key) {
 // ############################################# END AIRCRAFT ID ENTRY ##########################################
 
 // ############################################# BEGIN MATRIX SCANNER  ##########################################
-// 4 rows (D22-D25) by 3 columns (D26-D28). Rows are driven LOW one at a time, columns are read with pull-ups.
-const int rowPins[4] = { 22, 23, 24, 25 };
-const int colPins[3] = { 26, 27, 28 };
+// The ADF keypad: 4 rows (A7, A6, A5, A4) by 3 columns (A3, A2, A1). Rows are driven LOW one at a time, columns are read with pull-ups.
+// On the Upper ADF Controller PCB the keypad lines come in reversed (keypad line 1 on A7 ... line 7 on A1), so the pins run downwards; the key
+// labels below are unchanged from the old ADF board (found by pressing the keys on that board, then checked on this one).
+const int rowPins[4] = { A7, A6, A5, A4 };
+const int colPins[3] = { A3, A2, A1 };
 const int ROWS = 4;
 const int COLS = 3;
 
@@ -629,7 +741,7 @@ void reportMatrixRaw() {
 #define BRIGHTNESS_SAMPLE_MS 20
 #define BRIGHTNESS_FIRST_SEND_MS 5000  // after start-up, so the other boards are up and the pot position is applied to them
 
-const uint8_t brightnessBoards[] = { 101, 102, 103, 105, 106 };  // Radio, Servo, Upper, Stepper, Dual Stepper (not the USB HID board)
+const uint8_t brightnessBoards[] = { 101, 102, 105, 106 };  // Radio, Servo, Stepper, Dual Stepper (the Upper panel is on this board; not the USB HID board)
 const int brightnessBoardCount = sizeof(brightnessBoards);
 uint8_t pendingBrightnessMask = 0;  // one bit per board still to be told; one board is sent per loop so a dead board cannot stall the knobs
 
@@ -694,9 +806,9 @@ void pollBrightness() {
 // ############################################# END PANEL BRIGHTNESS ##########################################
 
 // ############################################# BEGIN POWER MONITOR ##########################################
-// 12 V rail: R3 47k from the rail, R4 10k to ground, 0.1 uF across R4, midpoint to A15. 5 V rail: the ADC reference (AVcc) measured
+// 12 V rail: R3 47k from the rail, R4 10k to ground, 0.1 uF across R4, midpoint to A8. 5 V rail: the ADC reference (AVcc) measured
 // against the internal 1.1 V band-gap, so the 12 V and pot readings are scaled by the measured 5 V instead of an assumed 5.00.
-#define V12_PIN A15
+#define V12_PIN A8
 #define V12_R_TOP 47000.0f
 #define V12_R_BOTTOM 10000.0f
 #define V12_CAL 1.0f           // multiply to trim the reading against a meter
@@ -897,6 +1009,7 @@ void setup() {
 
   SendDebug("Start Matrix");
   initMatrixScanner();
+  initUpperPanel();
   initAdfSwitches();
   initLandingGearLamps();
   lastActivityMillis = millis();  // the no-data timeout starts from the end of setup()
@@ -915,9 +1028,15 @@ void loop() {
 
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
+      // One board is now both panels, so it answers to both names in the Health Monitor (the old Upper board's name is kept).
+      String voltages = adfHeartbeatVoltages();
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("ADF_PANEL");
-      aliveudp.print(adfHeartbeatVoltages());
+      aliveudp.print(voltages);
+      aliveudp.endPacket();
+      aliveudp.beginPacket(reflectorIP, aliveport);
+      aliveudp.print("UPPER_INPUT");
+      aliveudp.print(voltages);
       aliveudp.endPacket();
     }
     lastalivesent = millis();
@@ -945,6 +1064,8 @@ void loop() {
   }
 
   scanMatrix();
+  scanUpperMatrixRow();
+  scanUpperKeypad();
   pollAdfSwitches();
   serviceHidPulses();
 

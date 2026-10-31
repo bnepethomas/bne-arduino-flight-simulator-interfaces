@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1398)
+    (start_pass_no 1687)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -69,15 +69,15 @@
     /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/NAV2__MJR_A" "/NAV1_MJR_B" "Net-(U1-INT)"
     "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
     /AREF "/RESET_pin" "Net-(D8-A)" "/I2C_SEL_A2" "Net-(Q5-G)" COL0 "/ALT_A" /IORF
-    "/NAV1_MJR_A" "/CATHODE_01" "Net-(U2-ISET)" "/VS_A" "Net-(J42-Pin_1)" "/ANNODE_01" "/COMM1_MJR_A" "/VS_B"
+    "/NAV1_MJR_A" "/CATHODE_01" "Net-(U2-ISET)" "/VS_A" "/H_BRT_DIM" "/ANNODE_01" "/COMM1_MJR_A" "/VS_B"
     COL4 "/ANNODE_03" "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06" "/CATHODE_05"
     "/ANNODE_04" "/CATHODE_07" /SC4 "Net-(J7-Pin_1)" "/CRS_B" "/PIN_21" "/COMM1_VOL" COL2
     "/HDG_A" /SD4 /SC6 "/IAS_A" /SD6 "Net-(A1-D16{slash}TX2)" COL3 "/ALT_B"
     "/HDG_B" "/ANNODE_00" "/CATHODE_00" "/NAV2_VOL" "/NAV1_VOL" "/ANNODE_07" "/ANNODE_05" "/ANNODE_06"
     "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "/AUDIO_OLED_SC" "/AP_OLED_SC" "unconnected-(J12-Pin_30-Pad30)" "/AUDIO_OLED_SD"
     "/COMM1_MJR_B" "/I2C_SEL_A1" "Net-(J42-Pin_4)" "/COMM2_VOL" "Net-(J41-Pin_7)" ROW0 ROW2 "/NAV2_MNR_A"
-    "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" ROW1 "/NAV1_MNR_A" "/COMM2_MNR_A" "Net-(A1-D18{slash}TX1)" "/COMM1_MNR_A" "Net-(J42-Pin_2)"
-    "/NAV1_MNR_B" "Net-(J42-Pin_5)" "/COMM2_MJR_A" "/NAV2_MJR_B" "Net-(J41-Pin_8)" "Net-(J42-Pin_3)" "Net-(J45-Pin_6)" "/I2C_SEL_A0"
+    "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" ROW1 "/NAV1_MNR_A" "/COMM2_MNR_A" "Net-(A1-D18{slash}TX1)" "/COMM1_MNR_A" "/H_TEST"
+    "/NAV1_MNR_B" "Net-(J42-Pin_5)" "/COMM2_MJR_A" "/NAV2_MJR_B" "Net-(J41-Pin_8)" "/H_RESET" "Net-(J45-Pin_6)" "/I2C_SEL_A0"
     "NAV_OLED_SC" "/COMM2_MNR_B" "Net-(J4-Pin_1)" "/BACKLIGHT_PANELS" "unconnected-(J8-Pin_34-Pad34)" "COMM_OLED_SD" "unconnected-(J12-Pin_3-Pad3)" "COMM_OLED_SC"
     "NAV_OLED_SD" "unconnected-(J12-Pin_31-Pad31)" "unconnected-(J12-Pin_34-Pad34)" "unconnected-(J12-Pin_32-Pad32)" "/AP_OLED_SD" "unconnected-(J12-Pin_33-Pad33)"
     (clearance_class "kicad_default")
