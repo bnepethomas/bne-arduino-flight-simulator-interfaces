@@ -1,6 +1,6 @@
 # Project overview
 
-A home-built Bell 206 Jet Ranger cockpit: real instrument gauges, warning lamps, radio and overhead switch panels and small displays, driven from a flight simulator by Arduino Mega boards on a private Ethernet network. The simulator can be Microsoft Flight Simulator 2020 or 2024 (through SimConnect) or Prepar3D / FSX (through FSUIPC).
+A home-built Bell 206 Jet Ranger cockpit: real instrument gauges, warning lamps, radio and overhead switch panels and small displays, driven from a flight simulator by Arduino Mega boards on a private Ethernet network. The simulator can be Microsoft Flight Simulator 2020 or 2024 (through SimConnect), Prepar3D / FSX (through FSUIPC), DCS World (through DCS-BIOS, first the UH-1H Huey) or X-Plane (through its UDP datarefs).
 
 This document ties together the three parts of the repository: the **Arduino sketches**, the **Windows (C#) programs** and the **KiCad PCBs**. It is rebuilt from each project's own `PROGRAM_SUMMARY.md` and from the code, and it covers only the projects that are in use.
 
@@ -45,6 +45,8 @@ All programs are in `Jet Ranger/ C# Code/` (note the leading space in the folder
 |---|---|
 | `FSUIPCWinformsAutoCS` | Bridge for Prepar3D / FSX using FSUIPC offsets; also sends position, altitude, airspeed, heading and the simulator date and time to the GPS interface |
 | `MSFSWinformsAutoCS` | Bridge for MSFS 2020 / 2024 using SimConnect, with estimates for aircraft whose dials do not read the standard variables (FlyInside B206, CowaSim Jet Ranger); also feeds the GPS interface |
+| `DCSBiosBridge` | Bridge for DCS World through the DCS-BIOS export stream, output only: Huey caution lamps (Huey Warning Panel LEDs), radar altitude and, for every aircraft, airspeed, altitude, heading and position, plus needle-position gauges for the UH-1H that still need calibrating; profile files per aircraft |
+| `XPlaneBridge` | Bridge for X-Plane 11 and 12 over the UDP dataref interface (no plugin), output only: a generic profile for any aircraft plus Robinson R22 and Sikorsky S-76 profiles; not yet run against a real X-Plane |
 | `JetRangerHealthMonitor` | Traffic-light dashboard for the 10 second board heartbeats |
 | `StepperVSITester` | Bench tester that sends real and raw values to the stepper boards and the servo board |
 | `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, tests the Auto Pilot and Audio panel LEDs one by one, resets boards, and sets the backlight and LED brightness |
@@ -54,11 +56,11 @@ All programs are in `Jet Ranger/ C# Code/` (note the leading space in the folder
 
 Python helpers in `Jet Ranger Python Code/`: a SimConnect exporter, a UDP test receiver and a wake-on-LAN script. The UDP debug listener (port 27000) is a small Python reflector that prints every board's debug text and can forward a copy to a second listener.
 
-Run **only one bridge at a time**: `FSUIPCWinformsAutoCS` and `MSFSWinformsAutoCS` both listen on UDP 27001.
+Run **only one bridge at a time**: the FSUIPC and MSFS bridges both listen on UDP 27001, and all four send to the same boards. The DCS and X-Plane bridges read their simulator and send only; they do not listen on 27001.
 
 ## PCBs
 
-KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix E, and top-side pictures with the external connectors labelled, for installing the controller boards, are in Appendix F. The boards used by the sketches and programs above are:
+KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix E, top-side pictures with the external connectors labelled, for installing the controller boards, are in Appendix F, and a map of every gauge, lamp and display with the connector that drives it is in Appendix G. The boards used by the sketches and programs above are:
 
 | PCB | Revision | Used by |
 |---|---|---|
@@ -78,7 +80,7 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
-Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the old Upper controller (whose code now runs on the ADF controller), and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger.
+Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the old Upper controller (whose code now runs on the ADF controller), and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger. The DCS bridge (added 31 October 2026) has run against live DCS with the Huey caution lamps; its gauge values and the X-Plane bridge (also 31 October 2026) are tested only with synthetic data from fake simulators.
 
 Backlight control (Servo, Stepper and Dual Stepper boards, and later the Radio controller) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.
 
@@ -87,6 +89,7 @@ Open items:
 - The three servo-board switches reach the HID board but are not sent to the PC itself (the bridges treat an unrecognised string on port 27001 as a radio frequency, so they would need updating first).
 - The Upper switch matrix and Upper keypad now run on the combined ADF and Upper board (merged on 31 October 2026) and have not been bench-tested there. Its Warning Mute and TOT Test connectors are read by the matrix (indexes 88 and 89).
 - The bridges and the SwingTester still send to the retired Upper address 172.16.1.103; the entries should be removed.
+- The 16 Huey needle-position gauges in the DCS bridge are on first-guess scales and need calibrating in flight; the X-Plane bridge has not met a real X-Plane (check units, the R22 and S-76 rotor speed scales and the approximate Huey LEDs); neither sends inputs, port 27001 commands or the landing gear lamps.
 - The estimates in the MSFS bridge for the FlyInside and CowaSim aircraft come from a few dial readings; check them at other power settings.
 - The brightness pot input on A0 of the combined board is switched off in the sketch (`USE_BRIGHTNESS_POT` is 0); its backlight follows `BPWR`, `C,B` and the no-data timeout.
 - The Radio controller emulator still sends a bare frequency for every radio, so only COM1 tunes from it; the real board sends labelled COM2, NAV1 and NAV2 values, which both bridges understand.

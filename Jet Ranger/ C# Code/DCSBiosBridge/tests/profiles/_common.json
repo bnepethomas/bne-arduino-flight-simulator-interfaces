@@ -1,0 +1,12 @@
+{
+  "module": "Common",
+  "jsonFile": "CommonData.json",
+  "aircraft": [],
+  "values": [
+    { "token": "IAS", "control": "IAS_US_INT", "type": "analog", "raw": true, "decimals": 0 },
+    { "token": "ALT", "control": "ALT_MSL_FT", "type": "analog", "raw": true, "decimals": 0 },
+    { "token": "HDG", "control": "HDG_DEG",    "type": "analog", "raw": true, "decimals": 0 },
+    { "token": "LAT", "type": "coordinate", "controls": [ "LAT_DEG", "LAT_SEC", "LAT_SEC_FRAC" ], "dirControl": "LAT_Z_DIR" },
+    { "token": "LON", "type": "coordinate", "controls": [ "LON_DEG", "LON_SEC", "LON_SEC_FRAC" ], "dirControl": "LON_Z_DIR" }
+  ]
+}

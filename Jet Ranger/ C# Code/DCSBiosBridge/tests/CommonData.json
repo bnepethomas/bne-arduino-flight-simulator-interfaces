@@ -1,0 +1,26 @@
+{
+  "Common": {
+    "IAS_US_INT": { "category": "Common", "control_type": "metadata", "description": "Indicated Airspeed KNT (Int)", "identifier": "IAS_US_INT",
+      "outputs": [ { "address": 4136, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "ALT_MSL_FT": { "category": "Common", "control_type": "metadata", "description": "Altitude MSL (ft)", "identifier": "ALT_MSL_FT",
+      "outputs": [ { "address": 4138, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "HDG_DEG": { "category": "Common", "control_type": "metadata", "description": "Heading (Degrees)", "identifier": "HDG_DEG",
+      "outputs": [ { "address": 4140, "mask": 511, "shift_by": 0, "max_value": 360, "type": "integer", "suffix": "", "description": "" } ] },
+    "LAT_DEG": { "category": "Common", "control_type": "metadata", "description": "Latitude Degrees", "identifier": "LAT_DEG",
+      "outputs": [ { "address": 4142, "mask": 255, "shift_by": 0, "max_value": 90, "type": "integer", "suffix": "", "description": "" } ] },
+    "LAT_SEC": { "category": "Common", "control_type": "metadata", "description": "Latitude Seconds", "identifier": "LAT_SEC",
+      "outputs": [ { "address": 4144, "mask": 63, "shift_by": 0, "max_value": 59, "type": "integer", "suffix": "", "description": "" } ] },
+    "LAT_SEC_FRAC": { "category": "Common", "control_type": "metadata", "description": "Latitude Fractional Seconds (divide by 65535)", "identifier": "LAT_SEC_FRAC",
+      "outputs": [ { "address": 4146, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "LAT_Z_DIR": { "category": "Common", "control_type": "display", "description": "Latitude Direction", "identifier": "LAT_Z_DIR",
+      "outputs": [ { "address": 4148, "max_length": 2, "type": "string", "suffix": "", "description": "" } ] },
+    "LON_DEG": { "category": "Common", "control_type": "metadata", "description": "Longitude Degrees", "identifier": "LON_DEG",
+      "outputs": [ { "address": 4150, "mask": 255, "shift_by": 0, "max_value": 180, "type": "integer", "suffix": "", "description": "" } ] },
+    "LON_SEC": { "category": "Common", "control_type": "metadata", "description": "Longitude Seconds", "identifier": "LON_SEC",
+      "outputs": [ { "address": 4152, "mask": 63, "shift_by": 0, "max_value": 59, "type": "integer", "suffix": "", "description": "" } ] },
+    "LON_SEC_FRAC": { "category": "Common", "control_type": "metadata", "description": "Longitude Fractional Seconds (divide by 65535)", "identifier": "LON_SEC_FRAC",
+      "outputs": [ { "address": 4154, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "LON_Z_DIR": { "category": "Common", "control_type": "display", "description": "Longitude Direction", "identifier": "LON_Z_DIR",
+      "outputs": [ { "address": 4156, "max_length": 2, "type": "string", "suffix": "", "description": "" } ] }
+  }
+}

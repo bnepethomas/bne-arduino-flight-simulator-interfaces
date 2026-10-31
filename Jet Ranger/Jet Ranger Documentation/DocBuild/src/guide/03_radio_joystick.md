@@ -37,7 +37,7 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | `NAVCOM1` | Radio power (0 = off): the COM and NAV displays and the panel LEDs go off | `NAVCOM1:1` |
 | `MAINBUS` | Main bus voltage | |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
-| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (1 = on); the bridges do not send these yet | `LED_H_ENG_OIL:1` |
+| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (1 = on); the DCS bridge sends all 20 for the Huey, the X-Plane bridge ten approximations, the FSUIPC and MSFS bridges none | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot panel's OLED | `APHDG:090` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off | `BPWR:1` |
 | `C,B:n` | Brightness 0 to 15: the panel backlight level (0 off) and the panel LEDs' intensity | `C,B:5` |

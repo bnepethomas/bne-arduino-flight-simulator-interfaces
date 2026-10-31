@@ -4,8 +4,9 @@ Windows Forms bridge (.NET 10) that feeds the Jet Ranger panel boards from **DCS
 `FSUIPCWinformsAutoCS` and `MSFSWinformsAutoCS`: it listens to the DCS-BIOS export stream, reads the values an aircraft **profile** names, and sends them to
 the boards in the same `D,TOKEN:value` packets (UDP 13136) the other bridges use, so the board firmware does not change. Run only one bridge at a time.
 
-**Status (31 October 2026): first slice, output only.** It builds (Release, 0 warnings), passes `tests\test_bridge.py` (an end-to-end test with a
-synthetic DCS-BIOS stream) and its Huey profile is filled in and checked against the installed DCS-BIOS. It has **not been run against a live DCS**.
+**Status (31 October 2026): output only.** It builds (Release, 0 warnings) and passes `tests\test_bridge.py` (an end-to-end test with a synthetic DCS-BIOS stream, 14 checks).
+The Huey caution lamps have been run against live DCS (confirmed working by the user); the gauge values added afterwards have been tested with the synthetic stream and the real
+UH-1H and CommonData module files, but **not yet flown against live DCS**.
 DCS-BIOS v0.11.8 was installed on this PC on 31 October 2026 from the official release (`DCS-BIOS_v0.11.8.zip`, GitHub DCS-Skunkworks/dcs-bios) into
 `Saved Games\DCS\Scripts`: the `DCS-BIOS` folder and a new `Export.lua` (one line, `dofile(lfs.writedir() .. [[Scripts\DCS-BIOS\BIOS.lua]])`; there was
 no `Scripts` folder before). It sends nothing to the simulator (no inputs, no port 27001 radio commands yet).
@@ -21,7 +22,8 @@ no `Scripts` folder before). It sends nothing to the simulator (no inputs, no po
    `--json-dir`). DCS-BIOS writes these files itself when DCS runs with it installed. `ModuleDoc` finds every control with an `identifier` and integer `outputs`
    (address, mask, shift_by, max_value); a value is `(word at address & mask) >> shift_by`.
 4. **Profile values.** Each row maps a generic token to a control: `type` `lamp` (1 when the value is at or above `threshold` of its maximum, optionally
-   `invert`) or `analog` (`value / max * scale + offset`, `decimals`). The tokens are the ones the boards already understand: `LED_H_*` (the Huey Warning Panel
+   `invert`), `analog` (the control as a fraction of its maximum, or its raw value with `raw`, times `scale` plus `offset`, `decimals`; or the calibration `points`),
+   `digits` (drum digits, most significant first: the radar altimeter) or `coordinate` (degrees, minutes and fraction of a minute plus the N/S/E/W letter). The tokens are the ones the boards already understand: `LED_H_*` (the Huey Warning Panel
    LEDs), `LED_*`, `PITCH`, `BANK`, `IAS`, `VSI`, `AGL`, `FUEL`, `TQ`, `ITT`, `N1`, `ALT`, `RPMR`, `RPME`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD`,
    `ELECTRICALLOAD`, `TEMP`, `ZULU`, the servo lamp codes, `LAT`, `LON`, `HDG`, and the power inputs `MAINBUS` and `AVIONICSBUS` (volts). A new aircraft is a
    new profile file, not new code.
@@ -51,14 +53,48 @@ No bus voltage is mapped: `DC_VOLTAGE` and `DC_V` are 0 to 1 needle positions wi
 backlights then follow the stream, not the bus). The **Suggest controls** button helps with new profiles. Other controls of interest for later: `MASTER_CAUTION_IND`,
 and the caution panel's `CLP_RESET_TEST_SW` and `CLP_BRIGHT_DIM_SW` rockers (inputs).
 
+## Gauges
+
+**Every aircraft (`profiles\_common.json`, DCS-BIOS CommonData).** A profile file whose name starts with an underscore is added to every aircraft's own profile (the aircraft's
+value for the same token wins), and an aircraft with no profile of its own is read with just these, so **any aircraft** drives the real-unit values: `IAS` (knots, `IAS_US_INT`),
+`ALT` (feet above sea level, `ALT_MSL_FT`, no barometric correction), `HDG` (true degrees, `HDG_DEG`) and `LAT` and `LON` (degrees, from `LAT_DEG`, `LAT_SEC` which is really
+minutes, `LAT_SEC_FRAC` and the direction letter, south and west negative). These go to the Stepper (`IAS`), the Dual Stepper (`ALT`) and the GPS interface on 127.0.0.1:27002
+(`LAT`, `LON`, `ALT`, `IAS`, `HDG`). `CommonData.json` is loaded with the aircraft's file.
+
+**UH-1H (`profiles\UH-1H.json`).** `AGL` (radar altitude, feet) is exact: the radar altimeter's four drum digits `RALT_DIGIT_1` to `4` (thousands first, as DCS-BIOS's own
+display string builds it). The other 16 gauge values are the cockpit gauges' **needle positions** (0 to 1 of the dial: all DCS-BIOS exports for them, `defineFloat` gauge positions)
+and only have a **first-guess scale**: the dial's whole sweep is mapped onto the panel gauge's own range, so the panel needle follows the same fraction of its dial:
+
+| Token | DCS-BIOS control | Provisional mapping of the dial |
+|---|---|---|
+| `VSI` | `VVI_P` | -1 to +1 = -1750 to +1750 ft/min |
+| `TQ` | `TORQUE_PRESS` | 0 to 1 = 0 to 120 percent |
+| `N1` | `GAS_RPM` | 0 to 1 = 0 to 103 percent |
+| `ITT` | `EXHAUST_TEMP` | 0 to 1 = 100 to 900 C |
+| `FUEL` | `FUEL_QTY` | 0 to 1 = 0 to 75 gallons |
+| `OILP`, `OILT` | `ENG_OIL_PRESS`, `ENG_OIL_TEMP` | 0 to 1 = 0 to 150 psi, 0 to 150 C |
+| `XMSNP`, `XMSNT` | `TRANS_OIL_PRESS`, `TRANS_OIL_TEMP` | 0 to 1 = 0 to 150 psi, 0 to 150 C |
+| `RPMR`, `RPME` | `ROTOR_RPM`, `ENG_RPM` | 0 to 1 = 0 to 110 percent |
+| `ELECTRICALLOAD` | `MAIN_GEN_LOAD` | 0 to 1 = 0 to 100 percent |
+| `FUELLOAD` | `FUEL_PRESS` | 0 to 1 = 0 to 30 psi |
+| `PITCH`, `BANK` | `PADI_PITCH`, `PADI_ROLL` | -1 to +1 = -90 to +90 and -180 to +180 degrees (scale and sign unchecked) |
+
+They show **"uncalibrated"** in the Status column. To calibrate one: select its row, fly to a reading, press **Calibrate selected...** and type what the cockpit gauge reads
+(in the units the panel board uses); the bridge stores the needle position DCS-BIOS reports at that moment as a point of that value. Two or more points replace the guess (straight
+lines between the points, held beyond the ends) and the Status shows "calibrated (n points)". The points are kept in `profiles\UH-1H.calibration.json` (token to a list of
+[needle position, value]), next to the profile so its comments are not rewritten; **Clear its calibration** removes a token's points. Not mapped: the DC voltage (`DC_VOLTAGE`,
+`DC_V`: a 0 to 1 needle with no known volts scale, so `MAINBUS` stays unmapped and the aircraft counts as powered while data flows) and the airspeed, altitude and clock gauges
+(the real airspeed and altitude come from CommonData).
+
 ## Testing without DCS
 
 `python tests\test_bridge.py` starts the bridge with `--board-host 127.0.0.1`, sends a fake DCS-BIOS stream for an aircraft "TestModule" (three lamps, an
-airspeed and a bus voltage, each frame split over two datagrams) and checks the board packets: lamp decoding with mask and shift, the radio power rule,
-`BPWR` following the bus, and the airspeed to the Stepper. All 7 checks pass. It stops only the bridge process it started.
+airspeed, a bus voltage, four radar altimeter digits, a calibrated torque needle and an uncalibrated vertical speed needle, plus CommonData's airspeed, altitude,
+heading and position; each frame split over two datagrams) and checks the board packets: lamp decoding with mask and shift, the radio power rule, `BPWR` following the bus,
+the aircraft's value beating the common one, `AGL` from the drum digits, calibration points against the plain scale, the GPS packet, and a fourth phase with an aircraft that
+has no profile (the common values alone still work). All 14 checks pass. It stops only the bridge process it started.
 
 ## Not done yet
 
-Inputs (joystick buttons already work through the USB HID board; DCS-BIOS commands on UDP 7778 would set exact switch positions), the radio commands on port 27001,
-radio frequencies and the autopilot values, a DCS-BIOS profile for any aircraft other than the Huey and the test module, checking the loopback multicast join
-and a first Huey run against a live DCS, documentation chapters in the master document and the User Guide, and the GPS packet (needs `LAT`/`LON` controls).
+Calibrating the 16 needle-position gauges against the live cockpit (they run on first-guess scales), a bus voltage for the Huey, a profile for any other aircraft, inputs (joystick buttons already work through the USB HID board; DCS-BIOS commands on UDP 7778 would set exact switch positions), the radio commands on port 27001,
+radio frequencies and the autopilot values, and the landing gear lamps. (Documentation: master document and User Guide, done 31 October 2026.)

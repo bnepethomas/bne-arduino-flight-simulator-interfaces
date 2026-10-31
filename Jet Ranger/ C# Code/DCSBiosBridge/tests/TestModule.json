@@ -1,14 +1,191 @@
 {
   "Test": {
-    "LAMP_A": { "category": "Test", "control_type": "indicator_light", "description": "Test lamp A", "identifier": "LAMP_A",
-      "outputs": [ { "address": 4096, "mask": 1, "shift_by": 0, "max_value": 1, "type": "integer", "suffix": "", "description": "" } ] },
-    "LAMP_B": { "category": "Test", "control_type": "indicator_light", "description": "Test lamp B", "identifier": "LAMP_B",
-      "outputs": [ { "address": 4096, "mask": 2, "shift_by": 1, "max_value": 1, "type": "integer", "suffix": "", "description": "" } ] },
-    "LAMP_C": { "category": "Test", "control_type": "indicator_light", "description": "Test lamp C", "identifier": "LAMP_C",
-      "outputs": [ { "address": 4098, "mask": 1, "shift_by": 0, "max_value": 1, "type": "integer", "suffix": "", "description": "" } ] },
-    "TEST_IAS": { "category": "Test", "control_type": "analog_gauge", "description": "Test airspeed", "identifier": "TEST_IAS",
-      "outputs": [ { "address": 4100, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
-    "TEST_BUS": { "category": "Test", "control_type": "analog_gauge", "description": "Test bus volts", "identifier": "TEST_BUS",
-      "outputs": [ { "address": 4102, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] }
+    "LAMP_A": {
+      "category": "Test",
+      "control_type": "indicator_light",
+      "description": "Test lamp A",
+      "identifier": "LAMP_A",
+      "outputs": [
+        {
+          "address": 4096,
+          "mask": 1,
+          "shift_by": 0,
+          "max_value": 1,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "LAMP_B": {
+      "category": "Test",
+      "control_type": "indicator_light",
+      "description": "Test lamp B",
+      "identifier": "LAMP_B",
+      "outputs": [
+        {
+          "address": 4096,
+          "mask": 2,
+          "shift_by": 1,
+          "max_value": 1,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "LAMP_C": {
+      "category": "Test",
+      "control_type": "indicator_light",
+      "description": "Test lamp C",
+      "identifier": "LAMP_C",
+      "outputs": [
+        {
+          "address": 4098,
+          "mask": 1,
+          "shift_by": 0,
+          "max_value": 1,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "TEST_IAS": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Test airspeed",
+      "identifier": "TEST_IAS",
+      "outputs": [
+        {
+          "address": 4100,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "TEST_BUS": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Test bus volts",
+      "identifier": "TEST_BUS",
+      "outputs": [
+        {
+          "address": 4102,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "RD1": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Radar altimeter digit 1",
+      "identifier": "RD1",
+      "outputs": [
+        {
+          "address": 4160,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "RD2": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Radar altimeter digit 2",
+      "identifier": "RD2",
+      "outputs": [
+        {
+          "address": 4162,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "RD3": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Radar altimeter digit 3",
+      "identifier": "RD3",
+      "outputs": [
+        {
+          "address": 4164,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "RD4": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Radar altimeter digit 4",
+      "identifier": "RD4",
+      "outputs": [
+        {
+          "address": 4166,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "TEST_TQ": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Test torque needle",
+      "identifier": "TEST_TQ",
+      "outputs": [
+        {
+          "address": 4168,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    },
+    "TEST_VSI": {
+      "category": "Test",
+      "control_type": "analog_gauge",
+      "description": "Test vertical speed needle",
+      "identifier": "TEST_VSI",
+      "outputs": [
+        {
+          "address": 4170,
+          "mask": 65535,
+          "shift_by": 0,
+          "max_value": 65535,
+          "type": "integer",
+          "suffix": "",
+          "description": ""
+        }
+      ]
+    }
   }
 }

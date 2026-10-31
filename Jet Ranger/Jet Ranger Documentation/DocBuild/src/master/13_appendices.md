@@ -39,7 +39,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank, panel LEDs off), 1 = on |
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101 | Auto Pilot panel LEDs (CRS, HDG, IAS, ALT, APPR, FD, BC, AP ENGAGE): 1 = on |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101 | Audio panel LEDs: 1 = on |
-| `LED_H_ENG_OIL`, `LED_H_ENG_ICE`, `LED_H_ENG_ICE_DETECT`, `LED_H_ENG_CHIP`, `LED_H_LEFT_FUEL_BOOST`, `LED_H_ENG_FUEL_PUMP`, `LED_H_RIGHT_FUEL_BOOST`, `LED_H_20_MINUTE_FUEL`, `LED_H_AUX_FUEL_LOW`, `LED_H_XMSN_OIL_PRESS`, `LED_H_XMSN_OIL_HOT`, `LED_H_HYD_PRESS`, `LED_H_ENG_INLET_AIR`, `LED_H_INST_INVERTER`, `LED_H_DC_GENERATOR`, `LED_H_EXT_POWER`, `LED_H_FUEL_FILTER`, `LED_H_GOV_EMER`, `LED_H_CHIP_DETECTOR`, `LED_H_IFF` | Radio .101 | Huey Warning Panel LEDs: 1 = on (not sent by the bridges yet) |
+| `LED_H_ENG_OIL`, `LED_H_ENG_ICE`, `LED_H_ENG_ICE_DETECT`, `LED_H_ENG_CHIP`, `LED_H_LEFT_FUEL_BOOST`, `LED_H_ENG_FUEL_PUMP`, `LED_H_RIGHT_FUEL_BOOST`, `LED_H_20_MINUTE_FUEL`, `LED_H_AUX_FUEL_LOW`, `LED_H_XMSN_OIL_PRESS`, `LED_H_XMSN_OIL_HOT`, `LED_H_HYD_PRESS`, `LED_H_ENG_INLET_AIR`, `LED_H_INST_INVERTER`, `LED_H_DC_GENERATOR`, `LED_H_EXT_POWER`, `LED_H_FUEL_FILTER`, `LED_H_GOV_EMER`, `LED_H_CHIP_DETECTOR`, `LED_H_IFF` | Radio .101 | Huey Warning Panel LEDs: 1 = on (sent by the DCS bridge from the UH-1H caution panel, and ten of them approximately by the X-Plane bridge; not by the FSUIPC and MSFS bridges) |
 | `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, ADF and Upper .107 (the bridges still also send it to the retired Upper .103) | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
 
 ## Lamp tokens (Servo .102)
@@ -136,6 +136,7 @@ This document and the User Guide are generated, not typeset by hand. The sources
 | `build_docs.py`, `run_lo.ps1` | Builds the `.odt` and `.pdf` through LibreOffice's Python interface (`run_lo.ps1 build_docs.py master`) |
 | `export_pcb_images.py`, `pcb_to_jpg.ps1` | The schematic and layout pictures of Appendix E, drawn from the KiCad files |
 | `export_install_views.py`, `trim_to_jpg.ps1` | The installation views of Appendix F (top side, external connectors labelled) and the text of that appendix, drawn from the KiCad layout files |
+| `make_instrument_map.py` | The instrument map of Appendix G (the A3 drawing as SVG, PDF and PNG, the readable crops used in the document, and the text of the appendix) |
 | `pdf2png.ps1`, `montage.ps1`, `svg2png.py` | Helpers for checking pages and diagrams visually |
 
 To change a diagram edit its function and rebuild; to change text edit the Markdown and rebuild. Keep `PROGRAM_SUMMARY.md` files and these sources in step after a code change.

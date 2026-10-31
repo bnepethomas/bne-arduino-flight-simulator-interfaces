@@ -150,7 +150,7 @@ The Huey Warning Panel (20 caution LEDs, three switches) is **wired by hand to t
 - **LEDs:** the 20 LEDs are on the same MAX7219 as the other panels, on its digits 4 to 7 and the same segment lines. They are the tokens `LED_H_xxx` in `panelLedTable[]`, handled exactly like the Auto Pilot and Audio LEDs (`applyPanelLeds()`, the radio-power rule, the `C,B` intensity and `C,LEDTEST`).
 - **Switches:** TEST (A9), RESET (A10) and BRT / DIM (A8) are read with the internal pull-ups (a closed switch is on) and a 30 ms debounce. TEST and RESET are the two positions of one switch, so one of them is always closed. Each is a joystick button on the USB HID board, held while closed: Joystick 4 buttons 20 to 22 (indexes 115 to 117). Nothing is sent during the start-up quiet period, and afterwards the buttons are brought into line with the switches. They are resent when the HID board comes back.
 - **Lamp test:** while TEST is closed all 20 Huey LEDs are lit (only while the radio has power), without any command from the PC.
-- **Bridges:** neither bridge sends `LED_H_xxx` yet, so the LEDs only light from the SwingTester, the lamp test or a test packet. Which simulator state drives each lamp is not decided.
+- **Bridges:** the FSUIPC and MSFS bridges do not send `LED_H_xxx`; the DCS bridge sends all 20 from the UH-1H caution panel (tested live) and the X-Plane bridge sends ten approximations from generic annunciators, otherwise the LEDs only light from the SwingTester, the lamp test or a test packet. For the FSUIPC and MSFS bridges, which simulator state drives each lamp is not decided.
 
 | LED | Token | MAX7219 digit | Segment | | LED | Token | MAX7219 digit | Segment |
 |---|---|---|---|---|---|---|---|---|

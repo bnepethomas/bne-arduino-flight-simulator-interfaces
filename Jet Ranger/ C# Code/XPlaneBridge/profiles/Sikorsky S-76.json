@@ -1,0 +1,9 @@
+{
+  // X-Plane 12's default Sikorsky S-76 (twin turbine helicopter, 28 V electrical system). Added to the common values.
+  // Rotor speed is the prop speed of engine 1 in rpm as a percent of the S-76's 293 rpm main rotor speed (100 percent); check it against the cockpit rotor gauge.
+  "module": "Sikorsky S-76",
+  "values": [
+    { "token": "RPMR",    "dataref": "sim/cockpit2/engine/indicators/prop_speed_rpm[0]", "type": "analog", "scale": 0.34130, "decimals": 1, "note": "100 / 293 percent per rpm" },
+    { "token": "MAINBUS", "dataref": "sim/cockpit2/electrical/bus_volts[0]", "type": "analog", "scale": 1.0, "decimals": 1 }
+  ]
+}

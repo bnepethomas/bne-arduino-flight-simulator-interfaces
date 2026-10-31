@@ -6,6 +6,8 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 |---|---|---|
 | FSUIPCWinformsAutoCS | Bridge for Prepar3D and FSX | Bridges |
 | MSFSWinformsAutoCS | Bridge for MSFS 2020 and 2024 | Bridges |
+| DCSBiosBridge | Bridge for DCS World (through DCS-BIOS) | Bridges |
+| XPlaneBridge | Bridge for X-Plane (through UDP datarefs) | Bridges |
 | JetRangerHealthMonitor | Shows which boards are alive and the last voltage reading from each | Health Monitor |
 | SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot, Audio and Huey panel LEDs, resets boards, sets brightness | SwingTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
@@ -29,6 +31,12 @@ Both bridges have one window with the same layout.
 - **Status bar** (bottom): *Disconnected. Looking for Flight Simulator...* in red until the simulator is found, then the connection and (MSFS) the aircraft name in green, or orange when the simulator is paused or loading and no data arrives.
 
 Run only one bridge at a time.
+
+![DCSBiosBridge (DCS World) with a synthetic UH-1H stream: three caution lights on, the common values and the Huey LED rows (scroll for the gauges)](screenshots/dcs_bridge.png)
+
+![XPlaneBridge (X-Plane) against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
+
+**DCSBiosBridge** and **XPlaneBridge** have a different window: a status line (the DCS-BIOS stream and aircraft, or the X-Plane address and whether data is arriving), a **Profile** box (Automatic, or an aircraft chosen by hand), **Reload profiles**, a **Send to the boards** check box, a table of every token with its source control or dataref, the raw value, the value sent and the board, and a log at the bottom. The DCS bridge also has **Suggest controls** (finds controls for a new profile), **Calibrate selected...** and **Clear its calibration** for the Huey needle gauges; the X-Plane bridge has **Search datarefs...**. See Running the DCS bridge and Running the X-Plane bridge.
 
 ## Health Monitor
 

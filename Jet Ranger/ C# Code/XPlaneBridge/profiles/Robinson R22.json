@@ -1,0 +1,11 @@
+{
+  // X-Plane 12's default Robinson R22 Beta II (a small piston helicopter, 14 V electrical system). Added to the common values.
+  // Rotor speed is the prop speed of engine 1 in rpm as a percent of the R22's 530 rpm main rotor speed (100 percent). The bus voltage is doubled so the 14 V system
+  // reads like the 28 V system the Jet Ranger boards expect (their thresholds are 20 V for the gauges and the backlights and 24 V for the radio): with the battery off
+  // the backlights go out, as on the real panel.
+  "module": "Robinson R22",
+  "values": [
+    { "token": "RPMR",    "dataref": "sim/cockpit2/engine/indicators/prop_speed_rpm[0]", "type": "analog", "scale": 0.18868, "decimals": 1, "note": "100 / 530 percent per rpm" },
+    { "token": "MAINBUS", "dataref": "sim/cockpit2/electrical/bus_volts[0]", "type": "analog", "scale": 2.0, "decimals": 1 }
+  ]
+}

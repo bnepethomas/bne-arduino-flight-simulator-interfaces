@@ -1,0 +1,1474 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 1680 1188">
+<defs>
+<linearGradient id="bezel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="0.35" stop-color="#9A9A98"/><stop offset="0.7" stop-color="#E3E3E0"/><stop offset="1" stop-color="#6E6E6C"/></linearGradient>
+<linearGradient id="bezelR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F4F2"/><stop offset="0.4" stop-color="#8C8C8A"/><stop offset="1" stop-color="#DADAD7"/></linearGradient>
+<radialGradient id="face" cx="0.4" cy="0.35" r="0.9"><stop offset="0" stop-color="#2B2B2B"/><stop offset="1" stop-color="#0B0B0B"/></radialGradient>
+<radialGradient id="glass" cx="0.3" cy="0.25" r="0.8"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/><stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.05"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+<radialGradient id="hub" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#EDEDED"/><stop offset="1" stop-color="#4A4A4A"/></radialGradient>
+<radialGradient id="lens_amber" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="#FFF1B0"/><stop offset="0.55" stop-color="#FFB300"/><stop offset="1" stop-color="#B96A00"/></radialGradient>
+<radialGradient id="lens_red" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="#FFC4B8"/><stop offset="0.55" stop-color="#F2331F"/><stop offset="1" stop-color="#8F1208"/></radialGradient>
+<radialGradient id="lens_green" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="#D5FFC9"/><stop offset="0.55" stop-color="#3FD13F"/><stop offset="1" stop-color="#14721C"/></radialGradient>
+<radialGradient id="lens_blue" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="#CFE6FF"/><stop offset="0.55" stop-color="#3C8CFF"/><stop offset="1" stop-color="#1448A8"/></radialGradient>
+<radialGradient id="lens_white" cx="0.5" cy="0.45" r="0.75"><stop offset="0" stop-color="#FFFFFF"/><stop offset="0.55" stop-color="#EDEDED"/><stop offset="1" stop-color="#9A9A9A"/></radialGradient>
+<linearGradient id="housing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A4D52"/><stop offset="1" stop-color="#26282B"/></linearGradient>
+<linearGradient id="pcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F6B45"/><stop offset="1" stop-color="#134A2F"/></linearGradient>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5BA8E8"/><stop offset="1" stop-color="#9ACBF2"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A5733E"/><stop offset="1" stop-color="#6B4423"/></linearGradient>
+<filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1.2" dy="1.6" stdDeviation="1.6" flood-color="#000" flood-opacity="0.35"/></filter>
+<filter id="glow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="1680" height="1188" fill="#FFFFFF"/>
+<rect x="8" y="8" width="1664" height="1172" rx="10" fill="none" stroke="#BBB" stroke-width="1.2"/>
+<text x="28.0" y="46.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#1A1A1A" text-anchor="start" >Jet Ranger cockpit: gauges, lamps and displays, and the controller board that drives each one</text>
+<text x="28.0" y="68.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555" text-anchor="start" >Instrument map, A3 landscape. Needles and lamps are drawn at illustrative readings. Cables end at the named connector on the board (references as printed on the PCBs).</text>
+<text x="32.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#444" text-anchor="start" >STEPPER GAUGES  (X27 steppers)</text>
+<text x="384.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#444" text-anchor="start" >DUAL STEPPER GAUGES  (dual instruments + altimeter)</text>
+<text x="738.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#444" text-anchor="start" >ATTITUDE INDICATOR  (pitch and bank servos)</text>
+<text x="1038.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#444" text-anchor="start" >HUEY WARNING PANEL</text>
+<rect x="1036.0" y="300.0" width="448.0" height="160.0" rx="6" fill="#FAFAF8" stroke="#2F6FEB" stroke-width="1.1"/>
+<text x="1044.0" y="313.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >HUEY WARNING PANEL  (20 caution lamps on MAX7219 digits 4 - 7)</text>
+<text x="1476.0" y="313.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#777" text-anchor="end" >connectors J20 - J23</text>
+<rect x="388.0" y="782.0" width="322.0" height="186.0" rx="6" fill="#FAFAF8" stroke="#6A3FC7" stroke-width="1.1"/>
+<text x="396.0" y="960.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >DISPLAYS  (4 OLEDs via a TCA9548A multiplexer)</text>
+<text x="702.0" y="960.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#777" text-anchor="end" >I2C D20 / D21</text>
+<rect x="738.0" y="782.0" width="276.0" height="332.0" rx="6" fill="#FAFAF8" stroke="#2E7D32" stroke-width="1.1"/>
+<text x="746.0" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >ANNUNCIATOR LAMPS  (Mega pins A1 - A15)</text>
+<rect x="1036.0" y="782.0" width="145.3" height="300.0" rx="6" fill="#FAFAF8" stroke="#2F6FEB" stroke-width="1.1"/>
+<text x="1044.0" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >COM AND NAV PANEL</text>
+<text x="1108.7" y="978.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#666" text-anchor="middle" >COM and NAV frequency OLEDs</text>
+<text x="1108.7" y="992.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#666" text-anchor="middle" >(8 encoders and 4 swap</text>
+<text x="1108.7" y="1006.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#666" text-anchor="middle" >switches are inputs, not drawn)</text>
+<rect x="1187.3" y="782.0" width="145.3" height="300.0" rx="6" fill="#FAFAF8" stroke="#2F6FEB" stroke-width="1.1"/>
+<text x="1195.3" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >AUTO PILOT PANEL</text>
+<text x="1324.7" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#777" text-anchor="end" >8 LEDs</text>
+<rect x="1338.7" y="782.0" width="145.3" height="300.0" rx="6" fill="#FAFAF8" stroke="#2F6FEB" stroke-width="1.1"/>
+<text x="1346.7" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >AUDIO PANEL</text>
+<text x="1476.0" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#777" text-anchor="end" >11 LEDs</text>
+<rect x="1502.0" y="782.0" width="156.0" height="300.0" rx="6" fill="#FAFAF8" stroke="#00796B" stroke-width="1.1"/>
+<text x="1510.0" y="795.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >ADF PANEL</text>
+<text x="1580.0" y="896.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#444" text-anchor="middle" >LANDING GEAR</text>
+<text x="1504.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#444" text-anchor="start" >ADF PANEL</text>
+<text x="1504.0" y="128.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#666" text-anchor="start" >Switches, knobs,</text>
+<text x="1504.0" y="142.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#666" text-anchor="start" >keypads and the</text>
+<text x="1504.0" y="156.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#666" text-anchor="start" >USB HID board are</text>
+<text x="1504.0" y="170.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#666" text-anchor="start" >inputs: not drawn.</text>
+<rect x="30.0" y="710.0" width="332.0" height="392.0" rx="6" fill="#FAFAF8" stroke="#AAA" stroke-width="1.1"/>
+<text x="38.0" y="723.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >HOW THE VALUES ARRIVE</text>
+<rect x="42.0" y="736.0" width="308.0" height="52" rx="6" fill="#E8EEFB" stroke="#888" stroke-width="0.9"/>
+<text x="196.0" y="757.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#222" text-anchor="middle" >SIMULATOR</text>
+<text x="196.0" y="774.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#555" text-anchor="middle" >MSFS 2020 / 2024, Prepar3D, DCS World</text>
+<path d="M 196.0 788.0 v 14" stroke="#555" stroke-width="2"/><polygon points="191.0,798.0 201.0,798.0 196.0,806.0" fill="#555"/>
+<rect x="42.0" y="808.0" width="308.0" height="52" rx="6" fill="#E8EEFB" stroke="#888" stroke-width="0.9"/>
+<text x="196.0" y="829.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#222" text-anchor="middle" >BRIDGE PROGRAM  (on the PC)</text>
+<text x="196.0" y="846.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#555" text-anchor="middle" >FSUIPC, MSFS or DCS-BIOS bridge</text>
+<path d="M 196.0 860.0 v 14" stroke="#555" stroke-width="2"/><polygon points="191.0,870.0 201.0,870.0 196.0,878.0" fill="#555"/>
+<rect x="42.0" y="880.0" width="308.0" height="52" rx="6" fill="#EDEDED" stroke="#888" stroke-width="0.9"/>
+<text x="196.0" y="901.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#222" text-anchor="middle" >ETHERNET  172.16.1.0/24</text>
+<text x="196.0" y="918.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#555" text-anchor="middle" >UDP 13136:  D,IAS:93.4,PITCH:4.5,...</text>
+<path d="M 196.0 932.0 v 14" stroke="#555" stroke-width="2"/><polygon points="191.0,942.0 201.0,942.0 196.0,950.0" fill="#555"/>
+<rect x="42.0" y="952.0" width="308.0" height="52" rx="6" fill="#E3F2E8" stroke="#888" stroke-width="0.9"/>
+<text x="196.0" y="973.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#222" text-anchor="middle" >CONTROLLER BOARD</text>
+<text x="196.0" y="990.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#555" text-anchor="middle" >Mega 2560 + W5500, calibration tables</text>
+<path d="M 196.0 1004.0 v 14" stroke="#555" stroke-width="2"/><polygon points="191.0,1014.0 201.0,1014.0 196.0,1022.0" fill="#555"/>
+<rect x="42.0" y="1024.0" width="308.0" height="52" rx="6" fill="#FFF3DC" stroke="#888" stroke-width="0.9"/>
+<text x="196.0" y="1045.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10.5" font-weight="700" fill="#222" text-anchor="middle" >CABLE TO THE CONNECTOR</text>
+<text x="196.0" y="1062.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.6" font-weight="400" fill="#555" text-anchor="middle" >stepper coils, servos, lamps, OLEDs</text>
+<text x="196.0" y="1098.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="400" fill="#777" text-anchor="middle" >Each board takes real units and does its own calibration.</text>
+<rect x="1036.0" y="86.0" width="448.0" height="180.0" rx="6" fill="#FAFAF8" stroke="#AAA" stroke-width="1.1"/>
+<text x="1044.0" y="99.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="10" font-weight="700" fill="#222" text-anchor="start" >KEY</text>
+<g filter="url(#shadow)">
+<circle cx="1072.0" cy="142.0" r="24.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="1072.0" cy="142.0" r="21.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="1072.0" cy="142.0" r="20.6" fill="url(#face)"/>
+<line x1="1058.8" y1="155.2" x2="1061.1" y2="152.9" stroke="#F2F2F2" stroke-width="0.96"/>
+<text x="1063.2" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="1072.0" y1="123.3" x2="1072.0" y2="126.6" stroke="#F2F2F2" stroke-width="0.96"/>
+<text x="1072.0" y="131.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >5</text>
+<line x1="1085.2" y1="155.2" x2="1082.9" y2="152.9" stroke="#F2F2F2" stroke-width="0.96"/>
+<text x="1080.8" y="152.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >10</text>
+<text x="1072.0" y="155.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.4" font-weight="700" fill="#E8E8E8" text-anchor="middle" ></text>
+<text x="1072.0" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="3.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" ></text>
+<polygon points="1063.9,126.2 1073.0,141.5 1073.7,145.4 1071.0,142.5" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="1072.0" cy="142.0" r="2.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="1067.7" cy="134.3" rx="13.2" ry="9.6" fill="url(#glass)"/>
+<text x="1104.0" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#1F1F1F" text-anchor="start" >Dial gauge (X27 stepper)</text>
+<text x="1104.0" y="149.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#666" text-anchor="start" >token in the coloured pill</text>
+<g filter="url(#shadow)"><circle cx="1262.0" cy="142.0" r="26.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/></g>
+<circle cx="1262.0" cy="142.0" r="23.4" fill="#111"/>
+<clipPath id="adiclip1"><circle cx="1262.0" cy="142.0" r="21.8"/></clipPath>
+<g clip-path="url(#adiclip1)"><g transform="rotate(12 1262.0 142.0) translate(0 3.1)">
+<rect x="1210.0" y="90.0" width="104.0" height="52.0" fill="url(#sky)"/>
+<rect x="1210.0" y="142.0" width="104.0" height="52.0" fill="url(#ground)"/>
+<line x1="1210.0" y1="142.0" x2="1314.0" y2="142.0" stroke="#fff" stroke-width="1.4"/>
+<line x1="1251.6" y1="158.6" x2="1272.4" y2="158.6" stroke="#fff" stroke-width="0.9"/>
+<line x1="1254.7" y1="150.3" x2="1269.3" y2="150.3" stroke="#fff" stroke-width="0.9"/>
+<line x1="1254.7" y1="133.7" x2="1269.3" y2="133.7" stroke="#fff" stroke-width="0.9"/>
+<line x1="1251.6" y1="125.4" x2="1272.4" y2="125.4" stroke="#fff" stroke-width="0.9"/>
+</g></g>
+<line x1="1243.1" y1="131.1" x2="1245.3" y2="132.4" stroke="#fff" stroke-width="1.4"/>
+<line x1="1246.6" y1="126.6" x2="1247.7" y2="127.7" stroke="#fff" stroke-width="0.8"/>
+<line x1="1251.1" y1="123.1" x2="1252.4" y2="125.3" stroke="#fff" stroke-width="1.4"/>
+<line x1="1254.5" y1="121.5" x2="1255.1" y2="122.9" stroke="#fff" stroke-width="0.8"/>
+<line x1="1258.2" y1="120.5" x2="1258.5" y2="122.0" stroke="#fff" stroke-width="0.8"/>
+<line x1="1262.0" y1="120.2" x2="1262.0" y2="122.8" stroke="#fff" stroke-width="1.4"/>
+<line x1="1265.8" y1="120.5" x2="1265.5" y2="122.0" stroke="#fff" stroke-width="0.8"/>
+<line x1="1269.5" y1="121.5" x2="1268.9" y2="122.9" stroke="#fff" stroke-width="0.8"/>
+<line x1="1272.9" y1="123.1" x2="1271.6" y2="125.3" stroke="#fff" stroke-width="1.4"/>
+<line x1="1277.4" y1="126.6" x2="1276.3" y2="127.7" stroke="#fff" stroke-width="0.8"/>
+<line x1="1280.9" y1="131.1" x2="1278.7" y2="132.4" stroke="#fff" stroke-width="1.4"/>
+<polygon points="1266.0,123.2 1264.7,119.8 1268.5,120.6" fill="#FFD43B" stroke="#222" stroke-width="0.4"/>
+<path d="M 1245.9 142.0 h 8.8 M 1269.3 142.0 h 8.8" stroke="#FFC400" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1262.0 141.0 v 3.1" stroke="#FFC400" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="1262.0" cy="142.0" r="1.3" fill="#FFC400" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="1256.8" cy="132.9" rx="14.3" ry="10.4" fill="url(#glass)"/>
+<text x="1294.0" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#1F1F1F" text-anchor="start" >Attitude indicator</text>
+<text x="1294.0" y="149.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#666" text-anchor="start" >(2 servos)</text>
+<g filter="url(#shadow)"><rect x="1050.0" y="182.0" width="62.0" height="32.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1052.2" y="184.2" width="57.6" height="27.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1053.2" y="185.0" width="55.6" height="10.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1081.0" y="196.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="700" fill="#2B1A00" text-anchor="middle" >CAUTION</text>
+<text x="1081.0" y="205.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8" font-weight="700" fill="#2B1A00" text-anchor="middle" >LAMP</text>
+<text x="1120.0" y="194.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#1F1F1F" text-anchor="start" >Legend lamp on a Mega pin</text>
+<text x="1120.0" y="207.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#666" text-anchor="start" >or a MAX7219 LED</text>
+<g filter="url(#shadow)"><rect x="1262.0" y="182.0" width="64.0" height="32.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1265.0" y="185.0" width="58.0" height="26.0" rx="1.5" fill="#02060A"/>
+<text x="1294.0" y="195.5" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="9" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">ADF 340</text>
+<text x="1294.0" y="206.5" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="9" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">OLED</text>
+<text x="1334.0" y="194.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#1F1F1F" text-anchor="start" >OLED display</text>
+<text x="1334.0" y="207.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="400" fill="#666" text-anchor="start" >(I2C, 2 lines)</text>
+<path d="M 1050.0 242.0 h 18" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/><path d="M 1050.0 242.0 h 18" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1074.0" y="245.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.2" font-weight="400" fill="#1F1F1F" text-anchor="start" >Stepper</text>
+<path d="M 1138.0 242.0 h 18" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/><path d="M 1138.0 242.0 h 18" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1162.0" y="245.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.2" font-weight="400" fill="#1F1F1F" text-anchor="start" >Dual Stepper</text>
+<path d="M 1226.0 242.0 h 18" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/><path d="M 1226.0 242.0 h 18" stroke="#2E7D32" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1250.0" y="245.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.2" font-weight="400" fill="#1F1F1F" text-anchor="start" >Servo</text>
+<path d="M 1314.0 242.0 h 18" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/><path d="M 1314.0 242.0 h 18" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1338.0" y="245.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.2" font-weight="400" fill="#1F1F1F" text-anchor="start" >Radio</text>
+<path d="M 1402.0 242.0 h 18" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/><path d="M 1402.0 242.0 h 18" stroke="#00796B" stroke-width="2.6" stroke-linecap="round"/>
+<text x="1426.0" y="245.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.2" font-weight="400" fill="#1F1F1F" text-anchor="start" >ADF + Upper</text>
+<text x="1476.0" y="258.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.2" font-weight="400" fill="#777" text-anchor="end" >Red bar = pin 1.  J = connector, SW = switch.  Lens colours are illustrative.</text>
+<text x="1036.0" y="268.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="1" font-weight="400" fill="#1F1F1F" text-anchor="middle" ></text>
+<g filter="url(#shadow)"><rect x="30.0" y="540.0" width="332.0" height="122.0" rx="7" fill="url(#pcb)" stroke="#0A2A1A" stroke-width="1.4"/></g>
+<rect x="36.0" y="545.0" width="320.0" height="5" rx="2" fill="#C77700"/>
+<text x="196.0" y="576.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" >STEPPER CONTROLLER</text>
+<text x="196.0" y="592.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#DDFBE8" text-anchor="middle" >172.16.1.105</text>
+<text x="196.0" y="607.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="7.6" font-weight="400" fill="#BFE9CE" text-anchor="middle" >JET_RANGER_STEPPER_CONTROLLER</text>
+<text x="196.0" y="620.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7.2" font-weight="400" fill="#9FD7B3" text-anchor="middle" >Arduino Mega 2560 + W5500   |   Jet Ranger 13 Stepper v1.6</text>
+<rect x="44.0" y="630.0" width="304.0" height="22.0" rx="3" fill="none" stroke="#7FC79B" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="196.0" y="644.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="400" fill="#8CCFA7" text-anchor="middle" letter-spacing="1" >ETHERNET  172.16.1.0/24</text>
+<g filter="url(#shadow)"><rect x="382.0" y="540.0" width="334.0" height="122.0" rx="7" fill="url(#pcb)" stroke="#0A2A1A" stroke-width="1.4"/></g>
+<rect x="388.0" y="545.0" width="322.0" height="5" rx="2" fill="#6A3FC7"/>
+<text x="549.0" y="576.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" >DUAL STEPPER CONTROLLER</text>
+<text x="549.0" y="592.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#DDFBE8" text-anchor="middle" >172.16.1.106</text>
+<text x="549.0" y="607.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="7.6" font-weight="400" fill="#BFE9CE" text-anchor="middle" >JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER</text>
+<text x="549.0" y="620.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7.2" font-weight="400" fill="#9FD7B3" text-anchor="middle" >Arduino Mega 2560 + W5500   |   OLED Dual Stepper v1.5</text>
+<rect x="396.0" y="630.0" width="306.0" height="22.0" rx="3" fill="none" stroke="#7FC79B" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="549.0" y="644.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="400" fill="#8CCFA7" text-anchor="middle" letter-spacing="1" >ETHERNET  172.16.1.0/24</text>
+<g filter="url(#shadow)"><rect x="736.0" y="540.0" width="280.0" height="122.0" rx="7" fill="url(#pcb)" stroke="#0A2A1A" stroke-width="1.4"/></g>
+<rect x="742.0" y="545.0" width="268.0" height="5" rx="2" fill="#2E7D32"/>
+<text x="876.0" y="576.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" >SERVO CONTROLLER</text>
+<text x="876.0" y="592.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#DDFBE8" text-anchor="middle" >172.16.1.102</text>
+<text x="876.0" y="607.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="7.6" font-weight="400" fill="#BFE9CE" text-anchor="middle" >JET_RANGER_SERVO_CONTROLLER</text>
+<text x="876.0" y="620.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7.2" font-weight="400" fill="#9FD7B3" text-anchor="middle" >Arduino Mega 2560 + W5500   |   Front Panel Servo v1.4</text>
+<rect x="750.0" y="630.0" width="252.0" height="22.0" rx="3" fill="none" stroke="#7FC79B" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="876.0" y="644.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="400" fill="#8CCFA7" text-anchor="middle" letter-spacing="1" >ETHERNET  172.16.1.0/24</text>
+<g filter="url(#shadow)"><rect x="1036.0" y="540.0" width="448.0" height="122.0" rx="7" fill="url(#pcb)" stroke="#0A2A1A" stroke-width="1.4"/></g>
+<rect x="1042.0" y="545.0" width="436.0" height="5" rx="2" fill="#2F6FEB"/>
+<text x="1260.0" y="576.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" >RADIO CONTROLLER</text>
+<text x="1260.0" y="592.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#DDFBE8" text-anchor="middle" >172.16.1.101</text>
+<text x="1260.0" y="607.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="7.6" font-weight="400" fill="#BFE9CE" text-anchor="middle" >JET_RANGER_RADIO_CONTROLLER</text>
+<text x="1260.0" y="620.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7.2" font-weight="400" fill="#9FD7B3" text-anchor="middle" >Arduino Mega 2560 + W5500   |   Radio Auto Pilot v1.4</text>
+<rect x="1050.0" y="630.0" width="420.0" height="22.0" rx="3" fill="none" stroke="#7FC79B" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="1260.0" y="644.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="400" fill="#8CCFA7" text-anchor="middle" letter-spacing="1" >ETHERNET  172.16.1.0/24</text>
+<g filter="url(#shadow)"><rect x="1502.0" y="540.0" width="156.0" height="122.0" rx="7" fill="url(#pcb)" stroke="#0A2A1A" stroke-width="1.4"/></g>
+<rect x="1508.0" y="545.0" width="144.0" height="5" rx="2" fill="#00796B"/>
+<text x="1580.0" y="576.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ADF + UPPER</text>
+<text x="1580.0" y="592.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#DDFBE8" text-anchor="middle" >172.16.1.107</text>
+<text x="1580.0" y="607.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="7.6" font-weight="400" fill="#BFE9CE" text-anchor="middle" >JET_RANGER_ADF_CONTROLLER</text>
+<text x="1580.0" y="620.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7.2" font-weight="400" fill="#9FD7B3" text-anchor="middle" >Arduino Mega 2560 + W5500   |   Upper ADF v1.0</text>
+<rect x="1516.0" y="630.0" width="128.0" height="22.0" rx="3" fill="none" stroke="#7FC79B" stroke-width="0.6" stroke-dasharray="3 2"/>
+<text x="1580.0" y="644.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="400" fill="#8CCFA7" text-anchor="middle" letter-spacing="1" >ETHERNET  172.16.1.0/24</text>
+<path d="M 86.0 197.9 C 86.0 386.1 72.6 351.9 72.6 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 141.0 311.9 C 141.0 437.4 113.7 414.6 113.7 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 141.0 425.9 C 141.0 488.7 154.9 477.3 154.9 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 196.0 197.9 C 196.0 386.1 196.0 351.9 196.0 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 251.0 311.9 C 251.0 437.4 237.1 414.6 237.1 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 251.0 425.9 C 251.0 488.7 278.3 477.3 278.3 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 306.0 197.9 C 306.0 386.1 319.4 351.9 319.4 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 468.0 200.5 C 468.0 387.2 428.2 353.3 428.2 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 468.0 314.5 C 468.0 438.5 476.5 416.0 476.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 537.0 430.0 C 537.0 490.5 524.8 479.5 524.8 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 563.0 428.0 C 563.0 489.6 573.2 478.4 573.2 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 630.0 200.5 C 630.0 387.2 621.5 353.3 621.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 630.0 314.5 C 630.0 438.5 669.8 416.0 669.8 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 846.0 346.0 C 846.0 452.7 846.5 433.3 846.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 906.0 346.0 C 906.0 452.7 905.5 433.3 905.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1192.8 460.0 C 1192.8 504.0 1209.5 496.0 1209.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1327.2 460.0 C 1327.2 504.0 1310.5 496.0 1310.5 540.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 472.5 812.0 C 472.5 729.5 440.2 744.5 440.2 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 472.5 878.0 C 472.5 759.2 512.8 780.8 512.8 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 625.5 812.0 C 625.5 729.5 585.2 744.5 585.2 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 625.5 878.0 C 625.5 759.2 657.8 780.8 657.8 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 820.8 782.0 C 820.8 716.0 846.5 728.0 846.5 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 931.2 782.0 C 931.2 716.0 905.5 728.0 905.5 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1108.7 782.0 C 1108.7 716.0 1125.3 728.0 1125.3 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1260.0 782.0 C 1260.0 716.0 1260.0 728.0 1260.0 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1411.3 782.0 C 1411.3 716.0 1394.7 728.0 1394.7 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 1580.0 782.0 C 1580.0 716.0 1580.0 728.0 1580.0 662.0" fill="none" stroke="#1d1d1d" stroke-width="4.6" stroke-linecap="round"/>
+<path d="M 86.0 197.9 C 86.0 386.1 72.6 351.9 72.6 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 141.0 311.9 C 141.0 437.4 113.7 414.6 113.7 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 141.0 425.9 C 141.0 488.7 154.9 477.3 154.9 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 196.0 197.9 C 196.0 386.1 196.0 351.9 196.0 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 251.0 311.9 C 251.0 437.4 237.1 414.6 237.1 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 251.0 425.9 C 251.0 488.7 278.3 477.3 278.3 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 306.0 197.9 C 306.0 386.1 319.4 351.9 319.4 540.0" fill="none" stroke="#C77700" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 468.0 200.5 C 468.0 387.2 428.2 353.3 428.2 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 468.0 314.5 C 468.0 438.5 476.5 416.0 476.5 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 537.0 430.0 C 537.0 490.5 524.8 479.5 524.8 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 563.0 428.0 C 563.0 489.6 573.2 478.4 573.2 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 630.0 200.5 C 630.0 387.2 621.5 353.3 621.5 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 630.0 314.5 C 630.0 438.5 669.8 416.0 669.8 540.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 846.0 346.0 C 846.0 452.7 846.5 433.3 846.5 540.0" fill="none" stroke="#2E7D32" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 906.0 346.0 C 906.0 452.7 905.5 433.3 905.5 540.0" fill="none" stroke="#2E7D32" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1192.8 460.0 C 1192.8 504.0 1209.5 496.0 1209.5 540.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1327.2 460.0 C 1327.2 504.0 1310.5 496.0 1310.5 540.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 472.5 812.0 C 472.5 729.5 440.2 744.5 440.2 662.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 472.5 878.0 C 472.5 759.2 512.8 780.8 512.8 662.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 625.5 812.0 C 625.5 729.5 585.2 744.5 585.2 662.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 625.5 878.0 C 625.5 759.2 657.8 780.8 657.8 662.0" fill="none" stroke="#6A3FC7" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 820.8 782.0 C 820.8 716.0 846.5 728.0 846.5 662.0" fill="none" stroke="#2E7D32" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 931.2 782.0 C 931.2 716.0 905.5 728.0 905.5 662.0" fill="none" stroke="#2E7D32" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1108.7 782.0 C 1108.7 716.0 1125.3 728.0 1125.3 662.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1260.0 782.0 C 1260.0 716.0 1260.0 728.0 1260.0 662.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1411.3 782.0 C 1411.3 716.0 1394.7 728.0 1394.7 662.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 1580.0 782.0 C 1580.0 716.0 1580.0 728.0 1580.0 662.0" fill="none" stroke="#00796B" stroke-width="2.6" stroke-linecap="round"/>
+<g filter="url(#shadow)">
+<circle cx="86.0" cy="158.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="86.0" cy="158.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="86.0" cy="158.0" r="40.4" fill="url(#face)"/>
+<line x1="60.1" y1="183.9" x2="64.7" y2="179.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="53.0" y1="173.9" x2="55.9" y2="172.5" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="68.7" y="178.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="49.6" y1="162.1" x2="56.1" y2="161.4" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="50.3" y1="149.8" x2="53.5" y2="150.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="61.7" y="163.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >20</text>
+<line x1="55.0" y1="138.5" x2="60.5" y2="142.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="63.1" y1="129.3" x2="65.2" y2="131.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="65.3" y="147.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >40</text>
+<line x1="73.9" y1="123.4" x2="76.1" y2="129.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="86.0" y1="121.3" x2="86.0" y2="124.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="77.9" y="137.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >60</text>
+<line x1="98.1" y1="123.4" x2="95.9" y2="129.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="108.9" y1="129.3" x2="106.8" y2="131.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="94.1" y="137.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >80</text>
+<line x1="117.0" y1="138.5" x2="111.5" y2="142.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="121.7" y1="149.8" x2="118.5" y2="150.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="106.7" y="147.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="122.4" y1="162.1" x2="115.9" y2="161.4" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="119.0" y1="173.9" x2="116.1" y2="172.5" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="110.3" y="163.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >120</text>
+<line x1="111.9" y1="183.9" x2="107.3" y2="179.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="103.3" y="178.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >140</text>
+<text x="86.0" y="184.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >AIRSPEED</text>
+<text x="86.0" y="192.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >KNOTS</text>
+<polygon points="97.5,125.2 88.0,158.7 83.5,165.1 84.0,157.3" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="86.0" cy="158.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="77.5" cy="143.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="75.1" y="208.5" width="21.8" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="86.0" y="216.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >IAS</text>
+<rect x="60.0" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="63.0" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="66.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="70.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="74.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="78.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="82.2" cy="542.0" r="1.2" fill="#444"/>
+<rect x="60.0" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="80.1" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 80.1 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J26 AIRSPEED</text>
+<g filter="url(#shadow)">
+<circle cx="141.0" cy="272.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="141.0" cy="272.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="141.0" cy="272.0" r="40.4" fill="url(#face)"/>
+<line x1="115.1" y1="297.9" x2="119.7" y2="293.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="107.1" y1="286.0" x2="110.2" y2="284.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="123.7" y="292.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="104.3" y1="272.0" x2="110.9" y2="272.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="107.1" y1="258.0" x2="110.2" y2="259.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="116.6" y="274.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >20</text>
+<line x1="115.1" y1="246.1" x2="119.7" y2="250.7" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="127.0" y1="238.1" x2="128.2" y2="241.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="123.7" y="257.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >40</text>
+<line x1="141.0" y1="235.3" x2="141.0" y2="241.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="155.0" y1="238.1" x2="153.8" y2="241.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="141.0" y="250.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >60</text>
+<line x1="166.9" y1="246.1" x2="162.3" y2="250.7" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="174.9" y1="258.0" x2="171.8" y2="259.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="158.3" y="257.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >80</text>
+<line x1="177.7" y1="272.0" x2="171.1" y2="272.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="174.9" y1="286.0" x2="171.8" y2="284.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="165.4" y="274.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="166.9" y1="297.9" x2="162.3" y2="293.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="158.3" y="292.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >120</text>
+<text x="141.0" y="298.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >TORQUE</text>
+<text x="141.0" y="306.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >PERCENT</text>
+<polygon points="143.7,237.3 143.1,272.2 140.4,279.5 138.9,271.8" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="141.0" cy="272.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="132.5" cy="257.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="132.0" y="322.5" width="18.0" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="141.0" y="330.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >TQ</text>
+<rect x="101.1" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="104.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="108.0" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="111.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="115.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="119.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="123.3" cy="542.0" r="1.2" fill="#444"/>
+<rect x="101.1" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="121.2" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 121.2 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J25 ENG_TORQUE</text>
+<g filter="url(#shadow)">
+<circle cx="141.0" cy="386.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="141.0" cy="386.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="141.0" cy="386.0" r="40.4" fill="url(#face)"/>
+<line x1="115.1" y1="411.9" x2="119.7" y2="407.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="108.7" y1="403.3" x2="111.6" y2="401.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="105.0" y1="393.2" x2="111.5" y2="391.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="104.5" y1="382.4" x2="107.8" y2="382.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="117.0" y="393.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >2</text>
+<line x1="107.1" y1="372.0" x2="113.2" y2="374.5" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="112.7" y1="362.7" x2="115.2" y2="364.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="120.6" y1="355.5" x2="124.3" y2="361.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="130.4" y1="350.9" x2="131.3" y2="354.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="127.4" y="368.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >4</text>
+<line x1="141.0" y1="349.3" x2="141.0" y2="355.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="151.6" y1="350.9" x2="150.7" y2="354.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="161.4" y1="355.5" x2="157.7" y2="361.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="169.3" y1="362.7" x2="166.8" y2="364.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="154.6" y="368.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >6</text>
+<line x1="174.9" y1="372.0" x2="168.8" y2="374.5" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="177.5" y1="382.4" x2="174.2" y2="382.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="177.0" y1="393.2" x2="170.5" y2="391.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="173.3" y1="403.3" x2="170.4" y2="401.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="165.0" y="393.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >8</text>
+<line x1="166.9" y1="411.9" x2="162.3" y2="407.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="141.0" y="412.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >TURBINE OUT</text>
+<text x="141.0" y="420.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >TEMP x100 C</text>
+<polygon points="162.0,358.3 142.7,387.3 136.5,392.0 139.3,384.7" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="141.0" cy="386.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="132.5" cy="371.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="130.1" y="436.5" width="21.8" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="141.0" y="444.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ITT</text>
+<rect x="142.3" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="145.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="149.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="152.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="156.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="160.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="164.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="142.3" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="162.4" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 162.4 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J27 EGT</text>
+<g filter="url(#shadow)">
+<circle cx="196.0" cy="158.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="196.0" cy="158.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="196.0" cy="158.0" r="40.4" fill="url(#face)"/>
+<line x1="177.7" y1="189.7" x2="181.0" y2="184.1" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="167.3" y1="180.9" x2="172.5" y2="176.8" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="176.9" y="176.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >15</text>
+<line x1="161.0" y1="168.8" x2="167.3" y2="166.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="159.4" y1="155.3" x2="166.0" y2="155.8" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="171.6" y="159.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >10</text>
+<line x1="163.0" y1="142.1" x2="168.9" y2="144.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="171.1" y1="131.1" x2="175.5" y2="135.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="179.4" y="142.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >5</text>
+<line x1="182.6" y1="123.9" x2="185.0" y2="130.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="196.0" y1="121.3" x2="196.0" y2="127.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="196.0" y="136.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="209.4" y1="123.9" x2="207.0" y2="130.0" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="220.9" y1="131.1" x2="216.5" y2="135.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="212.6" y="142.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >5</text>
+<line x1="229.0" y1="142.1" x2="223.1" y2="144.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="232.6" y1="155.3" x2="226.0" y2="155.8" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="220.4" y="159.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >10</text>
+<line x1="231.0" y1="168.8" x2="224.7" y2="166.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="224.7" y1="180.9" x2="219.5" y2="176.8" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="215.1" y="176.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >15</text>
+<line x1="214.3" y1="189.7" x2="211.0" y2="184.1" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="196.0" y="184.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >VERT SPEED</text>
+<text x="196.0" y="192.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >x100 FT/MIN</text>
+<polygon points="219.7,132.5 197.6,159.4 190.9,163.5 194.4,156.6" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="196.0" cy="158.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="187.5" cy="143.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="185.1" y="208.5" width="21.8" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="196.0" y="216.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >VSI</text>
+<rect x="183.4" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="186.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="190.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="194.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="197.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="201.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="205.6" cy="542.0" r="1.2" fill="#444"/>
+<rect x="183.4" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="203.5" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 203.5 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J5 VVI</text>
+<g filter="url(#shadow)">
+<circle cx="251.0" cy="272.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="251.0" cy="272.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="251.0" cy="272.0" r="40.4" fill="url(#face)"/>
+<line x1="225.1" y1="297.9" x2="229.7" y2="293.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="220.2" y1="291.8" x2="222.9" y2="290.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="233.7" y="292.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="216.7" y1="284.8" x2="222.8" y2="282.5" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="214.7" y1="277.2" x2="218.0" y2="276.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="214.4" y1="269.4" x2="221.0" y2="269.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="215.8" y1="261.7" x2="219.0" y2="262.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="226.6" y="273.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >20</text>
+<line x1="218.8" y1="254.4" x2="224.6" y2="257.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="223.3" y1="248.0" x2="225.8" y2="250.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="229.0" y1="242.7" x2="233.0" y2="247.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="235.8" y1="238.7" x2="237.1" y2="241.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="236.4" y="255.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >40</text>
+<line x1="243.2" y1="236.2" x2="244.6" y2="242.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="251.0" y1="235.3" x2="251.0" y2="238.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="258.8" y1="236.2" x2="257.4" y2="242.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="266.2" y1="238.7" x2="264.9" y2="241.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="256.2" y="250.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >60</text>
+<line x1="273.0" y1="242.7" x2="269.0" y2="247.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="278.7" y1="248.0" x2="276.2" y2="250.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="283.2" y1="254.4" x2="277.4" y2="257.6" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="286.2" y1="261.7" x2="283.0" y2="262.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="272.5" y="263.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >80</text>
+<line x1="287.6" y1="269.4" x2="281.0" y2="269.9" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="287.3" y1="277.2" x2="284.0" y2="276.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="285.3" y1="284.8" x2="279.2" y2="282.5" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="281.8" y1="291.8" x2="279.1" y2="290.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="273.9" y="283.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="276.9" y1="297.9" x2="272.3" y2="293.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="251.0" y="298.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >GAS PROD</text>
+<text x="251.0" y="306.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >N1 %</text>
+<polygon points="285.8,271.0 251.1,274.1 243.5,272.2 250.9,269.9" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="251.0" cy="272.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="242.5" cy="257.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="242.0" y="322.5" width="18.0" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="251.0" y="330.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >N1</text>
+<rect x="224.5" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="227.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="231.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="235.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="239.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="242.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="246.7" cy="542.0" r="1.2" fill="#444"/>
+<rect x="224.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="244.6" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 244.6 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J24 GAS_PRODUCER</text>
+<g filter="url(#shadow)">
+<circle cx="251.0" cy="386.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="251.0" cy="386.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="251.0" cy="386.0" r="40.4" fill="url(#face)"/>
+<line x1="225.1" y1="411.9" x2="229.7" y2="407.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="218.3" y1="402.6" x2="221.3" y2="401.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="214.8" y1="391.7" x2="218.0" y2="391.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="214.8" y1="380.3" x2="218.0" y2="380.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="218.3" y1="369.4" x2="221.3" y2="370.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="233.7" y="406.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="225.1" y1="360.1" x2="229.7" y2="364.7" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="234.4" y1="353.3" x2="235.9" y2="356.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="245.3" y1="349.8" x2="245.8" y2="353.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="256.7" y1="349.8" x2="256.2" y2="353.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="267.6" y1="353.3" x2="266.1" y2="356.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="233.7" y="371.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >25</text>
+<line x1="276.9" y1="360.1" x2="272.3" y2="364.7" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="283.7" y1="369.4" x2="280.7" y2="370.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="287.2" y1="380.3" x2="284.0" y2="380.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="287.2" y1="391.7" x2="284.0" y2="391.2" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="283.7" y1="402.6" x2="280.7" y2="401.1" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="268.3" y="371.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="276.9" y1="411.9" x2="272.3" y2="407.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="268.3" y="406.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >75</text>
+<text x="251.0" y="412.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >FUEL</text>
+<text x="251.0" y="420.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >US GAL</text>
+<polygon points="256.4,351.6 253.1,386.3 249.8,393.4 248.9,385.7" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="251.0" cy="386.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="242.5" cy="371.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="237.8" y="436.5" width="26.4" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="251.0" y="444.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >FUEL</text>
+<rect x="265.7" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="268.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="272.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="276.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="280.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="284.0" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="287.9" cy="542.0" r="1.2" fill="#444"/>
+<rect x="265.7" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="285.8" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 285.8 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J4 FUEL_LEVEL</text>
+<g filter="url(#shadow)">
+<circle cx="306.0" cy="158.0" r="47.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="306.0" cy="158.0" r="42.3" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="306.0" cy="158.0" r="40.4" fill="url(#face)"/>
+<line x1="280.1" y1="183.9" x2="284.7" y2="179.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="275.7" y1="178.6" x2="278.4" y2="176.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="272.4" y1="172.6" x2="275.4" y2="171.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="270.2" y1="166.0" x2="273.4" y2="165.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="269.4" y1="159.2" x2="272.6" y2="159.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="288.7" y="178.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="269.8" y1="152.3" x2="276.3" y2="153.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="271.5" y1="145.6" x2="274.6" y2="146.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="274.4" y1="139.3" x2="277.3" y2="141.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="278.5" y1="133.8" x2="281.0" y2="135.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="283.5" y1="129.0" x2="285.5" y2="131.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="281.9" y="157.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >5</text>
+<line x1="289.4" y1="125.3" x2="292.3" y2="131.2" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="295.8" y1="122.8" x2="296.7" y2="126.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="302.5" y1="121.5" x2="302.9" y2="124.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="309.5" y1="121.5" x2="309.1" y2="124.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="316.2" y1="122.8" x2="315.3" y2="126.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="294.9" y="139.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >10</text>
+<line x1="322.6" y1="125.3" x2="319.7" y2="131.2" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="328.5" y1="129.0" x2="326.5" y2="131.6" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="333.5" y1="133.8" x2="331.0" y2="135.9" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="337.6" y1="139.3" x2="334.7" y2="141.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="340.5" y1="145.6" x2="337.4" y2="146.7" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="317.1" y="139.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >15</text>
+<line x1="342.2" y1="152.3" x2="335.7" y2="153.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<line x1="342.6" y1="159.2" x2="339.4" y2="159.0" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="341.8" y1="166.0" x2="338.6" y2="165.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="339.6" y1="172.6" x2="336.6" y2="171.3" stroke="#D8D8D8" stroke-width="0.94"/>
+<line x1="336.3" y1="178.6" x2="333.6" y2="176.8" stroke="#D8D8D8" stroke-width="0.94"/>
+<text x="330.1" y="157.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >20</text>
+<line x1="331.9" y1="183.9" x2="327.3" y2="179.3" stroke="#F2F2F2" stroke-width="1.88"/>
+<text x="323.3" y="178.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.5" font-weight="700" fill="#F5F5F5" text-anchor="middle" >25</text>
+<text x="306.0" y="184.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.6" font-weight="700" fill="#E8E8E8" text-anchor="middle" >RADAR ALT</text>
+<text x="306.0" y="192.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="400" fill="#BDBDBD" text-anchor="middle" >x100 FT</text>
+<polygon points="279.9,135.0 307.4,156.4 311.6,163.0 304.6,159.6" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="306.0" cy="158.0" r="4.2" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="297.5" cy="143.0" rx="25.9" ry="18.8" fill="url(#glass)"/>
+<rect x="295.1" y="208.5" width="21.8" height="11" rx="5.5" fill="#C77700" stroke="#222" stroke-width="0.5"/>
+<text x="306.0" y="216.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >AGL</text>
+<rect x="306.8" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="309.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="313.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="317.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="321.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="325.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="329.0" cy="542.0" r="1.2" fill="#444"/>
+<rect x="306.8" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="326.9" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 326.9 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J23 RADAR_ALT</text>
+<g filter="url(#shadow)"><rect x="391.5" y="115.5" width="153.0" height="85.0" rx="10.2" fill="url(#housing)" stroke="#111" stroke-width="0.8"/></g>
+<g filter="url(#shadow)">
+<circle cx="431.3" cy="158.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="431.3" cy="158.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="431.3" cy="158.0" r="29.2" fill="url(#face)"/>
+<line x1="412.5" y1="176.8" x2="415.9" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="407.7" y1="170.0" x2="409.8" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="405.1" y1="162.1" x2="407.4" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="405.1" y1="153.9" x2="407.4" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="407.7" y1="146.0" x2="409.8" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="418.8" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="412.5" y1="139.2" x2="415.9" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="419.2" y1="134.4" x2="420.3" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="427.1" y1="131.8" x2="427.5" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="435.4" y1="131.8" x2="435.1" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="443.3" y1="134.4" x2="442.2" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="418.8" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="450.0" y1="139.2" x2="446.7" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="454.9" y1="146.0" x2="452.8" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="457.5" y1="153.9" x2="455.1" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="457.5" y1="162.1" x2="455.1" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="454.9" y1="170.0" x2="452.8" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="443.8" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="450.0" y1="176.8" x2="446.7" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="443.8" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >150</text>
+<text x="431.3" y="177.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ENG OIL</text>
+<text x="431.3" y="182.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >PSI</text>
+<polygon points="421.3,134.9 432.7,157.4 433.4,163.0 429.9,158.6" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="431.3" cy="158.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="425.2" cy="147.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<g filter="url(#shadow)">
+<circle cx="504.7" cy="158.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="504.7" cy="158.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="504.7" cy="158.0" r="29.2" fill="url(#face)"/>
+<line x1="486.0" y1="176.8" x2="489.3" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="481.1" y1="170.0" x2="483.2" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="478.5" y1="162.1" x2="480.9" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="478.5" y1="153.9" x2="480.9" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="481.1" y1="146.0" x2="483.2" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="492.2" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="486.0" y1="139.2" x2="489.3" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="492.7" y1="134.4" x2="493.8" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="500.6" y1="131.8" x2="500.9" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="508.9" y1="131.8" x2="508.5" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="516.8" y1="134.4" x2="515.7" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="492.2" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="523.5" y1="139.2" x2="520.1" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="528.3" y1="146.0" x2="526.2" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="530.9" y1="153.9" x2="528.6" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="530.9" y1="162.1" x2="528.6" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="528.3" y1="170.0" x2="526.2" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="517.2" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="523.5" y1="176.8" x2="520.1" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="517.2" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >150</text>
+<text x="504.7" y="177.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ENG OIL</text>
+<text x="504.7" y="182.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >TEMP C</text>
+<polygon points="500.8,133.1 506.2,157.8 505.6,163.4 503.2,158.2" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="504.7" cy="158.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="498.6" cy="147.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<rect x="438.7" y="204.0" width="58.6" height="11" rx="5.5" fill="#6A3FC7" stroke="#222" stroke-width="0.5"/>
+<text x="468.0" y="212.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >OILP / OILT</text>
+<rect x="411.2" y="537.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="414.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="417.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="420.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="423.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="426.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="429.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="432.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="435.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="439.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="442.2" cy="542.0" r="1.2" fill="#444"/>
+<rect x="411.2" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="435.7" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 435.7 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J8 ENGINE</text>
+<g filter="url(#shadow)"><rect x="391.5" y="229.5" width="153.0" height="85.0" rx="10.2" fill="url(#housing)" stroke="#111" stroke-width="0.8"/></g>
+<g filter="url(#shadow)">
+<circle cx="431.3" cy="272.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="431.3" cy="272.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="431.3" cy="272.0" r="29.2" fill="url(#face)"/>
+<line x1="412.5" y1="290.8" x2="415.9" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="409.0" y1="286.3" x2="411.0" y2="285.1" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="418.8" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="406.4" y1="281.3" x2="410.9" y2="279.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="405.0" y1="275.8" x2="407.4" y2="275.4" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="404.8" y1="270.1" x2="409.6" y2="270.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="405.8" y1="264.5" x2="408.1" y2="265.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="408.0" y1="259.3" x2="412.2" y2="261.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="411.2" y1="254.6" x2="413.0" y2="256.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="415.4" y1="250.8" x2="418.2" y2="254.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="420.3" y1="247.9" x2="421.3" y2="250.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="425.6" y1="246.1" x2="426.7" y2="250.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="431.3" y1="245.5" x2="431.3" y2="247.9" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="427.5" y="256.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="436.9" y1="246.1" x2="435.9" y2="250.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="442.3" y1="247.9" x2="441.3" y2="250.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="447.2" y1="250.8" x2="444.3" y2="254.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="451.3" y1="254.6" x2="449.5" y2="256.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="454.6" y1="259.3" x2="450.4" y2="261.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="456.7" y1="264.5" x2="454.4" y2="265.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="457.7" y1="270.1" x2="453.0" y2="270.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="457.5" y1="275.8" x2="455.2" y2="275.4" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="456.1" y1="281.3" x2="451.7" y2="279.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="453.6" y1="286.3" x2="451.6" y2="285.1" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="447.8" y="280.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="450.0" y1="290.8" x2="446.7" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="431.3" y="291.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ROTOR</text>
+<text x="431.3" y="296.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >RPM %</text>
+<polygon points="454.9,280.8 430.7,273.4 426.2,270.1 431.8,270.6" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="431.3" cy="272.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="425.2" cy="261.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<g filter="url(#shadow)">
+<circle cx="504.7" cy="272.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="504.7" cy="272.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="504.7" cy="272.0" r="29.2" fill="url(#face)"/>
+<line x1="486.0" y1="290.8" x2="489.3" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="482.4" y1="286.3" x2="484.4" y2="285.1" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="492.2" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="479.9" y1="281.3" x2="484.3" y2="279.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="478.5" y1="275.8" x2="480.8" y2="275.4" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="478.3" y1="270.1" x2="483.0" y2="270.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="479.3" y1="264.5" x2="481.6" y2="265.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="481.4" y1="259.3" x2="485.6" y2="261.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="484.7" y1="254.6" x2="486.5" y2="256.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="488.8" y1="250.8" x2="491.7" y2="254.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="493.7" y1="247.9" x2="494.7" y2="250.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="499.1" y1="246.1" x2="500.1" y2="250.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="504.7" y1="245.5" x2="504.7" y2="247.9" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="501.0" y="256.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="510.4" y1="246.1" x2="509.3" y2="250.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="515.7" y1="247.9" x2="514.7" y2="250.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="520.6" y1="250.8" x2="517.8" y2="254.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="524.8" y1="254.6" x2="523.0" y2="256.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="528.0" y1="259.3" x2="523.8" y2="261.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="530.2" y1="264.5" x2="527.9" y2="265.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="531.2" y1="270.1" x2="526.4" y2="270.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="531.0" y1="275.8" x2="528.6" y2="275.4" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="529.6" y1="281.3" x2="525.1" y2="279.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="527.0" y1="286.3" x2="525.0" y2="285.1" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="521.3" y="280.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="523.5" y1="290.8" x2="520.1" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="504.7" y="291.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ENGINE</text>
+<text x="504.7" y="296.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >N2 %</text>
+<polygon points="528.3,280.8 504.2,273.4 499.6,270.1 505.3,270.6" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="504.7" cy="272.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="498.6" cy="261.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<rect x="438.7" y="318.0" width="58.6" height="11" rx="5.5" fill="#6A3FC7" stroke="#222" stroke-width="0.5"/>
+<text x="468.0" y="326.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >RPMR / RPME</text>
+<rect x="459.5" y="537.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="462.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="465.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="468.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="471.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="474.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="478.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="481.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="484.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="487.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="490.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="459.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="484.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 484.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J7 ROTOR ENG SPEED</text>
+<g filter="url(#shadow)">
+<circle cx="549.0" cy="388.0" r="46.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="549.0" cy="388.0" r="41.4" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="549.0" cy="388.0" r="39.6" fill="url(#face)"/>
+<line x1="549.0" y1="352.1" x2="549.0" y2="358.6" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="553.5" y1="352.4" x2="553.1" y2="355.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="557.9" y1="353.2" x2="557.1" y2="356.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="562.2" y1="354.6" x2="561.0" y2="357.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="566.3" y1="356.6" x2="564.7" y2="359.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="549.0" y="366.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="570.1" y1="359.0" x2="566.3" y2="364.2" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="573.6" y1="361.8" x2="571.4" y2="364.2" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="576.6" y1="365.1" x2="574.2" y2="367.2" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="579.3" y1="368.8" x2="576.6" y2="370.5" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="581.5" y1="372.7" x2="578.6" y2="374.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="563.1" y="371.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >1</text>
+<line x1="583.1" y1="376.9" x2="577.0" y2="378.9" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="584.2" y1="381.3" x2="581.1" y2="381.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="584.8" y1="385.7" x2="581.6" y2="385.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="584.8" y1="390.3" x2="581.6" y2="390.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="584.2" y1="394.7" x2="581.1" y2="394.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="571.7" y="383.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >2</text>
+<line x1="583.1" y1="399.1" x2="577.0" y2="397.1" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="581.5" y1="403.3" x2="578.6" y2="401.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="579.3" y1="407.2" x2="576.6" y2="405.5" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="576.6" y1="410.9" x2="574.2" y2="408.8" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="573.6" y1="414.2" x2="571.4" y2="411.8" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="571.7" y="398.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >3</text>
+<line x1="570.1" y1="417.0" x2="566.3" y2="411.8" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="566.3" y1="419.4" x2="564.7" y2="416.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="562.2" y1="421.4" x2="561.0" y2="418.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="557.9" y1="422.8" x2="557.1" y2="419.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="553.5" y1="423.6" x2="553.1" y2="420.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="563.1" y="410.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >4</text>
+<line x1="549.0" y1="423.9" x2="549.0" y2="417.4" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="544.5" y1="423.6" x2="544.9" y2="420.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="540.1" y1="422.8" x2="540.9" y2="419.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="535.8" y1="421.4" x2="537.0" y2="418.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="531.7" y1="419.4" x2="533.3" y2="416.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="549.0" y="414.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >5</text>
+<line x1="527.9" y1="417.0" x2="531.7" y2="411.8" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="524.4" y1="414.2" x2="526.6" y2="411.8" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="521.4" y1="410.9" x2="523.8" y2="408.8" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="518.7" y1="407.2" x2="521.4" y2="405.5" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="516.5" y1="403.3" x2="519.4" y2="401.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="534.9" y="410.1" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >6</text>
+<line x1="514.9" y1="399.1" x2="521.0" y2="397.1" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="513.8" y1="394.7" x2="516.9" y2="394.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="513.2" y1="390.3" x2="516.4" y2="390.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="513.2" y1="385.7" x2="516.4" y2="385.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="513.8" y1="381.3" x2="516.9" y2="381.9" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="526.3" y="398.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >7</text>
+<line x1="514.9" y1="376.9" x2="521.0" y2="378.9" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="516.5" y1="372.7" x2="519.4" y2="374.1" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="518.7" y1="368.8" x2="521.4" y2="370.5" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="521.4" y1="365.1" x2="523.8" y2="367.2" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="524.4" y1="361.8" x2="526.6" y2="364.2" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="526.3" y="383.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >8</text>
+<line x1="527.9" y1="359.0" x2="531.7" y2="364.2" stroke="#F2F2F2" stroke-width="1.84"/>
+<line x1="531.7" y1="356.6" x2="533.3" y2="359.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="535.8" y1="354.6" x2="537.0" y2="357.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="540.1" y1="353.2" x2="540.9" y2="356.4" stroke="#D8D8D8" stroke-width="0.92"/>
+<line x1="544.5" y1="352.4" x2="544.9" y2="355.6" stroke="#D8D8D8" stroke-width="0.92"/>
+<text x="534.9" y="371.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.3" font-weight="700" fill="#F5F5F5" text-anchor="middle" >9</text>
+<line x1="549.0" y1="352.1" x2="549.0" y2="358.6" stroke="#F2F2F2" stroke-width="1.84"/>
+<text x="549.0" y="378.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.4" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ALT</text>
+<polygon points="579.8,402.5 548.1,389.9 542.3,384.9 549.9,386.1" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="549.0" cy="388.0" r="4.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="540.7" cy="373.3" rx="25.3" ry="18.4" fill="url(#glass)"/>
+<rect x="538.1" y="437.5" width="21.8" height="11" rx="5.5" fill="#6A3FC7" stroke="#222" stroke-width="0.5"/>
+<text x="549.0" y="445.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ALT</text>
+<rect x="512.2" y="537.0" width="25.2" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="515.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="519.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="522.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="526.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="530.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="534.4" cy="542.0" r="1.2" fill="#444"/>
+<rect x="512.2" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="532.3" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 532.3 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J33 ALT</text>
+<rect x="564.2" y="537.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="567.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="573.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="579.2" cy="542.0" r="1.2" fill="#444"/>
+<rect x="564.2" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="580.7" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 580.7 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J9 ALTIMETER_ZERO</text>
+<g filter="url(#shadow)"><rect x="553.5" y="115.5" width="153.0" height="85.0" rx="10.2" fill="url(#housing)" stroke="#111" stroke-width="0.8"/></g>
+<g filter="url(#shadow)">
+<circle cx="593.3" cy="158.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="593.3" cy="158.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="593.3" cy="158.0" r="29.2" fill="url(#face)"/>
+<line x1="574.5" y1="176.8" x2="577.9" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="569.7" y1="170.0" x2="571.8" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="567.1" y1="162.1" x2="569.4" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="567.1" y1="153.9" x2="569.4" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="569.7" y1="146.0" x2="571.8" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="580.8" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="574.5" y1="139.2" x2="577.9" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="581.2" y1="134.4" x2="582.3" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="589.1" y1="131.8" x2="589.5" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="597.4" y1="131.8" x2="597.1" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="605.3" y1="134.4" x2="604.2" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="580.8" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="612.0" y1="139.2" x2="608.7" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="616.9" y1="146.0" x2="614.8" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="619.5" y1="153.9" x2="617.1" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="619.5" y1="162.1" x2="617.1" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="616.9" y1="170.0" x2="614.8" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="605.8" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="612.0" y1="176.8" x2="608.7" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="605.8" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >150</text>
+<text x="593.3" y="177.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >XMSN OIL</text>
+<text x="593.3" y="182.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >PSI</text>
+<polygon points="578.5,137.6 594.5,157.1 596.5,162.4 592.0,158.9" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="593.3" cy="158.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="587.2" cy="147.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<g filter="url(#shadow)">
+<circle cx="666.7" cy="158.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="666.7" cy="158.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="666.7" cy="158.0" r="29.2" fill="url(#face)"/>
+<line x1="648.0" y1="176.8" x2="651.3" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="643.1" y1="170.0" x2="645.2" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="640.5" y1="162.1" x2="642.9" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="640.5" y1="153.9" x2="642.9" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="643.1" y1="146.0" x2="645.2" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="654.2" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="648.0" y1="139.2" x2="651.3" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="654.7" y1="134.4" x2="655.8" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="662.6" y1="131.8" x2="662.9" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="670.9" y1="131.8" x2="670.5" y2="134.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="678.8" y1="134.4" x2="677.7" y2="136.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="654.2" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="685.5" y1="139.2" x2="682.1" y2="142.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="690.3" y1="146.0" x2="688.2" y2="147.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="692.9" y1="153.9" x2="690.6" y2="154.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="692.9" y1="162.1" x2="690.6" y2="161.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="690.3" y1="170.0" x2="688.2" y2="169.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="679.2" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<line x1="685.5" y1="176.8" x2="682.1" y2="173.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="679.2" y="172.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >150</text>
+<text x="666.7" y="177.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >XMSN OIL</text>
+<text x="666.7" y="182.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >TEMP C</text>
+<polygon points="655.3,135.6 668.1,157.3 669.2,162.8 665.4,158.7" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="666.7" cy="158.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="660.6" cy="147.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<rect x="596.1" y="204.0" width="67.8" height="11" rx="5.5" fill="#6A3FC7" stroke="#222" stroke-width="0.5"/>
+<text x="630.0" y="212.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >XMSNP / XMSNT</text>
+<rect x="604.5" y="537.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="607.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="610.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="613.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="616.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="619.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="623.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="626.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="629.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="632.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="635.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="604.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="629.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 629.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J6 XMSN</text>
+<g filter="url(#shadow)"><rect x="553.5" y="229.5" width="153.0" height="85.0" rx="10.2" fill="url(#housing)" stroke="#111" stroke-width="0.8"/></g>
+<g filter="url(#shadow)">
+<circle cx="593.3" cy="272.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="593.3" cy="272.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="593.3" cy="272.0" r="29.2" fill="url(#face)"/>
+<line x1="574.5" y1="290.8" x2="577.9" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="570.7" y1="285.9" x2="572.7" y2="284.6" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="568.1" y1="280.2" x2="570.3" y2="279.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="566.8" y1="274.1" x2="569.2" y2="273.9" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="567.1" y1="267.9" x2="569.4" y2="268.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="580.8" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="568.8" y1="261.9" x2="573.2" y2="263.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="571.8" y1="256.4" x2="573.8" y2="257.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="576.1" y1="251.8" x2="577.6" y2="253.6" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="581.2" y1="248.4" x2="582.3" y2="250.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="587.1" y1="246.2" x2="587.6" y2="248.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="576.9" y="267.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >25</text>
+<line x1="593.3" y1="245.5" x2="593.3" y2="250.2" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="599.5" y1="246.2" x2="598.9" y2="248.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="605.3" y1="248.4" x2="604.2" y2="250.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="610.5" y1="251.8" x2="609.0" y2="253.6" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="614.7" y1="256.4" x2="612.8" y2="257.8" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="593.3" y="256.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >50</text>
+<line x1="617.8" y1="261.9" x2="613.4" y2="263.7" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="619.5" y1="267.9" x2="617.1" y2="268.2" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="619.7" y1="274.1" x2="617.3" y2="273.9" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="618.5" y1="280.2" x2="616.2" y2="279.5" stroke="#D8D8D8" stroke-width="0.68"/>
+<line x1="615.9" y1="285.9" x2="613.9" y2="284.6" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="609.6" y="267.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >75</text>
+<line x1="612.0" y1="290.8" x2="608.7" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="605.8" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >100</text>
+<text x="593.3" y="291.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >ELEC LOAD</text>
+<text x="593.3" y="296.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >PERCENT</text>
+<polygon points="587.4,247.5 594.8,271.6 594.5,277.3 591.8,272.4" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="593.3" cy="272.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="587.2" cy="261.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<g filter="url(#shadow)">
+<circle cx="666.7" cy="272.0" r="34.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/>
+<circle cx="666.7" cy="272.0" r="30.6" fill="#222" stroke="#000" stroke-width="0.5"/>
+</g>
+<circle cx="666.7" cy="272.0" r="29.2" fill="url(#face)"/>
+<line x1="648.0" y1="290.8" x2="651.3" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="640.2" y1="272.0" x2="642.6" y2="272.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="654.2" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >0</text>
+<line x1="648.0" y1="253.2" x2="651.3" y2="256.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="666.7" y1="245.5" x2="666.7" y2="247.9" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="654.2" y="261.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >10</text>
+<line x1="685.5" y1="253.2" x2="682.1" y2="256.6" stroke="#F2F2F2" stroke-width="1.36"/>
+<line x1="693.2" y1="272.0" x2="690.9" y2="272.0" stroke="#D8D8D8" stroke-width="0.68"/>
+<text x="679.2" y="261.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >20</text>
+<line x1="685.5" y1="290.8" x2="682.1" y2="287.4" stroke="#F2F2F2" stroke-width="1.36"/>
+<text x="679.2" y="286.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.1" font-weight="700" fill="#F5F5F5" text-anchor="middle" >30</text>
+<text x="666.7" y="291.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.8" font-weight="700" fill="#E8E8E8" text-anchor="middle" >FUEL</text>
+<text x="666.7" y="296.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="4.4" font-weight="400" fill="#BDBDBD" text-anchor="middle" >PRESS PSI</text>
+<polygon points="662.8,247.1 668.2,271.8 667.6,277.4 665.2,272.2" fill="#F7F7F7" stroke="#222" stroke-width="0.4"/>
+<circle cx="666.7" cy="272.0" r="3.1" fill="url(#hub)" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="660.6" cy="261.1" rx="18.7" ry="13.6" fill="url(#glass)"/>
+<rect x="568.5" y="318.0" width="123.0" height="11" rx="5.5" fill="#6A3FC7" stroke="#222" stroke-width="0.5"/>
+<text x="630.0" y="326.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ELECTRICALLOAD / FUELLOAD</text>
+<rect x="652.8" y="537.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="655.8" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="658.9" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="662.1" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="665.2" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="668.3" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="671.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="674.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="677.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="680.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="683.8" cy="542.0" r="1.2" fill="#444"/>
+<rect x="652.8" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="677.3" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 677.3 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J10 ELEC FUEL LOAD</text>
+<g filter="url(#shadow)"><circle cx="876.0" cy="242.0" r="108.0" fill="url(#bezel)" stroke="#4a4a4a" stroke-width="0.6"/></g>
+<circle cx="876.0" cy="242.0" r="97.2" fill="#111"/>
+<clipPath id="adiclip2"><circle cx="876.0" cy="242.0" r="90.7"/></clipPath>
+<g clip-path="url(#adiclip2)"><g transform="rotate(12 876.0 242.0) translate(0 13.0)">
+<rect x="660.0" y="26.0" width="432.0" height="216.0" fill="url(#sky)"/>
+<rect x="660.0" y="242.0" width="432.0" height="216.0" fill="url(#ground)"/>
+<line x1="660.0" y1="242.0" x2="1092.0" y2="242.0" stroke="#fff" stroke-width="1.4"/>
+<line x1="832.8" y1="311.1" x2="919.2" y2="311.1" stroke="#fff" stroke-width="0.9"/>
+<line x1="845.8" y1="276.6" x2="906.2" y2="276.6" stroke="#fff" stroke-width="0.9"/>
+<line x1="845.8" y1="207.4" x2="906.2" y2="207.4" stroke="#fff" stroke-width="0.9"/>
+<line x1="832.8" y1="172.9" x2="919.2" y2="172.9" stroke="#fff" stroke-width="0.9"/>
+</g></g>
+<line x1="797.4" y1="196.6" x2="806.8" y2="202.0" stroke="#fff" stroke-width="1.4"/>
+<line x1="811.9" y1="177.9" x2="816.4" y2="182.4" stroke="#fff" stroke-width="0.8"/>
+<line x1="830.6" y1="163.4" x2="836.0" y2="172.8" stroke="#fff" stroke-width="1.4"/>
+<line x1="845.0" y1="156.8" x2="847.2" y2="162.8" stroke="#fff" stroke-width="0.8"/>
+<line x1="860.2" y1="152.7" x2="861.4" y2="159.0" stroke="#fff" stroke-width="0.8"/>
+<line x1="876.0" y1="151.3" x2="876.0" y2="162.1" stroke="#fff" stroke-width="1.4"/>
+<line x1="891.8" y1="152.7" x2="890.6" y2="159.0" stroke="#fff" stroke-width="0.8"/>
+<line x1="907.0" y1="156.8" x2="904.8" y2="162.8" stroke="#fff" stroke-width="0.8"/>
+<line x1="921.4" y1="163.4" x2="916.0" y2="172.8" stroke="#fff" stroke-width="1.4"/>
+<line x1="940.1" y1="177.9" x2="935.6" y2="182.4" stroke="#fff" stroke-width="0.8"/>
+<line x1="954.6" y1="196.6" x2="945.2" y2="202.0" stroke="#fff" stroke-width="1.4"/>
+<polygon points="892.6,163.8 887.3,149.8 903.2,153.2" fill="#FFD43B" stroke="#222" stroke-width="0.4"/>
+<path d="M 809.0 242.0 h 36.7 M 906.2 242.0 h 36.7" stroke="#FFC400" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M 876.0 237.7 v 13.0" stroke="#FFC400" stroke-width="2.6" stroke-linecap="round"/>
+<circle cx="876.0" cy="242.0" r="5.4" fill="#FFC400" stroke="#222" stroke-width="0.4"/>
+<ellipse cx="854.4" cy="204.2" rx="59.4" ry="43.2" fill="url(#glass)"/>
+<rect x="800.7" y="354.5" width="58.6" height="11" rx="5.5" fill="#2E7D32" stroke="#222" stroke-width="0.5"/>
+<text x="830.0" y="362.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >PITCH servo</text>
+<rect x="895.0" y="354.5" width="54.0" height="11" rx="5.5" fill="#2E7D32" stroke="#222" stroke-width="0.5"/>
+<text x="922.0" y="362.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ROLL servo</text>
+<rect x="837.5" y="537.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="840.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="846.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="852.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="837.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="854.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 854.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J42 PITCH</text>
+<rect x="896.5" y="537.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="899.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="905.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="911.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="896.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="913.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 913.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J43 ROLL</text>
+<g filter="url(#shadow)"><rect x="1046.0" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1048.2" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1049.2" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1065.4" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENG OIL</text>
+<text x="1065.4" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >PRESS</text>
+<text x="1065.4" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_A0</text>
+<g filter="url(#shadow)"><rect x="1088.8" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1091.0" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1092.0" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1108.2" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENG</text>
+<text x="1108.2" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ICING</text>
+<text x="1108.2" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_B0</text>
+<g filter="url(#shadow)"><rect x="1131.6" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1133.8" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1134.8" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1151.0" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENG ICE</text>
+<text x="1151.0" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >JET</text>
+<text x="1151.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_C0</text>
+<g filter="url(#shadow)"><rect x="1174.4" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1176.6" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1177.6" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1193.8" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENG CHIP</text>
+<text x="1193.8" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >DET</text>
+<text x="1193.8" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_D0</text>
+<g filter="url(#shadow)"><rect x="1217.2" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1219.4" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1220.4" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1236.6" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >L FUEL</text>
+<text x="1236.6" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >BOOST</text>
+<text x="1236.6" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_E0</text>
+<g filter="url(#shadow)"><rect x="1260.0" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1262.2" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1263.2" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1279.4" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >R FUEL</text>
+<text x="1279.4" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >BOOST</text>
+<text x="1279.4" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_F0</text>
+<g filter="url(#shadow)"><rect x="1302.8" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1305.0" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1306.0" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1322.2" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENG FUEL</text>
+<text x="1322.2" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >PUMP</text>
+<text x="1322.2" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_G0</text>
+<g filter="url(#shadow)"><rect x="1345.6" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1347.8" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1348.8" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.0" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >20 MIN</text>
+<text x="1365.0" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >FUEL</text>
+<text x="1365.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_H0</text>
+<g filter="url(#shadow)"><rect x="1388.4" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1390.6" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1391.6" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1407.8" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >FUEL</text>
+<text x="1407.8" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >FILTER</text>
+<text x="1407.8" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_I0</text>
+<g filter="url(#shadow)"><rect x="1431.2" y="326.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1433.4" y="328.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1434.4" y="329.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1450.6" y="346.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >GOV</text>
+<text x="1450.6" y="354.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >EMER</text>
+<text x="1450.6" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_J0</text>
+<g filter="url(#shadow)"><rect x="1046.0" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1048.2" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1049.2" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1065.4" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >AUX FUEL</text>
+<text x="1065.4" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >LOW</text>
+<text x="1065.4" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_A1</text>
+<g filter="url(#shadow)"><rect x="1088.8" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1091.0" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1092.0" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1108.2" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >XMSN OIL</text>
+<text x="1108.2" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >PRESS</text>
+<text x="1108.2" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_B1</text>
+<g filter="url(#shadow)"><rect x="1131.6" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1133.8" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1134.8" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1151.0" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >XMSN OIL</text>
+<text x="1151.0" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >HOT</text>
+<text x="1151.0" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_C1</text>
+<g filter="url(#shadow)"><rect x="1174.4" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1176.6" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1177.6" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1193.8" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >HYD</text>
+<text x="1193.8" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >PRESS</text>
+<text x="1193.8" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_D1</text>
+<g filter="url(#shadow)"><rect x="1217.2" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1219.4" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1220.4" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1236.6" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >INLET</text>
+<text x="1236.6" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >AIR</text>
+<text x="1236.6" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_E1</text>
+<g filter="url(#shadow)"><rect x="1260.0" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1262.2" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1263.2" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1279.4" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >INST</text>
+<text x="1279.4" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >INVERTER</text>
+<text x="1279.4" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_F1</text>
+<g filter="url(#shadow)"><rect x="1302.8" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1305.0" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1306.0" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1322.2" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >DC</text>
+<text x="1322.2" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >GENERATOR</text>
+<text x="1322.2" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_G1</text>
+<g filter="url(#shadow)"><rect x="1345.6" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1347.8" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1348.8" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.0" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >EXT</text>
+<text x="1365.0" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >POWER</text>
+<text x="1365.0" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_H1</text>
+<g filter="url(#shadow)"><rect x="1388.4" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1390.6" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1391.6" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1407.8" y="410.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >CHIP</text>
+<text x="1407.8" y="418.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >DETECTOR</text>
+<text x="1407.8" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_I1</text>
+<g filter="url(#shadow)"><rect x="1431.2" y="390.0" width="38.8" height="44.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1433.4" y="392.2" width="34.4" height="39.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1434.4" y="393.0" width="32.4" height="15.0" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1450.6" y="414.3" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="6.8" font-weight="700" fill="#2B1A00" text-anchor="middle" >IFF</text>
+<text x="1450.6" y="441.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >CL_J1</text>
+<rect x="1192.7" y="537.0" width="33.6" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1195.7" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1199.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1203.6" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1207.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1211.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1215.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1219.4" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1223.3" cy="542.0" r="1.2" fill="#444"/>
+<rect x="1192.7" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="1217.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 1217.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J22 HUEY ANODES</text>
+<rect x="1301.5" y="537.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1304.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1308.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1312.5" cy="542.0" r="1.2" fill="#444"/>
+<circle cx="1316.5" cy="542.0" r="1.2" fill="#444"/>
+<rect x="1301.5" y="537.0" width="3" height="10" fill="#C0392B"/>
+<text x="1318.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(-90 1318.0 530.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J23 HUEY CATHODES</text>
+<g filter="url(#shadow)"><rect x="402.0" y="812.0" width="141.0" height="62.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="405.0" y="815.0" width="135.0" height="56.0" rx="1.5" fill="#02060A"/>
+<text x="472.5" y="839.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">BARO</text>
+<text x="472.5" y="856.2" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">2992</text>
+<rect x="431.2" y="655.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="434.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="438.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="442.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="446.2" cy="660.0" r="1.2" fill="#444"/>
+<rect x="431.2" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="447.8" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 447.8 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J55 BARO-OLED</text>
+<g filter="url(#shadow)"><rect x="402.0" y="878.0" width="141.0" height="62.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="405.0" y="881.0" width="135.0" height="56.0" rx="1.5" fill="#02060A"/>
+<text x="472.5" y="905.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">ZULU</text>
+<text x="472.5" y="922.2" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">14:30</text>
+<rect x="503.8" y="655.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="506.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="510.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="514.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="518.8" cy="660.0" r="1.2" fill="#444"/>
+<rect x="503.8" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="520.2" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 520.2 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J18 CLOCK-OLED</text>
+<g filter="url(#shadow)"><rect x="555.0" y="812.0" width="141.0" height="62.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="558.0" y="815.0" width="135.0" height="56.0" rx="1.5" fill="#02060A"/>
+<text x="625.5" y="839.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">ALT</text>
+<text x="625.5" y="856.2" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">03200</text>
+<rect x="576.2" y="655.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="579.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="583.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="587.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="591.2" cy="660.0" r="1.2" fill="#444"/>
+<rect x="576.2" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="592.8" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 592.8 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J17 ALTIMETER-OLED</text>
+<g filter="url(#shadow)"><rect x="555.0" y="878.0" width="141.0" height="62.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="558.0" y="881.0" width="135.0" height="56.0" rx="1.5" fill="#02060A"/>
+<text x="625.5" y="905.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">TEMP</text>
+<text x="625.5" y="922.2" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="14" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">21C</text>
+<rect x="648.8" y="655.0" width="18.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="651.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="655.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="659.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="663.8" cy="660.0" r="1.2" fill="#444"/>
+<rect x="648.8" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="665.2" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 665.2 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J20 TEMPERATURE-OLED</text>
+<rect x="829.5" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="832.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="835.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="837.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="840.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="842.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="845.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="847.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="850.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="852.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="855.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="858.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="860.5" cy="660.0" r="1.2" fill="#444"/>
+<rect x="829.5" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="854.0" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 854.0 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J4 LHS ANNUC</text>
+<rect x="888.5" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="891.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="894.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="896.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="899.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="901.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="904.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="906.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="909.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="911.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="914.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="917.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="919.5" cy="660.0" r="1.2" fill="#444"/>
+<rect x="888.5" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="913.0" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 913.0 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J5 RHS ANNUC</text>
+<g filter="url(#shadow)"><rect x="750.0" y="810.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="752.2" y="812.2" width="83.6" height="37.6" rx="2" fill="url(#lens_red)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="753.2" y="813.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="794.0" y="829.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ENGINE</text>
+<text x="794.0" y="838.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >OUT</text>
+<text x="794.0" y="859.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >EOUT A1</text>
+<g filter="url(#shadow)"><rect x="844.0" y="810.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="846.2" y="812.2" width="83.6" height="37.6" rx="2" fill="url(#lens_red)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="847.2" y="813.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="888.0" y="829.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ROTOR</text>
+<text x="888.0" y="838.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >LOW</text>
+<text x="888.0" y="859.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >RLOW A2</text>
+<g filter="url(#shadow)"><rect x="938.0" y="810.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="940.2" y="812.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="941.2" y="813.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="982.0" y="829.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >XMSN OIL</text>
+<text x="982.0" y="838.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >PRESS</text>
+<text x="982.0" y="859.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >TOPW A3</text>
+<g filter="url(#shadow)"><rect x="750.0" y="868.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="752.2" y="870.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="753.2" y="871.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="794.0" y="887.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >XMSN OIL</text>
+<text x="794.0" y="896.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >TEMP</text>
+<text x="794.0" y="917.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >TOTW A4</text>
+<g filter="url(#shadow)"><rect x="844.0" y="868.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="846.2" y="870.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="847.2" y="871.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="888.0" y="887.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >BATTERY</text>
+<text x="888.0" y="896.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >HOT</text>
+<text x="888.0" y="917.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >BHOT A5</text>
+<g filter="url(#shadow)"><rect x="938.0" y="868.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="940.2" y="870.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="941.2" y="871.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="982.0" y="887.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >BATTERY</text>
+<text x="982.0" y="896.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >TEMP</text>
+<text x="982.0" y="917.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >BTMP A6</text>
+<g filter="url(#shadow)"><rect x="750.0" y="926.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="752.2" y="928.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="753.2" y="929.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="794.0" y="945.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >ENGINE</text>
+<text x="794.0" y="954.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >CHIP</text>
+<text x="794.0" y="975.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >EC A7</text>
+<g filter="url(#shadow)"><rect x="844.0" y="926.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="846.2" y="928.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="847.2" y="929.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="888.0" y="945.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >TAIL ROTOR</text>
+<text x="888.0" y="954.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >CHIP</text>
+<text x="888.0" y="975.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >TRC A8</text>
+<g filter="url(#shadow)"><rect x="938.0" y="926.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="940.2" y="928.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="941.2" y="929.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="982.0" y="945.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >XMSN</text>
+<text x="982.0" y="954.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >CHIP</text>
+<text x="982.0" y="975.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >TC A9</text>
+<g filter="url(#shadow)"><rect x="750.0" y="984.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="752.2" y="986.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="753.2" y="987.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="794.0" y="1003.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >BAGGAGE</text>
+<text x="794.0" y="1012.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >DOOR</text>
+<text x="794.0" y="1033.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >BD A10</text>
+<g filter="url(#shadow)"><rect x="844.0" y="984.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="846.2" y="986.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="847.2" y="987.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="888.0" y="1003.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >FUEL</text>
+<text x="888.0" y="1012.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >PUMP</text>
+<text x="888.0" y="1033.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >FPMP A11</text>
+<g filter="url(#shadow)"><rect x="938.0" y="984.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="940.2" y="986.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="941.2" y="987.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="982.0" y="1003.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >AFT FUEL</text>
+<text x="982.0" y="1012.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >FILTER</text>
+<text x="982.0" y="1033.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >FFLTR A12</text>
+<g filter="url(#shadow)"><rect x="750.0" y="1042.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="752.2" y="1044.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="753.2" y="1045.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="794.0" y="1061.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >GEN</text>
+<text x="794.0" y="1070.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >FAIL</text>
+<text x="794.0" y="1091.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >GENF A13</text>
+<g filter="url(#shadow)"><rect x="844.0" y="1042.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="846.2" y="1044.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="847.2" y="1045.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="888.0" y="1061.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >LOW</text>
+<text x="888.0" y="1070.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >FUEL</text>
+<text x="888.0" y="1091.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >LOWF A14</text>
+<g filter="url(#shadow)"><rect x="938.0" y="1042.0" width="88.0" height="42.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="940.2" y="1044.2" width="83.6" height="37.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="941.2" y="1045.0" width="81.6" height="14.3" rx="2" fill="#fff" opacity="0.28"/>
+<text x="982.0" y="1061.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >SC</text>
+<text x="982.0" y="1070.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >FAIL</text>
+<text x="982.0" y="1091.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="5.8" font-weight="400" fill="#666" text-anchor="middle" >SCF A15</text>
+<g filter="url(#shadow)"><rect x="1044.0" y="808.0" width="129.3" height="66.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1047.0" y="811.0" width="123.3" height="60.0" rx="1.5" fill="#02060A"/>
+<text x="1108.7" y="838.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">119.500  121.900</text>
+<text x="1108.7" y="850.8" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">118.200  124.000</text>
+<g filter="url(#shadow)"><rect x="1044.0" y="886.0" width="129.3" height="66.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1047.0" y="889.0" width="123.3" height="60.0" rx="1.5" fill="#02060A"/>
+<text x="1108.7" y="916.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">108.30   110.50</text>
+<text x="1108.7" y="928.8" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">109.90   113.20</text>
+<g filter="url(#shadow)"><rect x="1195.3" y="808.0" width="129.3" height="56.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1198.3" y="811.0" width="123.3" height="50.0" rx="1.5" fill="#02060A"/>
+<text x="1260.0" y="833.1" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.2" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">090            0</text>
+<text x="1260.0" y="845.6" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="10.2" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">110    80   3200</text>
+<g filter="url(#shadow)"><rect x="1195.3" y="882.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1197.5" y="884.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1198.5" y="885.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1214.4" y="905.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >CRS</text>
+<g filter="url(#shadow)"><rect x="1238.4" y="882.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1240.6" y="884.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1241.6" y="885.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1257.5" y="905.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >HDG</text>
+<g filter="url(#shadow)"><rect x="1281.6" y="882.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1283.8" y="884.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1284.8" y="885.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1300.6" y="905.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >IAS</text>
+<g filter="url(#shadow)"><rect x="1195.3" y="940.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1197.5" y="942.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1198.5" y="943.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1214.4" y="963.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ALT</text>
+<g filter="url(#shadow)"><rect x="1238.4" y="940.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1240.6" y="942.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1241.6" y="943.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1257.5" y="963.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >APPR</text>
+<g filter="url(#shadow)"><rect x="1281.6" y="940.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1283.8" y="942.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1284.8" y="943.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1300.6" y="963.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >FD</text>
+<g filter="url(#shadow)"><rect x="1195.3" y="998.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1197.5" y="1000.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1198.5" y="1001.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1214.4" y="1021.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >BC</text>
+<g filter="url(#shadow)"><rect x="1238.4" y="998.0" width="38.1" height="40.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1240.6" y="1000.2" width="33.7" height="35.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1241.6" y="1001.0" width="31.7" height="13.5" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1257.5" y="1021.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >AP</text>
+<g filter="url(#shadow)"><rect x="1346.7" y="808.0" width="129.3" height="44.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1349.7" y="811.0" width="123.3" height="38.0" rx="1.5" fill="#02060A"/>
+<text x="1411.3" y="826.9" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="11" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">10M</text>
+<text x="1411.3" y="840.3" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="11" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">0M</text>
+<g filter="url(#shadow)"><rect x="1346.7" y="866.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1348.9" y="868.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1349.9" y="869.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.7" y="888.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >COM1</text>
+<g filter="url(#shadow)"><rect x="1389.8" y="866.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1392.0" y="868.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1393.0" y="869.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1408.8" y="888.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >BOTH</text>
+<g filter="url(#shadow)"><rect x="1432.9" y="866.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1435.1" y="868.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1436.1" y="869.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1451.9" y="888.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >NAV2</text>
+<g filter="url(#shadow)"><rect x="1346.7" y="918.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1348.9" y="920.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1349.9" y="921.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.7" y="940.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >DME</text>
+<g filter="url(#shadow)"><rect x="1389.8" y="918.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1392.0" y="920.2" width="33.7" height="33.6" rx="2" fill="url(#lens_blue)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1393.0" y="921.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1408.8" y="940.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >OUTER</text>
+<g filter="url(#shadow)"><rect x="1432.9" y="918.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1435.1" y="920.2" width="33.7" height="33.6" rx="2" fill="url(#lens_white)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1436.1" y="921.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1451.9" y="940.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >INNER</text>
+<g filter="url(#shadow)"><rect x="1346.7" y="970.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1348.9" y="972.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1349.9" y="973.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.7" y="992.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >COM2</text>
+<g filter="url(#shadow)"><rect x="1389.8" y="970.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1392.0" y="972.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1393.0" y="973.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1408.8" y="992.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >NAV1</text>
+<g filter="url(#shadow)"><rect x="1432.9" y="970.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1435.1" y="972.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1436.1" y="973.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1451.9" y="992.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >MKR</text>
+<g filter="url(#shadow)"><rect x="1346.7" y="1022.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1348.9" y="1024.2" width="33.7" height="33.6" rx="2" fill="url(#lens_green)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1349.9" y="1025.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1365.7" y="1044.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#FFFFFF" text-anchor="middle" >ADF</text>
+<g filter="url(#shadow)"><rect x="1389.8" y="1022.0" width="38.1" height="38.0" rx="3" fill="url(#bezel)" stroke="#444" stroke-width="0.5"/></g>
+<rect x="1392.0" y="1024.2" width="33.7" height="33.6" rx="2" fill="url(#lens_amber)" stroke="#5a3a00" stroke-width="0.4"/>
+<rect x="1393.0" y="1025.0" width="31.7" height="12.8" rx="2" fill="#fff" opacity="0.28"/>
+<text x="1408.8" y="1044.2" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9.4" font-weight="700" fill="#2B1A00" text-anchor="middle" >MIDDLE</text>
+<rect x="1108.3" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1111.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1113.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1116.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1119.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1121.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1124.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1126.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1129.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1131.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1134.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1136.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1139.3" cy="660.0" r="1.2" fill="#444"/>
+<rect x="1108.3" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="1132.8" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 1132.8 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J8 COMM_NAV</text>
+<rect x="1243.0" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1246.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1248.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1251.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1253.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1256.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1258.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1261.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1263.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1266.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1268.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1271.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1274.0" cy="660.0" r="1.2" fill="#444"/>
+<rect x="1243.0" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="1267.5" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 1267.5 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J12 AUTOPILOT</text>
+<rect x="1377.7" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1380.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1383.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1385.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1388.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1390.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1393.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1395.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1398.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1401.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1403.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1406.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1408.7" cy="660.0" r="1.2" fill="#444"/>
+<rect x="1377.7" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="1402.2" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 1402.2 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J3 AUDIO</text>
+<g filter="url(#shadow)"><rect x="1510.0" y="810.0" width="140.0" height="64.0" rx="3" fill="#2E3034" stroke="#111" stroke-width="0.6"/></g>
+<rect x="1513.0" y="813.0" width="134.0" height="58.0" rx="1.5" fill="#02060A"/>
+<text x="1580.0" y="839.4" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="9.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">ADF  340 kHz</text>
+<text x="1580.0" y="850.8" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="9.4" font-weight="700" fill="#9FF0FF" text-anchor="middle" filter="url(#glow)">FOLLOW OFF</text>
+<g filter="url(#shadow)"><circle cx="1580.0" cy="930.0" r="19.0" fill="url(#bezelR)" stroke="#444" stroke-width="0.5"/></g>
+<circle cx="1580.0" cy="930.0" r="14.8" fill="url(#lens_green)" stroke="#0b3d12" stroke-width="0.5"/>
+<ellipse cx="1577.7" cy="923.9" rx="8.6" ry="4.8" fill="#fff" opacity="0.35"/>
+<text x="1580.0" y="934.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15.2" font-weight="700" fill="#FFFFFF" text-anchor="middle" >N</text>
+<g filter="url(#shadow)"><circle cx="1542.0" cy="982.0" r="19.0" fill="url(#bezelR)" stroke="#444" stroke-width="0.5"/></g>
+<circle cx="1542.0" cy="982.0" r="14.8" fill="url(#lens_green)" stroke="#0b3d12" stroke-width="0.5"/>
+<ellipse cx="1539.7" cy="975.9" rx="8.6" ry="4.8" fill="#fff" opacity="0.35"/>
+<text x="1542.0" y="986.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15.2" font-weight="700" fill="#FFFFFF" text-anchor="middle" >L</text>
+<g filter="url(#shadow)"><circle cx="1618.0" cy="982.0" r="19.0" fill="url(#bezelR)" stroke="#444" stroke-width="0.5"/></g>
+<circle cx="1618.0" cy="982.0" r="14.8" fill="url(#lens_green)" stroke="#0b3d12" stroke-width="0.5"/>
+<ellipse cx="1615.7" cy="975.9" rx="8.6" ry="4.8" fill="#fff" opacity="0.35"/>
+<text x="1618.0" y="986.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15.2" font-weight="700" fill="#FFFFFF" text-anchor="middle" >R</text>
+<rect x="1563.0" y="655.0" width="34.0" height="10" rx="1.5" fill="#EDE8D6" stroke="#6B6650" stroke-width="0.6"/>
+<circle cx="1566.0" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1568.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1571.1" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1573.6" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1576.2" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1578.7" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1581.3" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1583.8" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1586.4" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1588.9" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1591.5" cy="660.0" r="1.2" fill="#444"/>
+<circle cx="1594.0" cy="660.0" r="1.2" fill="#444"/>
+<rect x="1563.0" y="655.0" width="3" height="10" fill="#C0392B"/>
+<text x="1587.5" y="672.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="8.4" font-weight="700" fill="#111" text-anchor="start" transform="rotate(90 1587.5 672.0)"  stroke="#fff" stroke-width="2.6" stroke-linejoin="round" paint-order="stroke">J5 ADF</text>
+<text x="1652.0" y="1170.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#888" text-anchor="end" >Jet Ranger cockpit instrument map - 31 October 2026 - from the sketches, PCB layouts and tables in the Program Summary</text>
+</svg>

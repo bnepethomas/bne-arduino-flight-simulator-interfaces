@@ -8,6 +8,10 @@
 | Sweep runs but gauges never move in flight | Packets not reaching UDP 13136 | PC on 172.16.1.x; Windows firewall allows outbound UDP; the bridge sends to the right boards (servo .102, steppers .105 and .106); only one bridge running |
 | No debug messages, or the Health Monitor shows a board as down | Listener or Health Monitor not running, or PC address wrong | PC at 172.16.1.10; listener bound to UDP 27000, Health Monitor to UDP 13137; firewall allows inbound UDP on both |
 | One gauge pinned at an end stop | Value outside the calibration table, or table points wrong | Send the `RAW` token to find the true limits, then re-measure the table (see Calibration) |
+| The DCS bridge says no stream | DCS not running, or DCS-BIOS not installed or its `Export.lua` line missing | Start DCS with an aircraft loaded; check `Saved Games\DCS\Scripts\Export.lua` has the DCS-BIOS line; no other program should block multicast 239.255.50.10 port 5010 |
+| A Huey gauge reads wrong or sits against a stop | The needle-position scale is a first guess (*uncalibrated*) | Calibrate it in the DCS bridge (select the row, Calibrate selected...) at two or more readings |
+| The X-Plane bridge says no data yet | X-Plane not running, UDP receive off, or the wrong host or port | Allow incoming UDP in X-Plane's network settings; use `--xplane-host` and `--xplane-port`; check the Windows firewall |
+| One gauge stays at zero with the X-Plane bridge | The aircraft does not fill in that dataref | Use Search datarefs... and add the right one to a profile file |
 | All gauges drop to zero after 30 seconds | No packets arriving (watchdog) | Bridge running and connected; simulator not paused; network link |
 | A board feels slower, or its knobs and needles stutter, while the PC (or another board) is off | Each packet sent to a missing device waits up to 80 ms for an ARP answer (the fast Ethernet timeout) | Switch the missing device on, or reduce debug traffic; see *Unreachable hosts and the fast Ethernet timeout* in the Network chapter |
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |

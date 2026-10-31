@@ -1,0 +1,53 @@
+{
+  // The values nearly every X-Plane aircraft gives through the standard datarefs, in the units the Jet Ranger boards take. A file whose name starts with an underscore is
+  // not an aircraft profile: it is added to every aircraft's profile (an aircraft's own value for the same token wins) and on its own it drives any aircraft.
+  // Dataref names, types and units are from X-Plane 12's Resources\plugins\DataRefs.txt. "[0]" is the first engine.
+  "module": "Common",
+  "values": [
+    // flight instruments
+    { "token": "IAS",   "dataref": "sim/cockpit2/gauges/indicators/airspeed_kts_pilot", "type": "analog", "decimals": 1 },
+    { "token": "ALT",   "dataref": "sim/cockpit2/gauges/indicators/altitude_ft_pilot", "type": "analog", "decimals": 0 },
+    { "token": "VSI",   "dataref": "sim/cockpit2/gauges/indicators/vvi_fpm_pilot", "type": "analog", "decimals": 0 },
+    { "token": "AGL",   "dataref": "sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", "type": "analog", "decimals": 0 },
+    { "token": "PITCH", "dataref": "sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot", "type": "analog", "decimals": 1 },
+    { "token": "BANK",  "dataref": "sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot", "type": "analog", "decimals": 1 },
+    { "token": "HDG",   "dataref": "sim/flightmodel/position/true_psi", "type": "analog", "decimals": 0 },
+    { "token": "LAT",   "dataref": "sim/flightmodel/position/latitude", "type": "analog", "decimals": 6 },
+    { "token": "LON",   "dataref": "sim/flightmodel/position/longitude", "type": "analog", "decimals": 6 },
+
+    // engine 1 (the Stepper and Dual Stepper boards)
+    { "token": "N1",    "dataref": "sim/cockpit2/engine/indicators/N1_percent[0]", "type": "analog", "decimals": 0 },
+    { "token": "RPME",  "dataref": "sim/cockpit2/engine/indicators/N2_percent[0]", "type": "analog", "decimals": 1 },
+    { "token": "ITT",   "dataref": "sim/cockpit2/engine/indicators/ITT_deg_C[0]", "type": "analog", "decimals": 0, "note": "X-Plane says the unit varies by aircraft" },
+    { "token": "TQ",    "dataref": "sim/cockpit2/engine/indicators/torque_n_mtr[0]", "divisor": "sim/flightmodel/engine/POINT_max_TRQ[0]", "type": "analog", "scale": 100.0, "decimals": 0,
+      "note": "torque as a percent of the maximum torque of the prop; not every aircraft fills in the maximum" },
+    { "token": "OILP",  "dataref": "sim/cockpit2/engine/indicators/oil_pressure_psi[0]", "type": "analog", "decimals": 0 },
+    { "token": "OILT",  "dataref": "sim/cockpit2/engine/indicators/oil_temperature_deg_C[0]", "type": "analog", "decimals": 0 },
+    { "token": "FUELLOAD", "dataref": "sim/cockpit2/engine/indicators/fuel_pressure_psi[0]", "type": "analog", "decimals": 0 },
+    { "token": "FUEL",  "dataref": "sim/flightmodel/weight/m_fuel_total", "type": "analog", "scale": 0.3303, "decimals": 0, "note": "kg of fuel to US gallons for jet fuel (0.8 kg per litre); avgas is about 11 percent more" },
+
+    // clock and outside air temperature (the Dual Stepper OLEDs)
+    { "token": "ZULU",  "type": "hhmm", "datarefs": [ "sim/cockpit2/clock_timer/zulu_time_hours", "sim/cockpit2/clock_timer/zulu_time_minutes" ] },
+    { "token": "TEMP",  "dataref": "sim/cockpit2/temperature/outside_air_temp_degc", "type": "analog", "decimals": 0, "suffix": "C" },
+
+    // the Servo board's warning lamps that X-Plane's generic annunciators can drive
+    { "token": "RLOW",  "dataref": "sim/cockpit2/annunciators/low_rotor", "type": "lamp" },
+    { "token": "GENF",  "dataref": "sim/cockpit2/annunciators/generator_off[0]", "type": "lamp" },
+    { "token": "LOWF",  "dataref": "sim/cockpit2/annunciators/fuel_quantity", "type": "lamp" },
+    { "token": "EC",    "dataref": "sim/cockpit2/annunciators/chip_detected[0]", "type": "lamp" },
+    { "token": "FPMP",  "dataref": "sim/cockpit2/annunciators/fuel_pressure_low[0]", "type": "lamp" },
+    { "token": "EOUT",  "dataref": "sim/flightmodel/engine/ENGN_running[0]", "type": "lamp", "invert": true, "note": "lit when engine 1 is not running" },
+
+    // the Huey Warning Panel LEDs, driven by the nearest generic annunciator (approximations: X-Plane has no Huey caution panel)
+    { "token": "LED_H_ENG_OIL",        "dataref": "sim/cockpit2/annunciators/oil_pressure_low[0]", "type": "lamp" },
+    { "token": "LED_H_ENG_ICE",        "dataref": "sim/cockpit2/annunciators/ice", "type": "lamp" },
+    { "token": "LED_H_ENG_CHIP",       "dataref": "sim/cockpit2/annunciators/chip_detected[0]", "type": "lamp" },
+    { "token": "LED_H_20_MINUTE_FUEL", "dataref": "sim/cockpit2/annunciators/fuel_quantity", "type": "lamp" },
+    { "token": "LED_H_ENG_FUEL_PUMP",  "dataref": "sim/cockpit2/annunciators/fuel_pressure_low[0]", "type": "lamp" },
+    { "token": "LED_H_HYD_PRESS",      "dataref": "sim/cockpit2/annunciators/hydraulic_pressure", "type": "lamp" },
+    { "token": "LED_H_INST_INVERTER",  "dataref": "sim/cockpit2/annunciators/inverter_off[0]", "type": "lamp" },
+    { "token": "LED_H_DC_GENERATOR",   "dataref": "sim/cockpit2/annunciators/generator_off[0]", "type": "lamp" },
+    { "token": "LED_H_EXT_POWER",      "dataref": "sim/cockpit2/annunciators/external_power_on", "type": "lamp" },
+    { "token": "LED_H_CHIP_DETECTOR",  "dataref": "sim/cockpit2/annunciators/chip_detected[0]", "type": "lamp" }
+  ]
+}

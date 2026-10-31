@@ -1,0 +1,15 @@
+{
+  // The values every aircraft exports through DCS-BIOS CommonData (the CommonData.json module file), in real units. A file whose name starts with an underscore is
+  // not an aircraft profile: it is added to every aircraft's profile (an aircraft's own value for the same token wins), and an aircraft with no profile of its own
+  // is read with just these, so any aircraft drives the airspeed gauge, the altimeter and the GPS interface.
+  "module": "Common",
+  "jsonFile": "CommonData.json",
+  "aircraft": [],
+  "values": [
+    { "token": "IAS", "control": "IAS_US_INT", "type": "analog", "raw": true, "decimals": 0, "hint": "indicated airspeed in knots" },
+    { "token": "ALT", "control": "ALT_MSL_FT", "type": "analog", "raw": true, "decimals": 0, "hint": "altitude above sea level in feet (no barometric correction)" },
+    { "token": "HDG", "control": "HDG_DEG",    "type": "analog", "raw": true, "decimals": 0, "hint": "true heading in degrees" },
+    { "token": "LAT", "type": "coordinate", "controls": [ "LAT_DEG", "LAT_SEC", "LAT_SEC_FRAC" ], "dirControl": "LAT_Z_DIR", "hint": "latitude: degrees, minutes, fraction of a minute" },
+    { "token": "LON", "type": "coordinate", "controls": [ "LON_DEG", "LON_SEC", "LON_SEC_FRAC" ], "dirControl": "LON_Z_DIR", "hint": "longitude: degrees, minutes, fraction of a minute" }
+  ]
+}

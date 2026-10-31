@@ -7,6 +7,9 @@
     { "token": "LED_H_ENG_ICE", "control": "LAMP_B", "type": "lamp" },
     { "token": "LED_H_IFF",     "control": "LAMP_C", "type": "lamp" },
     { "token": "IAS",           "control": "TEST_IAS", "type": "analog", "scale": 200.0, "decimals": 1 },
-    { "token": "MAINBUS",       "control": "TEST_BUS", "type": "analog", "scale": 30.0, "decimals": 1 }
+    { "token": "MAINBUS",       "control": "TEST_BUS", "type": "analog", "scale": 30.0, "decimals": 1 },
+    { "token": "AGL",           "type": "digits", "controls": [ "RD1", "RD2", "RD3", "RD4" ] },
+    { "token": "TQ",            "control": "TEST_TQ",  "type": "analog", "scale": 120.0, "decimals": 0, "provisional": true },
+    { "token": "VSI",           "control": "TEST_VSI", "type": "analog", "scale": 3500.0, "offset": -1750.0, "decimals": 0, "provisional": true }
   ]
 }

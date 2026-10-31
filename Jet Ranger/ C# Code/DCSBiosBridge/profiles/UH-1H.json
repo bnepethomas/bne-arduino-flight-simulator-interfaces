@@ -28,6 +28,27 @@
     { "token": "LED_H_DC_GENERATOR",     "control": "CL_G1", "hint": "DC GENERATOR",                "type": "lamp" },
     { "token": "LED_H_EXT_POWER",        "control": "CL_H1", "hint": "EXTERNAL POWER",              "type": "lamp" },
     { "token": "LED_H_CHIP_DETECTOR",    "control": "CL_I1", "hint": "CHIP DETECTOR",               "type": "lamp" },
-    { "token": "LED_H_IFF",              "control": "CL_J1", "hint": "IFF",                         "type": "lamp" }
+    { "token": "LED_H_IFF",              "control": "CL_J1", "hint": "IFF",                         "type": "lamp" },
+
+    // Gauges. AGL is exact: the radar altimeter's four drum digits (thousands first). The others are the cockpit gauges' needle POSITIONS (0 to 1 of the dial, which is
+    // all DCS-BIOS gives) and have only a first-guess scale: the dial's whole sweep is mapped onto the panel gauge's own range, so the panel needle follows the same
+    // fraction of its dial. They show "uncalibrated" in the bridge until you use Calibrate selected... (fly to a reading, type what the cockpit gauge says; two or
+    // more points replace the guess; the points are kept in UH-1H.calibration.json). Airspeed, altitude, heading and position are real values from _common.json.
+    { "token": "AGL",            "type": "digits", "controls": [ "RALT_DIGIT_1", "RALT_DIGIT_2", "RALT_DIGIT_3", "RALT_DIGIT_4" ], "hint": "radar altimeter drum digits" },
+    { "token": "VSI",            "control": "VVI_P",         "type": "analog", "scale": 3500, "offset": -1750, "decimals": 0, "provisional": true, "hint": "vertical velocity pilot, +-1 of the dial = +-1750 ft/min" },
+    { "token": "TQ",             "control": "TORQUE_PRESS",  "type": "analog", "scale": 120, "decimals": 0, "provisional": true, "hint": "torque pressure, dial 0-1 = 0-120 percent" },
+    { "token": "N1",             "control": "GAS_RPM",       "type": "analog", "scale": 103, "decimals": 0, "provisional": true, "hint": "gas producer RPM, dial 0-1 = 0-103 percent" },
+    { "token": "ITT",            "control": "EXHAUST_TEMP",  "type": "analog", "scale": 800, "offset": 100, "decimals": 0, "provisional": true, "hint": "exhaust temperature, dial 0-1 = 100-900 C" },
+    { "token": "FUEL",           "control": "FUEL_QTY",      "type": "analog", "scale": 75, "decimals": 0, "provisional": true, "hint": "fuel quantity, dial 0-1 = 0-75 gallons" },
+    { "token": "OILP",           "control": "ENG_OIL_PRESS", "type": "analog", "scale": 150, "decimals": 0, "provisional": true, "hint": "engine oil pressure, dial 0-1 = 0-150 psi" },
+    { "token": "OILT",           "control": "ENG_OIL_TEMP",  "type": "analog", "scale": 150, "decimals": 0, "provisional": true, "hint": "engine oil temperature, dial 0-1 = 0-150 C" },
+    { "token": "XMSNP",          "control": "TRANS_OIL_PRESS", "type": "analog", "scale": 150, "decimals": 0, "provisional": true, "hint": "transmission oil pressure, dial 0-1 = 0-150 psi" },
+    { "token": "XMSNT",          "control": "TRANS_OIL_TEMP", "type": "analog", "scale": 150, "decimals": 0, "provisional": true, "hint": "transmission oil temperature, dial 0-1 = 0-150 C" },
+    { "token": "RPMR",           "control": "ROTOR_RPM",     "type": "analog", "scale": 110, "decimals": 1, "provisional": true, "hint": "rotor RPM, dial 0-1 = 0-110 percent" },
+    { "token": "RPME",           "control": "ENG_RPM",       "type": "analog", "scale": 110, "decimals": 1, "provisional": true, "hint": "engine RPM, dial 0-1 = 0-110 percent" },
+    { "token": "ELECTRICALLOAD", "control": "MAIN_GEN_LOAD", "type": "analog", "scale": 100, "decimals": 0, "provisional": true, "hint": "main generator load, dial 0-1 = 0-100 percent" },
+    { "token": "FUELLOAD",       "control": "FUEL_PRESS",    "type": "analog", "scale": 30, "decimals": 0, "provisional": true, "hint": "fuel pressure, dial 0-1 = 0-30 psi" },
+    { "token": "PITCH",          "control": "PADI_PITCH",    "type": "analog", "scale": 180, "offset": -90, "decimals": 1, "provisional": true, "hint": "pilot ADI pitch, +-1 of the dial = +-90 degrees (sign and scale unchecked)" },
+    { "token": "BANK",           "control": "PADI_ROLL",     "type": "analog", "scale": 360, "offset": -180, "decimals": 1, "provisional": true, "hint": "pilot ADI roll, +-1 of the dial = +-180 degrees (sign and scale unchecked)" }
   ]
 }

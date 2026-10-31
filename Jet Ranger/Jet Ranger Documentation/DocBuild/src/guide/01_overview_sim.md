@@ -24,15 +24,17 @@ The bridge sends the Servo, Stepper and Dual Stepper boards each their own packe
 
 | Component | Role | Notes |
 |---|---|---|
-| Simulator | Flies the DodoSim 206 or another Bell 206 Jet Ranger | MSFS 2020 or 2024, Prepar3D or FSX |
+| Simulator | Flies the DodoSim 206 or another Bell 206 Jet Ranger, or (with the DCS and X-Plane bridges) the Huey or any other helicopter | MSFS 2020 or 2024, Prepar3D, FSX, DCS World or X-Plane |
 | FSUIPCWinformsAutoCS | Bridge for Prepar3D and FSX, reads FSUIPC offsets | Needs FSUIPC |
 | MSFSWinformsAutoCS | Bridge for MSFS, reads SimConnect | Has estimates for the FlyInside B206 and CowaSim Jet Ranger |
+| DCSBiosBridge | Bridge for DCS World, reads the DCS-BIOS export stream (output only; first the UH-1H Huey) | Needs DCS-BIOS installed in DCS |
+| XPlaneBridge | Bridge for X-Plane 11 and 12, reads datarefs over UDP (output only, no plugin) | Not yet tried against a real X-Plane |
 | FSUIPC and DODSIM206V2.EVT | Exposes 234 DodoSim custom events so switches can be bound | Prepar3D and FSX only |
 | Python debug listener | Shows debug messages from the boards | Listens on UDP 27000 |
 | Health Monitor | Tracks each board's keep-alive and flags a board that goes quiet | Listens on UDP 13137 |
 | LowranceAirMapGps | Feeds a Lowrance AirMap 2000C GPS from the simulator over a serial port | Listens on UDP 27002; see Lowrance AirMap GPS |
 
-Run **only one bridge at a time**: both listen for the radio board's commands on UDP 27001. Both bridges also send the aircraft position, altitude, airspeed, heading and simulator date and time to the GPS interface on UDP 27002 (on the same PC).
+Run **only one bridge at a time**: the FSUIPC and MSFS bridges both listen for the radio board's commands on UDP 27001, and all four bridges send to the same boards. Both bridges also send the aircraft position, altitude, airspeed, heading and simulator date and time to the GPS interface on UDP 27002 (on the same PC).
 
 ## Starting up
 
@@ -76,6 +78,27 @@ These estimates were fitted to a few dial readings and may be a few percent off 
 ## Running the FSUIPC bridge (Prepar3D and FSX)
 
 Start FSUIPC with the simulator, then run `FSUIPCWinformsAutoCS.exe`. The status bar shows when it is connected to Prepar3D. The window lists the values being sent and the 21 annunciator bits. The bridge sends about 10 packets per second to each board and listens on UDP 27001 for the radio board's commands (frequency swaps, standby tuning, battery, alternator, avionics master).
+
+## Running the DCS bridge (DCS World)
+
+The DCS bridge reads **DCS-BIOS**, a free add-on that makes DCS broadcast its cockpit state on the PC. It only sends data to the panel: the panel's switches reach DCS as joystick buttons (bind them in DCS as usual), and the radio knobs do not tune DCS radios yet.
+
+1. Install DCS-BIOS once (it is already installed on the cockpit PC, version 0.11.8, in `Saved Games\DCS\Scripts`, with a one line `Export.lua`). Start DCS and load a mission with an aircraft; DCS-BIOS writes its aircraft files into `Saved Games\DCS\Scripts\DCS-BIOS\doc\json`.
+2. Build `DCSBiosBridge` (in the repository's `C# Code` folder) and run `DCSBiosBridge.exe` from its `bin` folder. Close the other bridges first.
+3. The window shows the stream status, the aircraft name DCS-BIOS reports and the profile it chose. With **Send to the boards** ticked the values go to the boards; the token table shows each value and where it came from.
+4. **UH-1H Huey.** The 20 caution lights drive the Huey Warning Panel LEDs on the Radio controller; they light only while the Radio is powered, that is while the aircraft has power. The radar altitude goes to the radar altitude gauge. For every aircraft the airspeed, altitude, heading and position are sent (the GPS interface follows the aircraft).
+5. **Gauges that need calibrating.** The other Huey gauges (torque, gas producer, turbine temperature, fuel, oil, rotor and engine speed, electrical load, vertical speed, pitch and bank) are read as needle positions and shown with a first-guess scale, marked *uncalibrated*. To correct one: fly so the cockpit gauge reads a known value, select its row, press **Calibrate selected...** and type the reading; repeat at two or more readings. The points are kept in `profiles\UH-1H.calibration.json`. **Clear its calibration** removes them.
+6. For another aircraft the bridge uses the common values until a profile file for it is added.
+
+## Running the X-Plane bridge
+
+The X-Plane bridge needs no plugin: it asks X-Plane for datarefs over UDP, and it only sends data to the panel (the switches reach X-Plane as joystick buttons). It has not been tried against a real X-Plane yet, so expect to check the values.
+
+1. In X-Plane open Settings, Network and allow incoming UDP connections (the default receive port is 49000).
+2. Build `XPlaneBridge` and run `XPlaneBridge.exe` from its `bin` folder. Close the other bridges first. With no options it finds X-Plane from its beacon, or tries `127.0.0.1:49000`; use `--xplane-host` and `--xplane-port` if X-Plane is on another PC.
+3. Choose the profile in the Profile box: *Generic (common values, any aircraft)* works with any aircraft that fills in the standard datarefs, *Robinson R22* and *Sikorsky S-76* add their rotor speed and bus voltage. X-Plane does not tell the bridge which aircraft is loaded, so choose it yourself.
+4. The window shows whether data is arriving. A gauge that stays at zero with the generic profile means the aircraft does not fill in that dataref: press **Search datarefs...**, type words such as `oil pressure`, and add the right dataref to a profile file in the `profiles` folder.
+5. The warning lamps and the Huey LEDs follow X-Plane's generic annunciators, so they are approximate.
 
 ## Installing the DodoSim event file (FSUIPC)
 
