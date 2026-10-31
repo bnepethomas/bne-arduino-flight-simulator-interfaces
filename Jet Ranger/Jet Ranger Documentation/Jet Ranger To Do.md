@@ -41,3 +41,5 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [x] **Update the documentation again** (done 2026-10-31): the ADF and Upper merge (chapters, pin tables, joystick indexes, heartbeat names, COM26, the Upper ADF Controller PCB rev 1.0 images and notes, diagrams), the 12 V and keypad fixes, and the Huey Warning Panel switches, LEDs and SwingTester tests (firmware only: the Huey panel is hand wired, so its PCB is deliberately left out of the documentation). Then regenerate the documents.
 - [x] **Update the to do list** (done 2026-10-31).
 - [x] **Commit and push** the 2026-10-31 documentation (done 2026-10-31).
+- [x] **Add an installation appendix** (done 2026-10-31): top-side pictures of the five controller PCBs with only the external connectors labelled (Appendix F of the master document, chapter 19 of the User Guide), drawn by `DocBuild/export_install_views.py`. The Huey Warning Panel connectors are left out.
+- [ ] **Commit and push** the installation appendix.

@@ -1,4 +1,4 @@
-# Appendix C: PCB schematics and layouts {-}
+# Appendix E: PCB schematics and layouts {-}
 
 The schematic (the top sheet of each project) and the board layout of every PCB project in `Jet Ranger/PCBs/`, exported from KiCad 9. The layout shows the front and back copper (red and blue), the silkscreen (yellow) and the board outline, viewed from the front. The images are bitmaps: zoom in on the PDF or the document to read the labels, or open the KiCad project for the full detail. The schematic and layout images are regenerated from the KiCad files, so they show the boards as they were on the day the document was built, including any changes not yet committed.
 

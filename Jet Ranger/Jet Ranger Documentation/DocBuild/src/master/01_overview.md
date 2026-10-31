@@ -58,7 +58,7 @@ Run **only one bridge at a time**: `FSUIPCWinformsAutoCS` and `MSFSWinformsAutoC
 
 ## PCBs
 
-KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix C. The boards used by the sketches and programs above are:
+KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix E, and top-side pictures with the external connectors labelled, for installing the controller boards, are in Appendix F. The boards used by the sketches and programs above are:
 
 | PCB | Revision | Used by |
 |---|---|---|

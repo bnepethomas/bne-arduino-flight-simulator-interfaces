@@ -134,6 +134,8 @@ This document and the User Guide are generated, not typeset by hand. The sources
 | `src/master/*.md`, `src/guide/*.md` | Text of this document and the User Guide |
 | `diagrams_a.py` to `diagrams_e.py`, `svgdraw.py`, `make_diagrams.py` | The 35 diagrams, written as Python functions that draw SVG; `python make_diagrams.py` regenerates them |
 | `build_docs.py`, `run_lo.ps1` | Builds the `.odt` and `.pdf` through LibreOffice's Python interface (`run_lo.ps1 build_docs.py master`) |
+| `export_pcb_images.py`, `pcb_to_jpg.ps1` | The schematic and layout pictures of Appendix E, drawn from the KiCad files |
+| `export_install_views.py`, `trim_to_jpg.ps1` | The installation views of Appendix F (top side, external connectors labelled) and the text of that appendix, drawn from the KiCad layout files |
 | `pdf2png.ps1`, `montage.ps1`, `svg2png.py` | Helpers for checking pages and diagrams visually |
 
 To change a diagram edit its function and rebuild; to change text edit the Markdown and rebuild. Keep `PROGRAM_SUMMARY.md` files and these sources in step after a code change.

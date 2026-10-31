@@ -18,7 +18,7 @@ Notes from reading the KiCad projects in `Jet Ranger/PCBs` (schematics, PCB layo
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 (2026-10-17) | Switch panels | Diode-matrix switch boards: Audio (10 switches, 21 diodes), Auto Pilot (16 switch and encoder parts, 18 diodes, 2 LEDs), ADF (9 switch and encoder parts, 4 diodes) |
 | Annunciator, Altimeter, Large Guage, Simkits gauge boards | not set | Other panels and gauges | Not covered by the sketches in this document |
 
-The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights. The schematic and board layout of every PCB are in Appendix C.
+The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights. The schematic and board layout of every PCB are in Appendix E, and installation views of the controller boards in Appendix F.
 
 ## Backlight driver
 
