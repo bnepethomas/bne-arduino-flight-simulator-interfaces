@@ -36,6 +36,9 @@ VALUES = {
     "sim/cockpit2/clock_timer/zulu_time_hours": 14.0,
     "sim/cockpit2/clock_timer/zulu_time_minutes": 30.0,
     "sim/cockpit2/temperature/outside_air_temp_degc": 21.0,
+    "sim/time/zulu_time_sec": 52205.25,
+    "sim/cockpit2/clock_timer/zulu_month": 10.0,
+    "sim/cockpit2/clock_timer/zulu_day": 31.0,
     "sim/cockpit2/annunciators/low_rotor": 1.0,
     "sim/cockpit2/annunciators/fuel_quantity": 1.0,
     "sim/flightmodel/engine/ENGN_running[0]": 1.0,
@@ -155,6 +158,8 @@ def main():
           any(d.startswith("D,NAVCOM1:1") and "LED_H_20_MINUTE_FUEL:1" in d and "LED_H_ENG_OIL:0" in d for d in win(a0, a1)))
     check("generic: no rotor speed or bus voltage (no aircraft profile): no RPMR token, backlight BPWR:1", not any("RPMR:" in d for d in run1) and "D,BPWR:1" in run1)
     check("generic: GPS packet -27.4, 153.0, 3200 ft, 80.0 kt, heading 90", any("LAT:-27.400000" in d and "LON:153.000000" in d and "ALT:3200" in d and "IAS:80.0" in d and "HDG:90" in d for d in win(a0 + 1.0, a1, gps)))
+    year = time.strftime("%Y", time.gmtime())
+    check("generic: GPS packet carries the simulator's UTC date and time (zulu 14:30:05.25 on 31 October, PC's year)", any(d.endswith(",UTC:" + year + "1031143005.250") for d in win(a0 + 1.0, a1, gps)))
 
     run2a = win(b0 + 1.0, bmid)
     run2b = win(bmid + 1.0, b1)

@@ -7,6 +7,7 @@
     { "token": "ALT", "control": "ALT_MSL_FT", "type": "analog", "raw": true, "decimals": 0 },
     { "token": "HDG", "control": "HDG_DEG",    "type": "analog", "raw": true, "decimals": 0 },
     { "token": "LAT", "type": "coordinate", "controls": [ "LAT_DEG", "LAT_SEC", "LAT_SEC_FRAC" ], "dirControl": "LAT_Z_DIR" },
+    { "token": "UTC", "type": "missiontime", "controls": [ "TIME_START_HIGH", "TIME_START_LOW", "TIME_MODEL_HIGH", "TIME_MODEL_LOW" ], "hint": "mission clock" },
     { "token": "LON", "type": "coordinate", "controls": [ "LON_DEG", "LON_SEC", "LON_SEC_FRAC" ], "dirControl": "LON_Z_DIR" }
   ]
 }

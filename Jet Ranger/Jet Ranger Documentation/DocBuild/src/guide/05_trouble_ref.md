@@ -21,6 +21,7 @@
 | A backlight stays on at power-up with no PC | Old firmware without the no-data rule, or the board has never been flashed with the backlight code | Flash the current Radio, Servo, Stepper and Dual Stepper sketches; the backlight should go out about 30 seconds after power-up |
 | The backlight is always on or flickers | MOSFET pinned wrongly on a board from an earlier revision (source and drain swapped) | Check the transistor against the revision notes (PCBs and wiring) |
 | The GPS shows Brisbane Airport | No aircraft data for 30 seconds | Check a bridge or the bench tester is running on the same PC and sending to UDP 27002; check no other program owns the port |
+| The GPS time is hours out with DCS | The DCS mission clock is the theatre's local time and the bridge's **Mission time zone** box is still 0 | Set the box to the theatre's hours from UTC (for example 4 for the Caucasus); the GPS date is the PC's |
 | The GPS shows the PC time, not the simulator time | The packets carry no `UTC:` (for example the FSUIPC time read failed) | The window says *PC clock*; check the bridge version |
 | The GPS interface cannot open its port | Wrong COM port, or another program holds it | Use *Change serial port...*; close other serial programs |
 | A lamp never lights | Wiring or the lamp's driver | It should light at the power-up lamp test; if not, check the A pin and its driver |

@@ -42,6 +42,7 @@ namespace DCSBiosBridge
         readonly Label lblProfile = new() { AutoSize = true };
         readonly ComboBox cboProfile = new() { DropDownStyle = ComboBoxStyle.DropDownList, Width = 220 };
         readonly CheckBox chkSend = new() { Text = "Send to the boards", Checked = true, AutoSize = true };
+        readonly NumericUpDown numZone = new() { Minimum = -12, Maximum = 14, DecimalPlaces = 1, Increment = 0.5M, Width = 55 };
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSuggest = new() { Text = "Suggest controls", AutoSize = true };
         readonly Button btnCalibrate = new() { Text = "Calibrate selected...", AutoSize = true };
@@ -60,6 +61,7 @@ namespace DCSBiosBridge
             profileDir = args.GetValueOrDefault("profile-dir") ?? Path.Combine(AppContext.BaseDirectory, "profiles");
             jsonDir = args.GetValueOrDefault("json-dir") ?? DefaultJsonDir();
             if (args.ContainsKey("no-send")) chkSend.Checked = false;
+            if (decimal.TryParse(args.GetValueOrDefault("utc-offset"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var zone) && zone >= numZone.Minimum && zone <= numZone.Maximum) numZone.Value = zone;
 
             string? boardHost = args.GetValueOrDefault("board-host");
             foreach (var (name, host) in Boards.All)
@@ -74,7 +76,7 @@ namespace DCSBiosBridge
             top.Controls.AddRange(new Control[] { lblStream, lblAircraft, lblProfile });
             top.FlowDirection = FlowDirection.TopDown;
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
 
             lvValues.Columns.Add("Token", 180);
             lvValues.Columns.Add("DCS-BIOS control", 230);
@@ -275,6 +277,7 @@ namespace DCSBiosBridge
             lblProfile.Text = "Profile: " + (profile?.Module ?? "none");
             if (profile == null) return;
 
+            profile.UtcOffsetHours = (double)numZone.Value;
             lastResults = profile.Evaluate(state, controls);
             var tokens = new Dictionary<string, string>();
             foreach (var r in lastResults) tokens[r.Token] = r.Sent;

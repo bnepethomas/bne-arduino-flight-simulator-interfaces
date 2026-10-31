@@ -21,6 +21,8 @@ Each update sends `$GPGGA` (position, altitude in metres), `$GPRMC` (position, s
 
 When a packet carries `UTC:` the program takes the offset between the simulator's UTC and the PC's UTC and adds it to the PC clock for every sentence, so the GPS time and date (the RMC date field and every sentence time) are the simulator's and tick smoothly between packets. The offset is only re-taken when the simulator time moves more than 1.5 seconds from where it predicts, for example when the user changes the time or the simulation rate is not 1x. The window shows *GPS time ... (simulator time)* or *(PC clock)*. The PC clock is used when no packet has arrived for 30 seconds or when a packet has no `UTC:`.
 
+The FSUIPC, MSFS, DCS and X-Plane bridges all send `UTC:`. The DCS bridge's clock is the mission's local time, so it has a time zone box (see the DCS bridge chapter); the X-Plane bridge uses the simulator's zulu clock with the PC's year.
+
 ## Files
 
 | File | Role |

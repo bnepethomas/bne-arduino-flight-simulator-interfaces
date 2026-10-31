@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace DCSBiosBridge
 {
@@ -9,6 +10,9 @@ namespace DCSBiosBridge
     //               Points (fraction or raw value -> real value, from the Calibrate button) they are used instead, by straight lines between the points.
     //   digits      Controls are the drum digits, most significant first; each reads as a digit when multiplied by 10 (10 is blank): the radar altimeter.
     //   coordinate  Controls are the degrees, minutes and fractional minutes (divide by 65535) of a position and DirControl its N, S, E or W letter: DCS-BIOS CommonData.
+    //   missiontime Controls are the mission start time (high and low 16 bits, seconds) and the model time (high and low 16 bits, hundredths of a second): the token is the
+    //               simulator's UTC date and time, yyyyMMddHHmmss.fff, for the GPS interface. The mission clock is the theatre's local time, so Profile.UtcOffsetHours (local
+    //               minus UTC) is taken off it; DCS-BIOS has no date, so the PC's UTC date is used.
     // Provisional marks a needle position that has only a first-guess scale: it is shown as "uncalibrated" until points are added.
     public sealed class ProfileValue
     {
@@ -46,6 +50,7 @@ namespace DCSBiosBridge
         public List<string> Aircraft { get; set; } = new();
         public List<ProfileValue> Values { get; set; } = new();
         public string FileName { get; set; } = "";
+        [JsonIgnore] public double UtcOffsetHours { get; set; }     // the mission's time zone, local minus UTC (set by the window)
 
         static readonly JsonSerializerOptions Options = new() { PropertyNameCaseInsensitive = true, ReadCommentHandling = JsonCommentHandling.Skip, AllowTrailingCommas = true };
 
@@ -119,6 +124,18 @@ namespace DCSBiosBridge
                     if (!ok) continue;
                     r.Sent = number.ToString("F0", CultureInfo.InvariantCulture);
                     r.Shown = r.Sent;
+                    r.Status = "ok";
+                }
+                else if (type == "missiontime")
+                {
+                    if (v.Controls.Count < 4) continue;
+                    if (!TryRead(state, controls, v.Controls[0], out int sh, out _) || !TryRead(state, controls, v.Controls[1], out int sl, out _) ||
+                        !TryRead(state, controls, v.Controls[2], out int mh, out _) || !TryRead(state, controls, v.Controls[3], out int ml, out _)) continue;
+                    double startSec = sh * 65536.0 + sl, modelSec = (mh * 65536.0 + ml) / 100.0;
+                    if (startSec <= 0 && modelSec <= 0) continue;           // no mission yet
+                    double local = (startSec + modelSec) % 86400.0;
+                    r.Sent = DateTime.UtcNow.Date.AddSeconds(Math.Floor((local - UtcOffsetHours * 3600.0) * 1000) / 1000).ToString("yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                    r.Shown = TimeSpan.FromSeconds(Math.Floor(local)).ToString(@"hh\:mm\:ss") + " local";
                     r.Status = "ok";
                 }
                 else if (type == "coordinate")

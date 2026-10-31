@@ -32,7 +32,7 @@ Both bridges have one window with the same layout.
 
 Run only one bridge at a time.
 
-![DCSBiosBridge (DCS World) with a synthetic UH-1H stream: three caution lights on, the common values and the Huey LED rows (scroll for the gauges)](screenshots/dcs_bridge.png)
+![DCSBiosBridge (DCS World) with a synthetic UH-1H stream: three caution lights on, the common values, the mission clock with its time zone box and the Huey LED rows (scroll for the gauges)](screenshots/dcs_bridge.png)
 
 ![XPlaneBridge (X-Plane) against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
 

@@ -87,8 +87,9 @@ The DCS bridge reads **DCS-BIOS**, a free add-on that makes DCS broadcast its co
 2. Build `DCSBiosBridge` (in the repository's `C# Code` folder) and run `DCSBiosBridge.exe` from its `bin` folder. Close the other bridges first.
 3. The window shows the stream status, the aircraft name DCS-BIOS reports and the profile it chose. With **Send to the boards** ticked the values go to the boards; the token table shows each value and where it came from.
 4. **UH-1H Huey.** The 20 caution lights drive the Huey Warning Panel LEDs on the Radio controller; they light only while the Radio is powered, that is while the aircraft has power. The radar altitude goes to the radar altitude gauge. For every aircraft the airspeed, altitude, heading and position are sent (the GPS interface follows the aircraft).
-5. **Gauges that need calibrating.** The other Huey gauges (torque, gas producer, turbine temperature, fuel, oil, rotor and engine speed, electrical load, vertical speed, pitch and bank) are read as needle positions and shown with a first-guess scale, marked *uncalibrated*. To correct one: fly so the cockpit gauge reads a known value, select its row, press **Calibrate selected...** and type the reading; repeat at two or more readings. The points are kept in `profiles\UH-1H.calibration.json`. **Clear its calibration** removes them.
-6. For another aircraft the bridge uses the common values until a profile file for it is added.
+5. **GPS time.** The Lowrance GPS shows the mission clock. DCS gives the mission's local time, so set **Mission time zone (hours from UTC)** to the theatre's offset (for example 4 for the Caucasus and the Persian Gulf, 3 for Syria, -8 for Nevada); the box starts at 0 each run, or start the bridge with `--utc-offset 4`.
+6. **Gauges that need calibrating.** The other Huey gauges (torque, gas producer, turbine temperature, fuel, oil, rotor and engine speed, electrical load, vertical speed, pitch and bank) are read as needle positions and shown with a first-guess scale, marked *uncalibrated*. To correct one: fly so the cockpit gauge reads a known value, select its row, press **Calibrate selected...** and type the reading; repeat at two or more readings. The points are kept in `profiles\UH-1H.calibration.json`. **Clear its calibration** removes them.
+7. For another aircraft the bridge uses the common values until a profile file for it is added.
 
 ## Running the X-Plane bridge
 
@@ -99,6 +100,7 @@ The X-Plane bridge needs no plugin: it asks X-Plane for datarefs over UDP, and i
 3. Choose the profile in the Profile box: *Generic (common values, any aircraft)* works with any aircraft that fills in the standard datarefs, *Robinson R22* and *Sikorsky S-76* add their rotor speed and bus voltage. X-Plane does not tell the bridge which aircraft is loaded, so choose it yourself.
 4. The window shows whether data is arriving. A gauge that stays at zero with the generic profile means the aircraft does not fill in that dataref: press **Search datarefs...**, type words such as `oil pressure`, and add the right dataref to a profile file in the `profiles` folder.
 5. The warning lamps and the Huey LEDs follow X-Plane's generic annunciators, so they are approximate.
+6. The Lowrance GPS follows X-Plane's zulu clock and date (the PC's year is used).
 
 ## Installing the DodoSim event file (FSUIPC)
 

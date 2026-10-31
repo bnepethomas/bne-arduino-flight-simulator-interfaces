@@ -2,7 +2,7 @@
 
 `XPlaneBridge` is the bridge for **X-Plane 11 and 12**. It reads **datarefs over X-Plane's built-in UDP interface** (no plugin), converts them with a **profile**, and sends them to the boards in the same `D,TOKEN:value` packets (UDP 13136) as the other bridges, so the board firmware does not change. It is a Windows Forms program (`net10.0-windows`) and is **output only**. Run only one bridge at a time.
 
-It builds with no warnings and passes `tests\test_bridge.py` (a fake X-Plane answering the dataref subscriptions, 10 checks, with the generic profile and the Robinson R22 profile). It has **not been run against a real X-Plane yet**. The dataref names in the profiles were checked against X-Plane 12's `Resources\plugins\DataRefs.txt`.
+It builds with no warnings and passes `tests\test_bridge.py` (a fake X-Plane answering the dataref subscriptions, 11 checks, with the generic profile and the Robinson R22 profile). It has **not been run against a real X-Plane yet**. The dataref names in the profiles were checked against X-Plane 12's `Resources\plugins\DataRefs.txt`.
 
 ## How it works
 
@@ -19,7 +19,7 @@ It builds with no warnings and passes `tests\test_bridge.py` (a fake X-Plane ans
 | Dual Stepper | `ALT` (`altitude_ft_pilot`), `RPME` (`N2_percent[0]`), `OILP`, `OILT` (`oil_pressure_psi[0]`, `oil_temperature_deg_C[0]`), `FUELLOAD` (`fuel_pressure_psi[0]`), `ZULU` (zulu hours and minutes), `TEMP` (outside air temperature with the C suffix) |
 | Servo | `PITCH` (`pitch_AHARS_deg_pilot`), `BANK` (`roll_AHARS_deg_pilot`), and the lamps `RLOW`, `GENF`, `LOWF`, `EC`, `FPMP` and `EOUT` (engine 1 not running) from X-Plane's generic annunciators |
 | Radio | Ten Huey Warning Panel LEDs from the nearest generic annunciator (approximations: X-Plane has no Huey caution panel) |
-| GPS interface | `LAT`, `LON` (6 decimals), `ALT`, `IAS`, `HDG` (`true_psi`) |
+| GPS interface | `LAT`, `LON` (6 decimals), `ALT`, `IAS`, `HDG` (`true_psi`), and `UTC`: the simulator's date and time from `sim/time/zulu_time_sec` with `sim/cockpit2/clock_timer/zulu_month` and `zulu_day` (X-Plane has no year, so the PC's UTC year is used), sent as `UTC:yyyyMMddHHmmss.fff` so the Lowrance GPS follows the simulator's clock |
 
 Some aircraft leave datarefs at 0, and that gauge then sits at zero; use **Search datarefs...** to find the right ones and put them in an aircraft profile.
 

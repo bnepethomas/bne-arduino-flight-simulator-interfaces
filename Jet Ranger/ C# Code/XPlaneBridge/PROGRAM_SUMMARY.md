@@ -5,7 +5,7 @@ Windows Forms bridge (.NET 10) that feeds the Jet Ranger panel boards from **X-P
 to the boards in the same `D,TOKEN:value` packets (UDP 13136) the other bridges use, so the board firmware does not change. Run only one bridge at a time.
 
 **Status (31 October 2026): output only.** It builds (Release, 0 warnings) and passes `tests\test_bridge.py` (an end-to-end test with a fake X-Plane that answers the
-dataref subscriptions, 10 checks, generic profile and the Robinson R22 profile). It has **not been run against a real X-Plane yet**; the dataref names were checked against
+dataref subscriptions, 11 checks, generic profile and the Robinson R22 profile). It has **not been run against a real X-Plane yet**; the dataref names were checked against
 X-Plane 12's `Resources\plugins\DataRefs.txt` (every dataref in the profiles exists there).
 
 ## How it works
@@ -39,6 +39,8 @@ X-Plane 12's `Resources\plugins\DataRefs.txt` (every dataref in the profiles exi
 X-Plane status (address and whether data is arriving), Profile box, **Reload**, **Search datarefs...** (words matched against the names and descriptions in `DataRefs.txt`, best
 first, in the log), **Send to the boards**, a table of tokens with dataref, raw value, value sent and board, and a log. Options: `--board-host <ip>` (send every board packet there,
 for testing), `--xplane-host`, `--xplane-port`, `--datarefs <DataRefs.txt>` (default `C:\X-Plane 12\Resources\plugins\DataRefs.txt`), `--profile-dir`, `--module <name>`, `--no-send`, `--logfile`.
+
+**GPS date and time.** The common profile's `UTC` value (type `utc`) is the zulu seconds since midnight (`sim/time/zulu_time_sec`) with the zulu month and day (`sim/cockpit2/clock_timer/zulu_month`, `zulu_day`); X-Plane has no year, so the PC's UTC year is used. It goes in the 500 ms GPS packet as `UTC:yyyyMMddHHmmss.fff`, so the Lowrance GPS follows the simulator's clock and date (including a changed time of day or time acceleration).
 
 ## Test
 

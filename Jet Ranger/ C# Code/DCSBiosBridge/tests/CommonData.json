@@ -21,6 +21,14 @@
     "LON_SEC_FRAC": { "category": "Common", "control_type": "metadata", "description": "Longitude Fractional Seconds (divide by 65535)", "identifier": "LON_SEC_FRAC",
       "outputs": [ { "address": 4154, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
     "LON_Z_DIR": { "category": "Common", "control_type": "display", "description": "Longitude Direction", "identifier": "LON_Z_DIR",
-      "outputs": [ { "address": 4156, "max_length": 2, "type": "string", "suffix": "", "description": "" } ] }
+      "outputs": [ { "address": 4156, "max_length": 2, "type": "string", "suffix": "", "description": "" } ] },
+    "TIME_START_HIGH": { "category": "Common", "control_type": "metadata", "description": "TIME_START_HIGH", "identifier": "TIME_START_HIGH",
+      "outputs": [ { "address": 4176, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "TIME_START_LOW": { "category": "Common", "control_type": "metadata", "description": "TIME_START_LOW", "identifier": "TIME_START_LOW",
+      "outputs": [ { "address": 4178, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "TIME_MODEL_HIGH": { "category": "Common", "control_type": "metadata", "description": "TIME_MODEL_HIGH", "identifier": "TIME_MODEL_HIGH",
+      "outputs": [ { "address": 4180, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] },
+    "TIME_MODEL_LOW": { "category": "Common", "control_type": "metadata", "description": "TIME_MODEL_LOW", "identifier": "TIME_MODEL_LOW",
+      "outputs": [ { "address": 4182, "mask": 65535, "shift_by": 0, "max_value": 65535, "type": "integer", "suffix": "", "description": "" } ] }
   }
 }

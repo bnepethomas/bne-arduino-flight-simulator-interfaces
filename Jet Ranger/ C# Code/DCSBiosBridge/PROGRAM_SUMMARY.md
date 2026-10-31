@@ -39,7 +39,7 @@ no `Scripts` folder before). It sends nothing to the simulator (no inputs, no po
 Stream status, aircraft name and profile; the Profile box (Automatic or a profile by hand); **Reload profiles**; **Suggest controls** (lists the module's
 controls whose identifier or description match each unmapped token's `hint`, best first, in the log); **Send to the boards**; a table of tokens with their
 control, raw value, value sent and board; and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--json-dir`, `--profile-dir`,
-`--module <name>`, `--no-send`.
+`--module <name>`, `--utc-offset <hours>`, `--no-send`.
 
 ## The Huey profile
 
@@ -59,7 +59,9 @@ and the caution panel's `CLP_RESET_TEST_SW` and `CLP_BRIGHT_DIM_SW` rockers (inp
 value for the same token wins), and an aircraft with no profile of its own is read with just these, so **any aircraft** drives the real-unit values: `IAS` (knots, `IAS_US_INT`),
 `ALT` (feet above sea level, `ALT_MSL_FT`, no barometric correction), `HDG` (true degrees, `HDG_DEG`) and `LAT` and `LON` (degrees, from `LAT_DEG`, `LAT_SEC` which is really
 minutes, `LAT_SEC_FRAC` and the direction letter, south and west negative). These go to the Stepper (`IAS`), the Dual Stepper (`ALT`) and the GPS interface on 127.0.0.1:27002
-(`LAT`, `LON`, `ALT`, `IAS`, `HDG`). `CommonData.json` is loaded with the aircraft's file.
+(`LAT`, `LON`, `ALT`, `IAS`, `HDG`, `UTC`). `CommonData.json` is loaded with the aircraft's file.
+
+**GPS date and time (`UTC`, type `missiontime`).** The Lowrance GPS interface takes the simulator's date and time as `UTC:yyyyMMddHHmmss.fff` in the same 500 ms packet as the position. DCS-BIOS gives the mission start time (`TIME_START_HIGH`/`LOW`, seconds) and the model time (`TIME_MODEL_HIGH`/`LOW`, hundredths of a second since the start); their sum is the mission clock, which is the **theatre's local time** (so the clock follows time acceleration and the time of day set in the mission). DCS-BIOS has no time zone and no date, so the window has a **Mission time zone (hours from UTC)** box (also `--utc-offset <hours>`, for example 4 for the Caucasus and the Persian Gulf, 3 for Syria, -8 for Nevada) which is taken off the clock, and the PC's UTC date is used. The box starts at 0 and is not remembered between runs. That the start time is seconds since midnight of the mission's local day is from the DCS export documentation and the DCS-BIOS source, and has **not been checked against live DCS**.
 
 **UH-1H (`profiles\UH-1H.json`).** `AGL` (radar altitude, feet) is exact: the radar altimeter's four drum digits `RALT_DIGIT_1` to `4` (thousands first, as DCS-BIOS's own
 display string builds it). The other 16 gauge values are the cockpit gauges' **needle positions** (0 to 1 of the dial: all DCS-BIOS exports for them, `defineFloat` gauge positions)
@@ -92,7 +94,7 @@ lines between the points, held beyond the ends) and the Status shows "calibrated
 airspeed, a bus voltage, four radar altimeter digits, a calibrated torque needle and an uncalibrated vertical speed needle, plus CommonData's airspeed, altitude,
 heading and position; each frame split over two datagrams) and checks the board packets: lamp decoding with mask and shift, the radio power rule, `BPWR` following the bus,
 the aircraft's value beating the common one, `AGL` from the drum digits, calibration points against the plain scale, the GPS packet, and a fourth phase with an aircraft that
-has no profile (the common values alone still work). All 14 checks pass. It stops only the bridge process it started.
+has no profile (the common values alone still work). All 15 checks pass (the fifteenth: the GPS packet's `UTC:` for a mission clock of 11:30:00 at +4 h). It stops only the bridge process it started.
 
 ## Not done yet
 

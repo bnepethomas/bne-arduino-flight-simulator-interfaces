@@ -32,7 +32,7 @@ namespace XPlaneBridge
             if (ServoTokens.Contains(token) || ServoLamps.Contains(token)) return "Servo";
             if (StepperTokens.Contains(token)) return "Stepper";
             if (DualTokens.Contains(token)) return "DualStepper";
-            if (token == "LAT" || token == "LON" || token == "HDG") return "Gps";
+            if (token == "LAT" || token == "LON" || token == "HDG" || token == "UTC") return "Gps";
             return "";
         }
     }
@@ -96,7 +96,7 @@ namespace XPlaneBridge
             if (tokens.TryGetValue("LAT", out var lat) && tokens.TryGetValue("LON", out var lon))
             {
                 var sb = new StringBuilder("D,LAT:" + lat + ",LON:" + lon);
-                foreach (var k in new[] { "ALT", "IAS", "HDG" })
+                foreach (var k in new[] { "ALT", "IAS", "HDG", "UTC" })
                     if (tokens.TryGetValue(k, out var v)) sb.Append(',').Append(k).Append(':').Append(v);
                 packets["Gps"] = sb.ToString();
             }

@@ -20,9 +20,9 @@ DCS-BIOS v0.11.8 was installed on this PC on 31 October 2026 from the official r
 
 ## Window and command line
 
-![DCSBiosBridge with a synthetic UH-1H stream: three caution lights on, the common values and the Huey LED rows (scroll for the gauges)](screenshots/dcs_bridge.png)
+![DCSBiosBridge with a synthetic UH-1H stream: three caution lights on, the common values, the mission clock with its time zone box and the Huey LED rows (scroll for the gauges)](screenshots/dcs_bridge.png)
 
-The window shows the stream status, the aircraft name and the profile in use; the **Profile** box (Automatic or one chosen by hand); **Reload profiles**; **Suggest controls** (lists the module's controls whose identifier or description match each unmapped token's `hint`, best first, in the log); **Calibrate selected...** and **Clear its calibration** (below); **Send to the boards**; a table of tokens with their control, raw value, value sent, board and status; and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--json-dir`, `--profile-dir`, `--module <name>`, `--no-send` and `--logfile`.
+The window shows the stream status, the aircraft name and the profile in use; the **Profile** box (Automatic or one chosen by hand); **Reload profiles**; **Suggest controls** (lists the module's controls whose identifier or description match each unmapped token's `hint`, best first, in the log); **Calibrate selected...** and **Clear its calibration** (below); **Send to the boards**; the **Mission time zone** box (above); a table of tokens with their control, raw value, value sent, board and status; and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--json-dir`, `--profile-dir`, `--module <name>`, `--utc-offset <hours>`, `--no-send` and `--logfile`.
 
 ## The Huey profile
 
@@ -30,7 +30,9 @@ The window shows the stream status, the aircraft name and the profile in use; th
 
 ## Gauges
 
-**Every aircraft (`profiles\_common.json`, DCS-BIOS CommonData).** `IAS` (knots), `ALT` (feet above sea level, no barometric correction), `HDG` (true degrees) and `LAT` and `LON` (degrees, built from the latitude and longitude pieces; DCS-BIOS names the minutes `LAT_SEC`, south and west are negative). They go to the Stepper (`IAS`), the Dual Stepper (`ALT`) and the GPS interface (`LAT`, `LON`, `ALT`, `IAS`, `HDG`).
+**Every aircraft (`profiles\_common.json`, DCS-BIOS CommonData).** `IAS` (knots), `ALT` (feet above sea level, no barometric correction), `HDG` (true degrees) and `LAT` and `LON` (degrees, built from the latitude and longitude pieces; DCS-BIOS names the minutes `LAT_SEC`, south and west are negative). They go to the Stepper (`IAS`), the Dual Stepper (`ALT`) and the GPS interface (`LAT`, `LON`, `ALT`, `IAS`, `HDG` and `UTC`).
+
+**GPS date and time.** The Lowrance GPS follows the simulator's clock: the bridge sends `UTC:yyyyMMddHHmmss.fff` in the 500 ms GPS packet. DCS-BIOS gives the mission start time (`TIME_START_HIGH` and `LOW`, seconds) and the model time (`TIME_MODEL_HIGH` and `LOW`, hundredths of a second since the start); their sum is the mission clock, which is the **theatre's local time**, so it follows the time of day set in the mission and time acceleration. DCS-BIOS has no time zone and no date, so the window has a **Mission time zone (hours from UTC)** box (also `--utc-offset <hours>`) that is taken off the clock, and the PC's UTC date is used. Set it to 4 for the Caucasus and the Persian Gulf, 3 for Syria, -8 for Nevada. The box starts at 0 and is not remembered between runs. That the start time is seconds since midnight of the mission's local day has not been checked against live DCS.
 
 **UH-1H.** `AGL` (radar altitude, feet) is exact: it is read from the radar altimeter's four drum digits `RALT_DIGIT_1` to `4`. The other 16 gauge values are the cockpit needles' **positions** (0 to 1 of the dial, all DCS-BIOS exports for them) and run on a **first-guess scale**: the dial's whole sweep is mapped onto the panel gauge's own range.
 
@@ -52,7 +54,7 @@ They show **uncalibrated** in the Status column. To calibrate one, select its ro
 
 ## Testing without DCS
 
-`python tests\test_bridge.py` starts the bridge with `--board-host 127.0.0.1`, sends a fake DCS-BIOS stream for an aircraft called TestModule (each frame split over two datagrams) and checks the board packets: lamp decoding with mask and shift, the radio power rule, `BPWR` following the bus, the aircraft's value beating the common one, `AGL` from the drum digits, calibration points against the plain scale, the GPS packet, and an aircraft with no profile. All 14 checks pass. It stops only the bridge process it started.
+`python tests\test_bridge.py` starts the bridge with `--board-host 127.0.0.1`, sends a fake DCS-BIOS stream for an aircraft called TestModule (each frame split over two datagrams) and checks the board packets: lamp decoding with mask and shift, the radio power rule, `BPWR` following the bus, the aircraft's value beating the common one, `AGL` from the drum digits, calibration points against the plain scale, the GPS packet, and an aircraft with no profile. All 15 checks pass (including the GPS packet's `UTC:` for a mission clock of 11:30:00 at +4 hours). It stops only the bridge process it started.
 
 ## Known gaps
 

@@ -57,7 +57,7 @@ arrived for 30 seconds or when a packet has no `UTC:`.
 
 ## Senders
 
-`FSUIPCWinformsAutoCS` and `MSFSWinformsAutoCS` send it the key/value packet every 500 ms (UDP 27002 on the same PC), and
+`FSUIPCWinformsAutoCS`, `MSFSWinformsAutoCS`, `DCSBiosBridge` and `XPlaneBridge` send it the key/value packet every 500 ms (UDP 27002 on the same PC), and
 `LowranceAirMapGpsBenchTester` sends it for bench testing. Run one sender at a time: a second sender's packets simply overwrite the
 position.
 

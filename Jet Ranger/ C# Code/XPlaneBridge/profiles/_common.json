@@ -26,6 +26,9 @@
     { "token": "FUELLOAD", "dataref": "sim/cockpit2/engine/indicators/fuel_pressure_psi[0]", "type": "analog", "decimals": 0 },
     { "token": "FUEL",  "dataref": "sim/flightmodel/weight/m_fuel_total", "type": "analog", "scale": 0.3303, "decimals": 0, "note": "kg of fuel to US gallons for jet fuel (0.8 kg per litre); avgas is about 11 percent more" },
 
+    // the simulator's date and time for the GPS interface (zulu seconds since midnight, month and day; X-Plane has no year, so the PC's year is used)
+    { "token": "UTC",   "type": "utc", "datarefs": [ "sim/time/zulu_time_sec", "sim/cockpit2/clock_timer/zulu_month", "sim/cockpit2/clock_timer/zulu_day" ] },
+
     // clock and outside air temperature (the Dual Stepper OLEDs)
     { "token": "ZULU",  "type": "hhmm", "datarefs": [ "sim/cockpit2/clock_timer/zulu_time_hours", "sim/cockpit2/clock_timer/zulu_time_minutes" ] },
     { "token": "TEMP",  "dataref": "sim/cockpit2/temperature/outside_air_temp_degc", "type": "analog", "decimals": 0, "suffix": "C" },

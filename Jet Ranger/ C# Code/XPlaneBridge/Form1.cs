@@ -162,7 +162,7 @@ namespace XPlaneBridge
             foreach (var v in profile.Values)
             {
                 var item = new ListViewItem(v.Token);
-                item.SubItems.Add(v.Type == "hhmm" ? string.Join(" ", v.Datarefs) : v.Dataref + (v.Divisor.Length > 0 ? "  /  " + v.Divisor : ""));
+                item.SubItems.Add((v.Type == "hhmm" || v.Type == "utc") ? string.Join(" ", v.Datarefs) : v.Dataref + (v.Divisor.Length > 0 ? "  /  " + v.Divisor : ""));
                 item.SubItems.Add("");
                 item.SubItems.Add("");
                 item.SubItems.Add(Boards.BoardFor(v.Token) is { Length: > 0 } b ? b : "(power input)");

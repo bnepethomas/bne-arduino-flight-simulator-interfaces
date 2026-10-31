@@ -8,6 +8,8 @@ namespace XPlaneBridge
     //   analog  value / Divisor times Scale plus Offset, Decimals places, Suffix added ("21" + "C"). Divisor is another dataref, for a ratio (torque / maximum torque).
     //   lamp    1 when the dataref is at or above Threshold (a bit field or an int flag counts as on), Invert reverses it.
     //   hhmm    Datarefs are the hours and the minutes; the token is hours * 100 + minutes (the Dual Stepper clock).
+    //   utc     Datarefs are the zulu seconds since midnight, the zulu month and the zulu day (X-Plane has no year: the PC's UTC year is used); the token is
+    //           yyyyMMddHHmmss.fff, the simulator time the GPS interface follows.
     public sealed class ProfileValue
     {
         public string Token { get; set; } = "";
@@ -86,6 +88,17 @@ namespace XPlaneBridge
                 {
                     if (v.Datarefs.Count < 2 || !Read(v.Datarefs[0], out double h) || !Read(v.Datarefs[1], out double m)) continue;
                     r.Sent = ((int)h * 100 + (int)m).ToString(CultureInfo.InvariantCulture);
+                    r.Shown = r.Sent;
+                }
+                else if (type == "utc")
+                {
+                    if (v.Datarefs.Count < 3 || !Read(v.Datarefs[0], out double sec) || !Read(v.Datarefs[1], out double month) || !Read(v.Datarefs[2], out double day)) continue;
+                    if (month < 1 || month > 12 || day < 1 || day > 31 || sec < 0 || sec >= 86400) continue;
+                    try
+                    {
+                        r.Sent = new DateTime(DateTime.UtcNow.Year, (int)month, (int)day).AddSeconds(Math.Floor(sec * 1000) / 1000).ToString("yyyyMMddHHmmss.fff", CultureInfo.InvariantCulture);
+                    }
+                    catch (ArgumentOutOfRangeException) { continue; }
                     r.Shown = r.Sent;
                 }
                 else

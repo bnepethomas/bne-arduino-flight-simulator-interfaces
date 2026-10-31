@@ -14,7 +14,7 @@
 ## What the GPS is told
 
 - **Position, altitude, airspeed and heading** from the simulator, sent as GGA, RMC, GLL, VTG, GSA and HDT sentences. NMEA has no airspeed sentence a GPS accepts, so the airspeed is sent as the GPS speed.
-- **Date and time** are the simulator's UTC, ticking in real time between packets. If the packets have no time, or nothing has arrived for 30 seconds, the PC clock is used. The window says which.
+- **Date and time** are the simulator's UTC, ticking in real time between packets (with DCS the mission clock less the **Mission time zone** set in the DCS bridge). If the packets have no time, or nothing has arrived for 30 seconds, the PC clock is used. The window says which.
 - **No data for 30 seconds** (the simulator is paused, closed or not running): the GPS is told it is at Brisbane Airport, at the start of the runway, speed 0. It returns to the live position as soon as packets arrive again.
 
 ![Live data and the Brisbane default](diagrams/gps_states.svg)

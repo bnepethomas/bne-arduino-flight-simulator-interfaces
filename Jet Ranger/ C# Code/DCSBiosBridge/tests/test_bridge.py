@@ -44,6 +44,7 @@ def frame(name, lamps, ias, bus, ias_us, alt, digits, tq, vsi):
     f += block(4136, struct.pack("<HHHHHH", ias_us, alt, 90, 27, 24, 0) + b"S\0" + struct.pack("<HHH", 153, 0, 0) + b"E\0")
     f += block(4160, struct.pack("<HHHH", *[int(round(d / 10 * 65535)) for d in digits]))
     f += block(4168, struct.pack("<HH", tq, vsi))
+    f += block(4176, struct.pack("<HHHH", 0, 36000, 8, 15712))      # mission start 10:00:00 (36000 s) plus model time 5400.00 s (540000 hundredths) = 11:30:00 local
     return f
 
 
@@ -51,7 +52,7 @@ def main():
     threading.Thread(target=listen, args=(13136, received), daemon=True).start()
     threading.Thread(target=listen, args=(27002, gps), daemon=True).start()
     exe = os.path.abspath(EXE)
-    proc = subprocess.Popen([exe, "--board-host", "127.0.0.1", "--json-dir", HERE, "--profile-dir", os.path.join(HERE, "profiles")])
+    proc = subprocess.Popen([exe, "--board-host", "127.0.0.1", "--utc-offset", "4", "--json-dir", HERE, "--profile-dir", os.path.join(HERE, "profiles")])
     marks = []
     try:
         time.sleep(2.0)
@@ -118,6 +119,7 @@ def main():
     check("common altitude 3200 ft -> ALT:3200 (Dual Stepper)", any(d.startswith("D,PWR:1") and "ALT:3200" in d for d in p1))
     g1 = during(0, 0.4, gps)
     check("GPS packet: S 27 deg 24 min = -27.4, E 153 = 153.0, heading 90, 3200 ft", any("LAT:-27.400000" in d and "LON:153.000000" in d and "ALT:3200" in d and "HDG:90" in d for d in g1))
+    check("GPS packet carries the simulator's UTC: mission clock 11:30:00 local at +4 h is 07:30:00 UTC (PC's date)", any(d.endswith(",UTC:" + time.strftime("%Y%m%d", time.gmtime()) + "073000.000") for d in g1))
     check("phase 4 (no profile): common IAS 123 and ALT 3200 are still sent", any("IAS:123" in d for d in p4) and any("ALT:3200" in d for d in p4))
     check("phase 4 (no profile): no lamp or gauge-needle tokens", not any(("TQ:" in d or "LED_H_" in d or "VSI:" in d) for d in p4))
     print("ALL PASS" if ok else "SOME FAILED")
