@@ -87,7 +87,7 @@ Five seconds after start-up, and then every **30 seconds**, the board sends the 
 
 `POWER,V12:12.41,V5:5.02,STATUS:OK`
 
-`STATUS` is `OK`, or the rails that are out of range: `5V_LOW` (below 4.75 V), `5V_HIGH` (above 5.25 V), `12V_LOW` (below 10.8 V) or `12V_HIGH` (above 15.0 V). Send `C,POWER:1` to get a reading at once. The first time you run the board, compare the readings with a meter and trim `V12_CAL` and `V5_CAL` at the top of the sketch. The same two readings are in the heartbeat the board sends every 10 seconds (`ADF_PANEL V5:5.03 V12:12.41`, and again as `UPPER_INPUT` so the Health Monitor's Upper light stays green), and the **Health Monitor** shows them in its voltage table: this board is the only one with a 12 V reading. The 12 V divider is on A8 on this PCB (it was on A15 on the old ADF board, and a sketch reading A15 reported 5.33 V with 12.3 V on the board).
+`STATUS` is `OK`, or the rails that are out of range: `5V_LOW` (below 4.75 V), `5V_HIGH` (above 5.25 V), `12V_LOW` (below 10.8 V) or `12V_HIGH` (above 15.0 V). Send `C,POWER:1` to get a reading at once. The first time you run the board, compare the readings with a meter and trim `V12_CAL` and `V5_CAL` at the top of the sketch. The same two readings are in the heartbeat the board sends every 10 seconds (`ADF_PANEL V5:5.03 V12:12.41 FW:1.0.3`, and again as `UPPER_INPUT` so the Health Monitor's Upper light stays green), and the **Health Monitor** shows them in its voltage table: this board is the only one with a 12 V reading. The 12 V divider is on A8 on this PCB (it was on A15 on the old ADF board, and a sketch reading A15 reported 5.33 V with 12.3 V on the board).
 
 ## Messages to the PC (UDP 27003)
 

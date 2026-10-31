@@ -97,7 +97,7 @@ Every controller sketch has a firmware version, a build number and the compile d
 ```
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 1
+#define FIRMWARE_BUILD 2
 ```
 
 **The rule: raise `FIRMWARE_BUILD` by one every time a sketch is changed** (and `FIRMWARE_VERSION` for a larger change), before it is compiled and flashed. The compile date and time (`__DATE__` and `__TIME__`) change on every compile by themselves, so a board that reports an older date than the compile you just made has old code on it.
@@ -105,19 +105,19 @@ Every controller sketch has a firmware version, a build number and the compile d
 The board sends one line to the debug stream (UDP 27000) straight after *Ethernet Started* in its start-up sequence, and again whenever it receives the control packet `C,VERSION:1`, so the version can be checked without resetting it (the USB HID board sends it to its logging port):
 
 ```
-Radio Controller firmware 1.0 build 1 compiled Nov  1 2026 14:05:12
+Radio Controller firmware 1.0 build 2 compiled Nov  1 2026 14:05:12
 ```
 
-(each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is not in the heartbeat and the Health Monitor does not show it.
+(each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is also in every heartbeat to the Health Monitor, as ` FW:1.0.2` (version 1.0, build 2), and the Health Monitor shows it in the **Firmware** column of its voltage table, so the code on every board can be checked at a glance.
 
-| Controller | Sketch | `FIRMWARE_NAME` | Version and build now |
+| Controller | Sketch | `FIRMWARE_NAME` | Version and build now (flashed 1 November 2026) |
 |---|---|---|---|
-| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 1 |
-| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 1 |
-| Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 1 |
-| Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 1 |
-| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 2 |
-| USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 1 |
+| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 2 |
+| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 2 |
+| Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 2 |
+| Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 2 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 3 |
+| USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 2 |
 
 ## COM port to board mapping
 

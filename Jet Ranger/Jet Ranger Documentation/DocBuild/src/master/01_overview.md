@@ -81,6 +81,8 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
+All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) were flashed on 1 November 2026 with firmware version 1.0: build 2 for all but the ADF and Upper controller, which is build 3. Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+
 Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the old Upper controller (whose code now runs on the ADF controller), and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger. The DCS bridge (added 31 October 2026) has run against live DCS with the Huey caution lamps; its gauge values and the X-Plane bridge (also 31 October 2026) are tested only with synthetic data from fake simulators.
 
 Backlight control (Servo, Stepper and Dual Stepper boards, and later the Radio controller) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.

@@ -50,7 +50,7 @@ The **Show Voltages** button opens a table with one row per board:
 
 ![Voltage table](screenshots/health_monitor_voltages.png)
 
-Each board adds its 5 V rail to its heartbeat, and the ADF also adds its 12 V rail, so the table shows the last 5 V reading from every board, the **12 V** reading for the ADF only (the other rows say "not measured") and when the reading arrived. A reading outside its limits (5 V outside 4.75 to 5.25, 12 V outside 10.8 to 15.0) is orange, and a reading that is more than 35 seconds old, or that has not arrived yet, is grey. A board that has not been reflashed since the voltages were added shows "no reading" but still lights green. *Hide Voltages* closes the table.
+Each board adds its 5 V rail and its firmware version to its heartbeat, and the ADF also adds its 12 V rail, so the table shows the last 5 V reading from every board, the **12 V** reading for the ADF only (the other rows say "not measured"), when the reading arrived and the **Firmware** version and build the board is running (for example *1.0 build 2*). A board with older firmware shows *not reported*. A reading outside its limits (5 V outside 4.75 to 5.25, 12 V outside 10.8 to 15.0) is orange, and a reading that is more than 35 seconds old, or that has not arrived yet, is grey. A board that has not been reflashed since the voltages were added shows "no reading" but still lights green. *Hide Voltages* closes the table.
 
 ![Logs hidden](screenshots/health_monitor_logs_hidden.png)
 

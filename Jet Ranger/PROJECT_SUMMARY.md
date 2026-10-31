@@ -158,4 +158,4 @@ Known gaps / open items:
 
 Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) has `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` at the top and reports them, with the
 compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
-All six are at version 1.0, build 1 (1 November 2026), except the ADF and Upper controller at build 2 (it no longer sends the power status to the debug reflector).
+All six were flashed on 1 November 2026 at version 1.0: build 2 for the Radio, Servo, Stepper, Dual Stepper and USB HID board, build 3 for the ADF and Upper controller (which no longer sends the power status to the debug reflector). The version is also in every heartbeat (` FW:1.0.2`) and the Health Monitor shows it in its voltage table.

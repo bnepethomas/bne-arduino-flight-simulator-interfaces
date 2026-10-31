@@ -45,19 +45,19 @@ For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port,
 Every controller reports its firmware version, build number and compile date and time on the debug stream (UDP 27000) as it starts, straight after *Ethernet Started*, for example:
 
 ```
-Radio Controller firmware 1.0 build 1 compiled Nov  1 2026 14:05:12
+Radio Controller firmware 1.0 build 2 compiled Nov  1 2026 14:05:12
 ```
 
-Use it to check that a board has the code you think it has: after flashing, the line should show the new build number and the time you compiled. To ask a board without resetting it, send it `C,VERSION:1` on UDP 13136 (the USB HID board takes it on port 4210). If the debug listener was not running when the board started you will not see the start-up line; ask for it again. The version is not shown in the Health Monitor.
+Use it to check that a board has the code you think it has: after flashing, the line should show the new build number and the time you compiled. To ask a board without resetting it, send it `C,VERSION:1` on UDP 13136 (the USB HID board takes it on port 4210). If the debug listener was not running when the board started you will not see the start-up line; ask for it again. The version is also in every heartbeat, so the Health Monitor's **Show Voltages** table has a **Firmware** column with the version and build of every controller: after flashing, check that it shows the build you expect.
 
-| Controller | Sketch | Version and build now |
+| Controller | Sketch | Version and build now (flashed 1 November 2026) |
 |---|---|---|
-| Radio controller | `JET_RANGER_RADIO_CONTROLLER` | 1.0 build 1 |
-| Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 1 |
-| Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 1 |
-| Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 1 |
-| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 2 |
-| USB HID board | `UDP_TO_HID` | 1.0 build 1 |
+| Radio controller | `JET_RANGER_RADIO_CONTROLLER` | 1.0 build 2 |
+| Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 2 |
+| Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 2 |
+| Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 2 |
+| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 3 |
+| USB HID board | `UDP_TO_HID` | 1.0 build 2 |
 
 Whoever changes a sketch raises its `FIRMWARE_BUILD` by one, so the build number tells you which version of the sketch a board has.
 

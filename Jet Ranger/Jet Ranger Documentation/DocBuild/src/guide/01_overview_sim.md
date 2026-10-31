@@ -1,5 +1,7 @@
 # Overview
 
+![The cockpit at a glance: every gauge, lamp and display, and the controller connector that drives it (the full-size drawing is in the Instrument map appendix)](diagrams/instrument_map_full.png)
+
 The Jet Ranger cockpit drives real gauge needles, warning lights, radio displays and switches from the simulator. A Windows PC exchanges UDP packets over Ethernet with Arduino Mega 2560 panel boards, and a small USB board presents the panel switches to Windows as joysticks.
 
 ![The whole system](diagrams/system_overview.svg)
