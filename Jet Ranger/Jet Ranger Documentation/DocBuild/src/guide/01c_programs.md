@@ -134,7 +134,7 @@ Every emulator window has a status bar with its address, the number of packets r
 
 ![Radio controller emulator](screenshots/emulator_radio.png)
 
-**Radio controller:** the COM, NAV, Auto Pilot and DME displays, the 19 panel LEDs and the 20 Huey Warning Panel lamps. The NAV displays keep their start-up value, because the PC sends only the COM frequencies.
+**Radio controller:** the COM, NAV, Auto Pilot and DME displays, the 19 panel LEDs and the 20 Huey Warning Panel lamps. The NAV displays keep the sketch's start-up values (NAV1 109.000 and 111.000, NAV2 110.000 and 112.000), because the PC sends only the COM frequencies.
 
 ![ADF and Upper controller emulator](screenshots/emulator_adf.png)
 

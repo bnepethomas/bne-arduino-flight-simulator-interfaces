@@ -342,3 +342,8 @@ Compiled at 31,544 bytes flash (12%) / 4,136 bytes RAM (50%). The version flashe
 The heartbeat now carries the board's 5 V rail after its name, for example `STEPPER V5:5.02`: `vccHeartbeatText()` measures the ADC reference (AVcc) against the chip's internal 1.1 V
 band-gap (`ADMUX` selection `11110`, `MUX5` 0; `AVcc mV = 1125300 / reading`, about 2 ms every 10 s) and the JetRangerHealthMonitor shows the last reading from each board in its voltage table.
 The monitor matches the first word of the heartbeat, so the indicator behaves as before.
+
+## Firmware version
+
+`FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.

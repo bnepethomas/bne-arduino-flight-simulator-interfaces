@@ -153,3 +153,9 @@ Known gaps / open items:
   been confirmed by eye; the Baro OLED is never updated after boot.
 - The calibration tables, swing times and wait settings come from bench
   measurements; recheck them after any mechanical change to a gauge.
+
+## Firmware versions
+
+Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) has `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` at the top and reports them, with the
+compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
+All six are at version 1.0, build 1 (1 November 2026), except the ADF and Upper controller at build 2 (it no longer sends the power status to the debug reflector).

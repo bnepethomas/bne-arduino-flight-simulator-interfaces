@@ -30,6 +30,7 @@ namespace MegaHealthMonitor
             public bool Measures12V;
             public double? V5;
             public double? V12;
+            public string? Firmware;      // "1.0 build 2", from " FW:1.0.2" in the heartbeat; null for a board with older firmware
             public DateTime? When;
         }
 
@@ -47,7 +48,7 @@ namespace MegaHealthMonitor
         // Rails outside these limits are shown in orange.
         private const double V5Low = 4.75, V5High = 5.25, V12Low = 10.8, V12High = 15.0;
 
-        // Records the voltages in a heartbeat ("COMM_NAV V5:5.02") against its board.
+        // Records the voltages and the firmware version in a heartbeat ("COMM_NAV V5:5.02 FW:1.0.2") against its board.
         private void RecordVoltages(string heartbeat)
         {
             foreach (var board in boardVoltages)
@@ -57,7 +58,9 @@ namespace MegaHealthMonitor
                 var m12 = System.Text.RegularExpressions.Regex.Match(heartbeat, @"V12:([0-9]+(?:\.[0-9]+)?)");
                 if (m5.Success) board.V5 = double.Parse(m5.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
                 if (m12.Success) board.V12 = double.Parse(m12.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
-                if (m5.Success || m12.Success) board.When = DateTime.Now;
+                var mfw = System.Text.RegularExpressions.Regex.Match(heartbeat, @"FW:([0-9]+\.[0-9]+)\.([0-9]+)");
+                if (mfw.Success) board.Firmware = mfw.Groups[1].Value + " build " + mfw.Groups[2].Value;
+                if (m5.Success || m12.Success || mfw.Success) board.When = DateTime.Now;
                 break;
             }
         }
@@ -73,6 +76,7 @@ namespace MegaHealthMonitor
                 foreach (var b in boardVoltages)
                 {
                     var item = new ListViewItem(b.Name) { UseItemStyleForSubItems = false };
+                    item.SubItems.Add("");
                     item.SubItems.Add("");
                     item.SubItems.Add("");
                     item.SubItems.Add("");
@@ -109,6 +113,9 @@ namespace MegaHealthMonitor
                     item.SubItems[3].Text = "none yet";
                 }
                 item.SubItems[3].ForeColor = stale ? Color.Gray : Color.Black;
+
+                item.SubItems[4].Text = b.Firmware ?? (b.When.HasValue ? "not reported" : "");
+                item.SubItems[4].ForeColor = b.Firmware == null || stale ? Color.Gray : Color.Black;
             }
             lvVoltages.EndUpdate();
         }
@@ -121,7 +128,7 @@ namespace MegaHealthMonitor
             if (listBoxLogs.Visible) top += listBoxLogs.Height + 8;
             lvVoltages.Top = top;
             if (lvVoltages.Visible) top += lvVoltages.Height + 8;
-            ClientSize = new Size((listBoxLogs.Visible || lvVoltages.Visible) ? 465 : 165, top + 6);
+            ClientSize = new Size((listBoxLogs.Visible || lvVoltages.Visible) ? 570 : 165, top + 6);
         }
 
         bool loggingActive = true;

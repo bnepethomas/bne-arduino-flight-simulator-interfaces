@@ -53,6 +53,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `SWING<CODE>` | Run one gauge's start-up swing on demand, for example `C,SWINGTQ:1`; the value is ignored |
 | `OLEDTEST` | 1 fills the four Dual Stepper OLEDs solid white, 0 restores them |
 | `KEEPALIVE` | Ignored command that still counts as received data and restarts the 30 second no-data timer |
+| `VERSION` | Send the firmware version, build number and compile date and time to the debug stream now (see Firmware versions in Appendix B; the USB HID board answers on its logging port) |
 | `RESET` | Reboot the board about 2 seconds later (port 13136; USB HID board on 4210) |
 | `MATRIX` | Radio and ADF controllers: print the raw matrix or ADF keypad readings to the debug stream |
 | `LEDTEST` | Radio controller: 1 lights all 39 Auto Pilot, Audio and Huey panel LEDs, 0 returns them to the simulator's state |
@@ -88,6 +89,35 @@ arduino-cli upload -p COM4 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\
 ```
 
 Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE serial monitor first: it holds the port ("Access is denied"). Check the port with Device Manager or `arduino-cli board list`.
+
+## Firmware versions
+
+Every controller sketch has a firmware version, a build number and the compile date and time. The three constants are at the top of the sketch, next to its debug function:
+
+```
+#define FIRMWARE_NAME "Radio Controller"
+#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_BUILD 1
+```
+
+**The rule: raise `FIRMWARE_BUILD` by one every time a sketch is changed** (and `FIRMWARE_VERSION` for a larger change), before it is compiled and flashed. The compile date and time (`__DATE__` and `__TIME__`) change on every compile by themselves, so a board that reports an older date than the compile you just made has old code on it.
+
+The board sends one line to the debug stream (UDP 27000) straight after *Ethernet Started* in its start-up sequence, and again whenever it receives the control packet `C,VERSION:1`, so the version can be checked without resetting it (the USB HID board sends it to its logging port):
+
+```
+Radio Controller firmware 1.0 build 1 compiled Nov  1 2026 14:05:12
+```
+
+(each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is not in the heartbeat and the Health Monitor does not show it.
+
+| Controller | Sketch | `FIRMWARE_NAME` | Version and build now |
+|---|---|---|---|
+| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 1 |
+| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 1 |
+| Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 1 |
+| Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 1 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 2 |
+| USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 1 |
 
 ## COM port to board mapping
 

@@ -55,6 +55,7 @@ Arduino boards, not the flight sim connection.
 ## ADF and voltages (2026-10-25)
 
 - **ADF:** a seventh indicator, `lblAdf`, for the `ADF_PANEL` heartbeat (orange after 15 s, red after 30 s, logged like the others).
+- **Firmware column (1 November 2026):** every controller's heartbeat now ends with ` FW:<version>.<build>` (for example `STEPPER V5:5.02 FW:1.0.2`). `RecordVoltages()` also matches `FW:` and keeps it as `1.0 build 2`; the voltage table has a fifth column, **Firmware**, showing it (grey and *not reported* for a board whose firmware is older than the version feature, or whose reading is stale) and the table and window are 105 pixels wider. Built clean, but the window itself has not been looked at (it was running when it was built, so the build was checked into a scratch folder).
 - **Voltage table:** every board now adds its 5 V rail to its heartbeat after its name (`SERVO V5:5.02`) and the ADF controller also its 12 V rail (`ADF_PANEL V5:5.03 V12:12.41`). `RecordVoltages()` finds `V5:` and `V12:`
   with a regular expression and keeps the last reading and its time per board; the **Show Voltages** button (`cmdToggleVoltages`) shows a `ListView` (`lvVoltages`) with one row per board: 5 V, 12 V (only the ADF; the others
   say "not measured") and the time with "N s ago". Readings outside 4.75 to 5.25 V (5 V) or 10.8 to 15.0 V (12 V) are orange; a reading older than 35 s, or none, is grey. `ApplyLayout()` sizes the window for the log list and

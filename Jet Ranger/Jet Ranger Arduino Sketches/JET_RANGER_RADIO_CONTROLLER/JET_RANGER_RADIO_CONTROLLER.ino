@@ -138,6 +138,24 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define DEBUG_RETRY_MS 10000UL
 unsigned long debugDownUntil = 0;
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Firmware version. RAISE FIRMWARE_BUILD BY ONE EVERY TIME THIS SKETCH IS CHANGED (and FIRMWARE_VERSION for a larger change). The board sends the
+// version, the build number and the date and time it was compiled to the debug stream at start-up and whenever it receives "C,VERSION:1", so the
+// code on a board can be checked against the sketch.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define FIRMWARE_NAME "Radio Controller"
+#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_BUILD 2
+
+String firmwareText() {
+  return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
+}
+
+// The firmware version for the heartbeat: " FW:1.0.2" is version 1.0, build 2. The Health Monitor shows it in its voltage table.
+String firmwareHeartbeatText() {
+  return String(F(" FW:")) + F(FIRMWARE_VERSION) + F(".") + String(FIRMWARE_BUILD);
+}
+
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -1621,6 +1639,9 @@ void HandleControlString(String str) {
       }
     //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
 
+    // Firmware version on demand: C,VERSION:1
+    if (command == "VERSION") SendDebug(firmwareText());
+
     // Remote reset: C,RESET:1
     if (command == "RESET") RebootBoard();
 
@@ -1725,6 +1746,7 @@ void setup() {
     }
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+    SendDebug(firmwareText());
   }
 
   Wire.begin();
@@ -1830,6 +1852,7 @@ void loop() {
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("COMM_NAV");
       aliveudp.print(vccHeartbeatText());
+      aliveudp.print(firmwareHeartbeatText());
       aliveudp.endPacket();
     }
     lastalivesent = millis();  

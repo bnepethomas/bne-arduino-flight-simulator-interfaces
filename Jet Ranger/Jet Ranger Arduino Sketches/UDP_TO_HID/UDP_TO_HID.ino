@@ -91,6 +91,24 @@ String ipToString(IPAddress addr) {
   return String(addr[0]) + "." + String(addr[1]) + "." + String(addr[2]) + "." + String(addr[3]);
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Firmware version. RAISE FIRMWARE_BUILD BY ONE EVERY TIME THIS SKETCH IS CHANGED (and FIRMWARE_VERSION for a larger change). The board sends the
+// version, the build number and the date and time it was compiled to the debug stream at start-up and whenever it receives "C,VERSION:1", so the
+// code on a board can be checked against the sketch.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define FIRMWARE_NAME "USB HID Board"
+#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_BUILD 2
+
+String firmwareText() {
+  return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
+}
+
+// The firmware version for the heartbeat: " FW:1.0.2" is version 1.0, build 2. The Health Monitor shows it in its voltage table.
+String firmwareHeartbeatText() {
+  return String(F(" FW:")) + F(FIRMWARE_VERSION) + F(".") + String(FIRMWARE_BUILD);
+}
+
 void logMsg(const String &msg) {
   LogUdp.beginPacket(logHost, logPort);
   LogUdp.print(msg);
@@ -138,6 +156,7 @@ void setup() {
   aliveudp.begin(aliveport);
 
   logMsg("Joystick controller booted. IP=" + ipToString(ip) + " listening on port " + String(localPort));
+  logMsg(firmwareText());
 }
 
 void loop() {
@@ -146,6 +165,7 @@ void loop() {
     aliveudp.beginPacket(logHost, aliveport);
     aliveudp.print("JOYSTICK");
     aliveudp.print(vccHeartbeatText());
+    aliveudp.print(firmwareHeartbeatText());
     aliveudp.endPacket();
     lastalivesent = millis();
   }
@@ -210,6 +230,10 @@ const int NUM_JOYSTICKS = 4;
 //   "KEY,key,state"   e.g. "KEY,a,1" presses the 'a' key, "KEY,ENTER,0" releases Enter
 //   "C,RESET:1"       reboots the board (also accepts plain "RESET")
 void processCommand(String cmd) {
+  if (cmd.startsWith("C,VERSION")) {
+    logMsg(firmwareText());
+    return;
+  }
   if (cmd.startsWith("C,RESET") || cmd == "RESET") {
     RebootBoard();
     return;

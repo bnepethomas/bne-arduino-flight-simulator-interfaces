@@ -298,3 +298,8 @@ not yet flashed.
 - **DME display:** `updateDme()` (with `dmeTopText` / `dmeBottomText`, `10M` and `0M`, and `dmeDrawnPower`) blanks the Audio panel's OLED while the radio has no power or the no-data timeout has fired and redraws it when they come back; it is called wherever `updateAP()` is.
 - **ADF controller display:** `updateDme()` calls `sendAdfDisplay(on)`, which sends `C,DISPLAY:1` or `C,DISPLAY:0` to 172.16.1.107:13136 on every change and again every 10 s (`ADF_DISPLAY_RESEND_MS`) so the ADF controller blanks its OLED and landing gear lamps with the Radio's displays. A failed send pauses these sends for 30 s (`ADF_RETRY_MS`) and logs `ADF controller 172.16.1.107 not answering`, like the HID board.
 - Compiled at 39,422 bytes flash (15%) / 5,395 bytes RAM (65%). Flashed to COM20; not bench-tested.
+
+## Firmware version
+
+`FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.

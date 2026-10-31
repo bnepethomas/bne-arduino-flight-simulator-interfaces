@@ -50,7 +50,7 @@ frequency. **The bridges do not read port 27003 yet**, so nothing reaches the si
 - **Retired address.** Nothing answers at 172.16.1.103 any more; the bridges and the SwingTester still send to it (harmless, to be removed).
 - **Encoder direction.** If a knob turns the frequency the wrong way, swap its A and B pins in the `RotaryEncoder` lines.
 - **OLED type.** The display code is the Radio controller's character OLED (SSD/US2066 style, address 0x3C). If the ADF panel uses a graphics SSD1306 it needs different code.
-- **Rail readings.** Compare the first power status lines with a meter and trim `V12_CAL` and `V5_CAL`.
+- **Rail readings.** Compare the readings (the Health Monitor's voltage table, or the `POWER` line on port 27003) with a meter and trim `V12_CAL` and `V5_CAL`. The power status is **not** sent to the debug reflector (changed in firmware 1.0 build 2, 1 November 2026); it goes to the PC on port 27003 and, as `V5` and `V12`, in the heartbeat.
 
 ## New switches, blanking and backlight (2026-10-25, pins updated 2026-10-31)
 
@@ -59,3 +59,8 @@ frequency. **The bridges do not read port 27003 yet**, so nothing reaches the si
 - **Panel blanking:** `panelBlank()` is true while the Radio has told the board `C,DISPLAY:0` (`displayOn` false) or the no-data timeout has fired (`noDataBlanked`: 30 s, `NO_DATA_TIMEOUT_MS`, with no data packet, `C,B` or `C,KEEPALIVE` and no local input: a knob click, a key or a switch change, `noteActivity()`). It clears the OLED and puts the landing gear lamps out (`lampWanted[]` remembers what they should show).
 - **Backlight:** `applyOwnBacklight()` is off while `BPWR:0` was received (`backlightPowered`) or the no-data timeout has fired; otherwise the level is `brightnessLevel` (level 4 by default, then `C,B:0-15` while `USE_BRIGHTNESS_POT` is 0). The bridges send `D,BPWR:x` to this board, and the SwingTester's brightness, backlight power and keep-alive include it.
 - Compiled at 29,296 bytes flash (11%) / 2,557 bytes RAM (31%) with the Upper code merged in.
+
+## Firmware version
+
+`FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2** (1 November 2026) stopped sending the power status to the debug reflector; **build 3** (1 November 2026) added the version to the heartbeat. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `ADF_PANEL V5:5.03 V12:12.41 FW:1.0.3`, and the same on `UPPER_INPUT`), which the Health Monitor shows in its voltage table.

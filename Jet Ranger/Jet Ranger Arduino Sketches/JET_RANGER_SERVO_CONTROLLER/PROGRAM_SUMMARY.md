@@ -268,3 +268,8 @@ The monitor matches the first word of the heartbeat, so the indicator behaves as
 ## Fuel pump and aft fuel filter pins swapped (2026-10-25)
 
 `D_Fuel_Pump` (lamp code `FPMP`) is now on A11 and `D_AFT_Fuel_Filter` (`FFLTR`) on A12 (they were A12 and A11). Compiled at 26,348 bytes flash (10%) / 2,536 bytes RAM (30%) and flashed to COM16; the two lamp outputs have not been checked on the bench since the swap.
+
+## Firmware version
+
+`FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.

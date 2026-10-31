@@ -39,7 +39,7 @@ default) and **Send to the emulators** (off), and the command line sets them: `-
   The needles move at a limited speed, like a stepper.
 - **Radio .101.** The COM and NAV displays (two radios per display, `xxx.xxx`), the Auto Pilot display (HDG, CRS, IAS, VS and ALT in their windows, 16 columns by 2 rows), the DME
   display, the 8 Auto Pilot and 11 Audio LEDs and the 20 Huey Warning Panel lamps. `NAVCOM1:0` blanks the displays and puts the LEDs out; `C,LEDTEST:1` lights all 39.
-  The PC sends only COM1 and COM2, so the NAV displays keep their start-up value (108.000).
+  The PC sends only COM1 and COM2, so the NAV displays keep the sketch's start-up values (NAV1 109.000 and 111.000, NAV2 110.000 and 112.000).
 - **Servo .102.** The attitude indicator (pitch -30 to +30, bank -90 to +90, the servos move at a limited speed) and the 15 caution lamps; `C,SWINGPITCH:1` and `C,SWINGBANK:1`.
 - **Stepper .105.** Airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature and fuel quantity on their dials; `C,SWING<token>:1` sweeps a needle.
 - **Dual Stepper .106.** Engine and transmission oil pressure and temperature, rotor and engine speed, electrical load, fuel pressure, the altimeter (one turn per 1000 ft) and the

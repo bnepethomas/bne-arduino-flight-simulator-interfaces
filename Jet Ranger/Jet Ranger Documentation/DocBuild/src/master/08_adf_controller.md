@@ -89,7 +89,7 @@ Both bridges send `D,BPWR:x` to the ADF controller (172.16.1.107) as well as to 
 - **5 V rail:** the ADC reference is AVcc, the 5 V rail the AREF pin follows (the AREF pin is only brought out to a header, and the sketch **leaves the reference at its default**: `analogReference()` is never called). The sketch measures it by converting the chip's internal 1.1 V band-gap against AVcc (ATmega2560 `ADMUX` selection `11110` with `MUX5` 0): AVcc in millivolts = 1125300 / reading. It waits 5 ms after switching the input and throws away the first conversion.
 - **Status:** `OK`, or the rails outside their limits joined with `+`: `5V_LOW` (below 4.75 V), `5V_HIGH` (above 5.25 V), `12V_LOW` (below 10.8 V), `12V_HIGH` (above 15.0 V). `V12_CAL` and `V5_CAL` at the top of the sketch trim the readings against a meter.
 
-A power status is sent 5 seconds after start-up, then **every 30 seconds**, and whenever `C,POWER:1` arrives. The same two readings go out with every 10 second heartbeat, which the Health Monitor shows in its voltage table (the ADF is the only board with a 12 V measurement).
+A power status is sent to the PC (port 27003) 5 seconds after start-up, then **every 30 seconds**, and whenever `C,POWER:1` arrives. It is **not** sent to the debug reflector (UDP 27000) any more (firmware 1.0 build 2). The same two readings go out with every 10 second heartbeat, which the Health Monitor shows in its voltage table (the ADF is the only board with a 12 V measurement).
 
 ## What it sends
 
@@ -98,7 +98,7 @@ A power status is sent 5 seconds after start-up, then **every 30 seconds**, and 
 | 172.16.1.10 (PC) | 27003 | `ADF_FREQ:<kHz>`, `RADAR_FOLLOW_ID:<digits>` (`0` = stop following) and `POWER,V12:12.41,V5:5.02,STATUS:OK` |
 | 172.16.1.10 (PC bridge) | 27001 | The gear, flaps, speed brake and anti-ice switch **positions** as `GEAR_SET:1` / `GEAR_SET:0`, `FLAPS_SET:1/0`, `SPOILERS_SET:1/0` and `ANTI_ICE_SET:1/0`, and `PARKING_BRAKES` when the brakes button is pressed |
 | 172.16.1.11 (USB HID board) | 4210 | The seven ADF switches and the two ADF knobs as joystick buttons `index,state`: indexes 104 to 107, 112 to 114 (the anti-ice, hyd boost and caution dim switches) and 108 to 111 (Joystick 4, buttons 9 to 19) |
-| 172.16.1.10 | 27000 | Debug text, each line prefixed `Jet Ranger ADF:`, including every power status |
+| 172.16.1.10 | 27000 | Debug text, each line prefixed `Jet Ranger ADF:` (the power status is not sent here: it goes to port 27003 and, as `V5` and `V12`, in the heartbeat) |
 | 172.16.1.10 | 13137 | `ADF_PANEL V5:5.03 V12:12.41` heartbeat every 10 seconds, and the same readings again as `UPPER_INPUT V5:5.03 V12:12.41` (the old Upper board's name) |
 | 172.16.1.11 (USB HID board) | 4210 | also the Upper switch matrix as `index,state` (0 to 95) and the Upper keypad as `KEY,key,state` |
 

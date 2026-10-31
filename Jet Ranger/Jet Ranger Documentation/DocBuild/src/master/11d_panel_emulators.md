@@ -46,7 +46,7 @@ Common to every window: the board's address in the title and status bar, the pac
 
 ![Radio controller emulator](screenshots/emulator_radio.png)
 
-**Radio .101.** The COM and NAV displays (two radios on each, `xxx.xxx`), the Auto Pilot display (HDG, CRS, IAS, VS and ALT in their windows on a 16 column, two row display), the DME display, the 8 Auto Pilot and 11 Audio LEDs and the 20 Huey Warning Panel lamps. `NAVCOM1:0` blanks the displays and puts the LEDs out; `C,LEDTEST:1` lights all 39. The PC sends only COM1 and COM2, so the NAV displays keep their start-up value, 108.000.
+**Radio .101.** The COM and NAV displays (two radios on each, `xxx.xxx`), the Auto Pilot display (HDG, CRS, IAS, VS and ALT in their windows on a 16 column, two row display), the DME display, the 8 Auto Pilot and 11 Audio LEDs and the 20 Huey Warning Panel lamps. `NAVCOM1:0` blanks the displays and puts the LEDs out; `C,LEDTEST:1` lights all 39. The PC sends only COM1 and COM2, so the NAV displays keep the sketch's start-up values (NAV1 109.000 and 111.000, NAV2 110.000 and 112.000).
 
 ![ADF and Upper controller emulator](screenshots/emulator_adf.png)
 

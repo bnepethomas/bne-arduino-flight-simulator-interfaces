@@ -161,12 +161,12 @@
             //
             // lvVoltages
             //
-            lvVoltages.Columns.AddRange(new ColumnHeader[] { colBoard, col5V, col12V, colLast });
+            lvVoltages.Columns.AddRange(new ColumnHeader[] { colBoard, col5V, col12V, colLast, colFirmware });
             lvVoltages.FullRowSelect = true;
             lvVoltages.GridLines = true;
             lvVoltages.Location = new Point(12, 274);
             lvVoltages.Name = "lvVoltages";
-            lvVoltages.Size = new Size(441, 178);
+            lvVoltages.Size = new Size(546, 178);
             lvVoltages.TabIndex = 10;
             lvVoltages.UseCompatibleStateImageBehavior = false;
             lvVoltages.View = View.Details;
@@ -191,6 +191,11 @@
             //
             colLast.Text = "Last reading";
             colLast.Width = 155;
+            //
+            // colFirmware
+            //
+            colFirmware.Text = "Firmware";
+            colFirmware.Width = 105;
             //
             // frmMain
             //
@@ -229,6 +234,7 @@
         private Label lblAdf;
         private Button cmdToggleVoltages;
         private ListView lvVoltages;
+        private ColumnHeader colFirmware = new ColumnHeader();
         private ColumnHeader colBoard;
         private ColumnHeader col5V;
         private ColumnHeader col12V;

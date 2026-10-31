@@ -120,6 +120,24 @@ String BoardName = "Jet Ranger ADF: ";
 
 char packetBuffer[200];
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Firmware version. RAISE FIRMWARE_BUILD BY ONE EVERY TIME THIS SKETCH IS CHANGED (and FIRMWARE_VERSION for a larger change). The board sends the
+// version, the build number and the date and time it was compiled to the debug stream at start-up and whenever it receives "C,VERSION:1", so the
+// code on a board can be checked against the sketch.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define FIRMWARE_NAME "ADF and Upper Controller"
+#define FIRMWARE_VERSION "1.0"
+#define FIRMWARE_BUILD 3
+
+String firmwareText() {
+  return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
+}
+
+// The firmware version for the heartbeat: " FW:1.0.2" is version 1.0, build 2. The Health Monitor shows it in its voltage table.
+String firmwareHeartbeatText() {
+  return String(F(" FW:")) + F(FIRMWARE_VERSION) + F(".") + String(FIRMWARE_BUILD);
+}
+
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -869,8 +887,7 @@ void sendPowerStatus() {
   status.replace(' ', '+');
 
   String message = "POWER,V12:" + String(v12, 2) + ",V5:" + String(v5, 2) + ",STATUS:" + status;
-  sendToPc(message);
-  SendDebug(message);
+  sendToPc(message);  // to the PC (port 27003) only: it is not sent to the debug reflector (the rails also go out as V5 and V12 in the heartbeat)
   lastPowerStatus = millis();
 }
 // ############################################# END POWER MONITOR ##########################################
@@ -914,6 +931,7 @@ void HandleControlString(String str) {
   String command = str.substring(0, colon);
   command.trim();
   if (command == "RESET") RebootBoard();
+  else if (command == "VERSION") SendDebug(firmwareText());
   else if (command == "MATRIX") reportMatrixRaw();
   else if (command == "POWER") sendPowerStatus();
   else if (command == "DISPLAY") {
@@ -991,6 +1009,7 @@ void setup() {
       digitalWrite(RED_STATUS_LED_PORT, true);
     }
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+    SendDebug(firmwareText());
   }
 
   Wire.begin();
@@ -1029,7 +1048,7 @@ void loop() {
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
       // One board is now both panels, so it answers to both names in the Health Monitor (the old Upper board's name is kept).
-      String voltages = adfHeartbeatVoltages();
+      String voltages = adfHeartbeatVoltages() + firmwareHeartbeatText();
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("ADF_PANEL");
       aliveudp.print(voltages);

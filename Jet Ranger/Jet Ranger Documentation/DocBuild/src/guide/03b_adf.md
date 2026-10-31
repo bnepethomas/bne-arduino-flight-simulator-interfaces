@@ -83,7 +83,7 @@ The three lamps on the ADF panel (nose, left and right) are lit by a data packet
 
 ## Power status
 
-Five seconds after start-up, and then every **30 seconds**, the board sends the two rail voltages to the PC (UDP 27003) and to the debug listener (UDP 27000):
+Five seconds after start-up, and then every **30 seconds**, the board sends the two rail voltages to the PC (UDP 27003). They are not sent to the debug listener (UDP 27000):
 
 `POWER,V12:12.41,V5:5.02,STATUS:OK`
 
@@ -119,4 +119,4 @@ The panel follows the other boards' rules:
 3. Turn each knob. If it tunes the wrong way, swap its two pins in the `RotaryEncoder` lines.
 4. Light the three landing gear lamps from the SwingTester.
 5. Check the OLED. The sketch drives the same kind of character OLED as the Radio controller; a graphics SSD1306 needs different code.
-6. Compare the power status with a meter and trim `V12_CAL` and `V5_CAL`.
+6. Compare the readings with a meter (the Health Monitor's voltage table shows them, or watch port 27003) and trim `V12_CAL` and `V5_CAL`.

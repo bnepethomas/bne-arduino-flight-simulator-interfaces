@@ -31,7 +31,7 @@ Always check the port before an upload: open Device Manager, Ports (COM and LPT)
 2. Check the COM port (above).
 3. Compile the sketch.
 4. Upload to that port.
-5. Watch the debug listener (UDP 27000) and the Health Monitor: the board prints *Ethernet Started* and *Setup Complete* and its light goes green within about 10 seconds.
+5. Watch the debug listener (UDP 27000) and the Health Monitor: the board prints *Ethernet Started*, its firmware version and build (check they are the ones you just compiled) and *Setup Complete*, and its light goes green within about 10 seconds.
 
 ```
 arduino-cli compile --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
@@ -39,6 +39,27 @@ arduino-cli upload -p COM4 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\
 ```
 
 For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port, COM8. Flash only the board you are working on. If a board ever reboot-loops after a reset packet, power-cycle it and flash it again.
+
+## Checking the firmware version
+
+Every controller reports its firmware version, build number and compile date and time on the debug stream (UDP 27000) as it starts, straight after *Ethernet Started*, for example:
+
+```
+Radio Controller firmware 1.0 build 1 compiled Nov  1 2026 14:05:12
+```
+
+Use it to check that a board has the code you think it has: after flashing, the line should show the new build number and the time you compiled. To ask a board without resetting it, send it `C,VERSION:1` on UDP 13136 (the USB HID board takes it on port 4210). If the debug listener was not running when the board started you will not see the start-up line; ask for it again. The version is not shown in the Health Monitor.
+
+| Controller | Sketch | Version and build now |
+|---|---|---|
+| Radio controller | `JET_RANGER_RADIO_CONTROLLER` | 1.0 build 1 |
+| Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 1 |
+| Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 1 |
+| Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 1 |
+| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 2 |
+| USB HID board | `UDP_TO_HID` | 1.0 build 1 |
+
+Whoever changes a sketch raises its `FIRMWARE_BUILD` by one, so the build number tells you which version of the sketch a board has.
 
 # PCBs and wiring
 

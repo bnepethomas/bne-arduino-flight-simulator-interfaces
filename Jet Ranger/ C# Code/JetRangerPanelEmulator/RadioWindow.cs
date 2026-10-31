@@ -8,11 +8,11 @@ namespace JetRangerPanelEmulator
         public override int BoardNumber => 101;
         protected override string Heading => "Radio controller";
 
-        // The frequencies as the displays show them (xxx.xxx). The PC sends only COM1 and COM2; the NAV radios keep the board's start-up values.
+        // The frequencies as the displays show them (xxx.xxx), starting with the sketch's own start-up values. The PC sends only COM1 and COM2; the NAV radios keep their start-up values.
         readonly Dictionary<string, string> freq = new()
         {
-            ["C1A"] = "118.000", ["C1S"] = "118.000", ["C2A"] = "118.000", ["C2S"] = "118.000",
-            ["N1A"] = "108.000", ["N1S"] = "108.000", ["N2A"] = "108.000", ["N2S"] = "108.000",
+            ["C1A"] = "119.000", ["C1S"] = "121.000", ["C2A"] = "120.000", ["C2S"] = "122.000",
+            ["N1A"] = "109.000", ["N1S"] = "111.000", ["N2A"] = "110.000", ["N2S"] = "112.000",
         };
         readonly Dictionary<string, string> ap = new() { ["APHDG"] = "090", ["APCRS"] = "110", ["APIAS"] = "80", ["APVS"] = "0", ["APALT"] = "3200" };
         readonly Dictionary<string, bool> leds = new();
