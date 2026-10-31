@@ -8,7 +8,7 @@ Data flows from the PC to the boards as short text packets. On the primary PC a 
 
 | Part | Hardware and software | Address | Section |
 |---|---|---|---|
-| Primary PC | Windows, MSFS 2020 or 2024, or Prepar3D / FSX with DodoSim 206 V2, one bridge program, debug listener, Health Monitor | 172.16.1.10 | Windows and simulator |
+| Primary PC | Windows, MSFS 2020 or 2024, Prepar3D / FSX with DodoSim 206 V2, DCS World or X-Plane, one bridge program, debug listener, Health Monitor | 172.16.1.10 | Windows and simulator |
 | Radio controller | Mega 2560 with the Radio Auto Pilot PCB and the COM and NAV panel | 172.16.1.101 | Radio controller |
 | Servo board | Mega 2560 and Ethernet module on the Front Panel Servo PCB | 172.16.1.102 | Servo controller |
 | ADF and Upper controller | Mega 2560 on the combined Upper ADF Controller PCB: the ADF knobs, aircraft ID keypad, gear, flaps, speed brake, brakes, anti-ice, hyd boost and caution dim switches, landing gear lamps, and the overhead switch matrix and keypad of the old Upper controller (172.16.1.103, retired) | 172.16.1.107 | ADF and Upper controller, Joystick (HID) interface |
@@ -41,11 +41,13 @@ Run **only one bridge at a time**: the FSUIPC and MSFS bridges both listen for t
 ![Start-up order](diagrams/setup_flow.svg)
 
 1. Power the cockpit (main and avionics).
-2. Start the debug listener (UDP 27000).
+2. Start the debug listener (UDP 27000), the Health Monitor and the Lowrance GPS interface.
 3. Start the simulator.
 4. Start **one** bridge.
-5. Open the Health Monitor: every light should turn green within about 10 seconds.
+5. Check: every Health Monitor light should turn green within about 10 seconds, and the GPS window should show the simulator as its time source.
 6. Fly. The gauges follow the simulator.
+
+The procedure for each simulator (MSFS, Prepar3D / FSX, DCS World and X-Plane), and the `Start Jet Ranger.ps1` script that does the PC side of it, are in the next chapters (Starting each simulator).
 
 The order matters little: every board waits for data and the bridge reconnects to the simulator on its own every second. A gauge that stays at zero for 30 seconds without data was parked on purpose by the board's watchdog.
 

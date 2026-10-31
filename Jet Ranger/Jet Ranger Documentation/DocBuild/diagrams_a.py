@@ -9,8 +9,8 @@ def system_overview():
     x, w = 30, 292
     y = 66
     cards = [
-        ("Flight simulator", ["MSFS 2020/2024 or Prepar3D / FSX"], "white", 62),
-        ("Bridge application", ["MSFSWinformsAutoCS or", "FSUIPCWinformsAutoCS"], "blue", 80),
+        ("Flight simulator", ["MSFS 2020/2024, Prepar3D / FSX,", "DCS World or X-Plane"], "white", 80),
+        ("Bridge application", ["MSFS, FSUIPC, DCS-BIOS or", "X-Plane bridge (one at a time)"], "blue", 80),
         ("FSUIPC + DS206 events", ["binds joystick buttons (P3D / FSX)"], "white", 62),
         ("Python UDP reflector", ["board debug text, UDP 27000"], "white", 62),
         ("Health Monitor", ["board heartbeats, UDP 13137"], "white", 62),
@@ -134,7 +134,7 @@ def packet_format():
 def data_pipeline():
     s = Svg(880, 470)
     cols = [
-        (16, "1  Simulator", ["SimVars (MSFS) or", "FSUIPC offsets (P3D / FSX)"], "white"),
+        (16, "1  Simulator", ["SimVars (MSFS), FSUIPC", "(P3D / FSX), DCS-BIOS or", "X-Plane datarefs"], "white"),
         (234, "2  Bridge app", ["converts to real units", "applies aircraft estimates", "builds one packet per board"], "blue"),
         (452, "3  UDP packet", ["D,IAS:93.4,VSI:-250,...", "about 10 per second", "to each board"], "white"),
         (670, "4  Board firmware", ["parses token:value", "calibration table:", "real units to steps"], "gray"),
@@ -150,7 +150,7 @@ def data_pipeline():
         ("Servo, Stepper, Dual Stepper", "every 100 ms (about 10 per second)"),
         ("Radio", "on a change (at most every 200 ms),"),
         ("", "and at least every 5 seconds"),
-        ("No simulator data for 3 s", "the MSFS bridge stops sending"),
+        ("No simulator data for 3 s", "the bridge stops sending"),
         ("No packet for 30 s", "the board returns its gauges to zero"),
     ]
     y = 236

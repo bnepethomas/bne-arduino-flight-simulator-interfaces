@@ -1,6 +1,6 @@
 # Lowrance AirMap GPS
 
-`LowranceAirMapGps` makes the PC the GPS for a **Lowrance AirMap 2000C**. It receives the aircraft position from the bridge and sends it to the GPS over a serial cable as NMEA sentences twice a second.
+`LowranceAirMapGps` makes the PC the GPS for a **Lowrance AirMap 2000C**. It receives the aircraft position from whichever bridge is running (Prepar3D / FSX, MSFS, DCS World or X-Plane) and sends it to the GPS over a serial cable as NMEA sentences twice a second.
 
 ![From the simulator to the GPS](diagrams/gps_flow.svg)
 
@@ -8,12 +8,12 @@
 
 1. Connect the GPS to the PC with its serial cable (a USB serial adapter works).
 2. Run `LowranceAirMapGps.exe`. The first time it asks which serial port the GPS is on; it remembers the answer (*Change serial port...* changes it later). The port runs at **115200 bps, 8 data bits, no parity, 1 stop bit**.
-3. Start the simulator and one bridge on the same PC. The bridge sends the aircraft information to UDP port 27002 without any setting; if the GPS interface runs on a different PC, change `GpsHost` in the bridge's `Form1.cs`.
+3. Start the simulator (MSFS, Prepar3D / FSX, DCS World or X-Plane) and its bridge on the same PC. All four bridges send the aircraft information to UDP port 27002 without any setting; if the GPS interface runs on a different PC, change `GpsHost` in the bridge's `Form1.cs`. With DCS World set the bridge's **Mission time zone** so the GPS shows the right UTC time.
 4. The window shows the serial port state, the number of packets received, where the position comes from, the values being sent and the time source. The sentences being sent are listed at the bottom.
 
 ## What the GPS is told
 
-- **Position, altitude, airspeed and heading** from the simulator, sent as GGA, RMC, GLL, VTG, GSA and HDT sentences. NMEA has no airspeed sentence a GPS accepts, so the airspeed is sent as the GPS speed.
+- **Position, altitude, airspeed and heading** from the simulator (any aircraft, in every simulator: the bridges read the standard position, altitude, speed and heading values, not a particular aircraft's gauges), sent as GGA, RMC, GLL, VTG, GSA and HDT sentences. NMEA has no airspeed sentence a GPS accepts, so the airspeed is sent as the GPS speed.
 - **Date and time** are the simulator's UTC, ticking in real time between packets (with DCS the mission clock less the **Mission time zone** set in the DCS bridge). If the packets have no time, or nothing has arrived for 30 seconds, the PC clock is used. The window says which.
 - **No data for 30 seconds** (the simulator is paused, closed or not running): the GPS is told it is at Brisbane Airport, at the start of the runway, speed 0. It returns to the live position as soon as packets arrive again.
 

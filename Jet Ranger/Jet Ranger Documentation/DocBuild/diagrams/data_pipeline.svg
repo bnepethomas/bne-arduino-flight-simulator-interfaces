@@ -7,8 +7,9 @@
 </defs>
 <rect x="16.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">1  Simulator</text>
-<text x="28.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SimVars (MSFS) or</text>
-<text x="28.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FSUIPC offsets (P3D / FSX)</text>
+<text x="28.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SimVars (MSFS), FSUIPC</text>
+<text x="28.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(P3D / FSX), DCS-BIOS or</text>
+<text x="28.0" y="123.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">X-Plane datarefs</text>
 <rect x="234.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
 <text x="246.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">2  Bridge app</text>
 <text x="246.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">converts to real units</text>
@@ -40,7 +41,7 @@
 <text x="300.0" y="264.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">on a change (at most every 200 ms),</text>
 <text x="300.0" y="292.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">and at least every 5 seconds</text>
 <text x="30.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">No simulator data for 3 s</text>
-<text x="300.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the MSFS bridge stops sending</text>
+<text x="300.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the bridge stops sending</text>
 <text x="30.0" y="348.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">No packet for 30 s</text>
 <text x="300.0" y="348.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the board returns its gauges to zero</text>
 <rect x="16.0" y="404.0" width="848.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>

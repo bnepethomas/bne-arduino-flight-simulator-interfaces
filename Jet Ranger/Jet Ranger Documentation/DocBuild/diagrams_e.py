@@ -5,8 +5,8 @@ from dgcommon import diagram, Svg, INK, INK2, LINE, BLUE, GREEN, AMBER, RED
 @diagram
 def gps_flow():
     s = Svg(880, 520)
-    s.card(16, 20, 170, 84, "Simulator", ["MSFS 2020 / 2024 or", "Prepar3D / FSX"], "white", center=True)
-    s.card(214, 20, 214, 84, "Bridge", ["MSFSWinformsAutoCS or", "FSUIPCWinformsAutoCS"], "blue", center=True)
+    s.card(16, 20, 170, 84, "Simulator", ["MSFS, Prepar3D / FSX,", "DCS World or X-Plane"], "white", center=True)
+    s.card(214, 20, 214, 84, "Bridge", ["FSUIPC, MSFS, DCSBios", "or XPlane bridge"], "blue", center=True)
     s.arrow([(186, 62), (214, 62)], None)
     s.card(214, 150, 214, 96, "Bench tester", ["typed values, 8-way cursor,", "Country / City / Airport,", "Fly, date and time"], "amber", title_size=14, line_size=12.5, center=True)
     s.card(500, 20, 364, 226, "LowranceAirMapGps", [

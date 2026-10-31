@@ -128,10 +128,10 @@ def joystick_binding():
 def setup_flow():
     s = Svg(880, 360)
     steps = [("Power the cockpit", "main and avionics", "gray"),
-             ("Start the reflector", "UDP 27000", "white"),
-             ("Start the simulator", "P3D / FSX or MSFS", "white"),
-             ("Start ONE bridge", "FSUIPC or MSFS", "blue"),
-             ("Open Health Monitor", "all lights green", "green"),
+             ("Start the reflector,", "Health Monitor and GPS interface", "white"),
+             ("Start the simulator", "MSFS, P3D / FSX, DCS or X-Plane", "white"),
+             ("Start ONE bridge", "FSUIPC, MSFS, DCS or X-Plane", "blue"),
+             ("Check", "lights green, GPS on sim time", "green"),
              ("Fly", "gauges follow the sim", "green")]
     for i, (t, d, th) in enumerate(steps):
         c, r = i % 3, i // 3

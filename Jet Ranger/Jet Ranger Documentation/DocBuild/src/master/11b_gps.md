@@ -1,6 +1,6 @@
 # Lowrance AirMap GPS interface (LowranceAirMapGps)
 
-`LowranceAirMapGps` makes the PC act as the GPS for a **Lowrance AirMap 2000C**. It is a Windows Forms program (.NET 10) that receives aircraft information over UDP and sends NMEA 0183 sentences with the position, altitude, airspeed, heading and time over a serial port, twice a second.
+`LowranceAirMapGps` makes the PC act as the GPS for a **Lowrance AirMap 2000C**. It is a Windows Forms program (.NET 10) that receives aircraft information over UDP from a bridge (Prepar3D / FSX, MSFS, DCS World or X-Plane) or the bench tester and sends NMEA 0183 sentences with the position, altitude, airspeed, heading and time over a serial port, twice a second.
 
 ![From the simulator to the GPS](diagrams/gps_flow.svg)
 
@@ -23,6 +23,18 @@ When a packet carries `UTC:` the program takes the offset between the simulator'
 
 The FSUIPC, MSFS, DCS and X-Plane bridges all send `UTC:`. The DCS bridge's clock is the mission's local time, so it has a time zone box (see the DCS bridge chapter); the X-Plane bridge uses the simulator's zulu clock with the PC's year.
 
+## Senders
+
+Every bridge feeds the GPS interface from the simulator on the same PC (UDP 127.0.0.1:27002, every 500 ms), and so does the bench tester. Run one sender at a time.
+
+| Sender | Position, altitude, speed, heading | Date and time (`UTC:`) |
+|---|---|---|
+| `FSUIPCWinformsAutoCS` (Prepar3D / FSX) | FSUIPC offsets | The simulator's zulu date and time |
+| `MSFSWinformsAutoCS` (MSFS 2020 / 2024) | SimConnect variables | The simulator's zulu date and time |
+| `DCSBiosBridge` (DCS World) | DCS-BIOS CommonData: latitude, longitude, altitude, airspeed and heading, for every aircraft | The mission clock (the theatre's local time) less the **Mission time zone** box, with the PC's date |
+| `XPlaneBridge` (X-Plane) | Datarefs `latitude`, `longitude`, `altitude_ft_pilot`, `airspeed_kts_pilot` and `true_psi`, for every aircraft | X-Plane's zulu clock and date, with the PC's year |
+| `LowranceAirMapGpsBenchTester` | Typed values, cursor, Fly | The typed date and time, or the PC clock |
+
 ## Files
 
 | File | Role |
@@ -35,7 +47,7 @@ The FSUIPC, MSFS, DCS and X-Plane bridges all send `UTC:`. The DCS bridge's cloc
 
 ## Status
 
-Built clean. The NMEA builder (checksums checked against two reference sentences) and the parser passed a scratch test program, and the running window was exercised with UDP packets from the bench tester: it switched to the packet position and time, and went back to Brisbane Airport 30 seconds after the last packet. **Not yet tested against a real GPS**, so the AirMap 2000C's acceptance of these sentences and of the 115200 bps rate is unverified. Run one sender at a time: a second sender's packets simply overwrite the position.
+Built clean. The NMEA builder (checksums checked against two reference sentences) and the parser passed a scratch test program, and the running window was exercised with UDP packets from the bench tester: it switched to the packet position and time, and went back to Brisbane Airport 30 seconds after the last packet. **Not yet tested against a real GPS**, so the AirMap 2000C's acceptance of these sentences and of the 115200 bps rate is unverified. A second sender's packets simply overwrite the position.
 
 # GPS bench tester (LowranceAirMapGpsBenchTester)
 
