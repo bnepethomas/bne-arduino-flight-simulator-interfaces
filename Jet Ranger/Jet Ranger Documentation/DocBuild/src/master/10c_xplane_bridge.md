@@ -34,7 +34,7 @@ The rotor speeds and bus scales are first guesses: check them against the cockpi
 
 ![XPlaneBridge against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
 
-The window shows the X-Plane address and whether data is arriving, the **Profile** box, **Reload**, **Search datarefs...** (words matched against the names and descriptions in `DataRefs.txt`, best first, in the log), **Send to the boards**, a table of tokens with dataref, raw value, value sent and board, and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--xplane-host`, `--xplane-port`, `--datarefs <DataRefs.txt>` (default `C:\X-Plane 12\Resources\plugins\DataRefs.txt`), `--profile-dir`, `--module <name>`, `--no-send`, `--logfile`, and `--emulators`, `--emulators-only` and `--emulator-net <a.b.c>` (with the **Send to the emulators** box, see the Panel emulators chapter: the packets also go to `JetRangerPanelEmulator`).
+The window shows the X-Plane address and whether data is arriving, the **Profile** box, **Reload**, **Search datarefs...** (words matched against the names and descriptions in `DataRefs.txt`, best first, in the log), **Send to the boards**, a table of tokens with dataref, raw value, value sent and board, and a log. Options: `--board-host <ip>` (send every board packet there, for testing), `--xplane-host`, `--xplane-port`, `--datarefs <DataRefs.txt>` (default `C:\X-Plane 12\Resources\plugins\DataRefs.txt`), `--profile-dir`, `--module <name>`, `--no-send`, `--logfile`, and `--emulators`, `--emulators-only` and `--emulator-net <a.b.c>` (with the **Send to the emulators** box, see the Panel emulators chapter: the packets also go to `JetRangerPanelEmulator`), and `--show-packets` and `--packet-board <board>` (with the **Show packets...** button, see Packet monitor below).
 
 ## Testing without X-Plane
 
@@ -45,3 +45,7 @@ The window shows the X-Plane address and whether data is arriving, the **Profile
 - Not yet run against a real X-Plane.
 - No inputs (the switches already reach X-Plane through the USB HID board as a joystick), no radio commands on port 27001, port 27003 is not read, and the landing gear lamps are not sent.
 - Only the Robinson R22 and Sikorsky S-76 have aircraft profiles; the Huey LEDs are approximations.
+
+## Packet monitor
+
+**Packet monitor.** **Show packets...** in the toolbar opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local*) and the payload text. The **Target board** box filters the list to one board; **Pause** and **Clear** do what they say. Command line: `--show-packets` opens it at start, `--packet-board <radio, servo, stepper, dual, adf, gps or a last number such as 105>` opens it filtered. `BoardTargets` raises a `PacketSent` event for every send and `PacketMonitorForm` shows the queued packets ten times a second (the last 6,000 are kept for re-filtering), so a busy bridge is not slowed. Only packets that are really sent are shown. It shares its code with the DCS bridge's monitor, which was tested with a synthetic stream; this bridge was built and its window checked.

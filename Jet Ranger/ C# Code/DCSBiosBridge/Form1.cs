@@ -44,6 +44,8 @@ namespace DCSBiosBridge
         readonly CheckBox chkSend = new() { Text = "Send to the boards", Checked = true, AutoSize = true };
         readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
         readonly BoardTargets targets = new();
+        readonly Button btnPackets = new() { Text = "Show packets...", AutoSize = true };
+        PacketMonitorForm? packetMonitor;
         readonly NumericUpDown numZone = new() { Minimum = -12, Maximum = 14, DecimalPlaces = 1, Increment = 0.5M, Width = 55 };
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSuggest = new() { Text = "Suggest controls", AutoSize = true };
@@ -66,6 +68,8 @@ namespace DCSBiosBridge
             targets.ReadCommandLine(Environment.GetCommandLineArgs());
             chkSend.Checked = chkSend.Checked && targets.ToBoards;
             chkEmu.Checked = targets.ToEmulators;
+            btnPackets.Click += (_, _) => ShowPackets();
+            if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
             if (decimal.TryParse(args.GetValueOrDefault("utc-offset"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var zone) && zone >= numZone.Minimum && zone <= numZone.Maximum) numZone.Value = zone;
 
             string? boardHost = args.GetValueOrDefault("board-host");
@@ -82,7 +86,7 @@ namespace DCSBiosBridge
             top.Controls.AddRange(new Control[] { lblStream, lblAircraft, lblProfile });
             top.FlowDirection = FlowDirection.TopDown;
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, chkEmu, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, chkEmu, btnPackets, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
 
             lvValues.Columns.Add("Token", 180);
             lvValues.Columns.Add("DCS-BIOS control", 230);
@@ -308,7 +312,7 @@ namespace DCSBiosBridge
             {
                 bool radio = board == "Radio";
                 double ms = lastSent.TryGetValue(board, out var t) ? (now - t).TotalMilliseconds : double.MaxValue;
-                if (board == "Gps") { if (ms >= 500) { Transmit(gpsClient, packet); lastSent[board] = now; } continue; }
+                if (board == "Gps") { if (ms >= 500) { TransmitGps(packet); lastSent[board] = now; } continue; }
                 bool changed = radio && (!lastRadioPacket.TryGetValue(board, out var last) || last != packet);
                 if (radio ? ((changed && ms >= 200) || ms >= 5000) : ms >= 90)
                 {
@@ -320,6 +324,16 @@ namespace DCSBiosBridge
         }
 
         void TransmitBoard(UdpClient client, string packet) => targets.Send(client, Encoding.ASCII.GetBytes(packet));
+
+        void TransmitGps(string packet) => targets.SendDirect(gpsClient, BoardTargets.GpsName, Encoding.ASCII.GetBytes(packet));
+
+        // The packet monitor: every packet as it is sent to the boards, with a filter by target board.
+        void ShowPackets()
+        {
+            if (packetMonitor == null || packetMonitor.IsDisposed) packetMonitor = new PacketMonitorForm(targets, targets.PacketFilter);
+            packetMonitor.Show(this);
+            packetMonitor.Activate();
+        }
 
         static void Transmit(UdpClient client, string packet)
         {

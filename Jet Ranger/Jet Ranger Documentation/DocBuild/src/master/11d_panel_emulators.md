@@ -26,7 +26,7 @@ In each bridge a small `BoardTargets` class holds, for every board's UDP client,
 | `--emulators-only` | Send to the emulators only: no packet goes to a real board |
 | `--emulator-net <a.b.c>` | The first three numbers of the emulators' addresses, when they are not 127.0.0 (the emulator takes `--net` with the same meaning) |
 
-The GPS interface is not a board and is not affected. The start-up script (`Start Jet Ranger.bat -Emulators` or `-EmulatorsOnly`) opens the emulators and starts the bridge with the option.
+The GPS interface is not a board and is not affected. To see exactly what is being sent to each board or emulator, open the bridge's packet monitor (**Show packets...**, see the bridge chapters). The start-up script (`Start Jet Ranger.bat -Emulators` or `-EmulatorsOnly`) opens the emulators and starts the bridge with the option.
 
 ## What each window does
 

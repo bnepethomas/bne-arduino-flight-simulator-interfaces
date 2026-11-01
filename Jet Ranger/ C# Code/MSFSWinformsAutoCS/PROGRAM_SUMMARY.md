@@ -197,3 +197,15 @@ The window has two check boxes under the Avionics Master box, **Send to the boar
 a board. Command line: `--emulators` (emulators as well as the boards), `--emulators-only`, `--emulator-net <a.b.c>` (the first three numbers of the emulators' addresses, default
 127.0.0). `BoardTargets.cs` holds a second UDP client for each board client and sends to the board and/or the emulator; the GPS interface is not a board and is unaffected.
 The `SendPacket` helper sends the board clients' packets through `BoardTargets` (the retired Upper .103 is a board with no emulator). Built and the window checked; no simulator data has been sent through it to the emulators yet.
+
+## Packet monitor (added 1 November 2026)
+
+**Show packets...** (a button under the Avionics Master box, beside the two Send check boxes) opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105,
+Dual Stepper .106, ADF and Upper .107, the retired Upper .103 (this bridge still sends it the backlight packet), and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
+the payload text, for example `15:15:00.234  Stepper .105  board  D,BPWR:1,IAS:82,AGL:450,...`. The **Target board** box filters the list to one board (or *All boards*); **Pause** stops
+adding lines (the packets in between are dropped), **Clear** empties the list, and the window counts the lines shown and the packets sent since it opened. Command line: `--show-packets` opens
+the window at start and `--packet-board <radio, servo, stepper, dual, adf, gps, or a last number such as 105>` opens it filtered to that board. `BoardTargets` (in `BoardTargets.cs`) raises a
+`PacketSent` event for every send (the board packets through `Send`, the GPS packets through `SendDirect`) and `PacketMonitorForm` (`PacketMonitor.cs`) queues them and shows them ten times a
+second, keeping the last 6,000 for re-filtering, so a busy bridge is not slowed. Only packets that are really sent are shown: nothing appears while both the boards and the emulators boxes are
+unticked, or (DCS and X-Plane bridges) while no data is arriving. Tested with the DCS bridge and its synthetic stream (all boards, the `--packet-board stepper` filter, and the filter box changed
+while open); the MSFS and FSUIPC windows were checked (button, `--show-packets`) but no simulator data has gone through their monitor.

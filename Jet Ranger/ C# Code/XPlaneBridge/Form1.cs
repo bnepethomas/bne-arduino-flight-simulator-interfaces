@@ -35,6 +35,8 @@ namespace XPlaneBridge
         readonly CheckBox chkSend = new() { Text = "Send to the boards", Checked = true, AutoSize = true };
         readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
         readonly BoardTargets targets = new();
+        readonly Button btnPackets = new() { Text = "Show packets...", AutoSize = true };
+        PacketMonitorForm? packetMonitor;
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSearch = new() { Text = "Search datarefs...", AutoSize = true };
         readonly ListView lvValues = new() { View = View.Details, FullRowSelect = true, GridLines = true, Dock = DockStyle.Fill };
@@ -54,6 +56,8 @@ namespace XPlaneBridge
             targets.ReadCommandLine(Environment.GetCommandLineArgs());
             chkSend.Checked = chkSend.Checked && targets.ToBoards;
             chkEmu.Checked = targets.ToEmulators;
+            btnPackets.Click += (_, _) => ShowPackets();
+            if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
 
             string? boardHost = args.GetValueOrDefault("board-host");
             foreach (var (name, host) in Boards.All)
@@ -72,7 +76,7 @@ namespace XPlaneBridge
             var top = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 8, 8, 0), FlowDirection = FlowDirection.TopDown };
             top.Controls.AddRange(new Control[] { lblXPlane, lblProfile });
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend, chkEmu });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend, chkEmu, btnPackets });
 
             lvValues.Columns.Add("Token", 170);
             lvValues.Columns.Add("X-Plane dataref", 400);
@@ -236,7 +240,7 @@ namespace XPlaneBridge
             {
                 bool radio = board == "Radio";
                 double ms = lastSent.TryGetValue(board, out var t) ? (now - t).TotalMilliseconds : double.MaxValue;
-                if (board == "Gps") { if (ms >= 500) { Transmit(gpsClient, packet); lastSent[board] = now; } continue; }
+                if (board == "Gps") { if (ms >= 500) { TransmitGps(packet); lastSent[board] = now; } continue; }
                 bool changed = radio && (!lastRadioPacket.TryGetValue(board, out var last) || last != packet);
                 if (radio ? ((changed && ms >= 200) || ms >= 5000) : ms >= 90)
                 {
@@ -248,6 +252,16 @@ namespace XPlaneBridge
         }
 
         void TransmitBoard(UdpClient client, string packet) => targets.Send(client, Encoding.ASCII.GetBytes(packet));
+
+        void TransmitGps(string packet) => targets.SendDirect(gpsClient, BoardTargets.GpsName, Encoding.ASCII.GetBytes(packet));
+
+        // The packet monitor: every packet as it is sent to the boards, with a filter by target board.
+        void ShowPackets()
+        {
+            if (packetMonitor == null || packetMonitor.IsDisposed) packetMonitor = new PacketMonitorForm(targets, targets.PacketFilter);
+            packetMonitor.Show(this);
+            packetMonitor.Activate();
+        }
 
         static void Transmit(UdpClient client, string packet)
         {

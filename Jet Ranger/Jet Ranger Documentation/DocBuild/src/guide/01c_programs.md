@@ -26,6 +26,7 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 
 Both bridges have one window with the same layout.
 
+- **Show packets...** button (under the Avionics Master box): opens the packet monitor (see Packet monitor below).
 - **Send to the boards** and **Send to the emulators** check boxes (under the Avionics Master box): the bridge sends to the real boards, to the panel emulators (see Panel emulators), or to both. The boards box is on and the emulators box off unless you start the bridge with `--emulators` or `--emulators-only`.
 - **Avionics Master** check box: follows the simulator's avionics master switch and can also be used to switch it.
 - **Readout box** (left): the values being sent to the boards, one per line (airspeed, altitude, bus voltages, engine and transmission values, radio frequencies and, in the MSFS bridge, the GPS position and heading). It is empty until the simulator is connected.
@@ -38,7 +39,21 @@ Run only one bridge at a time.
 
 ![XPlaneBridge (X-Plane) against a fake X-Plane with the Robinson R22 profile (scroll for the Huey LEDs, rotor speed and bus voltage)](screenshots/xplane_bridge.png)
 
-**DCSBiosBridge** and **XPlaneBridge** have a different window (with the same **Send to the boards** and **Send to the emulators** check boxes): a status line (the DCS-BIOS stream and aircraft, or the X-Plane address and whether data is arriving), a **Profile** box (Automatic, or an aircraft chosen by hand), **Reload profiles**, a **Send to the boards** check box, a table of every token with its source control or dataref, the raw value, the value sent and the board, and a log at the bottom. The DCS bridge also has **Suggest controls** (finds controls for a new profile), **Calibrate selected...** and **Clear its calibration** for the Huey needle gauges; the X-Plane bridge has **Search datarefs...**. See Running the DCS bridge and Running the X-Plane bridge.
+**DCSBiosBridge** and **XPlaneBridge** have a different window (with the same **Send to the boards** and **Send to the emulators** check boxes and a **Show packets...** button): a status line (the DCS-BIOS stream and aircraft, or the X-Plane address and whether data is arriving), a **Profile** box (Automatic, or an aircraft chosen by hand), **Reload profiles**, a **Send to the boards** check box, a table of every token with its source control or dataref, the raw value, the value sent and the board, and a log at the bottom. The DCS bridge also has **Suggest controls** (finds controls for a new profile), **Calibrate selected...** and **Clear its calibration** for the Huey needle gauges; the X-Plane bridge has **Search datarefs...**. See Running the DCS bridge and Running the X-Plane bridge.
+
+## Packet monitor
+
+Every bridge can show the packets it sends. Press **Show packets...** (or start the bridge with `--show-packets`) to open the **Packets sent to the boards** window:
+
+![Packet monitor](screenshots/packet_monitor.png)
+
+Each line is one packet: the time, the **target board** (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, the retired Upper .103 in the FSUIPC and MSFS bridges, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local* for the GPS interface) and the payload text the board receives. The Radio's packet goes out only when something changes and at least every 5 seconds, the other boards' about ten times a second.
+
+The **Target board** box filters the list to one board. Start with `--packet-board <radio, servo, stepper, dual, adf, gps or a number such as 105>` to open the window already filtered.
+
+![Packet monitor filtered to the Stepper controller](screenshots/packet_monitor_filtered.png)
+
+**Pause** stops adding lines (the packets sent while paused are not kept) and **Clear** empties the list. Only packets that are really sent are shown: with both **Send** boxes unticked, or (DCS and X-Plane bridges) while no data is arriving from the simulator, the list stays empty. The window keeps the most recent lines and the last 6,000 packets for re-filtering.
 
 ## Health Monitor
 

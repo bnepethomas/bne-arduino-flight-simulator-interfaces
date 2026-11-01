@@ -388,6 +388,16 @@ namespace MSFSWinformsAutoCS
 
         // The destination check boxes: the real boards, the panel emulators, or both (command line --emulators, --emulators-only, --emulator-net).
         private readonly BoardTargets targets = new();
+        private readonly Button btnPackets = new() { Text = "Show packets...", Location = new Point(190, 42), Size = new Size(112, 27) };
+        private PacketMonitorForm? packetMonitor;
+
+        // The packet monitor: every packet as it is sent to the boards, with a filter by target board.
+        private void ShowPackets()
+        {
+            if (packetMonitor == null || packetMonitor.IsDisposed) packetMonitor = new PacketMonitorForm(targets, targets.PacketFilter);
+            packetMonitor.Show(this);
+            packetMonitor.Activate();
+        }
         private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
         private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
 
@@ -400,6 +410,9 @@ namespace MSFSWinformsAutoCS
             chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
             textBox1.Top += 52;                 // make room under the Avionics Master box for the two check boxes
             textBox1.Height -= 52;
+            btnPackets.Click += (_, _) => ShowPackets();
+            if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
+            Controls.Add(btnPackets);
             Controls.Add(chkBoards);
             Controls.Add(chkEmulators);
         }
@@ -445,7 +458,7 @@ namespace MSFSWinformsAutoCS
             {
                 byte[] data = Encoding.ASCII.GetBytes(payload);
                 if (targets.Handles(client)) targets.Send(client, data);        // a board: to the board, the emulator or both
-                else client.Send(data, data.Length);                            // the GPS interface
+                else targets.SendDirect(client, BoardTargets.GpsName, data);    // the GPS interface
             }
             catch (SocketException)
             {
