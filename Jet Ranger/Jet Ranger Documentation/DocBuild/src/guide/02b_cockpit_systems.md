@@ -1,0 +1,58 @@
+# Cockpit systems wiring
+
+This chapter shows how the cockpit's power, USB, lighting, display and sound systems are wired. The controller boards, the gauges and their network are in the other chapters. The diagrams show what is connected to what; they do not show cable lengths or the details of each piece of equipment.
+
+## Power supply
+
+![Power supply](diagrams/power_supply.svg)
+
+An **ATX power supply** with its own **ATX power supply PCB** powers the cockpit. The PCB is connected to the **power distribution PCB** in the front assembly by two cables, one for 12 V and one for 5 V. Three loads have a separate cable of their own from the ATX supply PCB:
+
+- a separate **12 V cable to the GPS**;
+- a separate **5 V cable to the network switch**, which sits in the front panel assembly;
+- a separate **12 V cable to the 12 V lighting module**.
+
+In the diagram 12 V cables are red and 5 V cables are gray. Each cable is drawn as one line; the ground returns are not drawn.
+
+## USB wiring
+
+![USB wiring](diagrams/usb_wiring.svg)
+
+A **7 port USB hub** in the front assembly is connected to the PC. The hub has a connection to each controller PCB (Radio, Servo, Stepper, Dual Stepper, and ADF and Upper), to the USB HID board, and to a **USB to serial adapter**, which connects to the GPS by a serial cable.
+
+Three things connect to the PC by their own USB cables and not through the hub: the external **Sound Blaster** sound card, the **primary flight controls** and the **CKAS 6DOF platform**.
+
+## CKAS 6DOF platform
+
+![CKAS 6DOF platform](diagrams/ckas_platform.svg)
+
+The **CKAS 6DOF platform** is connected to the PC by USB. An **emergency stop switch** and two **door open sensors** (door sensor 1 and door sensor 2) are wired to the platform. The diagram does not show the platform's own power, the cable types, or what the platform does when one of these inputs trips.
+
+## Lighting
+
+![Lighting](diagrams/lighting.svg)
+
+The ATX power supply feeds a **dimming circuit**, and the dimming circuit feeds a **three position switch**:
+
+| Switch position | Result |
+|---|---|
+| Left | The **white flood lights** are on |
+| Middle | Off |
+| Right | The **red flight lights** are on |
+
+Because the dimming circuit is between the supply and the switch, it dims whichever lights are switched on. The diagram does not show the supply voltage, the design of the dimming circuit or the wiring of the lights.
+
+## PC displays
+
+![PC displays](diagrams/pc_displays.svg)
+
+Four displays are connected to the PC by HDMI: the **primary forward display**, a 50 inch LCD; the **pilot footwell display**, an 18 inch LCD; and a **left mini projector** and a **right mini projector**.
+
+## Sound system
+
+![Sound system](diagrams/sound_system.svg)
+
+There are two sound systems.
+
+- **Primary sound system.** The Cambridge Audio amplifiers are connected to the PC by analog connections and drive four speakers: front left, front right, rear left and rear right.
+- **Headset and powered speakers.** The USB-connected Sound Blaster feeds a **two way rotary switch**. In position 1 the sound goes to an **aviation headset amplifier**, to which the pilot headset and the copilot headset connect. In position 2 it goes to a set of **powered speakers** at the upper rear left and right of the pit. The sound card feeds one of the two at a time.

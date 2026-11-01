@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="656" viewBox="0 0 880 656">
+<rect width="880" height="656" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC62828" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahsC62828" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ah2B2F36" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2B2F36"/></marker>
+<marker id="ahs2B2F36" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2B2F36"/></marker>
+<marker id="ah7A7A75" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7A7A75"/></marker>
+<marker id="ahs7A7A75" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#7A7A75"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">Power supply</text>
+<rect x="16.0" y="44.0" width="262.0" height="372.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="30.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">ATX power supply</text>
+<rect x="32.0" y="92.0" width="230.0" height="70.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="147.0" y="115.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">ATX power supply</text>
+<text x="147.0" y="139.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">the supply unit</text>
+<path d="M 147.0 162.0 L 147.0 192.0" fill="none" stroke="#2B2F36" stroke-width="1.2" marker-end="url(#ah2B2F36)"/>
+<rect x="147.4" y="169.0" width="43.2" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="169.0" y="180.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">rails</text>
+<rect x="32.0" y="192.0" width="230.0" height="200.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="147.0" y="215.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">ATX power supply PCB</text>
+<text x="147.0" y="239.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">12 V and 5 V outputs</text>
+<rect x="256.0" y="243.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C62828" stroke="#444444" stroke-width="1"/>
+<text x="246.0" y="254.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">12 V</text>
+<rect x="256.0" y="273.0" width="14.0" height="14.0" rx="3" ry="3" fill="#7A7A75" stroke="#444444" stroke-width="1"/>
+<text x="246.0" y="284.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">5 V</text>
+<rect x="256.0" y="303.0" width="14.0" height="14.0" rx="3" ry="3" fill="#7A7A75" stroke="#444444" stroke-width="1"/>
+<text x="246.0" y="314.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">5 V</text>
+<rect x="256.0" y="333.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C62828" stroke="#444444" stroke-width="1"/>
+<text x="246.0" y="344.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">12 V</text>
+<rect x="256.0" y="363.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C62828" stroke="#444444" stroke-width="1"/>
+<text x="246.0" y="374.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">12 V</text>
+<rect x="520.0" y="44.0" width="344.0" height="330.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="534.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Front assembly</text>
+<text x="534.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">front panel assembly</text>
+<rect x="548.0" y="98.0" width="288.0" height="96.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="692.0" y="121.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Power distribution PCB</text>
+<text x="692.0" y="145.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">receives 12 V and 5 V from the ATX supply</text>
+<rect x="548.0" y="262.0" width="288.0" height="80.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="692.0" y="285.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Network switch</text>
+<text x="692.0" y="309.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">sits in the front panel assembly</text>
+<rect x="548.0" y="410.0" width="288.0" height="80.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="692.0" y="433.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">GPS</text>
+<text x="692.0" y="457.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Lowrance AirMap 2000C</text>
+<rect x="548.0" y="500.0" width="288.0" height="80.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="692.0" y="523.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">12 V lighting module</text>
+<path d="M 270.0 250.0 L 330.0 250.0 L 330.0 128.0 L 548.0 128.0" fill="none" stroke="#C62828" stroke-width="2.6" marker-end="url(#ahC62828)"/>
+<rect x="394.0" y="110.0" width="111.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="449.9" y="121.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">12 V power cable</text>
+<path d="M 270.0 280.0 L 400.0 280.0 L 400.0 168.0 L 548.0 168.0" fill="none" stroke="#7A7A75" stroke-width="2.6" marker-end="url(#ah7A7A75)"/>
+<rect x="428.6" y="150.0" width="105.6" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="481.4" y="161.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">5 V power cable</text>
+<path d="M 270.0 310.0 L 548.0 310.0" fill="none" stroke="#7A7A75" stroke-width="2.6" marker-end="url(#ah7A7A75)"/>
+<rect x="340.6" y="292.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="409.0" y="303.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">5 V cable (separate)</text>
+<path d="M 270.0 340.0 L 300.0 340.0 L 300.0 450.0 L 548.0 450.0" fill="none" stroke="#C62828" stroke-width="2.6" marker-end="url(#ahC62828)"/>
+<text x="424.0" y="443.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">12 V cable (separate)</text>
+<path d="M 270.0 370.0 L 286.0 370.0 L 286.0 540.0 L 548.0 540.0" fill="none" stroke="#C62828" stroke-width="2.6" marker-end="url(#ahC62828)"/>
+<text x="424.0" y="533.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">12 V cable (separate)</text>
+<text x="16.0" y="440.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Cables</text>
+<line x1="16.0" y1="460.0" x2="56.0" y2="460.0" stroke="#C62828" stroke-width="3"/>
+<text x="64.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">12 V</text>
+<line x1="110.0" y1="460.0" x2="150.0" y2="460.0" stroke="#7A7A75" stroke-width="3"/>
+<text x="158.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">5 V</text>
+<text x="16.0" y="604.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The ATX supply PCB feeds the power distribution PCB with its own 12 V and 5 V cables.</text>
+<text x="16.0" y="622.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The GPS, the 12 V lighting module and the network switch each have a separate cable of their own.</text>
+<text x="16.0" y="640.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Each cable is drawn as one line; the ground returns are not drawn.</text>
+</svg>

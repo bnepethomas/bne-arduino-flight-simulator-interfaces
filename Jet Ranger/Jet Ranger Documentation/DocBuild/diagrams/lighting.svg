@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="628" viewBox="0 0 880 628">
+<rect width="880" height="628" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2B2F36" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2B2F36"/></marker>
+<marker id="ahs2B2F36" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2B2F36"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">Lighting</text>
+<rect x="180.0" y="50.0" width="220.0" height="90.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="290.0" y="73.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">White flood lights</text>
+<text x="290.0" y="97.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">on in the left position</text>
+<rect x="480.0" y="50.0" width="220.0" height="90.0" rx="10" ry="10" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
+<text x="590.0" y="73.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Red flight lights</text>
+<text x="590.0" y="97.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">on in the right position</text>
+<rect x="300.0" y="200.0" width="280.0" height="160.0" rx="12" ry="12" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="292.0" y="285.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="end">Three position</text>
+<text x="292.0" y="303.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="end">switch</text>
+<line x1="440.0" y1="330.0" x2="370.0" y2="262.0" stroke="#B5B5B0" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="440.0" y1="330.0" x2="510.0" y2="262.0" stroke="#B5B5B0" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="440.0" y1="330.0" x2="440.0" y2="266.0" stroke="#2B2F36" stroke-width="4"/>
+<circle cx="370.0" cy="262.0" r="6" fill="#FFFFFF" stroke="#2B2F36" stroke-width="1.8"/>
+<circle cx="440.0" cy="262.0" r="6" fill="#FFFFFF" stroke="#2B2F36" stroke-width="1.8"/>
+<circle cx="510.0" cy="262.0" r="6" fill="#FFFFFF" stroke="#2B2F36" stroke-width="1.8"/>
+<circle cx="440.0" cy="330.0" r="8" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="356.0" y="267.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="end">left</text>
+<text x="440.0" y="248.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">middle: off</text>
+<text x="524.0" y="267.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">right</text>
+<path d="M 370.0 256.0 L 370.0 170.0 L 290.0 170.0 L 290.0 140.0" fill="none" stroke="#2B2F36" stroke-width="2.6" marker-end="url(#ah2B2F36)"/>
+<path d="M 510.0 256.0 L 510.0 170.0 L 590.0 170.0 L 590.0 140.0" fill="none" stroke="#2B2F36" stroke-width="2.6" marker-end="url(#ah2B2F36)"/>
+<text x="346.0" y="162.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">left position</text>
+<text x="532.0" y="162.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">right position</text>
+<rect x="340.0" y="402.0" width="200.0" height="58.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="440.0" y="424.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Dimming circuit</text>
+<path d="M 440.0 402.0 L 440.0 338.0" fill="none" stroke="#2B2F36" stroke-width="2.6" marker-end="url(#ah2B2F36)"/>
+<text x="452.0" y="378.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">dimmed power</text>
+<rect x="340.0" y="508.0" width="200.0" height="76.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="440.0" y="531.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">ATX power supply</text>
+<text x="440.0" y="555.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">feeds the dimming circuit</text>
+<path d="M 440.0 508.0 L 440.0 460.0" fill="none" stroke="#2B2F36" stroke-width="2.6" marker-end="url(#ah2B2F36)"/>
+<text x="452.0" y="488.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">power from the ATX supply</text>
+<text x="16.0" y="612.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">The switch is drawn in the middle (off) position. The supply voltage, the dimming circuit's design and the wiring of the lights are not drawn.</text>
+</svg>

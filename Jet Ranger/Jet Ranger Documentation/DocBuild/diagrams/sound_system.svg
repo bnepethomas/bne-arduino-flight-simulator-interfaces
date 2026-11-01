@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="736" viewBox="0 0 880 736">
+<rect width="880" height="736" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">Sound system</text>
+<line x1="540.0" y1="22.0" x2="580.0" y2="22.0" stroke="#C77700" stroke-width="3"/>
+<text x="588.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">audio cable</text>
+<line x1="690.0" y1="22.0" x2="730.0" y2="22.0" stroke="#2F6FEB" stroke-width="3"/>
+<text x="738.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">USB cable</text>
+<rect x="16.0" y="50.0" width="150.0" height="650.0" rx="12" ry="12" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="56.0" y="295.0" width="70.0" height="130.0" rx="6" ry="6" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<rect x="66.0" y="309.0" width="50.0" height="8.0" rx="2" ry="2" fill="#2B2F36" stroke="#1F1F1F" stroke-width="1"/>
+<rect x="66.0" y="325.0" width="50.0" height="8.0" rx="2" ry="2" fill="#2B2F36" stroke="#1F1F1F" stroke-width="1"/>
+<circle cx="91.0" cy="391.0" r="9" fill="#8FD18F" stroke="#2B2F36" stroke-width="2"/>
+<line x1="70.0" y1="411.0" x2="112.0" y2="411.0" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="91.0" y="460.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="middle">PC</text>
+<rect x="159.0" y="138.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C77700" stroke="#444444" stroke-width="1"/>
+<rect x="159.0" y="538.0" width="14.0" height="14.0" rx="3" ry="3" fill="#2F6FEB" stroke="#444444" stroke-width="1"/>
+<text x="214.0" y="60.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Primary sound system</text>
+<rect x="214.0" y="74.0" width="160.0" height="142.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="234.0" y="94.0" width="120.0" height="52.0" rx="5" ry="5" fill="#D9DBDF" stroke="#2B2F36" stroke-width="2"/>
+<rect x="242.0" y="104.0" width="40.8" height="32.0" rx="3" ry="3" fill="#2B2F36" stroke="#2B2F36" stroke-width="1"/>
+<line x1="248.0" y1="120.0" x2="276.8" y2="120.0" stroke="#8FD18F" stroke-width="2"/>
+<circle cx="308.4" cy="120.0" r="9" fill="#F4F4F2" stroke="#2B2F36" stroke-width="2"/>
+<line x1="308.4" y1="120.0" x2="308.4" y2="113.0" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="332.4" cy="120.0" r="9" fill="#F4F4F2" stroke="#2B2F36" stroke-width="2"/>
+<line x1="332.4" y1="120.0" x2="332.4" y2="113.0" stroke="#2B2F36" stroke-width="2"/>
+<text x="294.0" y="168.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Cambridge Audio</text>
+<text x="294.0" y="187.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">amplifiers</text>
+<path d="M 173.0 145.0 L 214.0 145.0" fill="none" stroke="#C77700" stroke-width="2.8" marker-end="url(#ahC77700)"/>
+<rect x="168.8" y="125.0" width="49.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="193.5" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">analog</text>
+<rect x="460.0" y="84.0" width="190.0" height="66.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="476.0" y="92.0" width="36.0" height="50.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="494.0" cy="105.0" r="5.3999999999999995" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="494.0" cy="124.5" r="10.799999999999999" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="494.0" cy="124.5" r="3.96" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<text x="526.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Front left speaker</text>
+<rect x="670.0" y="84.0" width="190.0" height="66.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="686.0" y="92.0" width="36.0" height="50.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="704.0" cy="105.0" r="5.3999999999999995" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="704.0" cy="124.5" r="10.799999999999999" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="704.0" cy="124.5" r="3.96" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<text x="736.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Front right speaker</text>
+<rect x="460.0" y="160.0" width="190.0" height="66.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="476.0" y="168.0" width="36.0" height="50.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="494.0" cy="181.0" r="5.3999999999999995" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="494.0" cy="200.5" r="10.799999999999999" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="494.0" cy="200.5" r="3.96" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<text x="526.0" y="198.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Rear left speaker</text>
+<rect x="670.0" y="160.0" width="190.0" height="66.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="686.0" y="168.0" width="36.0" height="50.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="704.0" cy="181.0" r="5.3999999999999995" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="704.0" cy="200.5" r="10.799999999999999" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="704.0" cy="200.5" r="3.96" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<text x="736.0" y="198.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Rear right speaker</text>
+<path d="M 374.0 145.0 L 420.0 145.0 L 420.0 117.0 L 460.0 117.0" fill="none" stroke="#C77700" stroke-width="2.4" marker-end="url(#ahC77700)"/>
+<path d="M 420.0 145.0 L 420.0 193.0 L 460.0 193.0" fill="none" stroke="#C77700" stroke-width="2.4" marker-end="url(#ahC77700)"/>
+<path d="M 420.0 117.0 L 420.0 66.0 L 765.0 66.0 L 765.0 84.0" fill="none" stroke="#C77700" stroke-width="2.4" marker-end="url(#ahC77700)"/>
+<path d="M 420.0 193.0 L 420.0 242.0 L 765.0 242.0 L 765.0 226.0" fill="none" stroke="#C77700" stroke-width="2.4" marker-end="url(#ahC77700)"/>
+<text x="214.0" y="330.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Headset and power speakers</text>
+<rect x="214.0" y="480.0" width="130.0" height="80.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="237.0" y="488.0" width="84.0" height="40.0" rx="6" ry="6" fill="#2B6CB0" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="253.0" cy="508.0" r="8" fill="#DDE8F5" stroke="#2B2F36" stroke-width="1.6"/>
+<circle cx="253.0" cy="508.0" r="3" fill="#2B2F36" stroke="#2B2F36" stroke-width="1"/>
+<circle cx="275.0" cy="508.0" r="4.5" fill="#1F1F1F" stroke="#DDE8F5" stroke-width="1.4"/>
+<circle cx="290.0" cy="508.0" r="4.5" fill="#1F1F1F" stroke="#DDE8F5" stroke-width="1.4"/>
+<circle cx="305.0" cy="508.0" r="4.5" fill="#1F1F1F" stroke="#DDE8F5" stroke-width="1.4"/>
+<text x="279.0" y="546.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="middle">Sound Blaster</text>
+<path d="M 173.0 545.0 L 186.0 545.0 L 186.0 520.0 L 214.0 520.0" fill="none" stroke="#2F6FEB" stroke-width="2.8" marker-end="url(#ah2F6FEB)"/>
+<rect x="176.6" y="500.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="192.0" y="511.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<rect x="376.0" y="470.0" width="152.0" height="100.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<circle cx="436.0" cy="514.0" r="28" fill="#E9E9E5" stroke="#2B2F36" stroke-width="2.4"/>
+<circle cx="436.0" cy="514.0" r="17.36" fill="#B5B5B0" stroke="#2B2F36" stroke-width="1.6"/>
+<line x1="436.0" y1="514.0" x2="450.6" y2="499.4" stroke="#2B2F36" stroke-width="4"/>
+<text x="472.0" y="493.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">1</text>
+<text x="472.0" y="540.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">2</text>
+<text x="452.0" y="557.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#1F1F1F" text-anchor="middle">Two way rotary switch</text>
+<path d="M 344.0 520.0 L 376.0 520.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<rect x="590.0" y="350.0" width="140.0" height="100.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="612.0" y="363.0" width="96.0" height="42.0" rx="5" ry="5" fill="#D9DBDF" stroke="#2B2F36" stroke-width="2"/>
+<rect x="620.0" y="373.0" width="32.6" height="22.0" rx="3" ry="3" fill="#2B2F36" stroke="#2B2F36" stroke-width="1"/>
+<line x1="626.0" y1="384.0" x2="646.6" y2="384.0" stroke="#8FD18F" stroke-width="2"/>
+<circle cx="671.5" cy="384.0" r="9" fill="#F4F4F2" stroke="#2B2F36" stroke-width="2"/>
+<line x1="671.5" y1="384.0" x2="671.5" y2="377.0" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="690.7" cy="384.0" r="9" fill="#F4F4F2" stroke="#2B2F36" stroke-width="2"/>
+<line x1="690.7" y1="384.0" x2="690.7" y2="377.0" stroke="#2B2F36" stroke-width="2"/>
+<text x="660.0" y="424.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Aviation headset</text>
+<text x="660.0" y="440.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">amplifier</text>
+<rect x="764.0" y="330.0" width="100.0" height="90.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<path d="M 792.2 368.0 A 21.8 21.8 0 0 1 835.8 368.0" fill="none" stroke="#2B2F36" stroke-width="4"/>
+<rect x="785.2" y="364.0" width="14.0" height="21.8" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<rect x="828.8" y="364.0" width="14.0" height="21.8" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<path d="M 792.2 385.8 Q 792.2 398.2 809.6 397.2" fill="none" stroke="#2B2F36" stroke-width="2.4"/>
+<circle cx="809.6" cy="397.2" r="4" fill="#2B2F36" stroke="#2B2F36" stroke-width="1"/>
+<text x="814.0" y="410.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#1F1F1F" text-anchor="middle">Pilot headset</text>
+<rect x="764.0" y="436.0" width="100.0" height="90.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<path d="M 792.2 474.0 A 21.8 21.8 0 0 1 835.8 474.0" fill="none" stroke="#2B2F36" stroke-width="4"/>
+<rect x="785.2" y="470.0" width="14.0" height="21.8" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<rect x="828.8" y="470.0" width="14.0" height="21.8" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<path d="M 792.2 491.8 Q 792.2 504.2 809.6 503.2" fill="none" stroke="#2B2F36" stroke-width="2.4"/>
+<circle cx="809.6" cy="503.2" r="4" fill="#2B2F36" stroke="#2B2F36" stroke-width="1"/>
+<text x="814.0" y="516.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#1F1F1F" text-anchor="middle">Copilot headset</text>
+<path d="M 528.0 520.0 L 558.0 520.0 L 558.0 400.0 L 590.0 400.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<rect x="486.8" y="449.0" width="74.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="524.0" y="460.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">position 1</text>
+<path d="M 730.0 400.0 L 747.0 400.0 L 747.0 375.0 L 764.0 375.0" fill="none" stroke="#C77700" stroke-width="2.2" marker-end="url(#ahC77700)"/>
+<path d="M 747.0 400.0 L 747.0 481.0 L 764.0 481.0" fill="none" stroke="#C77700" stroke-width="2.2" marker-end="url(#ahC77700)"/>
+<rect x="590.0" y="586.0" width="274.0" height="120.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="727.0" y="612.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="middle">Powered speakers</text>
+<rect x="630.0" y="625.0" width="40.0" height="56.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="650.0" cy="639.6" r="6.0" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="650.0" cy="661.4" r="12.0" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="650.0" cy="661.4" r="4.4" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<rect x="780.0" y="625.0" width="40.0" height="56.0" rx="5" ry="5" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="800.0" cy="639.6" r="6.0" fill="#2B2F36" stroke="#B5B5B0" stroke-width="1.6"/>
+<circle cx="800.0" cy="661.4" r="12.0" fill="#2B2F36" stroke="#B5B5B0" stroke-width="2"/>
+<circle cx="800.0" cy="661.4" r="4.4" fill="#6B707A" stroke="#B5B5B0" stroke-width="1.2"/>
+<text x="650.0" y="696.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="middle">upper rear left</text>
+<text x="800.0" y="696.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="middle">upper rear right</text>
+<path d="M 558.0 520.0 L 558.0 656.0 L 590.0 656.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<rect x="486.8" y="577.0" width="74.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="524.0" y="588.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">position 2</text>
+<text x="16.0" y="728.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">The sound card feeds either the headset amplifier or the powered speakers, never both at once.</text>
+</svg>

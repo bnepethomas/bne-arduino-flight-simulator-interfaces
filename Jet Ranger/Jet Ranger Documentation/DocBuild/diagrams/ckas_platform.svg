@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="436" viewBox="0 0 880 436">
+<rect width="880" height="436" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">CKAS 6DOF platform connections</text>
+<line x1="540.0" y1="22.0" x2="580.0" y2="22.0" stroke="#2F6FEB" stroke-width="3"/>
+<text x="588.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">USB cable</text>
+<line x1="690.0" y1="22.0" x2="730.0" y2="22.0" stroke="#C77700" stroke-width="3"/>
+<text x="738.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">wiring to the platform</text>
+<rect x="16.0" y="200.0" width="190.0" height="110.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="223.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">PC</text>
+<text x="111.0" y="247.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">primary flight simulator PC</text>
+<rect x="330.0" y="90.0" width="230.0" height="270.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="445.0" y="113.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">CKAS 6DOF platform</text>
+<text x="445.0" y="137.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">six degrees of freedom</text>
+<text x="445.0" y="155.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">motion platform</text>
+<rect x="323.0" y="248.0" width="14.0" height="14.0" rx="3" ry="3" fill="#2F6FEB" stroke="#444444" stroke-width="1"/>
+<path d="M 206.0 255.0 L 323.0 255.0" fill="none" stroke="#2F6FEB" stroke-width="2.8" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="249.1" y="235.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="264.5" y="246.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<rect x="680.0" y="162.0" width="184.0" height="56.0" rx="10" ry="10" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
+<text x="772.0" y="184.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Emergency stop switch</text>
+<rect x="553.0" y="183.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C77700" stroke="#444444" stroke-width="1"/>
+<text x="544.0" y="194.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">emergency stop</text>
+<path d="M 680.0 190.0 L 567.0 190.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<rect x="680.0" y="227.0" width="184.0" height="56.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="772.0" y="249.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Door open sensor 1</text>
+<rect x="553.0" y="248.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C77700" stroke="#444444" stroke-width="1"/>
+<text x="544.0" y="259.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">door sensor 1</text>
+<path d="M 680.0 255.0 L 567.0 255.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<rect x="680.0" y="292.0" width="184.0" height="56.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="772.0" y="314.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Door open sensor 2</text>
+<rect x="553.0" y="313.0" width="14.0" height="14.0" rx="3" ry="3" fill="#C77700" stroke="#444444" stroke-width="1"/>
+<text x="544.0" y="324.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#555555" text-anchor="end">door sensor 2</text>
+<path d="M 680.0 320.0 L 567.0 320.0" fill="none" stroke="#C77700" stroke-width="2.6" marker-end="url(#ahC77700)"/>
+<text x="16.0" y="392.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The emergency stop switch and the two door open sensors connect directly to the platform.</text>
+<text x="16.0" y="412.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Not drawn: the platform's own power, the cable types, and what the platform does when an input trips.</text>
+</svg>

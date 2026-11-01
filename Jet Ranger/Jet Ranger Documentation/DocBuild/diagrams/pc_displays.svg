@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="580" viewBox="0 0 880 580">
+<rect width="880" height="580" fill="#FFFFFF"/>
+<defs>
+<marker id="ah00796B" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00796B"/></marker>
+<marker id="ahs00796B" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#00796B"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">PC displays</text>
+<line x1="600.0" y1="22.0" x2="640.0" y2="22.0" stroke="#00796B" stroke-width="3"/>
+<text x="648.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">HDMI cable</text>
+<rect x="16.0" y="50.0" width="230.0" height="500.0" rx="12" ry="12" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="96.0" y="205.0" width="70.0" height="130.0" rx="6" ry="6" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<rect x="106.0" y="219.0" width="50.0" height="8.0" rx="2" ry="2" fill="#2B2F36" stroke="#1F1F1F" stroke-width="1"/>
+<rect x="106.0" y="235.0" width="50.0" height="8.0" rx="2" ry="2" fill="#2B2F36" stroke="#1F1F1F" stroke-width="1"/>
+<circle cx="131.0" cy="301.0" r="9" fill="#8FD18F" stroke="#2B2F36" stroke-width="2"/>
+<line x1="110.0" y1="321.0" x2="152.0" y2="321.0" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="131.0" y="380.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="middle">PC</text>
+<text x="131.0" y="400.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">primary flight simulator PC</text>
+<rect x="480.0" y="58.0" width="384.0" height="104.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="500.0" y="71.1" width="112.0" height="66.0" rx="4" ry="4" fill="#2B2F36" stroke="#2B2F36" stroke-width="2"/>
+<rect x="504.0" y="75.1" width="104.0" height="58.0" rx="2" ry="2" fill="#CFE3FB" stroke="#9DB8D8" stroke-width="1"/>
+<line x1="513.4" y1="122.6" x2="544.8" y2="87.6" stroke="#FFFFFF" stroke-width="2.2"/>
+<line x1="556.0" y1="137.1" x2="556.0" y2="145.0" stroke="#2B2F36" stroke-width="3"/>
+<line x1="533.6" y1="145.0" x2="578.4" y2="145.0" stroke="#2B2F36" stroke-width="4"/>
+<text x="630.0" y="108.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Primary forward display</text>
+<text x="630.0" y="130.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="400" fill="#555555" text-anchor="start">50 inch LCD</text>
+<rect x="239.0" y="103.0" width="14.0" height="14.0" rx="3" ry="3" fill="#00796B" stroke="#444444" stroke-width="1"/>
+<path d="M 253.0 110.0 L 480.0 110.0" fill="none" stroke="#00796B" stroke-width="2.8" marker-end="url(#ah00796B)"/>
+<rect x="348.0" y="91.0" width="37.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="366.5" y="102.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">HDMI</text>
+<rect x="480.0" y="178.0" width="384.0" height="104.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="525.0" y="207.2" width="62.0" height="40.0" rx="4" ry="4" fill="#2B2F36" stroke="#2B2F36" stroke-width="2"/>
+<rect x="529.0" y="211.2" width="54.0" height="32.0" rx="2" ry="2" fill="#CFE3FB" stroke="#9DB8D8" stroke-width="1"/>
+<line x1="532.4" y1="238.4" x2="549.8" y2="217.2" stroke="#FFFFFF" stroke-width="2.2"/>
+<line x1="556.0" y1="247.2" x2="556.0" y2="252.0" stroke="#2B2F36" stroke-width="3"/>
+<line x1="543.6" y1="252.0" x2="568.4" y2="252.0" stroke="#2B2F36" stroke-width="4"/>
+<text x="630.0" y="228.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Pilot footwell display</text>
+<text x="630.0" y="250.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="400" fill="#555555" text-anchor="start">18 inch LCD</text>
+<rect x="239.0" y="223.0" width="14.0" height="14.0" rx="3" ry="3" fill="#00796B" stroke="#444444" stroke-width="1"/>
+<path d="M 253.0 230.0 L 480.0 230.0" fill="none" stroke="#00796B" stroke-width="2.8" marker-end="url(#ah00796B)"/>
+<rect x="348.0" y="211.0" width="37.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="366.5" y="222.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">HDMI</text>
+<rect x="480.0" y="298.0" width="384.0" height="104.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<path d="M 594.0 344.0 L 620.0 330.0 L 620.0 370.0 L 594.0 356.0 Z" fill="#FFF3C4" stroke="#E8C547" stroke-width="1"/>
+<rect x="502.0" y="327.0" width="88.0" height="46.0" rx="8" ry="8" fill="#E9E9E5" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="570.0" cy="350.0" r="15" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="570.0" cy="350.0" r="8" fill="#9DB8D8" stroke="#1F1F1F" stroke-width="1.5"/>
+<line x1="514.0" y1="339.0" x2="538.0" y2="339.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="514.0" y1="348.0" x2="538.0" y2="348.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="514.0" y1="357.0" x2="538.0" y2="357.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="516.0" y1="373.0" x2="516.0" y2="379.0" stroke="#2B2F36" stroke-width="3"/>
+<line x1="576.0" y1="373.0" x2="576.0" y2="379.0" stroke="#2B2F36" stroke-width="3"/>
+<text x="630.0" y="355.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Left mini projector</text>
+<rect x="239.0" y="343.0" width="14.0" height="14.0" rx="3" ry="3" fill="#00796B" stroke="#444444" stroke-width="1"/>
+<path d="M 253.0 350.0 L 480.0 350.0" fill="none" stroke="#00796B" stroke-width="2.8" marker-end="url(#ah00796B)"/>
+<rect x="348.0" y="331.0" width="37.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="366.5" y="342.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">HDMI</text>
+<rect x="480.0" y="418.0" width="384.0" height="104.0" rx="12" ry="12" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<path d="M 594.0 464.0 L 620.0 450.0 L 620.0 490.0 L 594.0 476.0 Z" fill="#FFF3C4" stroke="#E8C547" stroke-width="1"/>
+<rect x="502.0" y="447.0" width="88.0" height="46.0" rx="8" ry="8" fill="#E9E9E5" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="570.0" cy="470.0" r="15" fill="#4A4F59" stroke="#2B2F36" stroke-width="2"/>
+<circle cx="570.0" cy="470.0" r="8" fill="#9DB8D8" stroke="#1F1F1F" stroke-width="1.5"/>
+<line x1="514.0" y1="459.0" x2="538.0" y2="459.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="514.0" y1="468.0" x2="538.0" y2="468.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="514.0" y1="477.0" x2="538.0" y2="477.0" stroke="#9A9A95" stroke-width="1.6"/>
+<line x1="516.0" y1="493.0" x2="516.0" y2="499.0" stroke="#2B2F36" stroke-width="3"/>
+<line x1="576.0" y1="493.0" x2="576.0" y2="499.0" stroke="#2B2F36" stroke-width="3"/>
+<text x="630.0" y="475.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Right mini projector</text>
+<rect x="239.0" y="463.0" width="14.0" height="14.0" rx="3" ry="3" fill="#00796B" stroke="#444444" stroke-width="1"/>
+<path d="M 253.0 470.0 L 480.0 470.0" fill="none" stroke="#00796B" stroke-width="2.8" marker-end="url(#ah00796B)"/>
+<rect x="348.0" y="451.0" width="37.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="366.5" y="462.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">HDMI</text>
+<text x="16.0" y="572.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">All four displays are connected to the PC by HDMI.</text>
+</svg>

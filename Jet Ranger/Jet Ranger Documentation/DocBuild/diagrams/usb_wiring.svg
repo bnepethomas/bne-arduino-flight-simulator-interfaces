@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560">
+<rect width="880" height="560" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="#1F1F1F" text-anchor="start">USB wiring</text>
+<line x1="560.0" y1="22.0" x2="600.0" y2="22.0" stroke="#2F6FEB" stroke-width="3"/>
+<text x="608.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">USB cable</text>
+<line x1="710.0" y1="22.0" x2="750.0" y2="22.0" stroke="#C77700" stroke-width="3"/>
+<text x="758.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">serial cable</text>
+<rect x="16.0" y="60.0" width="190.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="82.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">External sound card</text>
+<text x="111.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Sound Blaster</text>
+<rect x="16.0" y="210.0" width="230.0" height="90.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="131.0" y="233.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">PC</text>
+<text x="131.0" y="257.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">primary flight simulator PC</text>
+<rect x="16.0" y="350.0" width="190.0" height="60.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="372.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Primary flight controls</text>
+<rect x="16.0" y="440.0" width="190.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="462.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">CKAS 6DOF platform</text>
+<text x="111.0" y="486.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">motion platform</text>
+<path d="M 70.0 210.0 L 70.0 130.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="76.6" y="162.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="92.0" y="173.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<path d="M 70.0 300.0 L 70.0 350.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="76.6" y="317.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="92.0" y="328.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<path d="M 232.0 300.0 L 232.0 475.0 L 206.0 475.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="216.6" y="380.5" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="232.0" y="391.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<rect x="262.0" y="44.0" width="438.0" height="474.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="276.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Front assembly</text>
+<rect x="284.0" y="80.0" width="112.0" height="410.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="340.0" y="103.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB hub</text>
+<text x="340.0" y="127.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">7 ports</text>
+<path d="M 246.0 255.0 L 284.0 255.0" fill="none" stroke="#2F6FEB" stroke-width="2.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="249.6" y="236.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="265.0" y="247.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">USB</text>
+<rect x="470.0" y="82.0" width="208.0" height="44.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="574.0" y="103.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio controller  .101</text>
+<path d="M 396.0 104.0 L 470.0 104.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="138.0" width="208.0" height="44.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="574.0" y="159.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo controller  .102</text>
+<path d="M 396.0 160.0 L 470.0 160.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="194.0" width="208.0" height="44.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="574.0" y="215.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Stepper controller  .105</text>
+<path d="M 396.0 216.0 L 470.0 216.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="250.0" width="208.0" height="44.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="574.0" y="271.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Dual Stepper controller  .106</text>
+<path d="M 396.0 272.0 L 470.0 272.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="306.0" width="208.0" height="44.0" rx="10" ry="10" fill="#E3F5F4" stroke="#00796B" stroke-width="1.2"/>
+<text x="574.0" y="327.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">ADF and Upper controller  .107</text>
+<path d="M 396.0 328.0 L 470.0 328.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="362.0" width="208.0" height="44.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="383.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID board  .11</text>
+<path d="M 396.0 384.0 L 470.0 384.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="470.0" y="418.0" width="208.0" height="44.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="439.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB to serial adapter</text>
+<path d="M 396.0 440.0 L 470.0 440.0" fill="none" stroke="#2F6FEB" stroke-width="2.4" marker-end="url(#ah2F6FEB)"/>
+<rect x="730.0" y="404.0" width="134.0" height="72.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="797.0" y="426.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">GPS</text>
+<text x="797.0" y="449.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Lowrance</text>
+<text x="797.0" y="466.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">AirMap 2000C</text>
+<path d="M 678.0 440.0 L 730.0 440.0" fill="none" stroke="#C77700" stroke-width="2.4" marker-end="url(#ahC77700)"/>
+<text x="704.0" y="431.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">serial</text>
+<text x="262.0" y="545.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The sound card, the flight controls and the CKAS platform connect to the PC directly, not through the hub.</text>
+</svg>

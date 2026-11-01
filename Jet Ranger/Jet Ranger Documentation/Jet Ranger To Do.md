@@ -66,3 +66,5 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [x] **Update the documentation for the firmware versions, the Health Monitor Firmware column and the ADF power status change** (done 2026-11-01).
 - [x] **Add a packet monitor with a target board filter to every bridge, and document it** (done 2026-11-01).
 - [x] **Update the documentation for the packet monitor** (done 2026-11-01).
+- [x] **Draw the cockpit systems diagrams and add them to the documents** (done 2026-11-02): power supply (ATX supply PCB, power distribution PCB, GPS, network switch, 12 V lighting module), USB wiring (7 port hub, USB to serial adapter to the GPS, sound card, flight controls, CKAS platform), CKAS 6DOF platform (emergency stop, two door sensors), lighting (dimming circuit and three position switch), PC displays (HDMI) and the sound system; chapter *Cockpit systems wiring* in the User Guide and the master document.
+- [x] **Update the documentation and commit and push** (done 2026-11-02).

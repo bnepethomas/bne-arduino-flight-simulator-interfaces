@@ -164,3 +164,8 @@ All six were flashed on 1 November 2026 at version 1.0: build 2 for the Radio, S
 
 All four bridges have a **Show packets...** button (and `--show-packets`, `--packet-board <board>`): a window listing every payload as it is sent, with the time, the target board (or the
 GPS interface), where it went and a filter by target board. It is fed by the `BoardTargets` class each bridge carries.
+
+## Cockpit systems diagrams
+
+The cockpit's power, USB, lighting, PC display and sound wiring is drawn in `Jet Ranger Documentation/DocBuild/diagrams_e.py` (`power_supply`, `usb_wiring`, `ckas_platform`, `lighting`,
+`pc_displays`, `sound_system`) and shown in the chapter *Cockpit systems wiring* of the User Guide and the master document.
