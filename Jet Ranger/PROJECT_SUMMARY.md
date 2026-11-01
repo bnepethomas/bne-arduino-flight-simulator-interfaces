@@ -168,4 +168,4 @@ GPS interface), where it went and a filter by target board. It is fed by the `Bo
 ## Cockpit systems diagrams
 
 The cockpit's power, USB, lighting, PC display and sound wiring is drawn in `Jet Ranger Documentation/DocBuild/diagrams_e.py` (`power_supply`, `usb_wiring`, `ckas_platform`, `lighting`,
-`pc_displays`, `sound_system`) and shown in the chapter *Cockpit systems wiring* of the User Guide and the master document.
+`pc_displays`, `sound_system`) and shown in the chapter *Cockpit systems wiring* of the User Guide and in Appendix H of the master document.
