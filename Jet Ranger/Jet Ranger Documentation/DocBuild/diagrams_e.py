@@ -156,7 +156,7 @@ def oled_connectors():
 
 @diagram
 def power_supply():
-    s = Svg(880, 656)
+    s = Svg(880, 672)
     C12, C5 = RED, "#7A7A75"          # 12 V red, 5 V gray
     s.text(16, 26, "Power supply", size=17, weight=700)
 
@@ -165,29 +165,33 @@ def power_supply():
     s.card(32, 92, 230, 70, "ATX power supply", ["the supply unit"], "gray", center=True)
     s.arrow([(147, 162), (147, 192)], "rails", color="#2B2F36", sw=1.2, label_dx=22, label_dy=3)
     s.card(32, 192, 230, 200, "ATX power supply PCB", ["12 V and 5 V outputs"], "blue", center=True)
-    # the five output connectors on the right edge of the PCB: (y, colour, label)
-    outs = [(250, C12, "12 V"), (280, C5, "5 V"), (310, C5, "5 V"), (340, C12, "12 V"), (370, C12, "12 V")]
+    # the six output connectors on the right edge of the PCB: (y, colour, label)
+    outs = [(226, C12, "12 V"), (256, C5, "5 V"), (286, C5, "5 V"), (316, C5, "5 V"), (346, C12, "12 V"), (376, C12, "12 V")]
     for y, col, lab in outs:
         s.rect(256, y - 7, 14, 14, col, "#444444", rx=3, sw=1)
         s.text(246, y + 4.5, lab, size=12, weight=700, anchor="end", fill=INK2)
 
-    # the front assembly: the power distribution PCB and the network switch
-    s.frame(520, 44, 344, 330, "Front assembly", "front panel assembly")
+    # the front assembly: the power distribution PCB, the network switch and the USB hub
+    s.frame(520, 44, 344, 350, "Front assembly", "front panel assembly")
     s.card(548, 98, 288, 96, "Power distribution PCB", ["receives 12 V and 5 V from the ATX supply"], "blue", center=True)
-    s.card(548, 262, 288, 80, "Network switch", ["sits in the front panel assembly"], "white", center=True)
+    s.card(548, 214, 288, 70, "Network switch", ["sits in the front panel assembly"], "white", center=True)
+    s.card(548, 304, 288, 70, "USB hub", ["7 ports, powered directly"], "white", center=True)
 
     # the GPS and the 12 V lighting module, outside the front assembly
-    s.card(548, 410, 288, 80, "GPS", ["Lowrance AirMap 2000C"], "white", center=True)
-    s.card(548, 500, 288, 80, "12 V lighting module", [], "white", center=True)
+    s.card(548, 424, 288, 80, "GPS", ["Lowrance AirMap 2000C"], "white", center=True)
+    s.card(548, 514, 288, 80, "12 V lighting module", [], "white", center=True)
 
     # cables from the PCB's connectors (the markers on its edge) to what they power
-    s.arrow([(270, 250), (330, 250), (330, 128), (548, 128)], "12 V power cable", color=C12, sw=2.6, label_at=0.55, label_dy=-7)
-    s.arrow([(270, 280), (400, 280), (400, 168), (548, 168)], "5 V power cable", color=C5, sw=2.6, label_at=0.55, label_dy=-7)
-    s.arrow([(270, 310), (548, 310)], "5 V cable (separate)", color=C5, sw=2.6, label_at=0.5, label_dy=-7)
-    s.arrow([(270, 340), (300, 340), (300, 450), (548, 450)], None, color=C12, sw=2.6)
-    s.text(424, 443, "12 V cable (separate)", size=12, anchor="middle", fill=INK2)
-    s.arrow([(270, 370), (286, 370), (286, 540), (548, 540)], None, color=C12, sw=2.6)
-    s.text(424, 533, "12 V cable (separate)", size=12, anchor="middle", fill=INK2)
+    s.arrow([(270, 226), (330, 226), (330, 128), (548, 128)], "12 V power cable", color=C12, sw=2.6, label_at=0.55, label_dy=-7)
+    s.arrow([(270, 256), (400, 256), (400, 168), (548, 168)], "5 V power cable", color=C5, sw=2.6, label_at=0.55, label_dy=-7)
+    s.arrow([(270, 286), (460, 286), (460, 249), (548, 249)], None, color=C5, sw=2.6)
+    s.text(365, 279, "5 V cable (separate)", size=12, anchor="middle", fill=INK2)
+    s.arrow([(270, 316), (500, 316), (500, 339), (548, 339)], None, color=C5, sw=2.6)
+    s.text(385, 309, "5 V cable (separate)", size=12, anchor="middle", fill=INK2)
+    s.arrow([(270, 346), (300, 346), (300, 464), (548, 464)], None, color=C12, sw=2.6)
+    s.text(424, 457, "12 V cable (separate)", size=12, anchor="middle", fill=INK2)
+    s.arrow([(270, 376), (286, 376), (286, 554), (548, 554)], None, color=C12, sw=2.6)
+    s.text(424, 547, "12 V cable (separate)", size=12, anchor="middle", fill=INK2)
 
     # key
     s.text(16, 440, "Cables", size=13, weight=700)
@@ -195,9 +199,9 @@ def power_supply():
     s.text(64, 464, "12 V", size=12.5)
     s.line(110, 460, 150, 460, C5, 3)
     s.text(158, 464, "5 V", size=12.5)
-    s.text(16, 604, "The ATX supply PCB feeds the power distribution PCB with its own 12 V and 5 V cables.", size=12.5, fill=INK2)
-    s.text(16, 622, "The GPS, the 12 V lighting module and the network switch each have a separate cable of their own.", size=12.5, fill=INK2)
-    s.text(16, 640, "Each cable is drawn as one line; the ground returns are not drawn.", size=12.5, fill=INK2)
+    s.text(16, 620, "The ATX supply PCB feeds the power distribution PCB with its own 12 V and 5 V cables.", size=12.5, fill=INK2)
+    s.text(16, 638, "The GPS, the 12 V lighting module, the network switch and the USB hub each have a separate cable of their own.", size=12.5, fill=INK2)
+    s.text(16, 656, "The USB hub is powered directly, not through the power distribution PCB. Each cable is one line; ground returns are not drawn.", size=12.5, fill=INK2)
     return s
 
 

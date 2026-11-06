@@ -6,10 +6,11 @@ This appendix shows how the cockpit's power, USB, lighting, display and sound sy
 
 ![Power supply](diagrams/power_supply.svg)
 
-An **ATX power supply** with its own **ATX power supply PCB** powers the cockpit. The PCB is connected to the **power distribution PCB** in the front assembly by two cables, one for 12 V and one for 5 V. Three loads have a separate cable of their own from the ATX supply PCB:
+An **ATX power supply** with its own **ATX power supply PCB** powers the cockpit. The PCB is connected to the **power distribution PCB** in the front assembly by two cables, one for 12 V and one for 5 V. Four loads have a separate cable of their own from the ATX supply PCB:
 
 - a separate **12 V cable to the GPS**;
 - a separate **5 V cable to the network switch**, which sits in the front panel assembly;
+- a separate **5 V cable to the USB hub**, which is also in the front assembly: the hub is powered directly and not through the power distribution PCB;
 - a separate **12 V cable to the 12 V lighting module**.
 
 In the diagram 12 V cables are red and 5 V cables are gray. Each cable is drawn as one line; the ground returns are not drawn.
@@ -18,7 +19,7 @@ In the diagram 12 V cables are red and 5 V cables are gray. Each cable is drawn 
 
 ![USB wiring](diagrams/usb_wiring.svg)
 
-A **7 port USB hub** in the front assembly is connected to the PC. The hub has a connection to each controller PCB (Radio, Servo, Stepper, Dual Stepper, and ADF and Upper), to the USB HID board, and to a **USB to serial adapter**, which connects to the GPS by a serial cable.
+A **7 port USB hub** in the front assembly (powered directly from the ATX power supply PCB, see Power supply) is connected to the PC. The hub has a connection to each controller PCB (Radio, Servo, Stepper, Dual Stepper, and ADF and Upper), to the USB HID board, and to a **USB to serial adapter**, which connects to the GPS by a serial cable.
 
 Three things connect to the PC by their own USB cables and not through the hub: the external **Sound Blaster** sound card, the **primary flight controls** and the **CKAS 6DOF platform**.
 
