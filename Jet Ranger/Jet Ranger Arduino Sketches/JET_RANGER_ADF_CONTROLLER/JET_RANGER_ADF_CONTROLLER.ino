@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 8
+#define FIRMWARE_BUILD 9
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -242,7 +242,7 @@ void initCharOLED() {
 
 // ############################################# BEGIN LANDING GEAR LAMPS ##########################################
 // The three landing gear lamps on the ADF panel (nose, left, right; each LED has its own 330 ohm resistor on the panel, anode to the Mega pin).
-// A data packet sets them: "D,LDGN:1,LDGL:1,LDGR:0" (1 = lit). Used by the SwingTester for the bench test; the simulator bridges do not send them yet.
+// A data packet sets them: "D,LDGN:1,LDGL:1,LDGR:0" (1 = lit). Used by the BenchTester for the bench test; the simulator bridges do not send them yet.
 #define LDG_NOSE_PIN 2
 #define LDG_LEFT_PIN 3
 #define LDG_RIGHT_PIN 4
@@ -256,7 +256,7 @@ bool displayOn = true;           // false while the Radio controller has its dis
 bool noDataBlanked = false;      // true while the no-data timeout has fired
 bool backlightPowered = true;    // true until the bridge reports the main bus is down
 unsigned long lastActivityMillis = 0;
-bool lampWanted[3] = { false, false, false };  // nose, left, right: what the bridge (or SwingTester) asked for
+bool lampWanted[3] = { false, false, false };  // nose, left, right: what the bridge (or BenchTester) asked for
 const uint8_t lampPins[3] = { LDG_NOSE_PIN, LDG_LEFT_PIN, LDG_RIGHT_PIN };
 
 bool backlightStartupHold = true;   // the start-up hold (see "Start-up backlight" below): the OLED and the lamps stay on until the Stepper controller announces start-up is complete
@@ -997,7 +997,7 @@ void HandleControlString(String str) {
     SendDebug("Landing gear lamp brightness " + String(gearLampLevel));
   }
 #if !USE_BRIGHTNESS_POT
-  // Panel brightness from the other panels' pot or the SwingTester: C,B:0 to C,B:15 (while this board's own pot is switched off).
+  // Panel brightness from the other panels' pot or the BenchTester: C,B:0 to C,B:15 (while this board's own pot is switched off).
   else if (command == "B") {
     brightnessLevel = constrain((int)str.substring(colon + 1).toInt(), 0, 15);
     backlightPwmAfterStartup = -1;

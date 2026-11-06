@@ -56,7 +56,7 @@ def debug_tools():
     s.arrow([(236, 95), (300, 95)], "udp", color=GREEN, label_dy=-10)
     s.arrow([(570, 95), (634, 95)], "forward", color=BLUE, label_dy=-10)
     s.card(16, 210, 270, 110, "Health Monitor", ["listens on 13137", "one light per board"], "gray", title_size=14, line_size=12.5)
-    s.card(320, 210, 270, 110, "SwingTester", ["swings every gauge and", "lamp from the PC, uses", "ports 13136 and 4210"], "gray", title_size=14, line_size=12.5)
+    s.card(320, 210, 270, 110, "BenchTester", ["swings every gauge and", "lamp from the PC, uses", "ports 13136 and 4210"], "gray", title_size=14, line_size=12.5)
     s.card(624, 210, 240, 110, "StepperVSITester", ["VSI test sweep,", "sent to the Stepper"], "gray", title_size=14, line_size=12.5)
     s.text(16, 360, "Only one program can own a UDP port. If the reflector is running, do not start a second listener on 27000 - use its forwarding instead.", size=12.5, fill=INK2)
     s.text(16, 382, "The bridges listen on 27001 and the HID board on 4210, so run only one bridge and one HID sender at a time.", size=12.5, fill=INK2)

@@ -178,7 +178,7 @@ the radio remembers every LED's state, so only the changed one is sent). The but
 - **Chase**: lights each LED on its own, in table order, for the *on gap* time (default 1 s; a full chase of 39 takes about 39 s), then clears them all. Click again (**Stop chase**) to stop.
 - **Board test (C,LEDTEST)**: toggles `C,LEDTEST:1` / `C,LEDTEST:0`, the Radio's own test that lights all 39 LEDs at the MAX7219 regardless of state.
 
-The backlight slider no longer reaches the LEDs (see the MAX7219 and landing gear brightness section); their own slider sets the MAX7219 intensity. The window is wider (default 1260 px, with narrower 118 px LED buttons) to fit the extra groups.
+The backlight slider no longer reaches the LEDs (see the MAX7219 and landing gear brightness section); their own slider sets the MAX7219 intensity. The window is wider (default 1480 px, capped to the screen, with narrower 118 px LED buttons) to fit the extra groups and the brightness sliders.
 Built clean (Release, 0 errors) and the window checked on screen (31 October 2026); the Radio on COM20 was flashed with the Huey build the same day, but the Huey LEDs have not been tried from the BenchTester on the panel yet.
 
 ## Requirements / status

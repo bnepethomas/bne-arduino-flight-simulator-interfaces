@@ -57,6 +57,9 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `RESET` | Reboot the board about 2 seconds later (port 13136; USB HID board on 4210) |
 | `MATRIX` | Radio and ADF controllers: print the raw matrix or ADF keypad readings to the debug stream |
 | `LEDTEST` | Radio controller: 1 lights all 39 Auto Pilot, Audio and Huey panel LEDs, 0 returns them to the simulator's state |
+| `LEDB` | Radio controller: MAX7219 brightness 0 to 15 (0 off), on its own; after the first one `C,B` sets only the backlight |
+| `GEARB` | ADF and Upper controller: landing gear lamp brightness 0 to 15 (0 never lit, 15 full) |
+| `OLEDB` | Dual Stepper controller: SSD1306 OLED brightness (contrast) 0 to 15 |
 | `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
 | `DISPLAY` | ADF and Upper controller: 0 blanks its OLED and landing gear lamps, 1 restores them (sent by the Radio controller with its own displays) |
 | `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper, Dual Stepper and ADF and Upper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller can send it from its brightness pot, which is switched off for the moment |
@@ -105,18 +108,18 @@ Every controller sketch has a firmware version, a build number and the compile d
 The board sends one line to the debug stream (UDP 27000) straight after *Ethernet Started* in its start-up sequence, and again whenever it receives the control packet `C,VERSION:1`, so the version can be checked without resetting it (the USB HID board sends it to its logging port):
 
 ```
-Radio Controller firmware 1.0 build 5 compiled Nov  6 2026 14:05:12
+Radio Controller firmware 1.0 build 8 compiled Nov  7 2026 08:00:00
 ```
 
 (each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is also in every heartbeat to the Health Monitor, as ` FW:1.0.2` (version 1.0, build 2), and the Health Monitor shows it in the **Firmware** column of its voltage table, so the code on every board can be checked at a glance.
 
-| Controller | Sketch | `FIRMWARE_NAME` | Version and build now (flashed 6 November 2026) |
+| Controller | Sketch | `FIRMWARE_NAME` | Version and build now (all but the USB HID board flashed 7 November 2026) |
 |---|---|---|---|
-| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 5 |
-| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 4 |
-| Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 3 |
-| Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 5 |
-| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 6 |
+| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 8 |
+| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 5 |
+| Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 5 |
+| Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 7 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 8 |
 | USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 2 |
 
 ## COM port to board mapping

@@ -31,7 +31,7 @@ Arrows follow the same idea: blue is data going to a board over UDP, green is co
 | Bridge status bar | [[#F28C00]] Orange | Connected but no data (the simulator is paused or loading) |
 | Bridge status bar | [[#2E9E4F]] Green | Connected, with the aircraft name |
 | Board status LEDs (pins 14 green, 15 red) | Green and red | Alternate every 200 ms while the sketch runs; red flashes fast while Ethernet starts |
-| SwingTester | [[#F2C200]] Gold | The gauge row being swung, or a warning lamp that is on |
+| BenchTester | [[#F2C200]] Gold | The gauge row being swung, or a warning lamp that is on |
 | GPS bench tester | [[#FFE4E1]] Pink | A box whose value could not be read (it is not used) |
 | Upper controller emulator | [[#2E9E4F]] Green | A switch that is on |
 | GPS interface | [[#2E9E4F]] Green | The position comes from aircraft data over UDP |

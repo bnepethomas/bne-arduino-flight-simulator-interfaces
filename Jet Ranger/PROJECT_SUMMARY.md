@@ -46,7 +46,7 @@ project's own `PROGRAM_SUMMARY.md` and in
   on the Servo, Stepper, Dual Stepper and HID boards; a software reset on the
   Radio and Upper boards, because a watchdog reset hung the Radio's
   bootloader). Bench-tested on every board except the Upper, which was not
-  connected. SwingTester's Reset boards... button sends it.
+  connected. BenchTester's Reset boards... button sends it.
 
 ## Arduino sketches (`Jet Ranger Arduino Sketches/`)
 
@@ -84,7 +84,7 @@ I2C scan reported over UDP. Its RAM use is high (75% or more).
 | `LowranceAirMapGpsBenchTester` | bench sender for the GPS interface: typed values, 8-way cursor, country / city / airport selection (embedded OurAirports list), Fly mode and a date / time clock |
 | `JetRangerHealthMonitor` | traffic-light dashboard for the 10 s board heartbeats |
 | `StepperVSITester` | bench tester sending calibrated and raw values (steppers, dual stepper, servo pitch/bank) and the Temperature OLED text |
-| `SwingTester` | runs each gauge's startup swing individually or all 18 in a set order, lights the OLEDs and the 15 warning lamps during the run, resets boards, sets the backlight brightness (`C,B:0-15`, every board except the HID board) and sends a keepalive so the watchdogs do not fire |
+| `BenchTester` | runs each gauge's startup swing individually or all 18 in a set order, lights the OLEDs and the 15 warning lamps during the run, resets boards, sets the backlight brightness (`C,B:0-15`, every board except the HID board) and sends a keepalive so the watchdogs do not fire |
 | `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | stand-ins for the radio and upper boards' inputs (knobs, keys) |
 | `JetRangerPanelEmulator` | stand-ins for the five controller boards' outputs: windows for the Radio, Servo, Stepper, Dual Stepper and ADF and Upper controllers draw the gauges, lamps, LEDs and OLEDs from the same UDP packets (127.0.0.101 to .107, port 13136); every bridge has a `--emulators` / `--emulators-only` option and Send to the emulators box |
 
@@ -133,7 +133,7 @@ Manager or `arduino-cli board list` before every upload.
 Working and bench-verified (UDP debug logs from the boards, real swing timings):
 all swing commands, OLED lamp test, Temperature OLED handling, the keepalive,
 the debounced Servo inputs, the radio matrix and tuning, the remote reset, and the
-end-to-end SwingTester sequence. The FSUIPC bridge has run against Prepar3D v6.1
+end-to-end BenchTester sequence. The FSUIPC bridge has run against Prepar3D v6.1
 and the MSFS bridge against MSFS 2024 (FlyInside B206 and CowaSim Jet Ranger).
 
 Known gaps / open items:
@@ -158,9 +158,11 @@ Known gaps / open items:
 
 Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) has `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` at the top and reports them, with the
 compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
-All six were flashed on 6 November 2026 at version 1.0: Radio build 5, Servo 4, Stepper 3, Dual Stepper 5, ADF and Upper 6 and USB HID 2. The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
+All six are flashed at version 1.0: Radio build 8, Servo 5, Stepper 5, Dual Stepper 7, ADF and Upper 8 (all on 7 November 2026) and USB HID 2 (1 November). The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
 
-**Start-up hold (6 November 2026).** From reset every controller keeps its backlight, OLEDs and indicator lamps on until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (repeated every 10 seconds, 18 times); each board also ends the hold by itself 180 seconds after reset. Then the backlight goes off until `BPWR:1`. Not yet watched through a full cockpit power cycle.
+**Start-up hold (6 and 7 November 2026).** From reset every controller keeps its backlight at 100 percent, and its OLEDs and indicator lamps on, until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (twice, 2 seconds apart); each board also ends the hold by itself 180 seconds after reset. Then the commanded backlight level becomes 70 percent and the backlight goes off until `BPWR:1`. Not yet watched through a full cockpit power cycle.
+
+**Separate brightness levels (7 November 2026).** Besides the backlight (`C,B`): `C,LEDB:0-15` the Radio's MAX7219 panel LEDs, `C,GEARB:0-15` the ADF landing gear lamps (PWM) and `C,OLEDB:0-15` the Dual Stepper's four SSD1306 OLEDs. The BenchTester (renamed from SwingTester on 7 November 2026) has a slider for each.
 
 ## Packet monitor in the bridges
 

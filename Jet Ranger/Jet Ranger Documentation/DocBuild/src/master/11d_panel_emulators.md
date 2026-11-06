@@ -54,7 +54,7 @@ Common to every window: the board's address in the title and status bar, the pac
 
 The faces (ranges, scales, numerals and legends) are those of the instrument map, Appendix G.
 
-The emulators do not copy the real boards' start-up hold (backlight, OLEDs and lamps on until the Stepper controller announces start-up on UDP 13138): they start dark and follow the data.
+The emulators do not copy the real boards' start-up hold (backlight at 100 percent, OLEDs and lamps on until the Stepper controller announces start-up on UDP 13138, then 70 percent and off): they start dark and follow the data. They also ignore `C,LEDB`, `C,GEARB` and `C,OLEDB`.
 
 ## Running it
 

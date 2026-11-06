@@ -42,9 +42,11 @@ Updates are gated on change and throttled to every 300 ms. A boot-time I2C scan 
 
 **Lamp test:** `C,OLEDTEST:1` fills all four OLEDs solid white and `C,OLEDTEST:0` redraws their default content and clears the change gates so live data repaints them. It is ignored (with a debug line) if the mux was not found.
 
+**OLED brightness:** `C,OLEDB:0-15` sets the contrast of the four SSD1306 OLEDs (0 dimmest, 15 full; mapped to 0 to 255 with `u8g2.setContrast()`), separate from the backlight (`C,B`) and from `PWR`. Until one arrives the displays keep the library's default contrast; the level is applied to each OLED through its multiplexer channel.
+
 ## Start-up hold
 
-From reset the backlight and the four OLEDs stay **on** (`setOledsPower()` ignores PWR:0 and `BlankAllOleds()` is not called by the no-data timer) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset. Then `refreshAfterStartupHold()` applies the last PWR state and, if no data has arrived for more than 2 seconds, expires the 30 second no-data timer so the OLEDs blank together with the backlight (this board's own timer starts only when its long setup ends, which is why the OLEDs used to stay on about 5 seconds longer than the other boards').
+From reset the backlight (at 100 percent) and the four OLEDs stay **on** (`setOledsPower()` ignores PWR:0 and `BlankAllOleds()` is not called by the no-data timer) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset. Then `refreshAfterStartupHold()` applies the last PWR state and, if no data has arrived for more than 2 seconds, expires the 30 second no-data timer so the OLEDs blank together with the backlight (this board's own timer starts only when its long setup ends, which is why the OLEDs used to stay on about 5 seconds longer than the other boards').
 
 ## Backlight
 
@@ -68,6 +70,7 @@ Bridge packet: `D,PWR:1,BPWR:1,ALT:1200,RPMR:100.0,RPME:100.0,ZULU:1430,OILT:60,
 | `SWINGELECTRICALLOAD`, `SWINGFUELLOAD`, `SWINGRPME`, `SWINGRPMR` | Load and RPM gauges (about 6 to 7 seconds each) |
 | `SWINGALT` | Altimeter (re-finds the zero sensor) |
 | `OLEDTEST:1` / `OLEDTEST:0` | OLED lamp test on and off |
+| `OLEDB:0-15` | SSD1306 OLED brightness (contrast) |
 | `B:0` to `B:15` | Backlight brightness |
 | `RESET:1` | Watchdog reboot (bench-tested: "Ethernet Started" 6.7 seconds later and a normal boot in about 56 seconds) |
 

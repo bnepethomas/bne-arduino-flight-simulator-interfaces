@@ -225,7 +225,8 @@ namespace BenchTester
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
             int workHeight = Screen.PrimaryScreen?.WorkingArea.Height ?? 900;
-            ClientSize = new Size(1260, Math.Min(980, workHeight - 60));
+            int workWidth = Screen.PrimaryScreen?.WorkingArea.Width ?? 1400;
+            ClientSize = new Size(Math.Min(1480, workWidth - 40), Math.Min(980, workHeight - 60));   // wide enough for the top rows and the three columns, brightness sliders included
             MinimumSize = new Size(640, 400);
 
             var top = new FlowLayoutPanel

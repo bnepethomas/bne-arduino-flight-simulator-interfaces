@@ -38,7 +38,7 @@ The bridges send this board its own packet: `D,BPWR:1,IAS:93.4,VSI:500,AGL:850,F
 
 ## Start-up announcement
 
-The Stepper controller is the last to finish its start-up. When `setup()` ends it ends its own start-up hold and sends the text `STARTUPDONE` to UDP port 13138 of the Radio (.101), Servo (.102), Dual Stepper (.106) and ADF and Upper (.107) controllers (`announceStartupDone()`), and repeats it every 10 seconds, 18 times, in case a board was not listening yet or was reset. Those boards then turn their start-up backlight, OLEDs and lamps over to the normal rules (see the network chapter). The debug line is `Start-up complete: told the other controllers to turn their backlighting off`.
+The Stepper controller is the last to finish its start-up. When `setup()` ends it ends its own start-up hold and sends the text `STARTUPDONE` to UDP port 13138 of the Radio (.101), Servo (.102), Dual Stepper (.106) and ADF and Upper (.107) controllers (`announceStartupDone()`), and sends it a second time 2 seconds later, in case a board was not listening for the first (a board that misses both ends its hold by itself after 180 seconds). Those boards then set their backlight to 70 percent and off, and turn their OLEDs and lamps over to the normal rules (see the network chapter). The debug line is `Start-up complete: told the other controllers to turn their backlighting off`.
 
 ## Backlight
 

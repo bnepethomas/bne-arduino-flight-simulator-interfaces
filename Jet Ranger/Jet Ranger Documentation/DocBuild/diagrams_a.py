@@ -14,7 +14,7 @@ def system_overview():
         ("FSUIPC + DS206 events", ["binds joystick buttons (P3D / FSX)"], "white", 62),
         ("Python UDP reflector", ["board debug text, UDP 27000"], "white", 62),
         ("Health Monitor", ["board heartbeats, UDP 13137"], "white", 62),
-        ("Bench tools", ["SwingTester, StepperVSITester,", "radio / upper emulators"], "white", 80),
+        ("Bench tools", ["BenchTester, StepperVSITester,", "radio / upper emulators"], "white", 80),
     ]
     ys = {}
     for t, ln, th, h in cards:
@@ -191,7 +191,7 @@ def board_lifecycle():
 @diagram
 def remote_reset():
     s = Svg(880, 420)
-    lanes = [("SwingTester", "(or any UDP sender)", 40), ("Board", "", 166), ("Debug stream", "(UDP reflector)", 296)]
+    lanes = [("BenchTester", "(or any UDP sender)", 40), ("Board", "", 166), ("Debug stream", "(UDP reflector)", 296)]
     for t, t2, y in lanes:
         s.text(16, y + 24, t, size=13.5, weight=700)
         if t2:

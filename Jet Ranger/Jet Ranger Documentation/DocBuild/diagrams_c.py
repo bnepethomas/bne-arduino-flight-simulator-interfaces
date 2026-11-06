@@ -1,4 +1,4 @@
-"""PC software diagrams: bridges, connection states, aircraft profiles, torque curves, Health Monitor, SwingTester."""
+"""PC software diagrams: bridges, connection states, aircraft profiles, torque curves, Health Monitor, BenchTester."""
 import math
 
 from dgcommon import diagram, Svg, INK, INK2, LINE, text_width, BLUE, GREEN, AMBER, RED
@@ -201,7 +201,7 @@ def health_monitor():
 @diagram
 def swing_sequence():
     s = Svg(880, 560)
-    s.text(16, 26, "SwingTester: Swing ALL runs the gauges in this order", size=15, weight=700)
+    s.text(16, 26, "BenchTester: Swing ALL runs the gauges in this order", size=15, weight=700)
     steps = [
         ("1", "Engine oil pressure", "Dual", "6 s"), ("2", "Engine oil temp", "Dual", "6 s"), ("3", "Transmission pressure", "Dual", "6 s"),
         ("4", "Transmission temp", "Dual", "6 s"), ("5", "Fuel available", "Stepper", "11 s"), ("6", "Electrical load", "Dual", "7 s"),

@@ -9,14 +9,14 @@ This chapter shows every window of the Windows programs in `Jet Ranger/ C# Code/
 | DCSBiosBridge | Bridge for DCS World (through DCS-BIOS) | Bridges |
 | XPlaneBridge | Bridge for X-Plane (through UDP datarefs) | Bridges |
 | JetRangerHealthMonitor | Shows which boards are alive and the last voltage reading from each | Health Monitor |
-| SwingTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot, Audio and Huey panel LEDs, resets boards, sets brightness | SwingTester |
+| BenchTester | Swings every gauge, lamps, OLEDs, tests the Auto Pilot, Audio and Huey panel LEDs, resets boards, sets brightness | BenchTester |
 | StepperVSITester | Sends real and raw values to the stepper boards and the servo | StepperVSITester |
 | JetRangerRadioControllerEmulator, JetRangerUpperControllerEmulator | Stand in for the radio and upper boards' knobs and keys | Emulators |
 | JetRangerPanelEmulator | Shows what each controller board would show: gauges, lamps, LEDs and OLEDs | Panel emulators |
 | LowranceAirMapGps | Feeds the Lowrance AirMap 2000C | GPS interface |
 | LowranceAirMapGpsBenchTester | Sends aircraft data to the GPS interface for testing | GPS bench tester |
 
-> **Careful:** the SwingTester, StepperVSITester and the two emulators send packets to the real boards (the addresses are in the boxes) as soon as you use their controls. Close them, or point them at the right addresses, before you press anything while the cockpit is powered.
+> **Careful:** the BenchTester, StepperVSITester and the two emulators send packets to the real boards (the addresses are in the boxes) as soon as you use their controls. Close them, or point them at the right addresses, before you press anything while the cockpit is powered.
 
 ## Bridges
 
@@ -75,14 +75,16 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 
 ![Stepper and Dual Stepper quiet for 30 seconds: red](screenshots/health_monitor_lost.png)
 
-## SwingTester
+## BenchTester
 
-![SwingTester main window](screenshots/swing_tester.png)
+![BenchTester main window](screenshots/swing_tester.png)
+
+The BenchTester was called SwingTester until 7 November 2026; it was renamed because it does more than swing the gauges.
 
 - **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, Upper, ADF and HID; the Upper address .103 is the retired board, the ADF and Upper board is .107).
 - **Swing ALL (in order)** runs the 18 gauge swings in the fixed order, **Stop** cancels the remaining waits, **OLEDs ON / OFF** fill or restore the Dual Stepper's four OLEDs, **Reset boards...** opens the reset dialog, and **Light OLEDs during Swing ALL** controls the OLEDs. **Temp OLED** with **Send TEMP** sends text to the Dual Stepper's temperature display.
 - **Lamps ON (in order)** and **Lamps OFF (in order)** with the **on gap** and **off gap** times, and **Light warning lamps during Swing ALL**.
-- **Brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Stepper, Dual Stepper and ADF and Upper, and the retired Upper address); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule.
+- **Backlight brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Stepper, Dual Stepper and ADF and Upper, and the retired Upper address); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule. The slider changes the backlights only. Three more sliders have levels of their own: **OLED brightness (0-15)** (top button row, the Dual Stepper's four SSD1306 OLEDs), **Brightness (0-15)** in the Panel LEDs group (the Radio's MAX7219 LEDs, starting at 8) and **Brightness (0-15)** in the ADF panel landing gear lamps group (the lamps, starting at 15).
 - **Status line:** what was last sent and to which boards.
 - **Panel LEDs group** (far right): one toggle for each of the 39 Auto Pilot, Audio and Huey Warning Panel LEDs (gold when on; the Huey LEDs are in two columns, *Huey Warning Panel* and *(continued)*), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0` or `LED_H_xxx`). **All ON** and **All OFF** do all 39, **Chase** lights them one at a time for the *on gap* time (click again to stop; a full chase of 39 takes about 39 seconds at the default), and **Board test (C,LEDTEST)** lights all 39 with the Radio's own test. The Radio on COM20 was flashed with the Huey build on 31 October 2026; the LEDs have not been checked on the panel yet.
 - **Auto Pilot display group** (far right, below the panel LEDs): five boxes for HDG, VS, CRS, IAS and ALT (start-up values 090, 0, 110, 80 and 3200). **Send values** sends them to the Radio for the Auto Pilot panel's OLED and **Start-up values** puts the start-up values back.

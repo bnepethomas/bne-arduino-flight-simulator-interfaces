@@ -20,7 +20,7 @@ The ADF panel is another Mega, at 172.16.1.107, running `JET_RANGER_ADF_CONTROLL
 
 The OLED shows the frequency on the first line (`ADF  340 kHz`) and the ID on the second: `ID: 1234_` while you type, `FOLLOW 1234` once it is sent, or `FOLLOW OFF`. An entry you leave unfinished for 20 seconds is dropped.
 
-**Brightness pot.** The pot on the PCB (A0) can set the backlight of this panel and of the Radio, Servo, Stepper and Dual Stepper panels, but `USE_BRIGHTNESS_POT` in the sketch is 0, so it does nothing: this panel's backlight stays at its default (level 4) until a `C,B` command sets it, and the other panels follow the SwingTester slider or their own defaults. Set it to 1 and reflash to bring the pot back.
+**Brightness pot.** The pot on the PCB (A0) can set the backlight of this panel and of the Radio, Servo, Stepper and Dual Stepper panels, but `USE_BRIGHTNESS_POT` in the sketch is 0, so it does nothing: this panel's backlight stays at its default (level 4) until a `C,B` command sets it, and the other panels follow the BenchTester slider or their own defaults. Set it to 1 and reflash to bring the pot back.
 
 ## Inputs and outputs
 
@@ -34,7 +34,7 @@ The OLED shows the frequency on the first line (`ADF  340 kHz`) and the ID on th
 | Panel brightness pot | A0 | Wiper, 5 V to ground; not read while the pot is switched off |
 | 12 V monitor | A8 | 47 k and 10 k divider with 0.1 uF |
 | 5 V monitor | AREF / AVcc | Measured against the internal 1.1 V reference; the AREF pin is left at its default |
-| Backlight | D5 | IRF540N MOSFET: level 4 by default, then `C,B`; off with `BPWR:0`, the no-data timeout or no data (see Panel blanking and backlight) |
+| Backlight | D5 | IRF540N MOSFET: full brightness during the start-up hold, then 70 percent, then `C,B`; off with `BPWR:0`, the no-data timeout or no data (see Panel blanking and backlight) |
 | OLED | I2C D20, D21 (0x3C) | 2 lines of 16 characters |
 | Status LEDs | D14 green, D15 red | Red flashes while Ethernet starts |
 | Landing gear lamps | D2, D3, D4 | Nose, left, right: lit by data packets (see below) |
@@ -79,7 +79,7 @@ The overhead switch matrix and the numeric keypad of the old Upper controller ar
 
 ## Landing gear lamps
 
-The three lamps on the ADF panel (nose, left and right) are lit by a data packet to the ADF controller on UDP 13136: `D,LDGN:1,LDGL:1,LDGR:0` (1 = lit, 0 = off). The **SwingTester** has a toggle for each lamp and *All ON* and *All OFF* buttons (see Program windows). The simulator bridges do not send them yet, so for now they are a bench test. They go out with the rest of the panel and come back as last set.
+The three lamps on the ADF panel (nose, left and right) are lit by a data packet to the ADF controller on UDP 13136: `D,LDGN:1,LDGL:1,LDGR:0` (1 = lit, 0 = off). The **BenchTester** has a toggle for each lamp and *All ON* and *All OFF* buttons (see Program windows). The simulator bridges do not send them yet, so for now they are a bench test. They go out with the rest of the panel and come back as last set. Their brightness is set by `C,GEARB:0` to `C,GEARB:15` (0 never lit, 15 full, the default), separate from the backlight; the BenchTester's landing gear group has a slider for it.
 
 ## Power status
 
@@ -105,7 +105,7 @@ The board acts on control packets on UDP 13136: `C,RESET:1` reboots it, `C,MATRI
 
 ## Start-up hold
 
-From power-up the backlight, the OLED and the three landing gear lamps stay on until the Stepper controller announces that start-up is complete (see the Start-up hold in the Network chapter), or 180 seconds after reset. Then they follow the normal rules below.
+From power-up the backlight (full brightness), the OLED and the three landing gear lamps stay on until the Stepper controller announces that start-up is complete (see the Start-up hold in the Network chapter), or 180 seconds after reset. Then the backlight drops to 70 percent and goes off, and the rest follow the normal rules below.
 
 ## Panel blanking and backlight
 
@@ -113,7 +113,7 @@ The panel follows the other boards' rules:
 
 - **With the Radio.** When the Radio controller blanks its displays (no avionics power, or no data or input for 30 seconds) it tells the ADF controller, which clears its OLED and puts the landing gear lamps out. They come back when the Radio's displays do.
 - **Main bus.** The bridges send `BPWR` to the ADF controller like the other boards; `BPWR:0` switches the backlight off and `BPWR:1` brings it back.
-- **Brightness.** `C,B:0` to `C,B:15` sets the backlight (the SwingTester slider sends it); the default is level 4.
+- **Brightness.** `C,B:0` to `C,B:15` sets the backlight (the BenchTester's backlight slider sends it); after the start-up hold the level is 70 percent until a `C,B` sets another.
 - **No data.** 30 seconds with no data packet from the bridge and no knob, key or switch use blanks the OLED, the lamps and the backlight until something arrives, so the panel goes dark if the PC is not feeding it.
 
 ## Checking the panel for the first time
@@ -121,6 +121,6 @@ The panel follows the other boards' rules:
 1. Flash the board (see COM ports and flashing), then watch the debug listener for `Jet Ranger ADF: Setup Complete`.
 2. Press each ADF keypad key and check the OLED shows the key you pressed (`C,MATRIX:1` shows the raw readings if not). Operate a few Upper switches and keys and watch the debug listener for `Front Input - <index>:<state>` and `Upper key pressed: <key>`.
 3. Turn each knob. If it tunes the wrong way, swap its two pins in the `RotaryEncoder` lines.
-4. Light the three landing gear lamps from the SwingTester.
+4. Light the three landing gear lamps from the BenchTester.
 5. Check the OLED. The sketch drives the same kind of character OLED as the Radio controller; a graphics SSD1306 needs different code.
 6. Compare the readings with a meter (the Health Monitor's voltage table shows them, or watch port 27003) and trim `V12_CAL` and `V5_CAL`.

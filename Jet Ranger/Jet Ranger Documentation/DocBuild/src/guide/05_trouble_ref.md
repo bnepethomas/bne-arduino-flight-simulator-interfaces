@@ -20,8 +20,8 @@
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |
 | Pressing an Audio or Auto Pilot switch is slow, or a joystick button seems delayed | The USB HID board is switched off or unplugged: each send to it waits for an answer that never comes | The radio now pauses joystick sends for 30 seconds after one fails and says so in the monitor (`USB HID board ... not answering`); connect the HID board and the buttons return |
 | Servo buzzes or jitters | Weak servo supply | Separate 5 to 6 V supply for servos, common ground with the Mega |
-| A backlight is off | Main bus below 20 V (`BPWR:0`), no packets for 30 seconds, or brightness set to 0 | Check the main bus voltage in the bridge window; check the bridge is running; send a brightness with the SwingTester slider |
-| A backlight stays on at power-up with no PC | The start-up hold: every board keeps its backlight, OLEDs and lamps on until the Stepper controller announces start-up is complete, or for 180 seconds after reset. Otherwise an old firmware without the no-data rule | Wait for the hold to end (the Stepper controller finishes starting up, or 3 minutes). If it stays on longer, flash the current sketches; the backlight should go out about 30 seconds after the hold ends |
+| A backlight is off | Main bus below 20 V (`BPWR:0`), no packets for 30 seconds, or brightness set to 0 | Check the main bus voltage in the bridge window; check the bridge is running; send a brightness with the BenchTester slider |
+| A backlight stays on at power-up with no PC | The start-up hold: every board keeps its backlight at full brightness, and its OLEDs and lamps on, until the Stepper controller announces start-up is complete, or for 180 seconds after reset. Otherwise an old firmware without the no-data rule | Wait for the hold to end (the Stepper controller finishes starting up, or 3 minutes). It then drops to 70 percent and goes off. If it stays on longer, flash the current sketches |
 | The backlight is always on or flickers | MOSFET pinned wrongly on a board from an earlier revision (source and drain swapped) | Check the transistor against the revision notes (PCBs and wiring) |
 | The GPS shows Brisbane Airport | No aircraft data for 30 seconds | Check a bridge or the bench tester is running on the same PC and sending to UDP 27002; check no other program owns the port |
 | The GPS time is hours out with DCS | The DCS mission clock is the theatre's local time and the bridge's **Mission time zone** box is still 0 | Set the box to the theatre's hours from UTC (for example 4 for the Caucasus); the GPS date is the PC's |
@@ -126,8 +126,11 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Radio, Servo, Stepper, Dual Stepper and ADF and Upper (the Radio also sets the brightness of its Auto Pilot, Audio and Huey panel LEDs from it). The ADF controller can send it from its brightness pot, which is switched off for the moment |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
-| `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (SwingTester sends it during a run) |
+| `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (BenchTester sends it during a run) |
 | `RESET` | C | Reboots the board about 2 seconds later (servo, stepper, dual stepper, radio and ADF and Upper controllers on port 13136; USB HID board on port 4210). The radio and ADF and Upper controllers use a software reset because a watchdog reset hung the radio's bootloader; the upper controller's reset has not been bench-tested |
 | `MATRIX` | C | Radio and ADF controllers: print the raw button matrix to the debug listener |
 | `POWER` | C | ADF controller: send a power status (12 V and 5 V rails) now |
 | `LEDTEST` | C | Radio controller: 1 lights all 19 Auto Pilot and Audio panel LEDs, 0 returns them to the simulator's state |
+| `LEDB` | C | Radio controller: MAX7219 panel LED brightness 0 to 15 (0 off), on its own; after the first one `C,B` sets only the backlight |
+| `GEARB` | C | ADF and Upper controller: landing gear lamp brightness 0 to 15 (0 never lit, 15 full) |
+| `OLEDB` | C | Dual Stepper controller: SSD1306 OLED brightness 0 to 15 |

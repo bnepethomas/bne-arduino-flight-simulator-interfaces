@@ -14,7 +14,7 @@ All devices sit on one wired `172.16.1.x` subnet with fixed addresses; there is 
 | Dual stepper board | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
 | ADF and Upper controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` and `UPPER_INPUT` |
 
-Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the SwingTester still send some packets to .103, which go nowhere. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
+Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the BenchTester still send some packets to .103, which go nowhere. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
 
 | UDP port | Direction | Purpose |
 |---|---|---|
@@ -26,7 +26,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 49000 | X-Plane and the X-Plane bridge | Dataref requests to X-Plane and its answers (X-Plane's beacon is multicast 239.255.1.1 port 49707) |
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
-| 13138 | Stepper controller to the other controllers | `STARTUPDONE`: tells the Radio, Servo, Dual Stepper and ADF and Upper controllers that start-up is complete, so they end their start-up hold |
+| 13138 | Stepper controller to the other controllers | `STARTUPDONE`: tells the Radio, Servo, Dual Stepper and ADF and Upper controllers that start-up is complete, so they end their start-up hold (sent twice, 2 seconds apart) |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
 
 ## Packet format
@@ -51,7 +51,7 @@ After start-up and its self-test a gauge board checks UDP 13136 every 5 ms and m
 
 ![Remote reset](diagrams/remote_reset.svg)
 
-The control packet `C,RESET:1` reboots a board about 2 seconds later. The SwingTester's *Reset boards...* button sends it to the boards you tick.
+The control packet `C,RESET:1` reboots a board about 2 seconds later. The BenchTester's *Reset boards...* button sends it to the boards you tick.
 
 ## Unreachable hosts and the fast Ethernet timeout
 
@@ -78,14 +78,14 @@ The bridge turns parts of the panel off when the simulated electrics drop: lamps
 The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB (on the Radio these are the Audio, Auto Pilot and COM and NAV panels; its "no data" rule is the same 30 seconds that blanks its displays, restarted by any knob or key; on the ADF and Upper board a switch, key or knob restarts it). Three things decide the level:
 
 - **Main bus power (`BPWR`).** The bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that, which switches the backlight off. Until the first `BPWR` arrives the board leaves the backlight on.
-- **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
+- **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns. The start-up hold overrides it: full brightness while the hold lasts, 70 percent when it ends.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs. The ADF controller also blanks its display and lamps with the Radio's displays.
+The **BenchTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs until it receives a `C,LEDB`, which sets them on their own. The ADF controller also blanks its display and lamps with the Radio's displays.
 
 ### Start-up hold
 
-From power-up every controller keeps its backlight on, and also its displays (OLEDs) and indicator lamps (all lit), until the **13 Stepper controller**, which is the last to finish starting up, tells the others it is done. The Stepper controller sends `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers and repeats it every 10 seconds, 18 times. The hold then ends: the backlights go off, the displays and lamps follow the normal rules, and the backlight comes back when the bridge reports the main bus is up (`BPWR:1`). If the Stepper controller is off, each board ends the hold by itself 180 seconds after its reset. So after power-up the whole cockpit stays lit for a short time, and then goes dark until a bridge is running.
+From power-up every controller keeps its backlight **on at full brightness (100 percent)**, and also its displays (OLEDs) and indicator lamps (all lit), until the **13 Stepper controller**, which is the last to finish starting up, tells the others it is done. The Stepper controller sends `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers, and sends it a second time 2 seconds later. The hold then ends: the backlights drop to **70 percent and go off**, the displays and lamps follow the normal rules, and the backlight comes back at 70 percent when the bridge reports the main bus is up (`BPWR:1`). If a board misses both announcements (the Stepper controller is off, or the board was reset or powered up later), it ends the hold by itself 180 seconds after its reset. So after power-up the whole cockpit stays lit at full brightness for a short time, and then goes dark until a bridge is running.
 
 # Arduino servo controller
 
@@ -179,7 +179,7 @@ Send a control packet to re-run one gauge's sweep without rebooting, for example
 | `SWINGIAS` | Airspeed |
 | `SWINGAGL` | Radar altitude |
 
-The **StepperVSITester** app can send every token and raw token to this board without the simulator. The **SwingTester** app sends these commands, and the Dual Stepper and servo sweeps, one at a time or all in a fixed order:
+The **StepperVSITester** app can send every token and raw token to this board without the simulator. The **BenchTester** app sends these commands, and the Dual Stepper and servo sweeps, one at a time or all in a fixed order:
 
 ![Swing ALL sequence](diagrams/swing_sequence.svg)
 
@@ -222,7 +222,7 @@ The four 128 by 32 SSD1306 OLEDs share the Mega's I2C pins (20 SDA, 21 SCL) thro
 | Clock | 3 | `ZULU` | Zulu time from HHMM, for example `ZULU:1430` |
 | Temperature | 4 | `TEMP` | Text as sent, for example `TEMP:25C` |
 
-Send `C,OLEDTEST:1` to light all four displays solid and `C,OLEDTEST:0` to restore them. When the main bus is below 24 V the bridge sends `PWR:0` and all four displays go blank; `PWR:1` turns them back on and they repaint within about a second. The altimeter needle keeps following altitude. The lamp test still lights all four displays whatever `PWR` says.
+Send `C,OLEDTEST:1` to light all four displays solid and `C,OLEDTEST:0` to restore them. When the main bus is below 24 V the bridge sends `PWR:0` and all four displays go blank; `PWR:1` turns them back on and they repaint within about a second. The altimeter needle keeps following altitude. The lamp test still lights all four displays whatever `PWR` says. `C,OLEDB:0` to `C,OLEDB:15` sets the brightness of the four displays on their own (0 dimmest, 15 full), without changing the backlight; the BenchTester has an *OLED brightness* slider for it.
 
 ## Behaviour
 

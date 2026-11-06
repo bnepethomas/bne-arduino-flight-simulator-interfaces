@@ -16,7 +16,7 @@ All devices sit on one wired `172.16.1.0/24` network with fixed addresses; there
 | Dual stepper controller | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
 | ADF and Upper controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` and `UPPER_INPUT` |
 
-Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103, MAC A8:61:0A:9E:83:03) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the SwingTester still send some packets to .103, which go nowhere.
+Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103, MAC A8:61:0A:9E:83:03) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the BenchTester still send some packets to .103, which go nowhere.
 
 ## UDP ports
 
@@ -31,7 +31,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 49000 | X-Plane and the X-Plane bridge | The bridge sends dataref requests to X-Plane's receive port and X-Plane answers to the bridge's own port; X-Plane's beacon is multicast 239.255.1.1 port 49707 |
 | 13136 on 127.0.0.101 to .107 | Bridge to the panel emulators | The same board packets, to the emulators on the PC (see the Panel emulators chapter) |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
-| 13138 | Stepper controller to the other controllers | The text `STARTUPDONE`, sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when the Stepper controller has finished starting up (repeated every 10 seconds, 18 times); ends their start-up hold |
+| 13138 | Stepper controller to the other controllers | The text `STARTUPDONE`, sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when the Stepper controller has finished starting up (sent twice, 2 seconds apart); ends their start-up hold |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
 | 7788 | Local on the boards | Source port opened at start-up for outgoing packets |
 
@@ -86,24 +86,24 @@ There is no hysteresis on these thresholds. The 24 V figure is carried over from
 The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their panel backlights from Mega pin D5 (PWM). On the Radio the no-data rule is the same 30 second timeout that blanks its displays, which a knob or key press also restarts; on the ADF and Upper board a switch, key or knob also restarts it (the Upper panel's switch matrix and keypad count too). Three things decide the level:
 
 - **`BPWR`** (from the bridges, first in the Servo and Stepper packets, after `PWR` in the Dual Stepper packet, and on its own to the ADF and Upper board): 1 while the main bus is 20 V or more, 0 below that. At 0 the backlight is off. Until the first `BPWR` arrives the board assumes 1.
-- **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns.
+- **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns. The start-up hold overrides it: the backlight is 100 percent while the hold lasts and the commanded level is 70 percent (PWM 179) when it ends, so the PWM 65 default is only a fallback in the code.
 - **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
 
-The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper, Dual Stepper and ADF controllers (and still to the retired Upper address .103). The ADF controller can send `C,B` from its brightness pot to the other boards, but the pot is switched off for the moment (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs. The ADF controller also blanks its OLED and lamps together with the Radio's displays (the Radio sends it `C,DISPLAY:0/1`), see the ADF controller chapter.
+The BenchTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper, Dual Stepper and ADF controllers (and still to the retired Upper address .103). The ADF controller can send `C,B` from its brightness pot to the other boards, but the pot is switched off for the moment (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs until it receives a `C,LEDB`, which sets them on their own. The ADF controller also blanks its OLED and lamps together with the Radio's displays (the Radio sends it `C,DISPLAY:0/1`), see the ADF controller chapter.
 
 ### Start-up hold
 
-**Start-up hold.** From reset every controller keeps its backlight **on** (at the commanded or default level), and keeps its OLEDs and indicator lamps on, whatever the no-data watchdog or `BPWR` says. The hold ends when the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete: it sends the text `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers, and repeats it every 10 seconds, 18 times, so a board that was not listening yet or was reset still hears it. When the hold ends the backlight goes off and stays off until the bridge reports the main bus is up (`BPWR:1`). If the announcement never comes (the Stepper controller is off) each board ends the hold by itself 180 seconds after its reset. Port 13138 is separate from the data port, so the announcement never counts as data for the 30 second watchdog.
+**Start-up hold.** From reset every controller keeps its backlight **on at 100 percent** (PWM 255, whatever level was commanded), and keeps its OLEDs and indicator lamps on, whatever the no-data watchdog or `BPWR` says. A `C,B` command received during the hold does not change the level. The hold ends when the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete: it sends the text `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers, and sends it a second time 2 seconds later. When the hold ends the commanded backlight level becomes **70 percent** (PWM 179) and the backlight goes **off**; it comes on at 70 percent when the bridge reports the main bus is up (`BPWR:1`), unless a `C,B` command has set another level. If the announcement never reaches a board (the Stepper controller is off, or the board was reset or powered up more than 2 seconds after the second send) the board ends the hold by itself 180 seconds after its reset. Port 13138 is separate from the data port, so the announcement never counts as data for the 30 second watchdog.
 
 What stays on during the hold:
 
 | Controller | Stays on until the hold ends |
 |---|---|
-| Radio | Backlight, the four OLED displays (COM, NAV, Auto Pilot, DME) and all panel LEDs (lit) |
-| Servo | Backlight and all 15 caution and warning lamps (lit) |
-| Stepper | Backlight only (it ends its own hold at the end of its start-up and sends the announcement) |
-| Dual Stepper | Backlight and the four OLEDs |
-| ADF and Upper | Backlight, the OLED and the three landing gear lamps (lit) |
+| Radio | Backlight (100 percent), the four OLED displays (COM, NAV, Auto Pilot, DME) and all panel LEDs (lit) |
+| Servo | Backlight (100 percent) and all 15 caution and warning lamps (lit) |
+| Stepper | Backlight (100 percent) only (it ends its own hold at the end of its start-up and sends the announcement) |
+| Dual Stepper | Backlight (100 percent) and the four OLEDs |
+| ADF and Upper | Backlight (100 percent), the OLED and the three landing gear lamps (lit) |
 
 When the hold ends the OLEDs and lamps go back to their normal rules (PWR, `NAVCOM1`, `C,DISPLAY` and the data). A board that has had no data or input for more than 2 seconds then also expires its own 30 second no-data timer, so its OLEDs go out together with the backlight instead of lingering. The USB HID board has no backlight and is not part of this.
 
@@ -116,7 +116,7 @@ The control packet `C,RESET:1` reboots a board about two seconds later.
 - **Servo, Stepper, Dual Stepper and USB HID boards** arm the AVR watchdog for two seconds and spin until it fires. A short `.init3` function clears the watchdog first thing after every reset. The HID board listens on port 4210 (it also accepts the plain text `RESET`); its USB connection drops while it restarts, so Windows briefly loses the four joysticks and the keyboard.
 - **Radio and ADF and Upper controllers** use a software reset (a jump to the reset vector after switching off interrupts and peripherals). A watchdog reset hung the Radio's bootloader, which restarts the watchdog at its shortest timeout and never reaches the sketch until it is reflashed.
 
-If a board ever reboot-loops after a reset packet, power-cycle it and reflash. The SwingTester's *Reset boards...* button sends the command to the boards you tick.
+If a board ever reboot-loops after a reset packet, power-cycle it and reflash. The BenchTester's *Reset boards...* button sends the command to the boards you tick.
 
 > **Network note:** data that arrives in bursts with gaps of several seconds meant the PC's link to the board switch was dropping in and out. The cause on this cockpit was the 5 V rail feeding the network switch dipping below 4.75 V; the switch then dropped its ports. Check that supply first, then the cable and the switch port.
 

@@ -62,19 +62,19 @@ def gps_states():
 def backlight_logic():
     s = Svg(880, 600)
     s.card(16, 20, 290, 112, "BPWR from the bridge", ["1 = main bus 20 V or more", "0 = below 20 V: backlight off", "assumed 1 until the first one arrives"], "white", title_size=14, line_size=12.5)
-    s.card(16, 150, 290, 112, "C,B:0-15 brightness", ["remembered; 0 = off, 15 = full", "none received: default PWM 65", "once received: the last level"], "white", title_size=14, line_size=12.5)
+    s.card(16, 150, 290, 112, "C,B:0-15 brightness", ["remembered; 0 = off, 15 = full", "start-up hold: 100 %, then 70 %", "once received: the last level"], "white", title_size=14, line_size=12.5)
     s.card(16, 280, 290, 112, "No-data watchdog", ["30 s with no UDP packet (also after", "power-up with no PC): backlight off", "the next packet turns it back on"], "white", title_size=14, line_size=12.5)
-    s.card(350, 120, 220, 170, "applyBacklight()", ["off if BPWR is 0", "off if the watchdog fired", "otherwise the last C,B", "level, or 65 by default"], "blue", title_size=14.5, line_size=12.5, center=True)
+    s.card(350, 120, 220, 170, "applyBacklight()", ["100 % during the start-up hold", "off if BPWR is 0 or no data", "otherwise the last C,B level,", "or 70 % after the hold"], "blue", title_size=14.5, line_size=12.5, center=True)
     for y in (76, 206, 336):
         s.arrow([(306, y), (328, y), (328, 205), (350, 205)], None, color=LINE)
     s.arrow([(570, 205), (620, 205)], None, color=GREEN)
     s.card(620, 130, 244, 150, "Mega pin D5 (PWM)", ["0 to 255", "-> 330 ohm -> MOSFET gate", "-> panel backlights"], "green", title_size=14, line_size=12.5, center=True)
     s.frame(16, 424, 848, 160, "Example", "Servo, Stepper and Dual Stepper boards", theme="gray")
     rows = [
-        "power-up, no PC feed: 65 for 30 s, then off",
-        "packets arrive with BPWR:1: back on at 65     |     C,B:15: full",
+        "power-up: 100 % until the Stepper announces start-up complete, then off",
+        "packets arrive with BPWR:1: on at 70 %     |     C,B:15: full",
         "BPWR:0 (main bus down): off     |     C,B:3 while it is off: stays off",
-        "BPWR:1 again: on at 3, the last commanded level, not 65",
+        "BPWR:1 again: on at 3, the last commanded level, not 70 %",
     ]
     y = 488
     for r in rows:
