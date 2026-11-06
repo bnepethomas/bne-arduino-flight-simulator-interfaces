@@ -146,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 5
+#define FIRMWARE_BUILD 7
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -506,7 +506,7 @@ bool dmeDrawnPower = true;
 void updateDme() {
   dmeDrawnPower = radioPowered();
   sendAdfDisplay(radioPowered());  // the ADF controller's display follows the radio displays
-  if (powerAvailable) {
+  if (radioPowered()) {   // lit during the start-up hold too
     showDme(dmeTopText, dmeBottomText);
   } else {
     tcaselect(DME_OLED_Port);
@@ -727,6 +727,8 @@ void applyPanelLeds() {
 
 // Panel brightness, "C,B:0-15" (the same command the other panels' backlights take, for example from the ADF controller's pot):
 // 0 switches the LEDs off, 1 to 15 set the MAX7219 intensity (1 dimmest, 15 brightest). The level is kept by the chip.
+// "C,LEDB:0-15" sets the same MAX7219 brightness on its own: once one has been received (until the board is reset) C,B sets only the backlight.
+bool panelLedBrightnessOwn = false;
 void setPanelLedBrightness(int level) {
   if (level < 0 || level > 15) return;
   if (level == 0) {
@@ -1682,10 +1684,19 @@ void HandleControlString(String str) {
       if (isetting >= 0 && isetting <= 15) {
         backlightCommandedPwm = map(isetting, 0, 15, 0, 255);
         applyBacklight();
-        setPanelLedBrightness(isetting);
-        SendDebug("Brightness " + String(isetting) + " (backlight PWM " + String(backlightCommandedPwm) + ", panel LEDs)");
+        if (!panelLedBrightnessOwn) setPanelLedBrightness(isetting);
+        SendDebug("Brightness " + String(isetting) + " (backlight PWM " + String(backlightCommandedPwm) + (panelLedBrightnessOwn ? F(", panel LEDs set by C,LEDB") : F(", panel LEDs")) + ")");
       }
     //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
+
+    // MAX7219 brightness on its own, C,LEDB:0-15 (0 = the Auto Pilot, Audio and Huey panel LEDs off): from now on C,B sets only the backlight
+    if (command == "LEDB") {
+      if (isetting >= 0 && isetting <= 15) {
+        panelLedBrightnessOwn = true;
+        setPanelLedBrightness(isetting);
+        SendDebug(String(F("Panel LED brightness ")) + String(isetting) + F(" (MAX7219 intensity, C,LEDB)"));
+      }
+    }
 
     // Firmware version on demand: C,VERSION:1
     if (command == "VERSION") SendDebug(firmwareText());

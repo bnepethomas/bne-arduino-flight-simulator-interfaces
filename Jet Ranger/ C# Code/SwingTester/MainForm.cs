@@ -162,6 +162,11 @@ namespace SwingTester
         private bool suppressLdgEvents;
         private readonly Button btnLdgOn = new() { Text = "All ON", AutoSize = true };
         private readonly Button btnLdgOff = new() { Text = "All OFF", AutoSize = true };
+        // Brightness of the MAX7219 panel LEDs on the Radio ("C,LEDB:0-15", 0 = off, the board starts at 8) and of the landing gear lamps on the ADF controller ("C,GEARB:0-15", 0 = off, 15 = full).
+        private readonly TrackBar trkLedBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 170, AutoSize = false, Height = 32 };
+        private readonly Label lblLedBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
+        private readonly TrackBar trkGearBrightness = new() { Minimum = 0, Maximum = 15, Value = 15, TickFrequency = 1, Width = 150, AutoSize = false, Height = 32 };
+        private readonly Label lblGearBrightness = new() { Text = "15", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
 
         private readonly UdpClient udp = new UdpClient();
         private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
@@ -408,6 +413,11 @@ namespace SwingTester
             ledButtons.Controls.Add(btnLedChase);
             ledButtons.Controls.Add(chkLedHardwareTest);
             ledOuter.Controls.Add(ledButtons);
+            var ledBright = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight, Margin = new Padding(0) };
+            ledBright.Controls.Add(new Label { Text = "Brightness (0-15):", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
+            ledBright.Controls.Add(trkLedBrightness);
+            ledBright.Controls.Add(lblLedBrightness);
+            ledOuter.Controls.Add(ledBright);
             var ledColumns = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight };
             foreach (string panel in new[] { "Auto Pilot", "Audio", "Huey 1", "Huey 2" })
             {
@@ -497,6 +507,11 @@ namespace SwingTester
             }
             ldgFlow.Controls.Add(btnLdgOn);
             ldgFlow.Controls.Add(btnLdgOff);
+            ldgFlow.SetFlowBreak(btnLdgOff, true);
+            ldgFlow.Controls.Add(new Label { Text = "Brightness (0-15):", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
+            ldgFlow.SetFlowBreak(ldgFlow.Controls[ldgFlow.Controls.Count - 1], true);
+            ldgFlow.Controls.Add(trkGearBrightness);
+            ldgFlow.Controls.Add(lblGearBrightness);
             ldgGroup.Controls.Add(ldgFlow);
 
             var rightColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
@@ -524,6 +539,8 @@ namespace SwingTester
             btnTempSend.Click += async (_, _) => await SendTempAsync();
             trkBrightness.Scroll += async (_, _) => { lblBrightness.Text = trkBrightness.Value.ToString(); await SendBrightnessAsync(); };
             btnBrightnessSend.Click += async (_, _) => await SendBrightnessAsync();
+            trkLedBrightness.Scroll += async (_, _) => { lblLedBrightness.Text = trkLedBrightness.Value.ToString(); await SendLedBrightnessAsync(); };
+            trkGearBrightness.Scroll += async (_, _) => { lblGearBrightness.Text = trkGearBrightness.Value.ToString(); await SendGearBrightnessAsync(); };
             btnBacklightOn.Click += async (_, _) => await SendBacklightPowerAsync(true);
             btnBacklightOff.Click += async (_, _) => await SendBacklightPowerAsync(false);
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
@@ -591,6 +608,36 @@ namespace SwingTester
         {
             byte[] data = Encoding.ASCII.GetBytes(text);
             await udp.SendAsync(data, data.Length, IpFor(board), PortFor(board));
+        }
+
+        /// <summary>Sends "C,LEDB:&lt;0-15&gt;" to the Radio controller: the brightness of the MAX7219 panel LEDs (Auto Pilot, Audio and Huey), on its own. 0 turns them off.</summary>
+        private async Task SendLedBrightnessAsync()
+        {
+            int level = trkLedBrightness.Value;
+            try
+            {
+                await SendPacketAsync(BoardId.Radio, $"C,LEDB:{level}");
+                lblStatus.Text = $"Panel LED (MAX7219) brightness {level} sent to the Radio controller (C,LEDB:{level}). Light some LEDs, or use the board test, to see it.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Panel LED brightness send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>Sends "C,GEARB:&lt;0-15&gt;" to the ADF controller: the brightness of the three landing gear lamps (0 = never lit, 15 = full).</summary>
+        private async Task SendGearBrightnessAsync()
+        {
+            int level = trkGearBrightness.Value;
+            try
+            {
+                await SendPacketAsync(BoardId.Adf, $"C,GEARB:{level}");
+                lblStatus.Text = $"Landing gear lamp brightness {level} sent to the ADF controller (C,GEARB:{level}). Light the lamps to see it.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Landing gear brightness send failed: " + ex.Message;
+            }
         }
 
         /// <summary>Sends "C,B:&lt;0-15&gt;" (backlight brightness) to every board except the USB HID board.</summary>

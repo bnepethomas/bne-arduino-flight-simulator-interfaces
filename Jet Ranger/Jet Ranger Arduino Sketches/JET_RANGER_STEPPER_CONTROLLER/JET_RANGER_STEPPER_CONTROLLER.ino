@@ -187,7 +187,7 @@ bool gaugesResetForNoData = false;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Stepper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 3
+#define FIRMWARE_BUILD 4
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -285,11 +285,11 @@ void endBacklightStartupHold(const String& why) {
   SendDebug("Start-up backlight off (" + why + ")");
 }
 
-// The announcement: sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when this controller's start-up has finished, and repeated
-// every 10 seconds for three minutes so a controller that was not listening yet (or was reset) still hears it.
+// The announcement: sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when this controller's start-up has finished, and sent a
+// second time 2 seconds later, in case a controller was not listening for the first.
 const IPAddress startupSyncTargets[] = { IPAddress(172, 16, 1, 101), IPAddress(172, 16, 1, 102), IPAddress(172, 16, 1, 106), IPAddress(172, 16, 1, 107) };
-#define STARTUP_ANNOUNCE_REPEAT_MS 10000UL
-#define STARTUP_ANNOUNCE_REPEATS 18
+#define STARTUP_ANNOUNCE_REPEAT_MS 2000UL
+#define STARTUP_ANNOUNCE_REPEATS 2     // two sends in all: one at the end of start-up, one 2 seconds later
 int startupAnnounceCount = 0;           // 0 until start-up has finished
 unsigned long startupAnnounceNext = 0;
 

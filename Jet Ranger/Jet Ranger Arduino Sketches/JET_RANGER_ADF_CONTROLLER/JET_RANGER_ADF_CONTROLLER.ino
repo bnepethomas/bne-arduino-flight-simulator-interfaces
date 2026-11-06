@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 6
+#define FIRMWARE_BUILD 7
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -265,8 +265,12 @@ bool panelBlank() {
   return !backlightStartupHold && (!displayOn || noDataBlanked);
 }
 
+// Landing gear lamp brightness, "C,GEARB:0-15" (0 = lamps never light, 15 = full, the default). The lamp pins D2, D3 and D4 are PWM pins, so analogWrite() dims them.
+int gearLampLevel = 15;
+
 void applyLandingGearLamps() {
-  for (int i = 0; i < 3; i++) digitalWrite(lampPins[i], (backlightStartupHold || (lampWanted[i] && !panelBlank())) ? HIGH : LOW);
+  int pwm = map(gearLampLevel, 0, 15, 0, 255);   // 255 is a steady HIGH, 0 a steady LOW
+  for (int i = 0; i < 3; i++) analogWrite(lampPins[i], (backlightStartupHold || (lampWanted[i] && !panelBlank())) ? pwm : 0);
 }
 
 void initLandingGearLamps() {
@@ -978,6 +982,13 @@ void HandleControlString(String str) {
       SendDebug(on ? "Display on (Radio displays restored)" : "Display blanked (Radio displays blanked)");
     }
   } else if (command == "KEEPALIVE") noteActivity();
+  // Landing gear lamp brightness: C,GEARB:0 to C,GEARB:15 (the lamps only; the backlight has its own level)
+  else if (command == "GEARB") {
+    gearLampLevel = constrain((int)str.substring(colon + 1).toInt(), 0, 15);
+    applyLandingGearLamps();
+    noteActivity();
+    SendDebug("Landing gear lamp brightness " + String(gearLampLevel));
+  }
 #if !USE_BRIGHTNESS_POT
   // Panel brightness from the other panels' pot or the SwingTester: C,B:0 to C,B:15 (while this board's own pot is switched off).
   else if (command == "B") {
