@@ -187,7 +187,7 @@ bool gaugesResetForNoData = false;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Stepper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 4
+#define FIRMWARE_BUILD 5
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -266,13 +266,16 @@ int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define STARTUP_SYNC_PORT 13138
 #define STARTUP_BACKLIGHT_MAX_MS 180000UL
+#define STARTUP_BACKLIGHT_PWM 255          // 100 percent while the start-up hold is on, whatever was commanded
+#define AFTER_STARTUP_BACKLIGHT_PWM 179    // 70 percent: the commanded level when the hold ends (the backlight then goes off until BPWR:1)
 bool backlightStartupHold = true;
 void applyBacklight();
 void endBacklightStartupHold(const String& why);
 
 void applyBacklight() {
   int pwm = 0;
-  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold) pwm = STARTUP_BACKLIGHT_PWM;   // 100 percent until the Stepper controller announces start-up is complete
+  else if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
 }
 
@@ -281,6 +284,7 @@ void endBacklightStartupHold(const String& why) {
   if (!backlightStartupHold) return;
   backlightStartupHold = false;
   backlightPowered = false;
+  backlightCommandedPwm = AFTER_STARTUP_BACKLIGHT_PWM;   // 70 percent from now on, until a C,B command changes it
   applyBacklight();
   SendDebug("Start-up backlight off (" + why + ")");
 }
@@ -644,7 +648,7 @@ void setup() {
       pinMode(BACK_LIGHTS, OUTPUT);
 
 
-#define BrightnessWhileRunningSetup 128
+#define BrightnessWhileRunningSetup STARTUP_BACKLIGHT_PWM   // 100 percent
 
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
 
@@ -948,7 +952,7 @@ void onIntFltInstLBrightChange(unsigned int newValue) {
   int outvalue = 0;
   outvalue = map(newValue, 0, 65534, 0, 255);
   SendDebug("Eng Inst Brightness=" + String(outvalue));
-  analogWrite(BACK_LIGHTS, outvalue);
+  if (!backlightStartupHold) analogWrite(BACK_LIGHTS, outvalue);   // the backlight stays at 100 percent during the start-up hold
 }
 DcsBios::IntegerBuffer intFltInstLBrightBuffer(A_10C_INT_FLT_INST_L_BRIGHT, onIntFltInstLBrightChange);
 
@@ -1738,7 +1742,7 @@ void updateSteppers() {
 }
 
 void onIntConsoleLBrightChange(unsigned int newValue) {
-  analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
+  if (!backlightStartupHold) analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 

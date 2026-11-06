@@ -37,6 +37,8 @@ int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define STARTUP_SYNC_PORT 13138
 #define STARTUP_BACKLIGHT_MAX_MS 180000UL
+#define STARTUP_BACKLIGHT_PWM 255          // 100 percent while the start-up hold is on, whatever was commanded
+#define AFTER_STARTUP_BACKLIGHT_PWM 179    // 70 percent: the commanded level when the hold ends (the backlight then goes off until BPWR:1)
 bool backlightStartupHold = true;
 void applyBacklight();
 void endBacklightStartupHold(const String& why);
@@ -44,7 +46,8 @@ void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator la
 
 void applyBacklight() {
   int pwm = 0;
-  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold) pwm = STARTUP_BACKLIGHT_PWM;   // 100 percent until the Stepper controller announces start-up is complete
+  else if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
 }
 
@@ -53,6 +56,7 @@ void endBacklightStartupHold(const String& why) {
   if (!backlightStartupHold) return;
   backlightStartupHold = false;
   backlightPowered = false;
+  backlightCommandedPwm = AFTER_STARTUP_BACKLIGHT_PWM;   // 70 percent from now on, until a C,B command changes it
   applyBacklight();
   SendDebug("Start-up backlight off (" + why + ")");
   refreshAfterStartupHold();
@@ -146,7 +150,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Servo Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 4
+#define FIRMWARE_BUILD 5
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);

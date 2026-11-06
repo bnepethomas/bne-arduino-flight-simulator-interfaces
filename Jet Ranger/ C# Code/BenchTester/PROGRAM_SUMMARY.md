@@ -1,9 +1,11 @@
-# SwingTester — Program Summary
+# BenchTester — Program Summary
+
+BenchTester was called SwingTester until 7 November 2026. It was renamed (project, folder, executable and window title) because it does more than swing the gauges: it also tests the lamps, OLEDs, brightness levels, panel LEDs and landing gear lamps. The *Swing ALL* sequence and the gauge swing commands keep their names.
 
 WinForms (.NET 10, `net10.0-windows`) bench tool that triggers each gauge's
 startup swing on the three Jet Ranger boards over UDP, either one gauge at a
 time or all of them in a fixed order. Build output:
-`bin\Release\net10.0-windows\SwingTester.exe`
+`bin\Release\net10.0-windows\BenchTester.exe`
 (`dotnet build -c Release` in this folder).
 
 ## How it works
@@ -153,10 +155,10 @@ OLEDs left on manually will still time out after 30s.
 
 ## Brightness
 
-A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103, retired), Stepper (.105) and Dual Stepper
+The **Backlight brightness (0-15)** slider at the top (backlights only; the MAX7219 LEDs and the landing gear lamps have their own sliders, see the end of this file) sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103, retired), Stepper (.105) and Dual Stepper
 (.106) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
 The status line lists the boards sent to. The Radio, Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
-Radio also sets the intensity of its panel LEDs from it (0 off, 1 to 15), and the ADF and Upper board follows it. The board IP boxes at the top are used.
+ADF and Upper board follows it. The Radio would also set its panel LEDs from `C,B` until it has had a `C,LEDB`, so for the Radio the slider first sends `C,LEDB:<the Panel LEDs slider's level>` and then `C,B`: the backlight slider never changes the LEDs. The board IP boxes at the top are used.
 
 **Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Radio, Servo, Stepper and Dual Stepper, the packet the bridges send from the
 main bus voltage (1 at 20 V or more): the backlight goes off at 0 and, on 1, returns to the last brightness commanded. These are for
@@ -176,8 +178,8 @@ the radio remembers every LED's state, so only the changed one is sent). The but
 - **Chase**: lights each LED on its own, in table order, for the *on gap* time (default 1 s; a full chase of 39 takes about 39 s), then clears them all. Click again (**Stop chase**) to stop.
 - **Board test (C,LEDTEST)**: toggles `C,LEDTEST:1` / `C,LEDTEST:0`, the Radio's own test that lights all 39 LEDs at the MAX7219 regardless of state.
 
-The brightness slider also reaches the LEDs: the Radio sets the MAX7219 intensity from `C,B`. The window is wider (default 1260 px, with narrower 118 px LED buttons) to fit the extra groups.
-Built clean (Release, 0 errors) and the window checked on screen (31 October 2026); the Radio on COM20 was flashed with the Huey build the same day, but the Huey LEDs have not been tried from the SwingTester on the panel yet.
+The backlight slider no longer reaches the LEDs (see the MAX7219 and landing gear brightness section); their own slider sets the MAX7219 intensity. The window is wider (default 1260 px, with narrower 118 px LED buttons) to fit the extra groups.
+Built clean (Release, 0 errors) and the window checked on screen (31 October 2026); the Radio on COM20 was flashed with the Huey build the same day, but the Huey LEDs have not been tried from the BenchTester on the panel yet.
 
 ## Requirements / status
 
@@ -185,7 +187,7 @@ Built clean (Release, 0 errors) and the window checked on screen (31 October 202
   `OLEDTEST` on the Dual Stepper) — the builds from 2026-10-11 onwards.
 - Built clean (Release, 0 warnings) and launches. The same packet sequence
   (swings, `OLEDTEST`, lamps) was run against the real boards on 2026-10-11 with
-  a script, and every swing completed; the SwingTester window itself was not
+  a script, and every swing completed; the BenchTester window itself was not
   clicked through.
 
 ## Auto Pilot display and ADF landing gear lamps (2026-10-25)
@@ -203,3 +205,9 @@ Built clean (Release, 0 errors) and the window checked on screen (31 October 202
 ## MAX7219 and landing gear brightness (7 November 2026)
 
 Two more **Brightness (0-15)** sliders: in the **Panel LEDs (Radio .101, MAX7219)** group (starts at 8, the board's default) it sends `C,LEDB:<level>` to the Radio, which sets the MAX7219 intensity of the Auto Pilot, Audio and Huey LEDs on its own (0 turns them off); in the **ADF panel landing gear lamps (ADF .107)** group (starts at 15, full) it sends `C,GEARB:<level>` to the ADF controller, which dims the three landing gear lamps with PWM (0 = never lit). Each sends on every slider move and the status line says what was sent. Light some LEDs (All ON, or the board test) or the landing gear lamps to see the effect. They need the Radio on build 7 and the ADF on build 7 or later; an older board ignores the commands. Built clean (Debug, 0 warnings, 0 errors) and the window checked on screen; the packets have not been checked on the boards yet.
+
+Checked 7 November 2026 with the IP boxes set to 127.0.0.1 and a scratch UDP listener on 13136: **Send to all boards** delivered `C,LEDB:8`, then `C,B:8` to the Radio, then `C,B:8` to each of the other five addresses.
+
+## OLED brightness (7 November 2026)
+
+The **OLED brightness (0-15)** slider in the top button row sends `C,OLEDB:<level>` to the Dual Stepper (.106), which sets the contrast of its four SSD1306 OLEDs (barometer, altitude, clock and temperature; 0 = dimmest, 15 = full) separately from the backlight, the MAX7219 LEDs and the landing gear lamps. Use **OLEDs ON** (or live data) to see it. It needs the Dual Stepper on build 6 or later; an older build ignores the command. The window now has four brightness controls: backlight (top, `C,B`), OLEDs (`C,OLEDB`), MAX7219 panel LEDs (`C,LEDB`) and landing gear lamps (`C,GEARB`).

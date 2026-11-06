@@ -194,7 +194,7 @@ The Huey Warning Panel is **hand wired** to the Radio controller at the moment (
 
 - **Switches:** `hueySwitches[]`: TEST on A9 (Joystick 4 button 20, index 115), RESET on A10 (116) and BRT / DIM on A8 (117), to ground when on, `INPUT_PULLUP`, 30 ms debounce, `initHueySwitches()` and `pollHueySwitches()` (called after `scanMatrix()` in the loop). TEST and RESET are the two positions of one switch. Each is a joystick button on the USB HID board, held while closed; nothing is sent during the quiet period and the buttons are resent when the HID board answers again (`resyncHidButtons()`).
 - **Lamp test:** while TEST is closed (`hueyTestHeld`) all 20 Huey LEDs light, only while the radio has power (`applyPanelLeds()`).
-- **Bridges:** neither bridge sends `LED_H_xxx` yet. The SwingTester has a toggle for each (and All ON/OFF, Chase, board test).
+- **Bridges:** neither bridge sends `LED_H_xxx` yet. The BenchTester has a toggle for each (and All ON/OFF, Chase, board test).
 - Compiled at 40,552 bytes flash (16%) / 5,949 bytes RAM (72%). Flashed on COM20 on 31 October 2026; the switches and LEDs have not been checked on the panel yet.
 
 ## Remote reset over UDP
@@ -323,4 +323,8 @@ While the start-up hold is on the **OLEDs stay on** (the COM, NAV, Auto Pilot an
 
 ## Panel LED brightness, C,LEDB (7 November 2026)
 
-**`C,LEDB:0-15`** sets the MAX7219 brightness on its own (0 shuts the display down, 1 to 15 set the intensity, kept by the chip). The first `C,LEDB` after a reset takes the LEDs away from `C,B`: from then on `C,B` sets only the backlight PWM, and the LEDs keep the `C,LEDB` level until the board is reset (until then `C,B` still sets both, as before). The level at start-up is `MAX7219_INTENSITY` 8. Debug line: `Panel LED brightness 5 (MAX7219 intensity, C,LEDB)`. The SwingTester's **Panel LEDs** group has a **Brightness (0-15)** slider for it. Build 7: compiled at 42,148 bytes flash (16%) and 6,077 bytes RAM (74%); not flashed or tested on the board yet.
+**`C,LEDB:0-15`** sets the MAX7219 brightness on its own (0 shuts the display down, 1 to 15 set the intensity, kept by the chip). The first `C,LEDB` after a reset takes the LEDs away from `C,B`: from then on `C,B` sets only the backlight PWM, and the LEDs keep the `C,LEDB` level until the board is reset (until then `C,B` still sets both, as before). The level at start-up is `MAX7219_INTENSITY` 8. Debug line: `Panel LED brightness 5 (MAX7219 intensity, C,LEDB)`. The BenchTester's **Panel LEDs** group has a **Brightness (0-15)** slider for it. Build 7: compiled at 42,148 bytes flash (16%) and 6,077 bytes RAM (74%); not flashed or tested on the board yet.
+
+## Start-up backlight level: 100 percent, then 70 percent (7 November 2026)
+
+While the start-up hold is on the backlight is **100 percent** (`STARTUP_BACKLIGHT_PWM` 255), whatever brightness was commanded or is the default, and a `C,B` command received during the hold does not change it. When the hold ends (the Stepper controller's `STARTUPDONE`, or the 180 second failsafe) the commanded level becomes **70 percent** (`AFTER_STARTUP_BACKLIGHT_PWM` 179) and the backlight goes **off**; it comes back at 70 percent when the bridge sends `BPWR:1`, unless a `C,B` command has set another level. This replaces the earlier hold level (the commanded or default level) described above. Build 8: compiled at 42,164 bytes flash (16%), 6,077 bytes RAM (74%); not flashed or tested on the board yet.

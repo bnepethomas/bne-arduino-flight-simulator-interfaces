@@ -417,7 +417,7 @@ solid white (`oledTest(true)`); `C,OLEDTEST:0` redraws their default boot
 content (2992 / 0 / 00:00) and resets `iLastAltitudeValue`/
 `iLastZuluTimeValue` so live data repaints them. Ignored (with a debug line)
 if `oledsInitialised` is false, i.e. the TCA mux wasn't found. Used by the
-`SwingTester` app during its Swing ALL sequence.
+`BenchTester` app during its Swing ALL sequence.
 
 ## Fuel Load / Electrical Load swing change
 
@@ -646,3 +646,11 @@ own so that it never counts as data for the no-data watchdog. Code: `backlightSt
 While the start-up hold is on the **four OLEDs stay on**: `PWR:0` is remembered (`oledsPowerWanted`) but not acted on, and the no-data timeout does not blank them. When the hold ends `refreshAfterStartupHold()` applies the remembered `PWR` and blanks them if the no-data timeout has fired. The board has no indicator lamps. Build 4 (RAM 80 percent, 1,577 bytes free). Compiled, not yet flashed.
 
 **Build 5 (6 November 2026): the OLEDs now blank with the backlight when the hold ends and no bridge is feeding the board.** Each board's own 30 second no-data timeout counts from the end of *its* start-up, so a board that finished its start-up well before the Stepper controller still had part of that 30 seconds left when the announcement arrived, and its OLEDs lingered until it ran out (about 5 seconds on the Dual Stepper). `refreshAfterStartupHold()` now expires that timeout straight away when no data or input has arrived for more than 2 seconds (`lastMSFSDataMillis` / `lastLocalActivityMillis` / `lastActivityMillis` set to `millis() - timeout`), so the OLEDs blank on the next pass. With a bridge feeding the board nothing changes. The indicator lamps already went out at once (their wanted states are all off without data). Compiled, not yet flashed.
+
+## SSD1306 OLED brightness, C,OLEDB (7 November 2026)
+
+**`C,OLEDB:0-15`** sets the contrast of the four SSD1306 OLEDs (barometer, altitude, clock and temperature) with `u8g2.setContrast()`, mapped 0 to 15 onto 0 to 255 (0 = dimmest, not off; 15 = full contrast). It is separate from the backlight (`C,B`) and from `PWR`, which blanks the OLEDs. Until a command arrives the displays keep the library's default contrast (`oledContrastLevel` -1). `applyOledContrast()` switches the multiplexer to each OLED's channel in turn and is called when the command arrives and after the OLEDs are initialised (a level received before that is applied then). Debug line: `OLED brightness 7`. The BenchTester has an **OLED brightness (0-15)** slider for it. Build 6: compiled at 61,962 bytes flash (24%) and 6,621 bytes RAM (80%, 6 bytes more than build 5, which already gave the compiler's low-memory warning); not flashed or tested on the board yet.
+
+## Start-up backlight level: 100 percent, then 70 percent (7 November 2026)
+
+While the start-up hold is on the backlight is **100 percent** (`STARTUP_BACKLIGHT_PWM` 255), whatever brightness was commanded or is the default, and a `C,B` command received during the hold does not change it. When the hold ends (the Stepper controller's `STARTUPDONE`, or the 180 second failsafe) the commanded level becomes **70 percent** (`AFTER_STARTUP_BACKLIGHT_PWM` 179) and the backlight goes **off**; it comes back at 70 percent when the bridge sends `BPWR:1`, unless a `C,B` command has set another level. This replaces the earlier hold level (the commanded or default level) described above. The setup-time `BrightnessWhileRunningSetup` is now `STARTUP_BACKLIGHT_PWM` (it was 128), and the two DCS-BIOS A-10C lighting callbacks do not write the backlight while the hold is on. Build 7: compiled at 61,998 bytes flash (24%), 6,621 bytes RAM (80%); not flashed or tested on the board yet.

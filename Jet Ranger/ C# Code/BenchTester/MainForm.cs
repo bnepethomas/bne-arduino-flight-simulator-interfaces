@@ -1,7 +1,7 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace SwingTester
+namespace BenchTester
 {
     internal enum BoardId
     {
@@ -165,6 +165,9 @@ namespace SwingTester
         // Brightness of the MAX7219 panel LEDs on the Radio ("C,LEDB:0-15", 0 = off, the board starts at 8) and of the landing gear lamps on the ADF controller ("C,GEARB:0-15", 0 = off, 15 = full).
         private readonly TrackBar trkLedBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 170, AutoSize = false, Height = 32 };
         private readonly Label lblLedBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
+        // Brightness of the four SSD1306 OLEDs on the Dual Stepper controller ("C,OLEDB:0-15", 0 = dimmest, 15 = full contrast).
+        private readonly TrackBar trkOledBrightness = new() { Minimum = 0, Maximum = 15, Value = 15, TickFrequency = 1, Width = 150, AutoSize = false, Height = 32 };
+        private readonly Label lblOledBrightness = new() { Text = "15", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
         private readonly TrackBar trkGearBrightness = new() { Minimum = 0, Maximum = 15, Value = 15, TickFrequency = 1, Width = 150, AutoSize = false, Height = 32 };
         private readonly Label lblGearBrightness = new() { Text = "15", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
 
@@ -217,7 +220,7 @@ namespace SwingTester
 
         public MainForm()
         {
-            Text = "Jet Ranger Swing Tester";
+            Text = "Jet Ranger Bench Tester";
             StartPosition = FormStartPosition.CenterScreen;
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
@@ -265,6 +268,9 @@ namespace SwingTester
             actions.Controls.Add(new Label { Text = "Temp OLED:", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
             actions.Controls.Add(txtTemp);
             actions.Controls.Add(btnTempSend);
+            actions.Controls.Add(new Label { Text = "OLED brightness (0-15):", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            actions.Controls.Add(trkOledBrightness);
+            actions.Controls.Add(lblOledBrightness);
 
             var lampActions = new FlowLayoutPanel
             {
@@ -289,11 +295,11 @@ namespace SwingTester
                 Padding = new Padding(8, 0, 8, 0),
                 WrapContents = true
             };
-            brightPanel.Controls.Add(new Label { Text = "Brightness (0-15):", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
+            brightPanel.Controls.Add(new Label { Text = "Backlight brightness (0-15):", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
             brightPanel.Controls.Add(trkBrightness);
             brightPanel.Controls.Add(lblBrightness);
             brightPanel.Controls.Add(btnBrightnessSend);
-            brightPanel.Controls.Add(new Label { Text = "(not the HID board)", AutoSize = true, ForeColor = SystemColors.GrayText, Margin = new Padding(3, 6, 12, 0) });
+            brightPanel.Controls.Add(new Label { Text = "(backlights only, not the HID board; the MAX7219 LEDs and landing gear lamps have their own sliders)", AutoSize = true, ForeColor = SystemColors.GrayText, Margin = new Padding(3, 6, 12, 0) });
             brightPanel.Controls.Add(btnBacklightOn);
             brightPanel.Controls.Add(btnBacklightOff);
 
@@ -539,6 +545,7 @@ namespace SwingTester
             btnTempSend.Click += async (_, _) => await SendTempAsync();
             trkBrightness.Scroll += async (_, _) => { lblBrightness.Text = trkBrightness.Value.ToString(); await SendBrightnessAsync(); };
             btnBrightnessSend.Click += async (_, _) => await SendBrightnessAsync();
+            trkOledBrightness.Scroll += async (_, _) => { lblOledBrightness.Text = trkOledBrightness.Value.ToString(); await SendOledBrightnessAsync(); };
             trkLedBrightness.Scroll += async (_, _) => { lblLedBrightness.Text = trkLedBrightness.Value.ToString(); await SendLedBrightnessAsync(); };
             trkGearBrightness.Scroll += async (_, _) => { lblGearBrightness.Text = trkGearBrightness.Value.ToString(); await SendGearBrightnessAsync(); };
             btnBacklightOn.Click += async (_, _) => await SendBacklightPowerAsync(true);
@@ -610,6 +617,21 @@ namespace SwingTester
             await udp.SendAsync(data, data.Length, IpFor(board), PortFor(board));
         }
 
+        /// <summary>Sends "C,OLEDB:&lt;0-15&gt;" to the Dual Stepper controller: the brightness (contrast) of its four SSD1306 OLEDs, separate from the backlight.</summary>
+        private async Task SendOledBrightnessAsync()
+        {
+            int level = trkOledBrightness.Value;
+            try
+            {
+                await SendPacketAsync(BoardId.DualStepper, $"C,OLEDB:{level}");
+                lblStatus.Text = $"OLED (SSD1306) brightness {level} sent to the Dual Stepper controller (C,OLEDB:{level}). Use OLEDs ON to see it.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "OLED brightness send failed: " + ex.Message;
+            }
+        }
+
         /// <summary>Sends "C,LEDB:&lt;0-15&gt;" to the Radio controller: the brightness of the MAX7219 panel LEDs (Auto Pilot, Audio and Huey), on its own. 0 turns them off.</summary>
         private async Task SendLedBrightnessAsync()
         {
@@ -648,10 +670,16 @@ namespace SwingTester
             var failed = new List<string>();
             foreach (var board in BrightnessBoards)
             {
-                try { await SendPacketAsync(board, $"C,B:{level}"); sent.Add(BoardText(board)); }
+                try
+                {
+                    // The Radio also sets its MAX7219 LEDs from C,B until it has had a C,LEDB: send the LED slider's level first, so the backlight slider never changes the LEDs.
+                    if (board == BoardId.Radio) await SendPacketAsync(board, $"C,LEDB:{trkLedBrightness.Value}");
+                    await SendPacketAsync(board, $"C,B:{level}");
+                    sent.Add(BoardText(board));
+                }
                 catch (Exception ex) { failed.Add(BoardText(board) + " (" + ex.Message + ")"); }
             }
-            lblStatus.Text = $"Brightness {level} sent to: " + string.Join(", ", sent) +
+            lblStatus.Text = $"Backlight brightness {level} sent to: " + string.Join(", ", sent) +
                 (failed.Count > 0 ? ". FAILED: " + string.Join(", ", failed) : ".");
         }
 

@@ -1,4 +1,4 @@
-namespace SwingTester
+namespace BenchTester
 {
     internal static class Program
     {

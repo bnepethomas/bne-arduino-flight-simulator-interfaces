@@ -286,3 +286,7 @@ own so that it never counts as data for the no-data watchdog. Code: `backlightSt
 ### OLEDs and indicators during the start-up hold (6 November 2026)
 
 While the start-up hold is on **all 15 warning lamps stay lit**: every lamp write goes through `lampWrite()`, which forces the lamp on during the hold (this includes the end of the start-up lamp test and the no-data timeout). The lamps' remembered states keep following the packets underneath, and when the hold ends `refreshAfterStartupHold()` puts each lamp back to its remembered state. Build 4. Compiled, not yet flashed.
+
+## Start-up backlight level: 100 percent, then 70 percent (7 November 2026)
+
+While the start-up hold is on the backlight is **100 percent** (`STARTUP_BACKLIGHT_PWM` 255), whatever brightness was commanded or is the default, and a `C,B` command received during the hold does not change it. When the hold ends (the Stepper controller's `STARTUPDONE`, or the 180 second failsafe) the commanded level becomes **70 percent** (`AFTER_STARTUP_BACKLIGHT_PWM` 179) and the backlight goes **off**; it comes back at 70 percent when the bridge sends `BPWR:1`, unless a `C,B` command has set another level. This replaces the earlier hold level (the commanded or default level) described above. Build 5: compiled at 27,886 bytes flash (10%), 2,673 bytes RAM (32%); not flashed or tested on the board yet.

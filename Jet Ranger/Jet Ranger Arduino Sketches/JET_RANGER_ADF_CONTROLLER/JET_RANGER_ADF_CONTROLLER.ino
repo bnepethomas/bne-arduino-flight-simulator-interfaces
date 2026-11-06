@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 7
+#define FIRMWARE_BUILD 8
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -798,12 +798,17 @@ int levelFromPot(int reading) {
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define STARTUP_SYNC_PORT 13138
 #define STARTUP_BACKLIGHT_MAX_MS 180000UL
+#define STARTUP_BACKLIGHT_PWM 255          // 100 percent while the start-up hold is on, whatever was commanded
+#define AFTER_STARTUP_BACKLIGHT_PWM 179    // 70 percent: the commanded level when the hold ends (the backlight then goes off until BPWR:1)
+int backlightPwmAfterStartup = -1;   // the 70 percent level set when the hold ends; -1 once the pot or a C,B command has set a level of its own
 void applyBacklight();
 void endBacklightStartupHold(const String& why);
 void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator lamps back to their normal state
 
 void applyOwnBacklight() {
-  int pwm = (backlightStartupHold || (backlightPowered && !noDataBlanked)) ? map(brightnessLevel, 0, 15, 0, 255) : 0;
+  int pwm = 0;
+  if (backlightStartupHold) pwm = STARTUP_BACKLIGHT_PWM;   // 100 percent until the Stepper controller announces start-up is complete
+  else if (backlightPowered && !noDataBlanked) pwm = (backlightPwmAfterStartup >= 0) ? backlightPwmAfterStartup : map(brightnessLevel, 0, 15, 0, 255);
   analogWrite(BACK_LIGHTS, pwm);
 }
 
@@ -812,6 +817,7 @@ void endBacklightStartupHold(const String& why) {
   if (!backlightStartupHold) return;
   backlightStartupHold = false;
   backlightPowered = false;
+  backlightPwmAfterStartup = AFTER_STARTUP_BACKLIGHT_PWM;   // 70 percent from now on, until the pot or a C,B command changes it
   applyOwnBacklight();
   SendDebug("Start-up backlight off (" + why + ")");
   refreshAfterStartupHold();
@@ -850,6 +856,7 @@ void pollBrightness() {
     float exact = brightnessAverage * 15.0f / 1023.0f;
     if (fabs(exact - brightnessLevel) > 0.7f) {
       brightnessLevel = newLevel;
+      backlightPwmAfterStartup = -1;
       applyOwnBacklight();
       queueBrightness();
       SendDebug("Panel brightness " + String(brightnessLevel));
@@ -993,6 +1000,7 @@ void HandleControlString(String str) {
   // Panel brightness from the other panels' pot or the SwingTester: C,B:0 to C,B:15 (while this board's own pot is switched off).
   else if (command == "B") {
     brightnessLevel = constrain((int)str.substring(colon + 1).toInt(), 0, 15);
+    backlightPwmAfterStartup = -1;
     applyOwnBacklight();
     noteActivity();
     SendDebug("Brightness " + String(brightnessLevel));

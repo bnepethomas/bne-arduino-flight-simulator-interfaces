@@ -44,10 +44,10 @@ function Split-Image($src, $prefix, $parts) {
 
 try {
     if (Want "swing") {
-        # SwingTester: main window, the Reset boards dialog (only opened and cancelled) and the COM ports window
-        $p = Run "$root\SwingTester\bin\Release\net10.0-windows\SwingTester.exe"
+        # BenchTester (was SwingTester): main window, the Reset boards dialog (only opened and cancelled) and the COM ports window
+        $p = Run "$root\BenchTester\bin\Release\net10.0-windows\BenchTester.exe"
         Shot $p "swing_tester.png"
-        $main = Find-Window $p.Id "Jet Ranger Swing Tester"
+        $main = Find-Window $p.Id "Jet Ranger Bench Tester"
         Click-Button $main "Reset boards..."
         Start-Sleep 1.5
         $dlg = Find-Window $p.Id "Reset boards"

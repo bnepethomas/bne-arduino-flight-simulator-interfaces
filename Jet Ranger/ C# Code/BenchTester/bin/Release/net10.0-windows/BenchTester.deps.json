@@ -6,12 +6,12 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v10.0": {
-      "SwingTester/1.0.0": {
+      "BenchTester/1.0.0": {
         "dependencies": {
           "System.Management": "10.0.13"
         },
         "runtime": {
-          "SwingTester.dll": {}
+          "BenchTester.dll": {}
         }
       },
       "System.Management/10.0.13": {
@@ -33,7 +33,7 @@
     }
   },
   "libraries": {
-    "SwingTester/1.0.0": {
+    "BenchTester/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

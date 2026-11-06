@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>SwingTester</RootNamespace>
-    <AssemblyName>SwingTester</AssemblyName>
+    <RootNamespace>BenchTester</RootNamespace>
+    <AssemblyName>BenchTester</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

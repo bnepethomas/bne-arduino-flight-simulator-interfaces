@@ -154,7 +154,7 @@ unsigned long ethernetStartTime = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "OLED Dual Stepper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 5
+#define FIRMWARE_BUILD 7
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -226,6 +226,8 @@ int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define STARTUP_SYNC_PORT 13138
 #define STARTUP_BACKLIGHT_MAX_MS 180000UL
+#define STARTUP_BACKLIGHT_PWM 255          // 100 percent while the start-up hold is on, whatever was commanded
+#define AFTER_STARTUP_BACKLIGHT_PWM 179    // 70 percent: the commanded level when the hold ends (the backlight then goes off until BPWR:1)
 bool backlightStartupHold = true;
 void applyBacklight();
 void endBacklightStartupHold(const String& why);
@@ -233,7 +235,8 @@ void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator la
 
 void applyBacklight() {
   int pwm = 0;
-  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold) pwm = STARTUP_BACKLIGHT_PWM;   // 100 percent until the Stepper controller announces start-up is complete
+  else if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
 }
 
@@ -242,6 +245,7 @@ void endBacklightStartupHold(const String& why) {
   if (!backlightStartupHold) return;
   backlightStartupHold = false;
   backlightPowered = false;
+  backlightCommandedPwm = AFTER_STARTUP_BACKLIGHT_PWM;   // 70 percent from now on, until a C,B command changes it
   applyBacklight();
   SendDebug("Start-up backlight off (" + why + ")");
   refreshAfterStartupHold();
@@ -1067,9 +1071,26 @@ bool initOLEDs() {
 // oledTest() refuses to touch the OLEDs until then.
 bool oledsInitialised = false;
 
+// Brightness of the four SSD1306 OLEDs, "C,OLEDB:0-15" (0 = dimmest, 15 = full contrast), separate from the backlight level (C,B). -1 until a command
+// has been received: the displays then keep the library's default contrast. Applied to each display through its multiplexer channel.
+int oledContrastLevel = -1;
+
+void applyOledContrast() {
+  if (!oledsInitialised || oledContrastLevel < 0) return;
+  uint8_t contrast = map(oledContrastLevel, 0, 15, 0, 255);
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.setContrast(contrast);
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.setContrast(contrast);
+  tcaselect(CLOCK_OLED_Port);
+  u8g2_CLOCK.setContrast(contrast);
+  tcaselect(TEMP_OLED_Port);
+  u8g2_TEMP.setContrast(contrast);
+}
+
 // OLED lamp test (UDP control command "C,OLEDTEST:1" on / "C,OLEDTEST:0" off):
 // "on" fills the Baro, Altimeter and Clock displays solid white so they are
-// obviously lit (used by the SwingTester app during the swing sequence);
+// obviously lit (used by the BenchTester app during the swing sequence);
 // "off" redraws each display's default boot content and clears the
 // last-value gates so live data repaints them on its next update.
 void oledTest(bool on) {
@@ -1432,7 +1453,7 @@ void setup() {
   //   delay(15);
   // }
 
-#define BrightnessWhileRunningSetup 128
+#define BrightnessWhileRunningSetup STARTUP_BACKLIGHT_PWM   // 100 percent
 
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
 
@@ -1442,6 +1463,7 @@ void setup() {
   // ####################### Being OLED Setup ##########################
 
   oledsInitialised = initOLEDs();
+  applyOledContrast();
 
   // ######################## End OLED Setup ###########################
 
@@ -1628,6 +1650,7 @@ void setup() {
   // powered yet, or not fitted) - give it one more try now that the swings
   // have taken a while, so the displays still come up late rather than never.
   if (!oledsInitialised) oledsInitialised = initOLEDs();
+  applyOledContrast();
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -1726,7 +1749,7 @@ void onIntFltInstLBrightChange(unsigned int newValue) {
   int outvalue = 0;
   outvalue = map(newValue, 0, 65534, 0, 255);
   SendDebug("Eng Inst Brightness=" + String(outvalue));
-  analogWrite(BACK_LIGHTS, outvalue);
+  if (!backlightStartupHold) analogWrite(BACK_LIGHTS, outvalue);   // the backlight stays at 100 percent during the start-up hold
 }
 DcsBios::IntegerBuffer intFltInstLBrightBuffer(A_10C_INT_FLT_INST_L_BRIGHT, onIntFltInstLBrightChange);
 
@@ -2509,7 +2532,7 @@ void updateSteppers() {
 }
 
 void onIntConsoleLBrightChange(unsigned int newValue) {
-  analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
+  if (!backlightStartupHold) analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 
@@ -2761,6 +2784,11 @@ void HandleControlString(String str) {
     backlightCommandedPwm = map(level, 0, 15, 0, 255);
     applyBacklight();
     SendDebug("Brightness " + String(level) + " -> PWM " + String(backlightCommandedPwm) + (backlightPowered ? "" : " (main bus off, applied when power returns)"));
+  } else if (name == "OLEDB") {
+    // SSD1306 OLED brightness: C,OLEDB:0 .. C,OLEDB:15 (the four OLEDs only; the backlight has its own level, C,B)
+    oledContrastLevel = constrain(getValue(str, ':', 1).toInt(), 0, 15);
+    applyOledContrast();
+    SendDebug(String(F("OLED brightness ")) + String(oledContrastLevel) + (oledsInitialised ? F("") : F(" (OLEDs not initialised, applied when they are)")));
   } else if (name == "VERSION") {
     SendDebug(firmwareText());
   } else if (name == "RESET") {

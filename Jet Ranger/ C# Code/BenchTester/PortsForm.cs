@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace SwingTester
+namespace BenchTester
 {
     /// <summary>
     /// Lists the serial (COM) ports Windows knows about with the USB device behind each one: the board type guessed from the USB vendor and product
