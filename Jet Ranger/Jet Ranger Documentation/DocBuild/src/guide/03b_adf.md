@@ -103,6 +103,10 @@ These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anyth
 
 The board acts on control packets on UDP 13136: `C,RESET:1` reboots it, `C,MATRIX:1` prints the raw ADF keypad readings to the debug listener, `C,POWER:1` sends a power status, `C,B:0` to `C,B:15` sets the backlight brightness (while the pot is switched off), `C,KEEPALIVE:1` counts as data and `C,DISPLAY:0` / `C,DISPLAY:1` (sent by the Radio controller) blank and restore the panel. Of the data packets it uses the three landing gear lamp tokens and `BPWR`.
 
+## Start-up hold
+
+From power-up the backlight, the OLED and the three landing gear lamps stay on until the Stepper controller announces that start-up is complete (see the Start-up hold in the Network chapter), or 180 seconds after reset. Then they follow the normal rules below.
+
 ## Panel blanking and backlight
 
 The panel follows the other boards' rules:

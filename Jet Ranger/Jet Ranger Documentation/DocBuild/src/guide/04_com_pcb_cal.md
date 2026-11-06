@@ -45,18 +45,18 @@ For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port,
 Every controller reports its firmware version, build number and compile date and time on the debug stream (UDP 27000) as it starts, straight after *Ethernet Started*, for example:
 
 ```
-Radio Controller firmware 1.0 build 2 compiled Nov  1 2026 14:05:12
+Radio Controller firmware 1.0 build 5 compiled Nov  6 2026 14:05:12
 ```
 
 Use it to check that a board has the code you think it has: after flashing, the line should show the new build number and the time you compiled. To ask a board without resetting it, send it `C,VERSION:1` on UDP 13136 (the USB HID board takes it on port 4210). If the debug listener was not running when the board started you will not see the start-up line; ask for it again. The version is also in every heartbeat, so the Health Monitor's **Show Voltages** table has a **Firmware** column with the version and build of every controller: after flashing, check that it shows the build you expect.
 
-| Controller | Sketch | Version and build now (flashed 1 November 2026) |
+| Controller | Sketch | Version and build now (flashed 6 November 2026) |
 |---|---|---|
-| Radio controller | `JET_RANGER_RADIO_CONTROLLER` | 1.0 build 2 |
-| Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 2 |
-| Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 2 |
-| Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 2 |
-| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 3 |
+| Radio controller | `JET_RANGER_RADIO_CONTROLLER` | 1.0 build 5 |
+| Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 4 |
+| Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 3 |
+| Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 5 |
+| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 6 |
 | USB HID board | `UDP_TO_HID` | 1.0 build 2 |
 
 Whoever changes a sketch raises its `FIRMWARE_BUILD` by one, so the build number tells you which version of the sketch a board has.
@@ -73,7 +73,7 @@ The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp o
 | Jet Ranger 13 Stepper | 1.6 | Stepper board | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET |
 | Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper board | Mega shield, USR-ES1, six-pin gauge sockets, TCA9548A sockets for the OLEDs, backlight MOSFET |
 | Jet Ranger X27 Small Stepper | not set | Each stepper gauge | One X27 or VID29 stepper, backlight LED, six-pin connector to the controller |
-| Jet Ranger Radio Auto Pilot | 1.3 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
+| Jet Ranger Radio Auto Pilot | 1.4 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
 | Jet Ranger COM and NAV | not set | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
 | Jet Ranger Upper ADF Controller | 1.0 | ADF and Upper controller (replaces the Upper Controller 1.4 and ADF Controller 1.6 boards) | ADF knobs, ADF keypad, overhead switch matrix and Upper keypad, panel brightness pot, 12 V monitor (A8), gear lamps, anti-ice, hyd boost and caution dim switch inputs, I2C OLED, backlight MOSFET |
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.1 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |

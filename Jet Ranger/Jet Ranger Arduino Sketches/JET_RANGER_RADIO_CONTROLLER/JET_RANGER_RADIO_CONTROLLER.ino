@@ -118,6 +118,7 @@ int MSFSLen;
 EthernetUDP max7219udp;  // Max7219
 EthernetUDP MSFSudp;     // Listens to MSFS light commands
 EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+EthernetUDP startupSyncUdp;  // Start-up backlight announcement (UDP port 13138)
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -145,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 2
+#define FIRMWARE_BUILD 5
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -426,8 +427,8 @@ bool apDrawnPower = true;  // power state the Auto Pilot display was last drawn 
 
 // Draws the Auto Pilot display: the five values while the radio has power, blank otherwise (like the COM and NAV displays).
 void updateAP() {
-  apDrawnPower = powerAvailable;
-  if (powerAvailable) {
+  apDrawnPower = radioPowered();
+  if (radioPowered()) {
     showAutoPilot(apHeadingText, apCourseText, apAirspeedText, apVerticalSpeedText, apAltitudeText);
   } else {
     tcaselect(AP_OLED_Port);
@@ -503,8 +504,8 @@ bool dmeDrawnPower = true;
 
 // Draws the DME display: its text while the radio has power, blank otherwise (like the COM, NAV and Auto Pilot displays).
 void updateDme() {
-  dmeDrawnPower = powerAvailable;
-  sendAdfDisplay(powerAvailable);  // the ADF controller's display follows the radio displays
+  dmeDrawnPower = radioPowered();
+  sendAdfDisplay(radioPowered());  // the ADF controller's display follows the radio displays
   if (powerAvailable) {
     showDme(dmeTopText, dmeBottomText);
   } else {
@@ -540,9 +541,9 @@ bool navDrawnPower = true;
 void updateNAV() {
   tcaselect(NAV_OLED_Port);
   sendCommand(0x80);
-  navDrawnPower = powerAvailable;
+  navDrawnPower = radioPowered();
 
-  if (powerAvailable == true) {
+  if (radioPowered()) {
     //sendCommand(cmd_CLS);
     String workstring1 = padFrequency(Nav1ActiveFrequency) + "  " + padFrequency(Nav2ActiveFrequency);
     String workstring2 = padFrequency(Nav1StandbyFrequency) + "  " + padFrequency(Nav2StandbyFrequency);
@@ -558,7 +559,7 @@ void updateCOMM() {
   tcaselect(COMM_OLED_Port);
   sendCommand(0x80);
 
-  if (powerAvailable == true) {
+  if (radioPowered()) {
     //sendCommand(cmd_CLS);
     String workstring1 = padFrequency(com1ActiveFrequency) + "  " + padFrequency(com2ActiveFrequency);
     String workstring2 = padFrequency(com1StandbyFrequency) + "  " + padFrequency(com2StandbyFrequency);
@@ -572,10 +573,56 @@ void updateCOMM() {
 
 // ############################################# END CHARACTER OLED ##########################################
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Start-up backlight. From reset every controller keeps its backlight ON (at the commanded or default level), whatever the no-data watchdog or the
+// bridge's BPWR says, until the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete. The announcement
+// is the text "STARTUPDONE" sent to UDP port 13138 of every other controller (a port of its own, so it never counts as data for the 30 second no-data
+// watchdog). The hold then ends: the backlight goes off and the bridge switches it on again (BPWR:1) as usual. If the announcement never comes (the
+// Stepper controller is off) the hold ends by itself after STARTUP_BACKLIGHT_MAX_MS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define STARTUP_SYNC_PORT 13138
+#define STARTUP_BACKLIGHT_MAX_MS 180000UL
+bool backlightStartupHold = true;
+void applyBacklight();
+void endBacklightStartupHold(const String& why);
+void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator lamps back to their normal state
+
 void applyBacklight() {
   int pwm = 0;
-  if (backlightPowered && !noDataBlanked) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold || (backlightPowered && !noDataBlanked)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
+}
+
+// Ends the start-up hold: the backlight goes off, and stays off until the bridge reports the main bus is up (BPWR:1).
+// True while the OLEDs and the panel LEDs are lit: the radio has power, or the start-up hold is on (the OLEDs stay on and every panel LED is lit until the
+// 13 Stepper controller announces that start-up is complete).
+bool radioPowered() {
+  return backlightStartupHold || powerAvailable;
+}
+
+// After the hold: the OLEDs and the panel LEDs follow the radio power and the data again.
+void refreshAfterStartupHold() {
+  // No data or input has come in (no bridge running): the OLEDs go with the backlight now, instead of lingering until this board's own 30 second no-data timeout
+  // (which counts from the end of its start-up) runs out, so expire that timeout here.
+  unsigned long lastSeenMillis = (lastMSFSDataMillis > lastLocalActivityMillis) ? lastMSFSDataMillis : lastLocalActivityMillis;
+  if (!noDataBlanked && (millis() - lastSeenMillis) > 2000UL) {
+    lastMSFSDataMillis = millis() - noDataTimeoutMs;
+    lastLocalActivityMillis = lastMSFSDataMillis;
+  }
+  updateNAV();
+  updateCOMM();
+  updateAP();
+  updateDme();
+  applyPanelLeds();
+}
+
+void endBacklightStartupHold(const String& why) {
+  if (!backlightStartupHold) return;
+  backlightStartupHold = false;
+  backlightPowered = false;
+  applyBacklight();
+  SendDebug("Start-up backlight off (" + why + ")");
+  refreshAfterStartupHold();
 }
 
 // ############################################# BEGIN MAX7219 PANEL LEDS ##########################################
@@ -662,14 +709,15 @@ void initPanelLeds() {
   panelLeds.setScanLimit(0, 7);  // digits 0 to 3: Auto Pilot and Audio panels, digits 4 to 7: Huey Warning Panel
   panelLeds.setIntensity(0, MAX7219_INTENSITY);
   panelLeds.clearDisplay(0);
+  applyPanelLeds();  // every LED is lit from the start: the start-up hold (see "Start-up backlight") keeps them on until the Stepper controller announces start-up is complete
 }
 
 // Puts each LED to what it should show: the simulator's state while the radio is powered, otherwise off. Only LEDs that
 // changed are written.
 void applyPanelLeds() {
-  bool powered = powerAvailable;
+  bool powered = radioPowered();
   for (int i = 0; i < panelLedCount; i++) {
-    bool on = panelLedTest || (powered && (panelLedTable[i].wanted || (hueyTestHeld && i >= hueyLedFirst)));
+    bool on = panelLedTest || backlightStartupHold || (powered && (panelLedTable[i].wanted || (hueyTestHeld && i >= hueyLedFirst)));
     if (on != panelLedTable[i].shown) {
       panelLeds.setLed(0, panelLedTable[i].digit, panelLedTable[i].column, on);
       panelLedTable[i].shown = on;
@@ -1400,15 +1448,15 @@ void ProcessReceivedMSFSString() {
 
     if (radioFrequencyChanged == true) {
       updateCOMM();
-      if (navDrawnPower != powerAvailable) updateNAV();  // NAV on/off together with COMM
+      if (navDrawnPower != radioPowered()) updateNAV();  // NAV on/off together with COMM
       radioFrequencyChanged = false;
     }
     applyPanelLeds();  // new LED states, and the LEDs follow the radio power like the displays
-    if (apValuesChanged || apDrawnPower != powerAvailable) {  // new Auto Pilot values, or the radio power changed
+    if (apValuesChanged || apDrawnPower != radioPowered()) {  // new Auto Pilot values, or the radio power changed
       apValuesChanged = false;
       updateAP();
     }
-    if (dmeDrawnPower != powerAvailable) updateDme();  // the radio power changed
+    if (dmeDrawnPower != radioPowered()) updateDme();  // the radio power changed
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -1736,6 +1784,7 @@ void setup() {
     debugUDP.begin(localdebugport);
     MSFSudp.begin(MSFSport);
     aliveudp.begin(aliveport);
+    startupSyncUdp.begin(STARTUP_SYNC_PORT);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -1835,7 +1884,20 @@ void setup() {
 }
 
 
+// Listens for the Stepper controller's "STARTUPDONE" on UDP port 13138 and enforces the time-out of the start-up backlight hold.
+void serviceStartupSync() {
+  if (Ethernet_In_Use == 1 && startupSyncUdp.parsePacket() > 0) {
+    char syncBuffer[24];
+    int len = startupSyncUdp.read(syncBuffer, sizeof(syncBuffer) - 1);
+    if (len < 0) len = 0;
+    syncBuffer[len] = 0;
+    if (strncmp(syncBuffer, "STARTUPDONE", 11) == 0) endBacklightStartupHold("start-up complete, announced by the Stepper controller");
+  }
+  if (backlightStartupHold && millis() >= STARTUP_BACKLIGHT_MAX_MS) endBacklightStartupHold("time-out");
+}
+
 void loop() {
+  serviceStartupSync();
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;

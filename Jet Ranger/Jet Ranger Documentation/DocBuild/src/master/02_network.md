@@ -31,6 +31,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 49000 | X-Plane and the X-Plane bridge | The bridge sends dataref requests to X-Plane's receive port and X-Plane answers to the bridge's own port; X-Plane's beacon is multicast 239.255.1.1 port 49707 |
 | 13136 on 127.0.0.101 to .107 | Bridge to the panel emulators | The same board packets, to the emulators on the PC (see the Panel emulators chapter) |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
+| 13138 | Stepper controller to the other controllers | The text `STARTUPDONE`, sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when the Stepper controller has finished starting up (repeated every 10 seconds, 18 times); ends their start-up hold |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
 | 7788 | Local on the boards | Source port opened at start-up for outgoing packets |
 
@@ -89,6 +90,22 @@ The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their pan
 - **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
 
 The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR` to the Radio, Servo, Stepper, Dual Stepper and ADF controllers (and still to the retired Upper address .103). The ADF controller can send `C,B` from its brightness pot to the other boards, but the pot is switched off for the moment (see the ADF controller chapter). The Radio also uses `C,B` for the intensity of its panel LEDs. The ADF controller also blanks its OLED and lamps together with the Radio's displays (the Radio sends it `C,DISPLAY:0/1`), see the ADF controller chapter.
+
+### Start-up hold
+
+**Start-up hold.** From reset every controller keeps its backlight **on** (at the commanded or default level), and keeps its OLEDs and indicator lamps on, whatever the no-data watchdog or `BPWR` says. The hold ends when the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete: it sends the text `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers, and repeats it every 10 seconds, 18 times, so a board that was not listening yet or was reset still hears it. When the hold ends the backlight goes off and stays off until the bridge reports the main bus is up (`BPWR:1`). If the announcement never comes (the Stepper controller is off) each board ends the hold by itself 180 seconds after its reset. Port 13138 is separate from the data port, so the announcement never counts as data for the 30 second watchdog.
+
+What stays on during the hold:
+
+| Controller | Stays on until the hold ends |
+|---|---|
+| Radio | Backlight, the four OLED displays (COM, NAV, Auto Pilot, DME) and all panel LEDs (lit) |
+| Servo | Backlight and all 15 caution and warning lamps (lit) |
+| Stepper | Backlight only (it ends its own hold at the end of its start-up and sends the announcement) |
+| Dual Stepper | Backlight and the four OLEDs |
+| ADF and Upper | Backlight, the OLED and the three landing gear lamps (lit) |
+
+When the hold ends the OLEDs and lamps go back to their normal rules (PWR, `NAVCOM1`, `C,DISPLAY` and the data). A board that has had no data or input for more than 2 seconds then also expires its own 30 second no-data timer, so its OLEDs go out together with the backlight instead of lingering. The USB HID board has no backlight and is not part of this.
 
 ## Remote reset
 

@@ -30,7 +30,7 @@ def pcb_map():
     s = Svg(880, 700)
     s.text(16, 24, "Active PCBs, their revision and the sketches they belong to", size=15, weight=700)
     pcbs = [
-        ("Jet Ranger Radio Auto Pilot  v1.3", "Radio controller (.101)", ["autopilot knobs, volume pots, MAX7219 display", "lines; backlight MOSFET on D5"], "blue"),
+        ("Jet Ranger Radio Auto Pilot  v1.4", "Radio controller (.101)", ["autopilot knobs, volume pots, MAX7219 display", "lines; backlight MOSFET on D5"], "blue"),
         ("Jet Ranger COM and NAV", "Radio controller (.101)", ["four swap switches in a diode matrix:", "column D26, rows D22-D25"], "blue"),
         ("Jet Ranger Front Panel Servo  v1.4", "Servo controller (.102)", ["switches D43, D47, D48; backlight D5", "MOSFET pin-out corrected in 1.4"], "green"),
         ("Jet Ranger 13 Stepper  v1.6", "Stepper controller (.105)", ["backlight D5, VSI coil B D8", "IRF540N backlight MOSFET"], "amber"),

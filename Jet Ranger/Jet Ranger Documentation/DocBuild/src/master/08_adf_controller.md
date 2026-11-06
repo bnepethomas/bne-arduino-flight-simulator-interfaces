@@ -72,6 +72,10 @@ These come from the former Upper controller. The Upper panel is the overhead swi
 
 The PCB has a brightness pot on A0 (5 V to ground, wiper to A0). The sketch can read it, smooth it (a running average over 8 samples every 20 ms), turn it into a **level 0 to 15** with hysteresis, set its own backlight from it and send `C,B:<level>` to the other panels. This is **switched off for the moment**: `USE_BRIGHTNESS_POT` at the top of the brightness code is 0, so the pot is not read, no `C,B` packets are sent, and this board's own backlight stays at the default level 4 (PWM 68, close to the other boards' default of 65) until a `C,B` command sets it (see Panel blanking and backlight). Set `USE_BRIGHTNESS_POT` to 1 and reflash to bring it back. With it on, the level goes to the Radio .101, Servo .102, Stepper .105 and Dual Stepper .106 (not the USB HID board; the Upper panel is on this board), one board per pass of the loop so a switched-off board costs at most one send timeout, once 5 seconds after start-up and then whenever it changes. The other panels' brightness meanwhile follows the SwingTester slider and their own defaults.
 
+## Start-up hold
+
+From reset the backlight, the OLED and the three landing gear lamps stay **on** (`panelBlank()` returns false and every lamp is lit) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset. Then `refreshAfterStartupHold()` redraws the OLED and the lamps from the Radio's `C,DISPLAY`, the no-data timer and the bridge, and the backlight goes off until `BPWR:1`.
+
 ## Panel blanking and backlight
 
 The panel follows the same rules as the other boards (see the network chapter). The display, the landing gear lamps and the backlight are controlled like this:

@@ -6,7 +6,7 @@ The schematic (the top sheet of each project) and the board layout of every PCB 
 
 ## Jet Ranger Radio Auto Pilot
 
-Revision 1.3 (change log; the title block shows 1.2, 2026-10-17). Mega shield for the Radio controller (172.16.1.101). Carries the USR-ES1 Ethernet module, the TCA9548A I2C multiplexer for the OLEDs, the MAX7219 that lights the 19 Auto Pilot and Audio panel LEDs, the backlight MOSFET (D5), the COM and NAV panel connector (`COMM_NAV`), the `AUTOPILOT` and `AUDIO` panel connectors, five matrix columns and the Auto Pilot knob inputs.
+Revision 1.4 (31 October 2026; the title block shows 1.4, 2026-10-31). Mega shield for the Radio controller (172.16.1.101). Revision 1.4 added the Huey Warning Panel connectors J20 (switches), J21 (backlight), J22 (LED anodes) and J23 (LED cathodes). Carries the USR-ES1 Ethernet module, the TCA9548A I2C multiplexer for the OLEDs, the MAX7219 that lights the 19 Auto Pilot and Audio panel LEDs, the backlight MOSFET (D5), the COM and NAV panel connector (`COMM_NAV`), the `AUTOPILOT` and `AUDIO` panel connectors, five matrix columns and the Auto Pilot knob inputs.
 
 ![Jet Ranger Radio Auto Pilot schematic](pcb/radio_auto_pilot_sch.jpg)
 

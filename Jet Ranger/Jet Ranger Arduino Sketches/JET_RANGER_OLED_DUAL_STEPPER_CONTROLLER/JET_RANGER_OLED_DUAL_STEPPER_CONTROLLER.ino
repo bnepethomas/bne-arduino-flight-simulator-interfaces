@@ -111,6 +111,7 @@ const unsigned int aliveport = 13137;
 const unsigned long aliveinterval = 10000;
 unsigned long lastalivesent = 0;
 EthernetUDP aliveudp;
+EthernetUDP startupSyncUdp;  // Start-up backlight announcement (UDP port 13138)
 
 int packetSize;
 int debugLen;
@@ -153,7 +154,7 @@ unsigned long ethernetStartTime = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "OLED Dual Stepper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 2
+#define FIRMWARE_BUILD 5
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -216,10 +217,34 @@ bool backlightPowered = true;        // true until the bridge reports the main b
 bool backlightNoData = false;        // true while the no-data watchdog has fired
 int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Start-up backlight. From reset every controller keeps its backlight ON (at the commanded or default level), whatever the no-data watchdog or the
+// bridge's BPWR says, until the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete. The announcement
+// is the text "STARTUPDONE" sent to UDP port 13138 of every other controller (a port of its own, so it never counts as data for the 30 second no-data
+// watchdog). The hold then ends: the backlight goes off and the bridge switches it on again (BPWR:1) as usual. If the announcement never comes (the
+// Stepper controller is off) the hold ends by itself after STARTUP_BACKLIGHT_MAX_MS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define STARTUP_SYNC_PORT 13138
+#define STARTUP_BACKLIGHT_MAX_MS 180000UL
+bool backlightStartupHold = true;
+void applyBacklight();
+void endBacklightStartupHold(const String& why);
+void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator lamps back to their normal state
+
 void applyBacklight() {
   int pwm = 0;
-  if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
+}
+
+// Ends the start-up hold: the backlight goes off, and stays off until the bridge reports the main bus is up (BPWR:1).
+void endBacklightStartupHold(const String& why) {
+  if (!backlightStartupHold) return;
+  backlightStartupHold = false;
+  backlightPowered = false;
+  applyBacklight();
+  SendDebug("Start-up backlight off (" + why + ")");
+  refreshAfterStartupHold();
 }
 
 // ########################## BEGIN STEPPERS ########################################
@@ -1089,7 +1114,20 @@ void oledTest(bool on) {
 // Temperature displays and stops the draw paths. On clears every "last drawn"
 // cache (including the altimeter's per-digit ones) so the next ALT / ZULU /
 // TEMP packet repaints in full, and redraws the Baro setting straight away.
+bool oledsPowerWanted = true;   // what PWR last asked for; the OLEDs stay on regardless until the start-up hold ends
+
+// After the hold: the OLEDs follow PWR and the no-data timeout again.
+void refreshAfterStartupHold() {
+  setOledsPower(oledsPowerWanted);
+  // No data or input has come in (no bridge running): the OLEDs go with the backlight now, instead of lingering until this board's own 30 second no-data timeout
+  // (which counts from the end of its start-up) runs out, so expire that timeout here.
+  if (!gaugesResetForNoData && (millis() - lastMSFSDataMillis) > 2000UL) lastMSFSDataMillis = millis() - noDataTimeoutMs;
+  if (backlightNoData) BlankAllOleds();
+}
+
 void setOledsPower(bool on) {
+  oledsPowerWanted = on;
+  if (backlightStartupHold && !on) return;   // the OLEDs stay on until the start-up hold ends
   if (on == oledsPowered) return;
   oledsPowered = on;
   if (!oledsInitialised) return;
@@ -1366,6 +1404,7 @@ void setup() {
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
     aliveudp.begin(aliveport);
+    startupSyncUdp.begin(STARTUP_SYNC_PORT);
 
     // As it takes a couple of seconds before the Ethernet Stack is operational
     // Flash leds until time period has completed
@@ -2803,13 +2842,26 @@ void ResetGaugesToZero() {
   ALTstepper.moveTo(0);
   setFuelLoad(0);
   setElectricalLoad(0);
-  BlankAllOleds();
+  if (!backlightStartupHold) BlankAllOleds();   // the OLEDs stay on until the start-up hold ends
   iLastAltitudeValue = -1;
   iLastZuluTimeValue = -1;
   sLastTempText = "";
 }
 
+// Listens for the Stepper controller's "STARTUPDONE" on UDP port 13138 and enforces the time-out of the start-up backlight hold.
+void serviceStartupSync() {
+  if (Ethernet_In_Use == 1 && startupSyncUdp.parsePacket() > 0) {
+    char syncBuffer[24];
+    int len = startupSyncUdp.read(syncBuffer, sizeof(syncBuffer) - 1);
+    if (len < 0) len = 0;
+    syncBuffer[len] = 0;
+    if (strncmp(syncBuffer, "STARTUPDONE", 11) == 0) endBacklightStartupHold("start-up complete, announced by the Stepper controller");
+  }
+  if (backlightStartupHold && millis() >= STARTUP_BACKLIGHT_MAX_MS) endBacklightStartupHold("time-out");
+}
+
 void loop() {
+  serviceStartupSync();
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;

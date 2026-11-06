@@ -144,6 +144,7 @@ const unsigned int aliveport = 13137;
 const unsigned long aliveinterval = 10000;
 unsigned long lastalivesent = 0;
 EthernetUDP aliveudp;
+EthernetUDP startupSyncUdp;  // Start-up backlight announcement (UDP port 13138)
 
 int packetSize;
 int debugLen;
@@ -186,7 +187,7 @@ bool gaugesResetForNoData = false;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Stepper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 2
+#define FIRMWARE_BUILD 3
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -256,10 +257,49 @@ bool backlightPowered = true;        // true until the bridge reports the main b
 bool backlightNoData = false;        // true while the no-data watchdog has fired
 int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Start-up backlight. From reset every controller keeps its backlight ON (at the commanded or default level), whatever the no-data watchdog or the
+// bridge's BPWR says, until the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete. The announcement
+// is the text "STARTUPDONE" sent to UDP port 13138 of every other controller (a port of its own, so it never counts as data for the 30 second no-data
+// watchdog). The hold then ends: the backlight goes off and the bridge switches it on again (BPWR:1) as usual. If the announcement never comes (the
+// Stepper controller is off) the hold ends by itself after STARTUP_BACKLIGHT_MAX_MS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define STARTUP_SYNC_PORT 13138
+#define STARTUP_BACKLIGHT_MAX_MS 180000UL
+bool backlightStartupHold = true;
+void applyBacklight();
+void endBacklightStartupHold(const String& why);
+
 void applyBacklight() {
   int pwm = 0;
-  if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
+}
+
+// Ends the start-up hold: the backlight goes off, and stays off until the bridge reports the main bus is up (BPWR:1).
+void endBacklightStartupHold(const String& why) {
+  if (!backlightStartupHold) return;
+  backlightStartupHold = false;
+  backlightPowered = false;
+  applyBacklight();
+  SendDebug("Start-up backlight off (" + why + ")");
+}
+
+// The announcement: sent to the Radio, Servo, Dual Stepper and ADF and Upper controllers when this controller's start-up has finished, and repeated
+// every 10 seconds for three minutes so a controller that was not listening yet (or was reset) still hears it.
+const IPAddress startupSyncTargets[] = { IPAddress(172, 16, 1, 101), IPAddress(172, 16, 1, 102), IPAddress(172, 16, 1, 106), IPAddress(172, 16, 1, 107) };
+#define STARTUP_ANNOUNCE_REPEAT_MS 10000UL
+#define STARTUP_ANNOUNCE_REPEATS 18
+int startupAnnounceCount = 0;           // 0 until start-up has finished
+unsigned long startupAnnounceNext = 0;
+
+void announceStartupDone() {
+  if (Ethernet_In_Use != 1) return;
+  for (unsigned int i = 0; i < sizeof(startupSyncTargets) / sizeof(startupSyncTargets[0]); i++) {
+    startupSyncUdp.beginPacket(startupSyncTargets[i], STARTUP_SYNC_PORT);
+    startupSyncUdp.print("STARTUPDONE");
+    startupSyncUdp.endPacket();
+  }
 }
 
 // ########################## BEGIN STEPPERS ########################################
@@ -601,6 +641,13 @@ void setup() {
     delay(2);
     digitalWrite(ES1_RESET_PIN, HIGH);
 
+      pinMode(BACK_LIGHTS, OUTPUT);
+
+
+#define BrightnessWhileRunningSetup 128
+
+  analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+
     Ethernet.begin(mac, ip);
     // W5500's own ARP/send retry timeout, not the boot-time wait below -
     // default is 200ms x 8 retries = up to 1600ms blocked inside
@@ -613,6 +660,7 @@ void setup() {
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
     aliveudp.begin(aliveport);
+    startupSyncUdp.begin(STARTUP_SYNC_PORT);
 
     // As it takes a couple of seconds before the Ethernet Stack is operational
     // Flash leds until time period has completed
@@ -628,21 +676,7 @@ void setup() {
   }
 
 
-  pinMode(BACK_LIGHTS, OUTPUT);
-  // analogWrite(BACK_LIGHTS, 255);
 
-  // delay(3000);
-
-  // SendDebug("Dimming Leds");
-  // for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
-  //   analogWrite(BACK_LIGHTS, Local_Brightness);
-  //   // SendDebug("Led Brightness " + String(Local_Brightness));
-  //   delay(15);
-  // }
-
-#define BrightnessWhileRunningSetup 128
-
-  analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
 
   SendDebug("STEPPER INITIALISATION STARTED");
 
@@ -815,6 +849,13 @@ void setup() {
 
 #define BrightnessPostSetup 65
   applyBacklight();   // BacklightDefaultPwm (65) unless a brightness command or the main bus says otherwise
+
+  // This controller is the last to finish its start-up: end its own start-up backlight hold and tell the others to end theirs.
+  endBacklightStartupHold("this controller's start-up is complete");
+  announceStartupDone();
+  startupAnnounceCount = 1;
+  startupAnnounceNext = millis() + STARTUP_ANNOUNCE_REPEAT_MS;
+  SendDebug("Start-up complete: told the other controllers to turn their backlighting off");
 
   // Start the no-data timeout from the END of setup(), not from reset:
   // lastMSFSDataMillis starts at 0, so with the long boot swings the
@@ -2015,7 +2056,26 @@ void ResetGaugesToZero() {
   setTQ(0);
 }
 
+
+// Listens for the Stepper controller's "STARTUPDONE" on UDP port 13138 and enforces the time-out of the start-up backlight hold.
+void serviceStartupSync() {
+  if (Ethernet_In_Use == 1 && startupSyncUdp.parsePacket() > 0) {
+    char syncBuffer[24];
+    int len = startupSyncUdp.read(syncBuffer, sizeof(syncBuffer) - 1);
+    if (len < 0) len = 0;
+    syncBuffer[len] = 0;
+    if (strncmp(syncBuffer, "STARTUPDONE", 11) == 0) endBacklightStartupHold("start-up complete, announced by the Stepper controller");
+  }
+  if (backlightStartupHold && millis() >= STARTUP_BACKLIGHT_MAX_MS) endBacklightStartupHold("time-out");
+  if (startupAnnounceCount > 0 && startupAnnounceCount < STARTUP_ANNOUNCE_REPEATS && millis() >= startupAnnounceNext) {
+    announceStartupDone();
+    startupAnnounceCount++;
+    startupAnnounceNext = millis() + STARTUP_ANNOUNCE_REPEAT_MS;
+  }
+}
+
 void loop() {
+  serviceStartupSync();
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;

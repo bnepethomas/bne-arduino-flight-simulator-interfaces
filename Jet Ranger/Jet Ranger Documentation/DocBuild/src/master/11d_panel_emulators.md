@@ -54,6 +54,8 @@ Common to every window: the board's address in the title and status bar, the pac
 
 The faces (ranges, scales, numerals and legends) are those of the instrument map, Appendix G.
 
+The emulators do not copy the real boards' start-up hold (backlight, OLEDs and lamps on until the Stepper controller announces start-up on UDP 13138): they start dark and follow the data.
+
 ## Running it
 
 `JetRangerPanelEmulator.exe` opens the launcher, with a button for each emulator and **Open all five**. `--board radio|servo|stepper|dual|adf|all` opens those windows directly, `--net <a.b.c>` changes the addresses and `--dump <folder>` writes each board's state to `<folder>\<board>.json` four times a second (used by the tests). Each address can be listened on by one program at a time.

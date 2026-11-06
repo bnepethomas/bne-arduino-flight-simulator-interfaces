@@ -7,7 +7,7 @@
 </defs>
 <text x="16.0" y="24.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Active PCBs, their revision and the sketches they belong to</text>
 <rect x="16.0" y="50.0" width="408.0" height="120.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
-<text x="28.0" y="74.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger Radio Auto Pilot  v1.3</text>
+<text x="28.0" y="74.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger Radio Auto Pilot  v1.4</text>
 <text x="28.0" y="97.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Radio controller (.101)</text>
 <text x="28.0" y="115.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">autopilot knobs, volume pots, MAX7219 display</text>
 <text x="28.0" y="132.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">lines; backlight MOSFET on D5</text>

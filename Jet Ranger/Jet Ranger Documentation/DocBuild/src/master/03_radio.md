@@ -54,7 +54,7 @@
 | `NAVCOM1` | Radio power: 1 = on, 0 = COM and NAV displays blank and the panel LEDs off | `NAVCOM1:1` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off (the radio assumes 1 until the first one arrives) | `BPWR:1` |
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (see below): 1 = on, 0 = off | `LED_HDG:1` |
-| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (see below): 1 = on, 0 = off. The bridges do not send these yet | `LED_H_ENG_OIL:1` |
+| `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (see below): 1 = on, 0 = off. Sent by the DCS and X-Plane bridges, not by the FSUIPC and MSFS bridges | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot display (see below), up to 5 characters each | `APHDG:090` |
 | `C,B:n` | Brightness 0 to 15 (control packet): the panel backlight level (0 off, 15 full) and the MAX7219 intensity of the panel LEDs | `C,B:5` |
 | `C,LEDTEST:n` | Control packet: 1 lights all 39 panel LEDs (Auto Pilot, Audio and Huey), 0 returns them to the simulator's state | `C,LEDTEST:1` |
@@ -145,7 +145,7 @@ The first two columns are the Auto Pilot panel and the others the Audio panel. T
 
 ## Huey Warning Panel switches and LEDs
 
-The Huey Warning Panel (20 caution LEDs, three switches) is **wired by hand to the Radio controller at the moment**; there is no PCB for it in this documentation. The sketch supports it as follows (the Radio on COM20 was flashed with this build on 31 October 2026, 40,552 bytes of flash and 5,949 bytes of RAM, 72 percent; it has not been checked on the panel yet):
+The Huey Warning Panel (20 caution LEDs, three switches) connects to the Radio controller through four connectors added in PCB revision 1.4 (31 October 2026): **J20** the three switches (A8 to A10), **J21** the panel backlight, **J22** the LED anodes (`HUEY_ANODES`) and **J23** the LED cathodes (`HUEY_CATHODES`). The panel itself is hand wired and its PCB is not part of this documentation. The sketch supports it as follows (the Radio on COM20 was flashed with this build on 31 October 2026, 40,552 bytes of flash and 5,949 bytes of RAM, 72 percent; it has not been checked on the panel yet):
 
 - **LEDs:** the 20 LEDs are on the same MAX7219 as the other panels, on its digits 4 to 7 and the same segment lines. They are the tokens `LED_H_xxx` in `panelLedTable[]`, handled exactly like the Auto Pilot and Audio LEDs (`applyPanelLeds()`, the radio-power rule, the `C,B` intensity and `C,LEDTEST`).
 - **Switches:** TEST (A9), RESET (A10) and BRT / DIM (A8) are read with the internal pull-ups (a closed switch is on) and a 30 ms debounce. TEST and RESET are the two positions of one switch, so one of them is always closed. Each is a joystick button on the USB HID board, held while closed: Joystick 4 buttons 20 to 22 (indexes 115 to 117). Nothing is sent during the start-up quiet period, and afterwards the buttons are brought into line with the switches. They are resent when the HID board comes back.
@@ -199,6 +199,10 @@ The radio also tells the ADF controller (172.16.1.107, port 13136) when its disp
 
 Mega pin D5 (`BACKLIGHT_PWM`) drives an IRF540N through 330 ohm (10 kohm gate pull-down), which switches the backlights of the **AUDIO, AUTOPILOT and COMM_NAV** panels, using the same rules as the Servo, Stepper and Dual Stepper boards (see the network chapter): the backlight is on only while `BPWR` is 1 (main bus 20 V or more; the radio assumes 1 until the first `BPWR` arrives), at the last brightness commanded with `C,B:0-15` (0 off, 15 full, mapped to PWM 0 to 255) or the default PWM 65 until one has been received. `applyBacklight()` also keeps it off while the displays are blanked by the no-data timeout, which is the same 30 seconds with no UDP packet **and no knob or key use** (a knob or key restarts it, so the radio can be used with no PC), and brings it back at the same level when data or local input resumes. The same `C,B` also sets the panel LEDs' intensity. The bridges send `BPWR` in the radio packet, and the SwingTester's *Backlight power* buttons and brightness slider test it from the bench. The ADF controller's pot sends `C,B` to the radio like any other board.
 
+## Start-up hold
+
+From reset the Radio keeps the backlight, the four OLED displays and every panel LED **on** until the 13 Stepper controller announces that start-up is complete on UDP port 13138 (or 180 seconds after reset); see the network chapter. `radioPowered()` returns true while the hold is on, so the displays and `applyPanelLeds()` treat the radio as powered. When the hold ends `refreshAfterStartupHold()` redraws the displays and the LEDs to their normal state, and the backlight goes off until `BPWR:1`.
+
 ## Tuning steps
 
 The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25 kHz channels (major knob 118 to 136; minor knob 000, 025, 050, 075). NAV runs 108.00 to 117.95 MHz in 50 kHz steps (major 108 to 117). Each minor knob wraps round at its ends. The constants `COM_MINOR_STEP_KHZ` and `NAV_MINOR_STEP_KHZ` set the steps, and the wrap-around limits follow from them. 8.33 kHz channels are not offered. FSUIPC holds COM frequencies to 10 kHz, so in the simulator a channel such as 118.025 may appear as 118.02 or 118.03.
@@ -217,7 +221,7 @@ The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25
 
 ## PCB features the sketch does not use yet
 
-The Jet Ranger Radio Auto Pilot PCB (v1.3) carries more than the sketch handles. What is still unused:
+The Jet Ranger Radio Auto Pilot PCB (v1.4) carries more than the sketch handles. What is still unused:
 
 | Mega pins | PCB net | Status in the sketch |
 |---|---|---|

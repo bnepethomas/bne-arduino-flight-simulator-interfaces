@@ -88,6 +88,8 @@ Every accepted change is logged to the debug stream (for example `Jet Ranger Ser
 
 Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET. The level follows `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): with no command the default PWM 65 is used, and once one has been received the last commanded level returns whenever power returns. After 30 seconds with no packet, including after power-up with no PC feed, the backlight goes off with the lamps and returns with the next packet. `setup()` sets pin 5 as an output and applies the default level; each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 24,468 bytes of flash (9%) and 30% RAM; flashed to the Servo board on COM16.
 
+**Start-up hold.** From reset the backlight and all 15 warning lamps stay **on** (`lampWrite()` writes HIGH to every lamp pin) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset (see the network chapter). Then the backlight goes off until `BPWR:1`, and `refreshAfterStartupHold()` puts every lamp back to the state the bridge last sent for it.
+
 ## Pin usage
 
 | Pin | Function |

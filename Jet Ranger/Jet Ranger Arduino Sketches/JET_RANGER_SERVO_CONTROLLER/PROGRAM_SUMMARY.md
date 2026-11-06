@@ -272,4 +272,17 @@ The monitor matches the first word of the heartbeat, so the indicator behaves as
 ## Firmware version
 
 `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
-and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**; **build 3 (6 November 2026) added the start-up backlight hold**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.
+
+## Start-up backlight (6 November 2026)
+
+From reset the controller keeps its backlight **on** (at the commanded brightness, or the default level), ignoring the 30 second no-data watchdog and the bridge's `BPWR`, until the
+**13 Stepper controller**, the last controller to finish its start-up, announces that start-up is complete. This controller listens on port 13138 for the announcement and ends its hold when it arrives (the Stepper controller repeats it every 10 seconds for three minutes, so a controller that was not listening yet, or was reset, still hears it). When the hold ends the backlight goes off and the controller treats the
+main bus as down until the bridge's `BPWR:1` arrives, so from then on the bridge controls the backlight as before (with no bridge it stays off). If the announcement never comes (the Stepper
+controller is off or missing) the hold ends by itself after `STARTUP_BACKLIGHT_MAX_MS` (180 seconds from reset). The announcement is the text `STARTUPDONE` on **UDP port 13138**, a port of its
+own so that it never counts as data for the no-data watchdog. Code: `backlightStartupHold`, `endBacklightStartupHold()`, `serviceStartupSync()` (called at the top of `loop()`) and the
+`startupSyncUdp` socket. Compiled but not yet flashed or tested on the bench: check the debug stream for `Start-up backlight off (...)` and watch the backlights stay on until the Stepper finishes.
+
+### OLEDs and indicators during the start-up hold (6 November 2026)
+
+While the start-up hold is on **all 15 warning lamps stay lit**: every lamp write goes through `lampWrite()`, which forces the lamp on during the hold (this includes the end of the start-up lamp test and the no-data timeout). The lamps' remembered states keep following the packets underneath, and when the hold ends `refreshAfterStartupHold()` puts each lamp back to its remembered state. Build 4. Compiled, not yet flashed.

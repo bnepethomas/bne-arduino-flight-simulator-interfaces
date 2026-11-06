@@ -18,6 +18,22 @@ Data flows from the PC to the boards as short text packets. On the primary PC a 
 | Dual stepper board | Mega 2560 on the OLED Dual Stepper PCB | 172.16.1.106 | Dual stepper controller |
 | USB HID board | Leonardo-class board with native USB | 172.16.1.11 | Joystick (HID) interface |
 
+## System block diagrams
+
+The cockpit's power, USB, CKAS platform, lighting, display and sound systems are shown below at about a third of a page each. The same drawings at full size, with a description of each, are in the chapter Cockpit systems wiring.
+
+![Power supply (the full-size drawings are in the chapter Cockpit systems wiring)](diagrams/power_supply.svg#h90)
+
+![USB wiring](diagrams/usb_wiring.svg#h90)
+
+![CKAS 6DOF platform](diagrams/ckas_platform.svg#h90)
+
+![Lighting](diagrams/lighting.svg#h90)
+
+![PC displays](diagrams/pc_displays.svg#h90)
+
+![Sound system](diagrams/sound_system.svg#h90)
+
 # Windows and simulator
 
 The Windows PC runs the simulator and a **bridge program** that turns simulator variables into UDP text packets for the Arduino boards. Switch inputs travel the other way as joystick buttons.

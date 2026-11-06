@@ -36,6 +36,10 @@ Notes:
 
 The bridges send this board its own packet: `D,BPWR:1,IAS:93.4,VSI:500,AGL:850,FUEL:42,TQ:65,ITT:610,N1:92`. `AGL` is zero below 20 V on the main bus. The fractional part of `IAS` is interpolated between table rows, so the needle moves smoothly rather than in whole-knot jumps.
 
+## Start-up announcement
+
+The Stepper controller is the last to finish its start-up. When `setup()` ends it ends its own start-up hold and sends the text `STARTUPDONE` to UDP port 13138 of the Radio (.101), Servo (.102), Dual Stepper (.106) and ADF and Upper (.107) controllers (`announceStartupDone()`), and repeats it every 10 seconds, 18 times, in case a board was not listening yet or was reset. Those boards then turn their start-up backlight, OLEDs and lamps over to the normal rules (see the network chapter). The debug line is `Start-up complete: told the other controllers to turn their backlighting off`.
+
 ## Backlight
 
 Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET (`BACK_LIGHTS`). `applyBacklight()` sets the level from `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): the default is PWM 65; once a brightness command has been received the last commanded level returns whenever power returns; `BPWR:0` or 30 seconds with no packet (including after power-up with no PC feed) switches it off, and the next packet switches it back on. The backlight still starts at 128 during setup. The old DCS-BIOS brightness handlers still call `analogWrite()` directly but never run. Each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 31,544 bytes of flash (12%) and 50% RAM; flashed to the Stepper on COM4.

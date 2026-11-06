@@ -108,6 +108,7 @@ const unsigned int hidPort = 4210;
 EthernetUDP udp;
 EthernetUDP MSFSudp;   // Control packets
 EthernetUDP aliveudp;  // Keepalives to the Health Monitor
+EthernetUDP startupSyncUdp;  // Start-up backlight announcement (UDP port 13138)
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -127,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 3
+#define FIRMWARE_BUILD 6
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -258,12 +259,14 @@ unsigned long lastActivityMillis = 0;
 bool lampWanted[3] = { false, false, false };  // nose, left, right: what the bridge (or SwingTester) asked for
 const uint8_t lampPins[3] = { LDG_NOSE_PIN, LDG_LEFT_PIN, LDG_RIGHT_PIN };
 
+bool backlightStartupHold = true;   // the start-up hold (see "Start-up backlight" below): the OLED and the lamps stay on until the Stepper controller announces start-up is complete
+// The OLED and the landing gear lamps are on during the start-up hold: not blank, and every lamp lit, until the 13 Stepper controller announces that start-up is complete.
 bool panelBlank() {
-  return !displayOn || noDataBlanked;
+  return !backlightStartupHold && (!displayOn || noDataBlanked);
 }
 
 void applyLandingGearLamps() {
-  for (int i = 0; i < 3; i++) digitalWrite(lampPins[i], (lampWanted[i] && !panelBlank()) ? HIGH : LOW);
+  for (int i = 0; i < 3; i++) digitalWrite(lampPins[i], (backlightStartupHold || (lampWanted[i] && !panelBlank())) ? HIGH : LOW);
 }
 
 void initLandingGearLamps() {
@@ -284,6 +287,15 @@ bool setLandingGearLampFromToken(const String& name, const String& value) {
 }
 
 void applyOwnBacklight();  // defined with the panel brightness code below
+
+// After the hold: the OLED and the landing gear lamps follow the Radio's display message, the no-data timeout and the bridge again.
+void refreshAfterStartupHold() {
+  // No data or input has come in (no bridge running): the OLEDs go with the backlight now, instead of lingering until this board's own 30 second no-data timeout
+  // (which counts from the end of its start-up) runs out, so expire that timeout here.
+  if (!noDataBlanked && (millis() - lastActivityMillis) > 2000UL) lastActivityMillis = millis() - NO_DATA_TIMEOUT_MS;
+  updateDisplay();
+  applyLandingGearLamps();
+}
 
 // Any data packet, brightness command or keep-alive from the PC, or any local input, restarts the no-data timeout and, if the panel was blanked
 // by it, brings the panel back.
@@ -773,9 +785,32 @@ int levelFromPot(int reading) {
 }
 
 // Off while the bridge reports the main bus down or the no-data timeout has fired, otherwise the current level (a C,B command, or the pot).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Start-up backlight. From reset every controller keeps its backlight ON (at the commanded or default level), whatever the no-data watchdog or the
+// bridge's BPWR says, until the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete. The announcement
+// is the text "STARTUPDONE" sent to UDP port 13138 of every other controller (a port of its own, so it never counts as data for the 30 second no-data
+// watchdog). The hold then ends: the backlight goes off and the bridge switches it on again (BPWR:1) as usual. If the announcement never comes (the
+// Stepper controller is off) the hold ends by itself after STARTUP_BACKLIGHT_MAX_MS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define STARTUP_SYNC_PORT 13138
+#define STARTUP_BACKLIGHT_MAX_MS 180000UL
+void applyBacklight();
+void endBacklightStartupHold(const String& why);
+void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator lamps back to their normal state
+
 void applyOwnBacklight() {
-  int pwm = (backlightPowered && !noDataBlanked) ? map(brightnessLevel, 0, 15, 0, 255) : 0;
+  int pwm = (backlightStartupHold || (backlightPowered && !noDataBlanked)) ? map(brightnessLevel, 0, 15, 0, 255) : 0;
   analogWrite(BACK_LIGHTS, pwm);
+}
+
+// Ends the start-up hold: the backlight goes off, and stays off until the bridge reports the main bus is up (BPWR:1).
+void endBacklightStartupHold(const String& why) {
+  if (!backlightStartupHold) return;
+  backlightStartupHold = false;
+  backlightPowered = false;
+  applyOwnBacklight();
+  SendDebug("Start-up backlight off (" + why + ")");
+  refreshAfterStartupHold();
 }
 
 void queueBrightness() {
@@ -1000,6 +1035,7 @@ void setup() {
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
     aliveudp.begin(aliveport);
+    startupSyncUdp.begin(STARTUP_SYNC_PORT);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -1036,7 +1072,20 @@ void setup() {
   SendDebug("Setup Complete");
 }
 
+// Listens for the Stepper controller's "STARTUPDONE" on UDP port 13138 and enforces the time-out of the start-up backlight hold.
+void serviceStartupSync() {
+  if (Ethernet_In_Use == 1 && startupSyncUdp.parsePacket() > 0) {
+    char syncBuffer[24];
+    int len = startupSyncUdp.read(syncBuffer, sizeof(syncBuffer) - 1);
+    if (len < 0) len = 0;
+    syncBuffer[len] = 0;
+    if (strncmp(syncBuffer, "STARTUPDONE", 11) == 0) endBacklightStartupHold("start-up complete, announced by the Stepper controller");
+  }
+  if (backlightStartupHold && millis() >= STARTUP_BACKLIGHT_MAX_MS) endBacklightStartupHold("time-out");
+}
+
 void loop() {
+  serviceStartupSync();
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !GREEN_LED_STATE;

@@ -16,6 +16,22 @@ This document ties together the three parts of the repository: the **Arduino ske
 
 ![From simulator value to moving needle](diagrams/data_pipeline.svg)
 
+## System block diagrams
+
+The cockpit's power, USB, CKAS platform, lighting, display and sound systems are shown below at about a third of a page each. The same drawings at full size, with a description of each, are in Appendix H (Cockpit systems wiring).
+
+![Power supply (the full-size drawings are in Appendix H)](diagrams/power_supply.svg#h90)
+
+![USB wiring](diagrams/usb_wiring.svg#h90)
+
+![CKAS 6DOF platform](diagrams/ckas_platform.svg#h90)
+
+![Lighting](diagrams/lighting.svg#h90)
+
+![PC displays](diagrams/pc_displays.svg#h90)
+
+![Sound system](diagrams/sound_system.svg#h90)
+
 ## Arduino sketches
 
 All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560 with a W5500 Ethernet module unless noted.
@@ -65,7 +81,7 @@ KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of ever
 
 | PCB | Revision | Used by |
 |---|---|---|
-| Jet Ranger Radio Auto Pilot | 1.3 | Radio controller |
+| Jet Ranger Radio Auto Pilot | 1.4 | Radio controller |
 | Jet Ranger COM and NAV | no revision set | Radio panel (four swap switches, encoders) |
 | Jet Ranger Front Panel Servo | 1.4 | Servo controller |
 | Jet Ranger Upper ADF Controller | 1.0 | ADF and Upper controller (the reference PCB for the ADF controller; replaces the Jet Ranger Upper Controller 1.4 and Jet Ranger ADF Controller 1.6 boards) |
@@ -81,7 +97,9 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
-All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) were flashed on 1 November 2026 with firmware version 1.0: build 2 for all but the ADF and Upper controller, which is build 3. Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) were flashed on 6 November 2026 with firmware version 1.0: builds Radio 5, Servo 4, Stepper 3, Dual Stepper 5, ADF and Upper 6 and USB HID 2. Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+
+On 6 November 2026 the start-up backlight was changed: every controller holds its backlight, OLEDs and indicator lamps on from reset until the 13 Stepper controller announces on UDP port 13138 that start-up is complete (see the Network chapter). It is tested on the bench with the boards flashed and shown in the Health Monitor; it has not yet been watched through a full cockpit power cycle.
 
 Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the old Upper controller (whose code now runs on the ADF controller), and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger. The DCS bridge (added 31 October 2026) has run against live DCS with the Huey caution lamps; its gauge values and the X-Plane bridge (also 31 October 2026) are tested only with synthetic data from fake simulators.
 

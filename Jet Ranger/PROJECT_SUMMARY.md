@@ -158,7 +158,9 @@ Known gaps / open items:
 
 Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) has `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` at the top and reports them, with the
 compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
-All six were flashed on 1 November 2026 at version 1.0: build 2 for the Radio, Servo, Stepper, Dual Stepper and USB HID board, build 3 for the ADF and Upper controller (which no longer sends the power status to the debug reflector). The version is also in every heartbeat (` FW:1.0.2`) and the Health Monitor shows it in its voltage table.
+All six were flashed on 6 November 2026 at version 1.0: Radio build 5, Servo 4, Stepper 3, Dual Stepper 5, ADF and Upper 6 and USB HID 2. The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
+
+**Start-up hold (6 November 2026).** From reset every controller keeps its backlight, OLEDs and indicator lamps on until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (repeated every 10 seconds, 18 times); each board also ends the hold by itself 180 seconds after reset. Then the backlight goes off until `BPWR:1`. Not yet watched through a full cockpit power cycle.
 
 ## Packet monitor in the bridges
 

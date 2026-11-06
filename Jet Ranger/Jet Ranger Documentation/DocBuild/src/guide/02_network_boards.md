@@ -26,6 +26,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 49000 | X-Plane and the X-Plane bridge | Dataref requests to X-Plane and its answers (X-Plane's beacon is multicast 239.255.1.1 port 49707) |
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
+| 13138 | Stepper controller to the other controllers | `STARTUPDONE`: tells the Radio, Servo, Dual Stepper and ADF and Upper controllers that start-up is complete, so they end their start-up hold |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
 
 ## Packet format
@@ -81,6 +82,10 @@ The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their pan
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
 The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs. The ADF controller also blanks its display and lamps with the Radio's displays.
+
+### Start-up hold
+
+From power-up every controller keeps its backlight on, and also its displays (OLEDs) and indicator lamps (all lit), until the **13 Stepper controller**, which is the last to finish starting up, tells the others it is done. The Stepper controller sends `STARTUPDONE` to UDP port 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers and repeats it every 10 seconds, 18 times. The hold then ends: the backlights go off, the displays and lamps follow the normal rules, and the backlight comes back when the bridge reports the main bus is up (`BPWR:1`). If the Stepper controller is off, each board ends the hold by itself 180 seconds after its reset. So after power-up the whole cockpit stays lit for a short time, and then goes dark until a bridge is running.
 
 # Arduino servo controller
 

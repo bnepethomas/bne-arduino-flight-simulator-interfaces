@@ -630,4 +630,19 @@ The monitor matches the first word of the heartbeat, so the indicator behaves as
 ## Firmware version
 
 `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` are defined above `SendDebug()`. The board reports them, with the compile date and time, on the debug stream straight after *Ethernet Started*,
-and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.
+and on `C,VERSION:1`. **Raise `FIRMWARE_BUILD` by one every time this sketch is changed** (and `FIRMWARE_VERSION` for a larger change). Version 1.0, build 1 was added on 1 November 2026; **build 2 (1 November 2026) added the version to the heartbeat**; **build 3 (6 November 2026) added the start-up backlight hold**. The heartbeat to the Health Monitor also carries it as ` FW:1.0.<build>` (for example `SERVO V5:5.02 FW:1.0.2`), which the Health Monitor shows in its voltage table.
+
+## Start-up backlight (6 November 2026)
+
+From reset the controller keeps its backlight **on** (at the commanded brightness, or the default level), ignoring the 30 second no-data watchdog and the bridge's `BPWR`, until the
+**13 Stepper controller**, the last controller to finish its start-up, announces that start-up is complete. This controller listens on port 13138 for the announcement and ends its hold when it arrives (the Stepper controller repeats it every 10 seconds for three minutes, so a controller that was not listening yet, or was reset, still hears it). When the hold ends the backlight goes off and the controller treats the
+main bus as down until the bridge's `BPWR:1` arrives, so from then on the bridge controls the backlight as before (with no bridge it stays off). If the announcement never comes (the Stepper
+controller is off or missing) the hold ends by itself after `STARTUP_BACKLIGHT_MAX_MS` (180 seconds from reset). The announcement is the text `STARTUPDONE` on **UDP port 13138**, a port of its
+own so that it never counts as data for the no-data watchdog. Code: `backlightStartupHold`, `endBacklightStartupHold()`, `serviceStartupSync()` (called at the top of `loop()`) and the
+`startupSyncUdp` socket. Compiled but not yet flashed or tested on the bench: check the debug stream for `Start-up backlight off (...)` and watch the backlights stay on until the Stepper finishes.
+
+### OLEDs and indicators during the start-up hold (6 November 2026)
+
+While the start-up hold is on the **four OLEDs stay on**: `PWR:0` is remembered (`oledsPowerWanted`) but not acted on, and the no-data timeout does not blank them. When the hold ends `refreshAfterStartupHold()` applies the remembered `PWR` and blanks them if the no-data timeout has fired. The board has no indicator lamps. Build 4 (RAM 80 percent, 1,577 bytes free). Compiled, not yet flashed.
+
+**Build 5 (6 November 2026): the OLEDs now blank with the backlight when the hold ends and no bridge is feeding the board.** Each board's own 30 second no-data timeout counts from the end of *its* start-up, so a board that finished its start-up well before the Stepper controller still had part of that 30 seconds left when the announcement arrived, and its OLEDs lingered until it ran out (about 5 seconds on the Dual Stepper). `refreshAfterStartupHold()` now expires that timeout straight away when no data or input has arrived for more than 2 seconds (`lastMSFSDataMillis` / `lastLocalActivityMillis` / `lastActivityMillis` set to `millis() - timeout`), so the OLEDs blank on the next pass. With a bridge feeding the board nothing changes. The indicator lamps already went out at once (their wanted states are all off without data). Compiled, not yet flashed.

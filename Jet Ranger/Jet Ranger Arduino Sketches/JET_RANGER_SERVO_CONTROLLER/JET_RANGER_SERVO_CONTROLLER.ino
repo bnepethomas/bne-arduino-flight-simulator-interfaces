@@ -28,10 +28,34 @@ bool backlightPowered = true;        // true until the bridge reports the main b
 bool backlightNoData = false;        // true while the no-data watchdog has fired
 int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Start-up backlight. From reset every controller keeps its backlight ON (at the commanded or default level), whatever the no-data watchdog or the
+// bridge's BPWR says, until the 13 Stepper controller, which is the last to finish its start-up, announces that start-up is complete. The announcement
+// is the text "STARTUPDONE" sent to UDP port 13138 of every other controller (a port of its own, so it never counts as data for the 30 second no-data
+// watchdog). The hold then ends: the backlight goes off and the bridge switches it on again (BPWR:1) as usual. If the announcement never comes (the
+// Stepper controller is off) the hold ends by itself after STARTUP_BACKLIGHT_MAX_MS.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+#define STARTUP_SYNC_PORT 13138
+#define STARTUP_BACKLIGHT_MAX_MS 180000UL
+bool backlightStartupHold = true;
+void applyBacklight();
+void endBacklightStartupHold(const String& why);
+void refreshAfterStartupHold();   // redraws the OLEDs and puts the indicator lamps back to their normal state
+
 void applyBacklight() {
   int pwm = 0;
-  if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightStartupHold || (backlightPowered && !backlightNoData)) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
+}
+
+// Ends the start-up hold: the backlight goes off, and stays off until the bridge reports the main bus is up (BPWR:1).
+void endBacklightStartupHold(const String& why) {
+  if (!backlightStartupHold) return;
+  backlightStartupHold = false;
+  backlightPowered = false;
+  applyBacklight();
+  SendDebug("Start-up backlight off (" + why + ")");
+  refreshAfterStartupHold();
 }
 #define FLASH_TIME 200
 
@@ -91,6 +115,7 @@ EthernetUDP debugUDP;
 EthernetUDP max7219udp;  // Max7219
 EthernetUDP MSFSudp;     // Listens to MSFS light commands
 EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+EthernetUDP startupSyncUdp;  // Start-up backlight announcement (UDP port 13138)
 
 int MSFSpacketsize;
 int MSFSLen;
@@ -121,7 +146,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Servo Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 2
+#define FIRMWARE_BUILD 4
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -212,22 +237,27 @@ void InitialiseWarningLights() {
   allOn();
 }
 
+// While the start-up hold is on every warning lamp stays lit, whatever the data says; the lamps' remembered states are applied when it ends.
+void lampWrite(uint8_t pin, bool state) {
+  digitalWrite(pin, backlightStartupHold ? HIGH : state);
+}
+
 void setWarningLightAll(bool State) {
-  digitalWrite(D_Rotor_RPM_Low, State);
-  digitalWrite(D_Engine_Out, State);
-  digitalWrite(D_Trans_Oil_Pressure, State);
-  digitalWrite(D_Trans_Oil_Temp, State);
-  digitalWrite(D_Battery_Temp, State);
-  digitalWrite(D_Battery_Hot, State);
-  digitalWrite(D_Trans_Chip, State);
-  digitalWrite(D_Baggage_Door, State);
-  digitalWrite(D_Engine_Chip, State);
-  digitalWrite(D_TR_Chip, State);
-  digitalWrite(D_Fuel_Pump, State);
-  digitalWrite(D_AFT_Fuel_Filter, State);
-  digitalWrite(D_Gen_Fail, State);
-  digitalWrite(D_Low_Fuel, State);
-  digitalWrite(D_SC_Fail, State);
+  lampWrite(D_Rotor_RPM_Low, State);
+  lampWrite(D_Engine_Out, State);
+  lampWrite(D_Trans_Oil_Pressure, State);
+  lampWrite(D_Trans_Oil_Temp, State);
+  lampWrite(D_Battery_Temp, State);
+  lampWrite(D_Battery_Hot, State);
+  lampWrite(D_Trans_Chip, State);
+  lampWrite(D_Baggage_Door, State);
+  lampWrite(D_Engine_Chip, State);
+  lampWrite(D_TR_Chip, State);
+  lampWrite(D_Fuel_Pump, State);
+  lampWrite(D_AFT_Fuel_Filter, State);
+  lampWrite(D_Gen_Fail, State);
+  lampWrite(D_Low_Fuel, State);
+  lampWrite(D_SC_Fail, State);
 }
 
 
@@ -486,6 +516,25 @@ void ResetGaugesToZero() {
   SC_Fail = "0";
 }
 
+// After the hold: each warning lamp goes back to the state the bridge last sent for it (all off if nothing has been sent, or the no-data timeout has cleared them).
+void refreshAfterStartupHold() {
+  lampWrite(D_Rotor_RPM_Low, Rotor_RPM_Low == "1");
+  lampWrite(D_Engine_Out, Engine_Out == "1");
+  lampWrite(D_Trans_Oil_Pressure, Trans_Oil_Pressure == "1");
+  lampWrite(D_Trans_Oil_Temp, Trans_Oil_Temp == "1");
+  lampWrite(D_Battery_Temp, Battery_Temp == "1");
+  lampWrite(D_Battery_Hot, Battery_Hot == "1");
+  lampWrite(D_Trans_Chip, Trans_Chip == "1");
+  lampWrite(D_Baggage_Door, Baggage_Door == "1");
+  lampWrite(D_Engine_Chip, Engine_Chip == "1");
+  lampWrite(D_TR_Chip, TR_Chip == "1");
+  lampWrite(D_Fuel_Pump, Fuel_Pump == "1");
+  lampWrite(D_AFT_Fuel_Filter, AFT_Fuel_Filter == "1");
+  lampWrite(D_Gen_Fail, Gen_Fail == "1");
+  lampWrite(D_Low_Fuel, Low_Fuel == "1");
+  lampWrite(D_SC_Fail, SC_Fail == "1");
+}
+
 int ServoIdleTime = 1000;
 void CheckServoIdleTime() {
 
@@ -674,9 +723,9 @@ void HandleOutputValuePair(String str) {
         //SendDebug("Rotor Low RPM changed");
         Rotor_RPM_Low = ParameterValue;
         if (Rotor_RPM_Low == "1") {
-          digitalWrite(D_Rotor_RPM_Low, true);
+          lampWrite(D_Rotor_RPM_Low, true);
         } else {
-          digitalWrite(D_Rotor_RPM_Low, false);
+          lampWrite(D_Rotor_RPM_Low, false);
         }
       };
     } else if (ParameterName == "EOUT") {
@@ -684,9 +733,9 @@ void HandleOutputValuePair(String str) {
         //SendDebug("Transmission Temperature changed");
         Engine_Out = ParameterValue;
         if (Engine_Out == "1") {
-          digitalWrite(D_Engine_Out, true);
+          lampWrite(D_Engine_Out, true);
         } else {
-          digitalWrite(D_Engine_Out, false);
+          lampWrite(D_Engine_Out, false);
         }
       };
     } else if (ParameterName == "TOPW") {
@@ -694,9 +743,9 @@ void HandleOutputValuePair(String str) {
         //SendDebug("Transmission Pressure changed");
         Trans_Oil_Pressure = ParameterValue;
         if (Trans_Oil_Pressure == "1") {
-          digitalWrite(D_Trans_Oil_Pressure, true);
+          lampWrite(D_Trans_Oil_Pressure, true);
         } else {
-          digitalWrite(D_Trans_Oil_Pressure, false);
+          lampWrite(D_Trans_Oil_Pressure, false);
         }
       };
     } else if (ParameterName == "TOTW") {
@@ -705,9 +754,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Trans_Oil_Temp = ParameterValue;
         if (Trans_Oil_Temp == "1") {
-          digitalWrite(D_Trans_Oil_Temp, true);
+          lampWrite(D_Trans_Oil_Temp, true);
         } else {
-          digitalWrite(D_Trans_Oil_Temp, false);
+          lampWrite(D_Trans_Oil_Temp, false);
         }
       };
     } else if (ParameterName == "BTMP") {
@@ -715,9 +764,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Battery_Temp = ParameterValue;
         if (Battery_Temp == "1") {
-          digitalWrite(D_Battery_Temp, true);
+          lampWrite(D_Battery_Temp, true);
         } else {
-          digitalWrite(D_Battery_Temp, false);
+          lampWrite(D_Battery_Temp, false);
         }
       };
     } else if (ParameterName == "BHOT") {
@@ -725,9 +774,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Battery_Hot = ParameterValue;
         if (Battery_Hot == "1") {
-          digitalWrite(D_Battery_Hot, true);
+          lampWrite(D_Battery_Hot, true);
         } else {
-          digitalWrite(D_Battery_Hot, false);
+          lampWrite(D_Battery_Hot, false);
         }
       };
     } else if (ParameterName == "TC") {
@@ -735,9 +784,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Trans_Chip = ParameterValue;
         if (Trans_Chip == "1") {
-          digitalWrite(D_Trans_Chip, true);
+          lampWrite(D_Trans_Chip, true);
         } else {
-          digitalWrite(D_Trans_Chip, false);
+          lampWrite(D_Trans_Chip, false);
         }
       };
     } else if (ParameterName == "BD") {
@@ -746,9 +795,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Baggage_Door = ParameterValue;
         if (Baggage_Door == "1") {
-          digitalWrite(D_Baggage_Door, true);
+          lampWrite(D_Baggage_Door, true);
         } else {
-          digitalWrite(D_Baggage_Door, false);
+          lampWrite(D_Baggage_Door, false);
         }
       };
     } else if (ParameterName == "EC") {
@@ -757,9 +806,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Engine_Chip = ParameterValue;
         if (Engine_Chip == "1") {
-          digitalWrite(D_Engine_Chip, true);
+          lampWrite(D_Engine_Chip, true);
         } else {
-          digitalWrite(D_Engine_Chip, false);
+          lampWrite(D_Engine_Chip, false);
         }
       };
     } else if (ParameterName == "TRC") {
@@ -767,9 +816,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         TR_Chip = ParameterValue;
         if (TR_Chip == "1") {
-          digitalWrite(D_TR_Chip, true);
+          lampWrite(D_TR_Chip, true);
         } else {
-          digitalWrite(D_TR_Chip, false);
+          lampWrite(D_TR_Chip, false);
         }
       };
     } else if (ParameterName == "FPMP") {
@@ -777,9 +826,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Fuel_Pump = ParameterValue;
         if (Fuel_Pump == "1") {
-          digitalWrite(D_Fuel_Pump, true);
+          lampWrite(D_Fuel_Pump, true);
         } else {
-          digitalWrite(D_Fuel_Pump, false);
+          lampWrite(D_Fuel_Pump, false);
         }
       };
     } else if (ParameterName == "FFLTR") {
@@ -787,9 +836,9 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         AFT_Fuel_Filter = ParameterValue;
         if (AFT_Fuel_Filter == "1") {
-          digitalWrite(D_AFT_Fuel_Filter, true);
+          lampWrite(D_AFT_Fuel_Filter, true);
         } else {
-          digitalWrite(D_AFT_Fuel_Filter, false);
+          lampWrite(D_AFT_Fuel_Filter, false);
         }
       };
     } else if (ParameterName == "GENF") {
@@ -797,27 +846,27 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         Gen_Fail = ParameterValue;
         if (Gen_Fail == "1") {
-          digitalWrite(D_Gen_Fail, true);
+          lampWrite(D_Gen_Fail, true);
         } else {
-          digitalWrite(D_Gen_Fail, false);
+          lampWrite(D_Gen_Fail, false);
         }
       };
     } else if (ParameterName == "LOWF") {
       if (Low_Fuel != ParameterValue) {
         Low_Fuel = ParameterValue;
         if (Low_Fuel == "1") {
-          digitalWrite(D_Low_Fuel, true);
+          lampWrite(D_Low_Fuel, true);
         } else {
-          digitalWrite(D_Low_Fuel, false);
+          lampWrite(D_Low_Fuel, false);
         }
       };
     } else if (ParameterName == "SCF") {
       if (SC_Fail != ParameterValue) {
         SC_Fail = ParameterValue;
         if (SC_Fail == "1") {
-          digitalWrite(D_SC_Fail, true);
+          lampWrite(D_SC_Fail, true);
         } else {
-          digitalWrite(D_SC_Fail, false);
+          lampWrite(D_SC_Fail, false);
         }
       };
     } else if (ParameterName == "NAVCOM1") {
@@ -1101,6 +1150,7 @@ void setup() {
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
     aliveudp.begin(aliveport);
+    startupSyncUdp.begin(STARTUP_SYNC_PORT);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -1193,7 +1243,20 @@ void setup() {
 
 
 
+// Listens for the Stepper controller's "STARTUPDONE" on UDP port 13138 and enforces the time-out of the start-up backlight hold.
+void serviceStartupSync() {
+  if (Ethernet_In_Use == 1 && startupSyncUdp.parsePacket() > 0) {
+    char syncBuffer[24];
+    int len = startupSyncUdp.read(syncBuffer, sizeof(syncBuffer) - 1);
+    if (len < 0) len = 0;
+    syncBuffer[len] = 0;
+    if (strncmp(syncBuffer, "STARTUPDONE", 11) == 0) endBacklightStartupHold("start-up complete, announced by the Stepper controller");
+  }
+  if (backlightStartupHold && millis() >= STARTUP_BACKLIGHT_MAX_MS) endBacklightStartupHold("time-out");
+}
+
 void loop() {
+  serviceStartupSync();
 
   ServiceInputs();
 

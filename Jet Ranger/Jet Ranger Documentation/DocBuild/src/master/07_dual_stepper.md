@@ -42,6 +42,10 @@ Updates are gated on change and throttled to every 300 ms. A boot-time I2C scan 
 
 **Lamp test:** `C,OLEDTEST:1` fills all four OLEDs solid white and `C,OLEDTEST:0` redraws their default content and clears the change gates so live data repaints them. It is ignored (with a debug line) if the mux was not found.
 
+## Start-up hold
+
+From reset the backlight and the four OLEDs stay **on** (`setOledsPower()` ignores PWR:0 and `BlankAllOleds()` is not called by the no-data timer) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset. Then `refreshAfterStartupHold()` applies the last PWR state and, if no data has arrived for more than 2 seconds, expires the 30 second no-data timer so the OLEDs blank together with the backlight (this board's own timer starts only when its long setup ends, which is why the OLEDs used to stay on about 5 seconds longer than the other boards').
+
 ## Backlight
 
 Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET (`BACK_LIGHTS`). `applyBacklight()` sets the level from `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): the default is PWM 65; once a brightness command has been received the last commanded level returns whenever power returns; `BPWR:0` or 30 seconds with no packet (including after power-up with no PC feed) switches it off, and the next packet switches it back on. The backlight still starts at 128 during setup. The old DCS-BIOS brightness handlers still call `analogWrite()` directly but never run. Each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 58,312 bytes of flash (22%) and 79% RAM (1,720 bytes free); flashed to the Dual Stepper on COM5.

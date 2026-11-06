@@ -417,6 +417,11 @@ class Builder:
         self.end_para()
 
     def figure(self, caption, path):
+        max_h_mm = None
+        m = re.search(r"#h(\d+)$", path)   # "diagram.svg#h90": shrink the figure so it is at most 90 mm high (about a third of a page)
+        if m:
+            max_h_mm = int(m.group(1))
+            path = path[:m.start()]
         full = os.path.normpath(os.path.join(HERE, path))
         if not os.path.exists(full):
             self.paragraph("[missing figure: %s]" % path, "Callout")
@@ -433,6 +438,9 @@ class Builder:
         else:
             w_mm = min(PAGE_W_MM, w_px * 0.2646 * 0.92)
             h_mm = w_mm * h_px / w_px
+        if max_h_mm and h_mm > max_h_mm:
+            w_mm = w_mm * max_h_mm / h_mm
+            h_mm = max_h_mm
         self.set_pstyle("Figure")
         self.cur.NumberingStyleName = ""
         try:
