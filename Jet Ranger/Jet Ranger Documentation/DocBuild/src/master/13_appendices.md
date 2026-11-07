@@ -108,18 +108,18 @@ Every controller sketch has a firmware version, a build number and the compile d
 The board sends one line to the debug stream (UDP 27000) straight after *Ethernet Started* in its start-up sequence, and again whenever it receives the control packet `C,VERSION:1`, so the version can be checked without resetting it (the USB HID board sends it to its logging port):
 
 ```
-Radio Controller firmware 1.0 build 8 compiled Nov  7 2026 08:00:00
+Radio Controller firmware 1.0 build 9 compiled Nov  7 2026 08:00:00
 ```
 
 (each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is also in every heartbeat to the Health Monitor, as ` FW:1.0.2` (version 1.0, build 2), and the Health Monitor shows it in the **Firmware** column of its voltage table, so the code on every board can be checked at a glance.
 
 | Controller | Sketch | `FIRMWARE_NAME` | Version and build now (all but the USB HID board flashed 7 November 2026) |
 |---|---|---|---|
-| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 8 |
+| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 9 |
 | Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 5 |
 | Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 5 |
 | Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 7 |
-| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 8 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 9 |
 | USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 2 |
 
 ## COM port to board mapping

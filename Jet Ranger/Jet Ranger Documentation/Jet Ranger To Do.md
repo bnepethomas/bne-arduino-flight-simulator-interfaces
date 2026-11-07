@@ -77,3 +77,4 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [x] **Update the documentation and commit and push** (done 2026-11-02).
 - [x] **Update the documentation for the start-up hold, the current firmware builds and the Radio PCB revision 1.4** (done 2026-11-06), with third-page versions of the six cockpit systems diagrams in the opening sections of the User Guide and the master document, and the regenerated Radio PCB pictures.
 - [x] **Update the documentation for the start-up hold changes, the new brightness commands and the BenchTester rename** (done 2026-11-07): both documents, the backlight diagram, the BenchTester screenshots and the build tables.
+- [x] **Update the documentation for Radio build 9 and ADF build 9** (done 2026-11-07): the build tables, the MAX7219 start-up intensity of 15 and the BenchTester slider defaults.
