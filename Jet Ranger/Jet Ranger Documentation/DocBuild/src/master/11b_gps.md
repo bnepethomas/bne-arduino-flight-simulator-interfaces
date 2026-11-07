@@ -47,7 +47,7 @@ Every bridge feeds the GPS interface from the simulator on the same PC (UDP 127.
 
 ## Status
 
-Built clean. The NMEA builder (checksums checked against two reference sentences) and the parser passed a scratch test program, and the running window was exercised with UDP packets from the bench tester: it switched to the packet position and time, and went back to Brisbane Airport 30 seconds after the last packet. **Not yet tested against a real GPS**, so the AirMap 2000C's acceptance of these sentences and of the 115200 bps rate is unverified. A second sender's packets simply overwrite the position.
+Built clean. The NMEA builder (checksums checked against two reference sentences) and the parser passed a scratch test program, and the running window was exercised with UDP packets from the bench tester: it switched to the packet position and time, and went back to Brisbane Airport 30 seconds after the last packet. The serial write path has been tested and works (confirmed by the user, 7 November 2026). A second sender's packets simply overwrite the position.
 
 # GPS bench tester (LowranceAirMapGpsBenchTester)
 

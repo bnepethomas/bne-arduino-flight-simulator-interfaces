@@ -141,16 +141,12 @@ Known gaps / open items:
   Joystick 1 buttons 8, 9, 10 in Windows) but are not forwarded to the PC itself
   (a bridge treats any unrecognised string on 27001 as a radio frequency, so it
   would need updating first).
-- The Upper Controller PCB has a Warning Mute connector on D30, but the Upper
-  Controller sketch scans analog pins A9–A15 only, so it may not be read. Its
-  remote reset has not been bench-tested.
 - The FlyInside and CowaSim estimates in the MSFS bridge come from a few dial
   readings and need checking at other power settings.
 - The Radio controller emulator still sends a bare frequency for every radio, so
   only COM1 tunes from it.
 - The Dual Stepper's RAM is tight (75%+, compiler low-memory warning).
-- The Clock OLED (mux channel 3) answered on the I2C scan but its display has not
-  been confirmed by eye; the Baro OLED is never updated after boot.
+- The Baro OLED is never updated after boot.
 - The calibration tables, swing times and wait settings come from bench
   measurements; recheck them after any mechanical change to a gauge.
 
@@ -160,7 +156,7 @@ Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB
 compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
 All six are flashed at version 1.0: Radio build 8, Servo 5, Stepper 5, Dual Stepper 7, ADF and Upper 8 (all on 7 November 2026) and USB HID 2 (1 November). The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
 
-**Start-up hold (6 and 7 November 2026).** From reset every controller keeps its backlight at 100 percent, and its OLEDs and indicator lamps on, until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (twice, 2 seconds apart); each board also ends the hold by itself 180 seconds after reset. Then the commanded backlight level becomes 70 percent and the backlight goes off until `BPWR:1`. Not yet watched through a full cockpit power cycle.
+**Start-up hold (6 and 7 November 2026).** From reset every controller keeps its backlight at 100 percent, and its OLEDs and indicator lamps on, until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (twice, 2 seconds apart); each board also ends the hold by itself 180 seconds after reset. Then the commanded backlight level becomes 70 percent and the backlight goes off until `BPWR:1`. Watched through a full cockpit power cycle and confirmed working (7 November 2026).
 
 **Separate brightness levels (7 November 2026).** Besides the backlight (`C,B`): `C,LEDB:0-15` the Radio's MAX7219 panel LEDs, `C,GEARB:0-15` the ADF landing gear lamps (PWM) and `C,OLEDB:0-15` the Dual Stepper's four SSD1306 OLEDs. The BenchTester (renamed from SwingTester on 7 November 2026) has a slider for each.
 

@@ -579,9 +579,8 @@ this session:
   nothing in this codebase parses that debug output to confirm the mux
   and all three displays (now including the Clock) are actually detected
   and responding.
-- Clock OLED (`u8g2_CLOCK`, `ZULU` code) is new and untested on real
-  hardware - not yet bench-confirmed that channel 3 ("SD3/SC3") is
-  actually wired to a third physical OLED unit, or that
+- Clock OLED (`u8g2_CLOCK`, `ZULU` code): confirmed working on the real
+  display (user, 7 November 2026). Not separately checked that
   `FSUIPCWinformsAutoCS`'s `zuluHours`/`zuluMinutes` offsets
   (`0x0238`/`0x0239`) report the expected values in the sim.
 - The no-data watchdog (30s, see above) is new and untested on real

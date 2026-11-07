@@ -2,7 +2,7 @@
 
 `DCSBiosBridge` is the bridge for **DCS World**. It reads the **DCS-BIOS** export stream, converts the values an aircraft **profile** names into the panel's real units, and sends them to the boards in the same `D,TOKEN:value` packets (UDP 13136) as the other bridges, so the board firmware does not change. It is a Windows Forms program (`net10.0-windows`) and is **output only**: it sends nothing to the simulator (the panel's switches already reach DCS as joystick buttons through the USB HID board). The first aircraft is the UH-1H Huey, but a profile is a data file, so another aircraft needs no new code, and an aircraft with no profile of its own still drives the real-unit gauges from DCS-BIOS's common data.
 
-Run only one bridge at a time. The bridge was run against live DCS for the Huey caution lamps (confirmed working); the gauge values added afterwards are tested with a synthetic stream and the real UH-1H and CommonData module files but have **not been flown against live DCS**.
+Run only one bridge at a time. The bridge has been run against live DCS (confirmed working by the user, 7 November 2026); the gauge values were also tested with a synthetic stream and the real UH-1H and CommonData module files.
 
 ## DCS-BIOS
 

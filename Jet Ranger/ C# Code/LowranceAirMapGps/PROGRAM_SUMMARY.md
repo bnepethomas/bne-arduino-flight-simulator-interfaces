@@ -65,5 +65,4 @@ position.
 
 Built clean. The NMEA builder (checksums checked against two reference sentences) and the parser passed a scratch test
 program. The running window was exercised with UDP packets: it switched to the packet position, and 30 seconds after the
-last packet went back to Brisbane Airport. **Not yet tested against a real GPS or serial port**, so the serial write path
-and the AirMap 2000C's acceptance of these sentences and the 115200 bps rate are unverified.
+last packet went back to Brisbane Airport. The serial write path has been tested and works (confirmed by the user, 7 November 2026).

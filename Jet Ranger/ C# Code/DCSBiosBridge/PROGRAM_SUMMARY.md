@@ -5,8 +5,8 @@ Windows Forms bridge (.NET 10) that feeds the Jet Ranger panel boards from **DCS
 the boards in the same `D,TOKEN:value` packets (UDP 13136) the other bridges use, so the board firmware does not change. Run only one bridge at a time.
 
 **Status (31 October 2026): output only.** It builds (Release, 0 warnings) and passes `tests\test_bridge.py` (an end-to-end test with a synthetic DCS-BIOS stream, 14 checks).
-The Huey caution lamps have been run against live DCS (confirmed working by the user); the gauge values added afterwards have been tested with the synthetic stream and the real
-UH-1H and CommonData module files, but **not yet flown against live DCS**.
+The bridge has been run against live DCS (confirmed working by the user, 7 November 2026); the gauge values were also tested with the synthetic stream and the real
+UH-1H and CommonData module files.
 DCS-BIOS v0.11.8 was installed on this PC on 31 October 2026 from the official release (`DCS-BIOS_v0.11.8.zip`, GitHub DCS-Skunkworks/dcs-bios) into
 `Saved Games\DCS\Scripts`: the `DCS-BIOS` folder and a new `Export.lua` (one line, `dofile(lfs.writedir() .. [[Scripts\DCS-BIOS\BIOS.lua]])`; there was
 no `Scripts` folder before). It sends nothing to the simulator (no inputs, no port 27001 radio commands yet).

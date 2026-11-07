@@ -104,5 +104,5 @@ Static IP `172.16.1.106`, MAC `A8:61:0A:67:83:6A`, data port 13136, heartbeat `D
 - The barometric OLED is initialised but never updated; nothing feeds it.
 - The altimeter digits ignore barometric offset.
 - Engine and rotor RPM tables assume 0 percent is 0 steps; `RSoffset` is not measured.
-- The Clock OLED (channel 3) answered on the I2C scan but its display has not been confirmed by eye.
+- The Clock OLED (channel 3) has been checked by eye and works (confirmed by the user, 7 November 2026).
 - **PCB version 1.4 (12 Oct 2026)** removes a short between Mega pins 2 and 32 (a copied net name joined fuel quantity coil A and fuel load coil A in copper). On a board older than 1.4 fit only one of those two gauges or cut the trace.
