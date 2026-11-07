@@ -211,3 +211,7 @@ Checked 7 November 2026 with the IP boxes set to 127.0.0.1 and a scratch UDP lis
 ## OLED brightness (7 November 2026)
 
 The **OLED brightness (0-15)** slider in the top button row sends `C,OLEDB:<level>` to the Dual Stepper (.106), which sets the contrast of its four SSD1306 OLEDs (barometer, altitude, clock and temperature; 0 = dimmest, 15 = full) separately from the backlight, the MAX7219 LEDs and the landing gear lamps. Use **OLEDs ON** (or live data) to see it. It needs the Dual Stepper on build 6 or later; an older build ignores the command. The window now has four brightness controls: backlight (top, `C,B`), OLEDs (`C,OLEDB`), MAX7219 panel LEDs (`C,LEDB`) and landing gear lamps (`C,GEARB`).
+
+## DME display (8 November 2026)
+
+The **DME display (Radio .101)** group (right column, under the Auto Pilot display) has **Distance (nm)** and **Speed (knots)** boxes (start at 12.3 and 120) and two buttons: **Send DME** sends `D,NAVCOM1:1,DMEDIST:<nm>,DMESPD:<knots>` to the Radio, which shows them on the DME OLED (for example `DME 12.3 NM` and `120 KT 6 MIN`), and **No DME** sends -1 for both (`DME --- NM`). It needs the Radio on build 12 or later. Built clean (Debug and Release); the packets have not been checked on the board yet.

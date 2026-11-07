@@ -71,3 +71,7 @@ the window at start and `--packet-board <radio, servo, stepper, dual, adf, gps, 
 second, keeping the last 6,000 for re-filtering, so a busy bridge is not slowed. Only packets that are really sent are shown: nothing appears while both the boards and the emulators boxes are
 unticked, or (DCS and X-Plane bridges) while no data is arriving. Tested with the DCS bridge and its synthetic stream (all boards, the `--packet-board stepper` filter, and the filter box changed
 while open); the MSFS and FSUIPC windows were checked (button, `--show-packets`) but no simulator data has gone through their monitor.
+
+## About window, version and build number (8 November 2026)
+
+The **About...** button on the toolbar (after Show packets...) opens it. **Raise `<BuildNumber>` in the project file by one every time this program is changed** (and `<Version>` for a larger change); the build date and time are stamped in automatically at every build, so they are always the time of the last build. `AboutForm.cs` reads them from the program (assembly metadata `BuildNumber` and `BuildDateTime`, and the assembly version) and shows the program name, version, build number and build date and time. The version is 1.0.0 and the build number started at 1 on 8 November 2026.

@@ -36,6 +36,7 @@ namespace XPlaneBridge
         readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
         readonly BoardTargets targets = new();
         readonly Button btnPackets = new() { Text = "Show packets...", AutoSize = true };
+        readonly Button btnAbout = new() { Text = "About...", AutoSize = true };
         PacketMonitorForm? packetMonitor;
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
         readonly Button btnSearch = new() { Text = "Search datarefs...", AutoSize = true };
@@ -57,6 +58,7 @@ namespace XPlaneBridge
             chkSend.Checked = chkSend.Checked && targets.ToBoards;
             chkEmu.Checked = targets.ToEmulators;
             btnPackets.Click += (_, _) => ShowPackets();
+            btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger X-Plane Bridge", "Reads X-Plane 11 and 12 datarefs over UDP and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP (output only)."); about.ShowDialog(this); };
             if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
 
             string? boardHost = args.GetValueOrDefault("board-host");
@@ -76,7 +78,7 @@ namespace XPlaneBridge
             var top = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 8, 8, 0), FlowDirection = FlowDirection.TopDown };
             top.Controls.AddRange(new Control[] { lblXPlane, lblProfile });
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend, chkEmu, btnPackets });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSearch, chkSend, chkEmu, btnPackets, btnAbout });
 
             lvValues.Columns.Add("Token", 170);
             lvValues.Columns.Add("X-Plane dataref", 400);

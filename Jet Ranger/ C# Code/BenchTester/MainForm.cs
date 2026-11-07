@@ -150,6 +150,11 @@ namespace BenchTester
         private readonly TextBox[] apValueBoxes = new TextBox[ApValues.Length];
         private readonly Button btnApSend = new() { Text = "Send values", AutoSize = true };
         private readonly Button btnApStartUp = new() { Text = "Start-up values", AutoSize = true };
+        // DME display (the Audio panel OLED on the Radio): "DMEDIST" in nautical miles and "DMESPD" in knots; -1 for both means no DME.
+        private readonly TextBox txtDmeDistance = new() { Text = "12.3", Width = 60, MaxLength = 6 };
+        private readonly TextBox txtDmeSpeed = new() { Text = "120", Width = 60, MaxLength = 4 };
+        private readonly Button btnDmeSend = new() { Text = "Send DME", AutoSize = true };
+        private readonly Button btnDmeNone = new() { Text = "No DME", AutoSize = true };
 
         // The three landing gear lamps on the ADF panel (ADF controller .107): "D,LDGN:1/0" (nose), "LDGL" (left) and "LDGR" (right).
         private static readonly (string Name, string Token)[] LandingGearLamps =
@@ -481,6 +486,30 @@ namespace BenchTester
             apFlow.Controls.Add(apButtons);
             apGroup.Controls.Add(apFlow);
 
+            // DME display: type the distance and the speed and send them to the Radio controller, which shows them on the DME OLED.
+            var dmeGroup = new GroupBox
+            {
+                Text = "DME display (Radio .101)",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(8, 4, 8, 8)
+            };
+            var dmeFlow = new FlowLayoutPanel { Location = new Point(10, 22), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
+            var dmeRow1 = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight, Margin = new Padding(0) };
+            dmeRow1.Controls.Add(new Label { Text = "Distance (nm)", Width = 130, Margin = new Padding(3, 6, 3, 0) });
+            dmeRow1.Controls.Add(txtDmeDistance);
+            var dmeRow2 = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight, Margin = new Padding(0) };
+            dmeRow2.Controls.Add(new Label { Text = "Speed (knots)", Width = 130, Margin = new Padding(3, 6, 3, 0) });
+            dmeRow2.Controls.Add(txtDmeSpeed);
+            var dmeButtons = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = true, Width = 300 };
+            dmeButtons.Controls.Add(btnDmeSend);
+            dmeButtons.Controls.Add(btnDmeNone);
+            dmeFlow.Controls.Add(dmeRow1);
+            dmeFlow.Controls.Add(dmeRow2);
+            dmeFlow.Controls.Add(dmeButtons);
+            dmeGroup.Controls.Add(dmeFlow);
+
             // ADF panel landing gear lamps: one toggle for each (nose, left, right) and All ON / All OFF, sent to the ADF controller.
             var ldgGroup = new GroupBox
             {
@@ -524,6 +553,7 @@ namespace BenchTester
             var rightColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
             rightColumn.Controls.Add(ledGroup);
             rightColumn.Controls.Add(apGroup);
+            rightColumn.Controls.Add(dmeGroup);
             var middleColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
             middleColumn.Controls.Add(lampGroup);
             middleColumn.Controls.Add(ldgGroup);
@@ -563,6 +593,8 @@ namespace BenchTester
             btnLdgOn.Click += async (_, _) => await SetAllLandingGearLampsAsync(true);
             btnLdgOff.Click += async (_, _) => await SetAllLandingGearLampsAsync(false);
             btnApSend.Click += async (_, _) => await SendApValuesAsync();
+            btnDmeSend.Click += async (_, _) => await SendDmeAsync(false);
+            btnDmeNone.Click += async (_, _) => await SendDmeAsync(true);
             btnApStartUp.Click += async (_, _) =>
             {
                 for (int i = 0; i < ApValues.Length; i++) apValueBoxes[i].Text = ApValues[i].StartUp;
@@ -815,6 +847,36 @@ namespace BenchTester
         /// Sends the five Auto Pilot display values to the Radio controller: "D,NAVCOM1:1,APHDG:090,APVS:0,APCRS:110,APIAS:80,APALT:3200"
         /// (NAVCOM1:1 keeps the radio's power flag on, because the display blanks with it).
         /// </summary>
+        /// <summary>Sends the DME readout to the Radio controller: "D,NAVCOM1:1,DMEDIST:12.3,DMESPD:120", or -1 for both with no DME.</summary>
+        private async Task SendDmeAsync(bool noDme)
+        {
+            try
+            {
+                string distance = "-1", speed = "-1";
+                if (!noDme)
+                {
+                    if (!double.TryParse(txtDmeDistance.Text.Trim(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double nm) || nm < 0 || nm > 9999)
+                    {
+                        lblStatus.Text = "DME distance: enter nautical miles from 0 to 9999 (for example 12.3).";
+                        return;
+                    }
+                    if (!int.TryParse(txtDmeSpeed.Text.Trim(), out int kt) || kt < 0 || kt > 999)
+                    {
+                        lblStatus.Text = "DME speed: enter knots from 0 to 999 (for example 120).";
+                        return;
+                    }
+                    distance = nm.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
+                    speed = kt.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+                await SendPacketAsync(BoardId.Radio, $"D,NAVCOM1:1,DMEDIST:{distance},DMESPD:{speed}");
+                lblStatus.Text = $"DME display: DMEDIST:{distance}  DMESPD:{speed} sent to the Radio.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "DME display send failed: " + ex.Message;
+            }
+        }
+
         private async Task SendApValuesAsync()
         {
             try

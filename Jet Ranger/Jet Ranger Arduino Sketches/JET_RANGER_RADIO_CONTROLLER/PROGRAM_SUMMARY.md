@@ -116,7 +116,7 @@ RAM (38%).
 - **I2C scan:** `scanI2C()` runs at start-up (after `Wire.begin()`) and on `C,I2CSCAN:1`. It scans 0x08-0x77 on the main bus with every TCA9548A channel off, then each channel 0-7 (the mux itself is
   skipped) and sends the results to the debug stream (`I2C main bus: ...`, `I2C TCA port n: 0x3C (OLED)`, `I2C TCA ports with nothing connected: ...`, `I2C scan done, N device(s) answered`). It sets
   `Wire.setWireTimeout(5000, true)` so a stuck bus reports `bus timeout` instead of hanging. A scan takes a second or two.
-- **DME display:** the Audio panel's OLED, mux channel 3 (`DME_OLED_Port`). `initCharOLED(DME_OLED_Port)` then `showDme("10M", "0M")` at start-up (each line padded to 16 characters).
+- **DME display:** the Audio panel's OLED, mux channel 3 (`DME_OLED_Port`). `initCharOLED(DME_OLED_Port)` then `showDme()` with the no-data text (`DME --- NM` and `--- KT -- MIN`, build 13; it was `10M` and `0M` before) at start-up (each line padded to 16 characters).
 - **Matrix debounce:** `scanMatrix()` samples each key once per millisecond with two readings 3 us apart (a disagreement skips the sample) and debounces by integration (`keyIntegrator[][]`, 0 = down to
   `MATRIX_INTEGRATOR_MAX` = 12 = up; a key changes state at either end), replacing the 50 ms timer that restarted on every differing reading and could hold a release back. Compiled at 34,518 bytes flash (13%) /
   4,979 bytes RAM (60%).
@@ -295,7 +295,7 @@ not yet flashed.
 
 ## DME display blanking and the ADF display message (2026-10-25)
 
-- **DME display:** `updateDme()` (with `dmeTopText` / `dmeBottomText`, `10M` and `0M`, and `dmeDrawnPower`) blanks the Audio panel's OLED while the radio has no power or the no-data timeout has fired and redraws it when they come back; it is called wherever `updateAP()` is.
+- **DME display:** `updateDme()` (with `dmeTopText` / `dmeBottomText`, dashes until DME values arrive, and `dmeDrawnPower`) blanks the Audio panel's OLED while the radio has no power or the no-data timeout has fired and redraws it when they come back; it is called wherever `updateAP()` is.
 - **ADF controller display:** `updateDme()` calls `sendAdfDisplay(on)`, which sends `C,DISPLAY:1` or `C,DISPLAY:0` to 172.16.1.107:13136 on every change and again every 10 s (`ADF_DISPLAY_RESEND_MS`) so the ADF controller blanks its OLED and landing gear lamps with the Radio's displays. A failed send pauses these sends for 30 s (`ADF_RETRY_MS`) and logs `ADF controller 172.16.1.107 not answering`, like the HID board.
 - Compiled at 39,422 bytes flash (15%) / 5,395 bytes RAM (65%). Flashed to COM20; not bench-tested.
 
@@ -334,3 +334,14 @@ While the start-up hold is on the backlight is **100 percent** (`STARTUP_BACKLIG
 **Build 10 (8 November 2026): no more "Handling ..." debug lines.** `HandleOutputValuePair()` used to send `Handling <token>:<value>` to the debug stream for every token it handled (`NAVCOM1:n` and the other values arrive in every radio packet, about ten a second); the line is commented out for all tokens. The other debug lines are unchanged. Compiled at 42,092 bytes flash (16%) and 6,067 bytes RAM (74%); not flashed yet.
 
 **Build 11 (8 November 2026): no more "Received NAVCOM1" and "Received MAINBUS" debug lines.** `HandleOutputValuePair()` sent `Received NAVCOM1: <value>` for every radio packet (about ten a second); that line and the `Received MAINBUS` line next to it (its token name is `NOTMAINBUS`, so it never matched) are commented out. `NAVCOM1 Status Changed` is still sent, once, when the power flag changes, and `RESET command received - rebooting` is unchanged. Compiled at 41,930 bytes flash (16%) and 6,029 bytes RAM (73%); not flashed yet.
+
+## DME display readout (8 November 2026, build 12)
+
+The DME display (the Audio panel OLED) now shows a live readout once the bridge sends it (and the no-data dashes until then). Two new data tokens in the radio packet: **`DMEDIST`** (nautical miles to one decimal; -1 = no DME) and **`DMESPD`** (knots; -1 = none). `setDmeFromToken()` stores them (distance in tenths, so the display is only redrawn when the shown value changes), `buildDmeText()` builds the two 16 character lines and the loop redraws when `dmeValuesChanged` is set; the power and start-up hold rules are unchanged (it is lit during the hold, blank when the radio has no power).
+
+- Top line: `DME 12.3 NM` (one decimal below 100 nm, none above; `DME --- NM` with no DME).
+- Bottom line: `120 KT 6 MIN`, the speed and the time to the station (distance / speed x 60, at most 99; `-- MIN` when the speed is 0 or unknown; `--- KT` with no DME).
+
+The MSFS bridge sends the tokens (see its summary) and the BenchTester has a DME display group. The FSUIPC, DCS and X-Plane bridges do not send them yet, so with those the display keeps the start-up text. Compiled at 44,204 bytes flash (17%) and 6,114 bytes RAM (74%); not flashed yet.
+
+**Build 13 (8 November 2026): the DME display starts with dashes.** The start-up text of the DME OLED is now `DME --- NM` over `--- KT -- MIN`, the text for no DME data, instead of `10M` over `0M`. It stays until the first DME values arrive from the bridge (`DMEDIST` and `DMESPD`; the MSFS bridge sends them, the other bridges do not yet). Compiled at 44,204 bytes flash (17%) and 6,114 bytes RAM (74%); not flashed yet.

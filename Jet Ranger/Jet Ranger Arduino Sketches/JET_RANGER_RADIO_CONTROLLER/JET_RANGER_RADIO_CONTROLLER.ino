@@ -146,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 11
+#define FIRMWARE_BUILD 13
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -453,7 +453,7 @@ bool setAutoPilotValueFromToken(const String& name, String value) {
   return true;
 }
 
-// Writes two lines of up to 16 characters to the DME display ("10M" and "0M" at start-up). Each line is padded with spaces so a shorter text
+// Writes two lines of up to 16 characters to the DME display (dashes at start-up: no DME data yet). Each line is padded with spaces so a shorter text
 // replaces a longer one.
 void showDme(const char* topLine, const char* bottomLine) {
   char line[17];
@@ -498,9 +498,15 @@ void sendAdfDisplay(bool on) {
 }
 
 // The text on the DME display, and the power state it was last drawn with.
-const char* dmeTopText = "10M";
-const char* dmeBottomText = "0M";
+// The DME display shows two lines of up to 16 characters: dashes (no DME data) from start-up until the first DME values arrive from the bridge, then
+//   "DME 12.3 NM"        the distance to the tuned DME station (nautical miles; "---" when there is no DME)
+//   "120 KT  6 MIN"      the ground speed towards the station (knots) and the time to it (minutes, "--" when it cannot be worked out)
+char dmeTopText[17] = "DME --- NM";       // no DME data yet: dashes, the same text buildDmeText() makes when there is no DME
+char dmeBottomText[17] = "--- KT -- MIN";
 bool dmeDrawnPower = true;
+bool dmeValuesChanged = false;
+int dmeDistanceTenths = -11;   // distance in tenths of a nautical mile; -10 = no DME, -11 = nothing received yet (so the first packet always redraws)
+int dmeSpeedKnots = -2;        // knots; -1 = none, -2 = nothing received yet
 
 // Draws the DME display: its text while the radio has power, blank otherwise (like the COM, NAV and Auto Pilot displays).
 void updateDme() {
@@ -512,6 +518,39 @@ void updateDme() {
     tcaselect(DME_OLED_Port);
     sendCommand(cmd_CLS);
   }
+}
+
+// Builds the two DME lines from the distance and the speed.
+void buildDmeText() {
+  char dist[8];
+  if (dmeDistanceTenths < 0) strcpy(dist, "---");
+  else if (dmeDistanceTenths < 1000) snprintf(dist, sizeof(dist), "%d.%d", dmeDistanceTenths / 10, dmeDistanceTenths % 10);
+  else snprintf(dist, sizeof(dist), "%d", dmeDistanceTenths / 10);
+  snprintf(dmeTopText, sizeof(dmeTopText), "DME %s NM", dist);
+  char speed[6], minutes[5];
+  if (dmeSpeedKnots < 0) strcpy(speed, "---");
+  else snprintf(speed, sizeof(speed), "%d", constrain(dmeSpeedKnots, 0, 999));
+  if (dmeDistanceTenths >= 0 && dmeSpeedKnots > 0) snprintf(minutes, sizeof(minutes), "%d", constrain((int)((dmeDistanceTenths * 6L + dmeSpeedKnots / 2) / dmeSpeedKnots), 0, 99));  // distance / speed x 60 minutes
+  else strcpy(minutes, "--");
+  snprintf(dmeBottomText, sizeof(dmeBottomText), "%s KT %s MIN", speed, minutes);
+}
+
+// "DMEDIST", "12.3" (nautical miles, -1 = no DME) or "DMESPD", "120" (knots): returns true if the token was one of the DME values. The display is
+// redrawn from the loop when a value has changed.
+bool setDmeFromToken(const String& name, String value) {
+  value.trim();
+  if (name == "DMEDIST") {
+    float distance = value.toFloat();
+    int tenths = (distance < 0) ? -10 : (int)(distance * 10.0f + 0.5f);
+    if (tenths != dmeDistanceTenths) { dmeDistanceTenths = tenths; dmeValuesChanged = true; }
+  } else if (name == "DMESPD") {
+    int knots = (int)(value.toFloat() + (value.toFloat() < 0 ? -0.5f : 0.5f));
+    if (knots != dmeSpeedKnots) { dmeSpeedKnots = knots; dmeValuesChanged = true; }
+  } else {
+    return false;
+  }
+  if (dmeValuesChanged) buildDmeText();
+  return true;
 }
 
 // The PC bridges send frequencies with 2 or 3 decimals ("128.30", "127.8").
@@ -1463,6 +1502,8 @@ void ProcessReceivedMSFSString() {
       updateAP();
     }
     if (dmeDrawnPower != radioPowered()) updateDme();  // the radio power changed
+    else if (dmeValuesChanged && radioPowered()) showDme(dmeTopText, dmeBottomText);  // new DME values
+    dmeValuesChanged = false;
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -1498,6 +1539,12 @@ void HandleOutputValuePair(String str) {
     backlightPowered = (str.substring(5).toInt() != 0);
     applyBacklight();
     return;
+  }
+
+  // DME values ("DMEDIST:12.3", "DMESPD:120"): not logged one by one either.
+  if (str.startsWith("DME")) {
+    int dmeColon = str.indexOf(':');
+    if (dmeColon > 0 && setDmeFromToken(str.substring(0, dmeColon), str.substring(dmeColon + 1))) return;
   }
 
   // Auto Pilot display values ("APHDG:090" ...): not logged one by one either.

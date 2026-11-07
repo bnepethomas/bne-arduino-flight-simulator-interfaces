@@ -36,8 +36,8 @@ namespace MSFSWinformsAutoCS
         private const int WM_USER_SIMCONNECT = 0x0402;
         private SimConnect? simconnect = null;
 
-        enum DEFINITIONS { PanelData, PanelAp, PanelAudio, PanelApValues }
-        enum DATA_REQUESTS { PanelData, PanelAp, PanelAudio, PanelApValues }
+        enum DEFINITIONS { PanelData, PanelAp, PanelAudio, PanelApValues, PanelDme }
+        enum DATA_REQUESTS { PanelData, PanelAp, PanelAudio, PanelApValues, PanelDme }
         enum GROUP_ID { GROUP0 }
 
         enum EVENTS
@@ -240,6 +240,23 @@ namespace MSFSWinformsAutoCS
             public double AUTOPILOT_ALTITUDE_LOCK_VAR;
         }
 
+        // The DME readout (NAV1's DME) for the Radio controller's DME display: in a request of its own, like the others.
+        private static readonly (string Name, string Units)[] DmeVars =
+        {
+            ("NAV HAS DME:1", "bool"),
+            ("NAV DME:1", "nautical miles"),
+            ("NAV DMESPEED:1", "knots"),
+        };
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        private struct PanelDmeData
+        {
+            public double NAV_HAS_DME_1;
+            public double NAV_DME_1;
+            public double NAV_DMESPEED_1;
+        }
+
+        private PanelDmeData _latestDme;
         private PanelApData _latestAp;
         private PanelAudioData _latestAudio;
         private PanelApValueData _latestApValues;
@@ -382,6 +399,7 @@ namespace MSFSWinformsAutoCS
         private string navCom1On = "";
         private string panelLedText = "";
         private string panelValueText = "";
+        private string panelDmeText = "";
         private DateTime radioTimeLastPacketSent = DateTime.Now;
         private DateTime frontPanelTimeLastPacketSent = DateTime.Now;
 
@@ -400,6 +418,9 @@ namespace MSFSWinformsAutoCS
         }
         private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
         private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+        private readonly Button btnAbout = new() { Text = "About...", Location = new Point(190, 72), Size = new Size(112, 27) };
+        // Pause freezes the data out text box (what is on screen); the data keeps going to the boards.
+        private readonly CheckBox chkPause = new() { Text = "Pause data out", AutoSize = true, Location = new Point(22, 94) };
 
         private void SetUpTargets()
         {
@@ -408,13 +429,22 @@ namespace MSFSWinformsAutoCS
             chkEmulators.Checked = targets.ToEmulators;
             chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
             chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
-            textBox1.Top += 52;                 // make room under the Avionics Master box for the two check boxes
-            textBox1.Height -= 52;
+            textBox1.Top += 74;                 // make room under the Avionics Master box for the two check boxes and the Pause box
+            textBox1.Height -= 74;
+            btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger MSFS Bridge", "Reads Microsoft Flight Simulator 2020 and 2024 through SimConnect and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP."); about.ShowDialog(this); };
+            // The data out text box grows and shrinks with the window (the lamp list stays against the right edge). Set at Load, once the window has its final size.
+            Load += (_, _) =>
+            {
+                textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                if (_lightList != null) _lightList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            };
             btnPackets.Click += (_, _) => ShowPackets();
             if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
             Controls.Add(btnPackets);
             Controls.Add(chkBoards);
             Controls.Add(chkEmulators);
+            Controls.Add(btnAbout);
+            Controls.Add(chkPause);
         }
 
         // A ListView showing the warning lamp states
@@ -530,6 +560,13 @@ namespace MSFSWinformsAutoCS
                 SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
                 SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 6, 0);
 
+            foreach (var (name, units) in DmeVars)
+                simconnect.AddToDataDefinition(DEFINITIONS.PanelDme, name, units, SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.RegisterDataDefineStruct<PanelDmeData>(DEFINITIONS.PanelDme);
+            simconnect.RequestDataOnSimObject(DATA_REQUESTS.PanelDme, DEFINITIONS.PanelDme,
+                SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
+                SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 12, 0);   // about 5 times a second
+
             // Client events used by the commands that come back from the radio board.
             simconnect.MapClientEventToSimEvent(EVENTS.COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
@@ -562,6 +599,8 @@ namespace MSFSWinformsAutoCS
                 throw new InvalidOperationException("PanelAudioData and AudioVars are out of step.");
             if (typeof(PanelApValueData).GetFields().Length != ApValueVars.Length)
                 throw new InvalidOperationException("PanelApValueData and ApValueVars are out of step.");
+            if (typeof(PanelDmeData).GetFields().Length != DmeVars.Length)
+                throw new InvalidOperationException("PanelDmeData and DmeVars are out of step.");
         }
 
         private void CloseSimConnect()
@@ -576,6 +615,7 @@ namespace MSFSWinformsAutoCS
             _latestAp = default;
             _latestAudio = default;
             _latestApValues = default;
+            _latestDme = default;
         }
 
         private void simconnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
@@ -603,6 +643,7 @@ namespace MSFSWinformsAutoCS
             if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAp) { _latestAp = (PanelApData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelAudio) { _latestAudio = (PanelAudioData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelApValues) { _latestApValues = (PanelApValueData)data.dwData[0]; return; }
+            if ((DATA_REQUESTS)data.dwRequestID == DATA_REQUESTS.PanelDme) { _latestDme = (PanelDmeData)data.dwData[0]; return; }
             if ((DATA_REQUESTS)data.dwRequestID != DATA_REQUESTS.PanelData) return;
             _latest = (PanelData)data.dwData[0];
             _lastDataUtc = DateTime.UtcNow;
@@ -745,12 +786,16 @@ namespace MSFSWinformsAutoCS
             s.ApAirspeed = (int)Math.Round(apv.AUTOPILOT_AIRSPEED_HOLD_VAR);
             s.ApVerticalSpeed = (int)Math.Round(apv.AUTOPILOT_VERTICAL_HOLD_VAR);
             s.ApAltitude = (int)Math.Round(apv.AUTOPILOT_ALTITUDE_LOCK_VAR);
+            PanelDmeData dme = _latestDme;
+            s.DmeValid = dme.NAV_HAS_DME_1 > 0.5;
+            s.DmeDistanceNm = dme.NAV_DME_1;
+            s.DmeSpeedKnots = dme.NAV_DMESPEED_1;
             if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);
             if (s.CowaSim) s.TransTempCelsius = s.OilTempCelsius * CowaSimTransmissionTempOfOilTemp;
 
             // --- On-screen readout and lamps ---
-            textBox1.Text = BuildReadout(s);
+            if (!chkPause.Checked) textBox1.Text = BuildReadout(s);   // Pause data out freezes the text box
             UpdateLights(s);
             _suppressAvionicsEvent = true;
             chkAvionicsMaster.Checked = s.AvionicsMaster;
@@ -765,6 +810,7 @@ namespace MSFSWinformsAutoCS
             TrackRadioChange(ref navCom1On, Payloads.RadioPowered(s) ? "1" : "0");
             TrackRadioChange(ref panelLedText, Payloads.LedTokens(s.Leds, Payloads.RadioPowered(s)));
             TrackRadioChange(ref panelValueText, Payloads.ApValueTokens(s));
+            TrackRadioChange(ref panelDmeText, Payloads.DmeTokens(s));
 
             int radioMs = (int)(DateTime.Now - radioTimeLastPacketSent).TotalMilliseconds;
             if ((radioMs >= 200 && radioFrequencyChanged) || radioMs >= 5000)

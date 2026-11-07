@@ -42,6 +42,8 @@ namespace MSFSWinformsAutoCS
         public PanelLedState Leds;                 // autopilot and audio panel LEDs (see PanelLedState)
         public int ApHeading, ApCourse;            // the autopilot heading bug and the NAV1 OBS, degrees (north is 360)
         public int ApAirspeed, ApVerticalSpeed, ApAltitude;   // the autopilot airspeed (knots), vertical speed (feet per minute) and altitude (feet)
+        public bool DmeValid;                      // NAV1 has a DME station in range
+        public double DmeDistanceNm, DmeSpeedKnots;   // distance to the DME station (nautical miles) and the speed towards it (knots)
     }
 
     // The 19 LEDs on the Auto Pilot and Audio panels, driven by the Radio controller's MAX7219.
@@ -256,6 +258,13 @@ namespace MSFSWinformsAutoCS
              + ",APVS:" + s.ApVerticalSpeed.ToString(Inv)
              + ",APALT:" + s.ApAltitude.ToString(Inv);
 
+        // The DME readout for the DME display: ",DMEDIST:12.3,DMESPD:120" (nautical miles to one decimal, knots). -1 for both when NAV1 has no DME,
+        // and a negative speed (moving away from the station) is sent as 0.
+        public static string DmeTokens(SimSnapshot s)
+            => s.DmeValid
+                ? ",DMEDIST:" + Math.Max(0.0, s.DmeDistanceNm).ToString("F1", Inv) + ",DMESPD:" + Math.Max(0, (int)Math.Round(s.DmeSpeedKnots)).ToString(Inv)
+                : ",DMEDIST:-1,DMESPD:-1";
+
         // Radio board (.101).
         public static string Radio(SimSnapshot s)
             => "D,C1A:" + Freq(s.Com1Active)
@@ -266,6 +275,7 @@ namespace MSFSWinformsAutoCS
              + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0")
              + ",BPWR:" + (GaugesPowered(s) ? "1" : "0")        // backlight on only while the main bus is 20 V or more
              + LedTokens(s.Leds, RadioPowered(s))
-             + ApValueTokens(s);
+             + ApValueTokens(s)
+             + DmeTokens(s);
     }
 }

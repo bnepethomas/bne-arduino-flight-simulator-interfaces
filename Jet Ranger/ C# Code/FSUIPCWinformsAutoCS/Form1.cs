@@ -117,6 +117,12 @@ namespace FSUIPCTest
         private Offset<short> apVerticalSpeedValue = new Offset<short>("RadioStack", 0x07F2);
         private Offset<ushort> nav1Obs = new Offset<ushort>("RadioStack", 0x0C4E);
 
+        // The DME readout for the Radio controller's DME display: NAV1's DME distance (nautical miles * 10) and speed (knots * 10), and the bit that says NAV1 has a DME
+        // (bit 4 of the radio and autopilot status word at 0x3300).
+        private Offset<ushort> dme1Distance = new Offset<ushort>("RadioStack", 0x0300);
+        private Offset<short> dme1Speed = new Offset<short>("RadioStack", 0x0302);
+        private Offset<ushort> radioStatusFlags = new Offset<ushort>("RadioStack", 0x3300);
+
 
 
 
@@ -249,6 +255,17 @@ namespace FSUIPCTest
                  + ",APALT:" + altitudeFeet.ToString();
         }
 
+        // The DME readout for the DME display as ",DMEDIST:12.3,DMESPD:120" (nautical miles to one decimal, knots). -1 for both when NAV1 has no DME;
+        // a negative speed (moving away from the station) is sent as 0.
+        private string BuildDmePayload()
+        {
+            if ((radioStatusFlags.Value & 0x0010) == 0) return ",DMEDIST:-1,DMESPD:-1";
+            double nauticalMiles = dme1Distance.Value / 10.0;
+            int knots = Math.Max(0, (int)Math.Round(dme1Speed.Value / 10.0));
+            return ",DMEDIST:" + nauticalMiles.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)
+                 + ",DMESPD:" + knots.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        }
+
         // The 19 LEDs on the Auto Pilot and Audio panels (driven by the Radio controller's MAX7219) as
         // ",LED_CRS:1,LED_HDG:0,...". Everything is 0 while the avionics bus is below 24 V (powered = false), like the radio displays.
         private string BuildPanelLedPayload(bool powered)
@@ -283,6 +300,7 @@ namespace FSUIPCTest
         private String CIRCUIT_NAVCOM1_ON = "";
         private String panelLedText = "";    // ",LED_CRS:0,LED_HDG:1,..." as last sent in the radio packet
         private String panelValueText = "";  // ",APHDG:090,APCRS:110,..." as last sent in the radio packet
+        private String panelDmeText = "";    // ",DMEDIST:12.3,DMESPD:120" as last sent in the radio packet
 
 
         // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
@@ -362,6 +380,9 @@ namespace FSUIPCTest
         }
         private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
         private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+        private readonly Button btnAbout = new() { Text = "About...", Location = new Point(190, 72), Size = new Size(112, 27) };
+        // Pause freezes the data out text box (what is on screen); the data keeps going to the boards.
+        private readonly CheckBox chkPause = new() { Text = "Pause data out", AutoSize = true, Location = new Point(22, 94) };
 
         private void SetUpTargets()
         {
@@ -370,13 +391,22 @@ namespace FSUIPCTest
             chkEmulators.Checked = targets.ToEmulators;
             chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
             chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
-            textBox1.Top += 52;                 // make room under the Avionics Master box for the two check boxes
-            textBox1.Height -= 52;
+            textBox1.Top += 74;                 // make room under the Avionics Master box for the two check boxes and the Pause box
+            textBox1.Height -= 74;
+            btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger FSUIPC Bridge", "Reads Prepar3D and FSX through FSUIPC and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP."); about.ShowDialog(this); };
+            // The data out text box grows and shrinks with the window (the lamp list stays against the right edge). Set at Load, once the window has its final size.
+            Load += (_, _) =>
+            {
+                textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+                if (_lightList != null) _lightList.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            };
             btnPackets.Click += (_, _) => ShowPackets();
             if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
             Controls.Add(btnPackets);
             Controls.Add(chkBoards);
             Controls.Add(chkEmulators);
+            Controls.Add(btnAbout);
+            Controls.Add(chkPause);
         }
 
         public Form1()
@@ -611,6 +641,14 @@ namespace FSUIPCTest
                     panelValueText = panelValueNow;
                 }
 
+                // DME readout for the DME display: a change goes out like a frequency change.
+                string panelDmeNow = BuildDmePayload();
+                if (panelDmeText != panelDmeNow)
+                {
+                    radioFrequencyChanged = true;
+                    panelDmeText = panelDmeNow;
+                }
+
                 // Autopilot and audio panel LEDs: a change goes out like a frequency change.
                 string panelLedNow = BuildPanelLedPayload(navCom1OnFlag == "1");
                 if (panelLedText != panelLedNow)
@@ -634,6 +672,7 @@ namespace FSUIPCTest
                     radioPayload += ",BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0");    // backlight on only while the main bus is 20 V or more
                     radioPayload += panelLedText;
                     radioPayload += panelValueText;
+                    radioPayload += panelDmeText;
                     Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
                     targets.Send(udpClient, radioSendData);
                     RadioTimeLastPacketSent = DateTime.Now;
@@ -674,7 +713,7 @@ namespace FSUIPCTest
                 
 
 
-                this.textBox1.Text = outstring;
+                if (!chkPause.Checked) this.textBox1.Text = outstring;   // Pause data out freezes the text box
 
 
                 // --- Annunciator bit extraction ---

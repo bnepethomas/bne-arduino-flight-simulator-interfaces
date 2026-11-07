@@ -13,4 +13,17 @@
     <PackageReference Include="FSUIPCClientDLL" Version="3.3.6" />
   </ItemGroup>
 
+  <!-- Version, build number and build date. RAISE BuildNumber BY ONE EVERY TIME THIS PROGRAM IS CHANGED (and Version for a larger change); the build date
+       and time are stamped in automatically at every build. Both are shown in the About window. -->
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <BuildNumber>1</BuildNumber>
+    <FileVersion>1.0.0.$(BuildNumber)</FileVersion>
+    <BuildDateTime>$([System.DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss'))</BuildDateTime>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute"><_Parameter1>BuildNumber</_Parameter1><_Parameter2>$(BuildNumber)</_Parameter2></AssemblyAttribute>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute"><_Parameter1>BuildDateTime</_Parameter1><_Parameter2>$(BuildDateTime)</_Parameter2></AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

@@ -45,6 +45,7 @@ namespace DCSBiosBridge
         readonly CheckBox chkEmu = new() { Text = "Send to the emulators", AutoSize = true };
         readonly BoardTargets targets = new();
         readonly Button btnPackets = new() { Text = "Show packets...", AutoSize = true };
+        readonly Button btnAbout = new() { Text = "About...", AutoSize = true };
         PacketMonitorForm? packetMonitor;
         readonly NumericUpDown numZone = new() { Minimum = -12, Maximum = 14, DecimalPlaces = 1, Increment = 0.5M, Width = 55 };
         readonly Button btnReload = new() { Text = "Reload profiles", AutoSize = true };
@@ -69,6 +70,7 @@ namespace DCSBiosBridge
             chkSend.Checked = chkSend.Checked && targets.ToBoards;
             chkEmu.Checked = targets.ToEmulators;
             btnPackets.Click += (_, _) => ShowPackets();
+            btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger DCS Bridge", "Reads DCS World through the DCS-BIOS export stream and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP (output only)."); about.ShowDialog(this); };
             if (targets.ShowPacketsAtStart) Shown += (_, _) => ShowPackets();
             if (decimal.TryParse(args.GetValueOrDefault("utc-offset"), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var zone) && zone >= numZone.Minimum && zone <= numZone.Maximum) numZone.Value = zone;
 
@@ -86,7 +88,7 @@ namespace DCSBiosBridge
             top.Controls.AddRange(new Control[] { lblStream, lblAircraft, lblProfile });
             top.FlowDirection = FlowDirection.TopDown;
             var bar = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 4, 8, 4) };
-            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, chkEmu, btnPackets, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
+            bar.Controls.AddRange(new Control[] { new Label { Text = "Profile", AutoSize = true, Margin = new Padding(0, 6, 3, 0) }, cboProfile, btnReload, btnSuggest, btnCalibrate, btnClearCal, chkSend, chkEmu, btnPackets, btnAbout, new Label { Text = "Mission time zone (hours from UTC)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) }, numZone });
 
             lvValues.Columns.Add("Token", 180);
             lvValues.Columns.Add("DCS-BIOS control", 230);
