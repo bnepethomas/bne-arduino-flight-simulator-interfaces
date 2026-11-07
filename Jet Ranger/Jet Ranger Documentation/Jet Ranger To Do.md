@@ -13,6 +13,7 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 - [x] **Mask the unwanted backlight.** Block the light that leaks where it should not shine (around the panels and gauges), so only the lettering and markings are backlit. (done, confirmed 2026-11-07)
 - [x] **Replace the backlight in the pitch and roll indicator** (the attitude indicator on the Servo controller). (done, confirmed 2026-11-07)
+- [ ] **Install a 100 uF capacitor on the MAX7219** (Radio controller, Radio Auto Pilot PCB), across its supply (V+ to GND) as close to the chip as possible. It should steady the 5 V when many LEDs are lit at once, which may help the scattered LEDs that do not light during the start-up hold (the Radio's 5 V rail reads low). Mind the polarity if it is an electrolytic. Afterwards compare how many LEDs light with All ON and the board test, at low and at full brightness (`C,LEDB`).
 
 ## Firmware and software
 
@@ -45,6 +46,7 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 - [ ] **ADF panel on the combined board:** all seven switches at their new pins (gear D31, flaps D32, speed brakes D33, brakes D34, hyd boost D35, anti-ice D36, caution dim D37; debug lines such as `ANTI-ICE closed (joystick button index 112)`), the display and lamps blanking and returning with the Radio, and the backlight following `BPWR`, `C,B` and the 30 s no-data timeout. The 12 V reading and the keypad are done (2026-10-31).
 - [ ] **Upper panel on the combined board:** every matrix switch (debug lines `Front Input - <index>:<state>`, joystick buttons on Joystick 1 to 3), the Warning Mute and TOT Test connectors (indexes 88 and 89), the Upper keypad (`Upper key pressed: <key>`, keys typed on the HID board), and that the ADF knobs still tune smoothly while the matrix is scanned.
+- [ ] **Check why the back course (BC) LED does not light** on the Auto Pilot panel (found 2026-11-07). In the Radio sketch it is `LED_BC` on MAX7219 digit 1 (`CATHODE_01`), segment column 3 (`ANNODE_02`); try it on its own from the BenchTester's Panel LEDs group (BC toggle, Chase, and All ON at a low and a high brightness) and with the board test (`C,LEDTEST:1`). If it never lights, check the LED and its polarity, its anode and cathode traces and solder joints on the panel PCB and connector, and that the Radio Auto Pilot PCB net for that segment and digit is connected; if it lights alone but not with the others, suspect the supply and current (the Radio's 5 V rail reads low, 4.15 to 4.65 V, and the start-up hold lights all 39 LEDs at once), and try a lower `C,LEDB` level.
 - [ ] **Huey Warning Panel:** the switches (Joystick 4 buttons 20 to 22), the lamp test while TEST is closed, and each LED from the BenchTester, (the Radio was flashed with the Huey build on 2026-10-31).
 - [ ] **Radio:** the DME display blanking and returning with the other Radio displays.
 - [ ] **Servo:** the fuel pump and fuel filter outputs after the pin swap (fuel pump now A11, aft fuel filter A12).

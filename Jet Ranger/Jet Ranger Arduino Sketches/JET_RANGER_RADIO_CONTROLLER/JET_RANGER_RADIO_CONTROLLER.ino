@@ -146,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 8
+#define FIRMWARE_BUILD 9
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -644,7 +644,7 @@ void endBacklightStartupHold(const String& why) {
 #define MAX7219_DIN A15
 #define MAX7219_CLK A14
 #define MAX7219_LOAD A13
-#define MAX7219_INTENSITY 8  // 0 to 15: the level used until a C,B brightness command arrives
+#define MAX7219_INTENSITY 15  // 0 to 15: the level used from power-up (maximum) until a C,LEDB or C,B brightness command arrives
 
 LedControl panelLeds(MAX7219_DIN, MAX7219_CLK, MAX7219_LOAD, 1);
 

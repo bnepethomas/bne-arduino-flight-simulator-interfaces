@@ -162,9 +162,9 @@ namespace BenchTester
         private bool suppressLdgEvents;
         private readonly Button btnLdgOn = new() { Text = "All ON", AutoSize = true };
         private readonly Button btnLdgOff = new() { Text = "All OFF", AutoSize = true };
-        // Brightness of the MAX7219 panel LEDs on the Radio ("C,LEDB:0-15", 0 = off, the board starts at 8) and of the landing gear lamps on the ADF controller ("C,GEARB:0-15", 0 = off, 15 = full).
-        private readonly TrackBar trkLedBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 170, AutoSize = false, Height = 32 };
-        private readonly Label lblLedBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
+        // Brightness of the MAX7219 panel LEDs on the Radio ("C,LEDB:0-15", 0 = off, the board starts at 15, maximum) and of the landing gear lamps on the ADF controller ("C,GEARB:0-15", 0 = off, 15 = full).
+        private readonly TrackBar trkLedBrightness = new() { Minimum = 0, Maximum = 15, Value = 15, TickFrequency = 1, Width = 170, AutoSize = false, Height = 32 };
+        private readonly Label lblLedBrightness = new() { Text = "15", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
         // Brightness of the four SSD1306 OLEDs on the Dual Stepper controller ("C,OLEDB:0-15", 0 = dimmest, 15 = full contrast).
         private readonly TrackBar trkOledBrightness = new() { Minimum = 0, Maximum = 15, Value = 15, TickFrequency = 1, Width = 150, AutoSize = false, Height = 32 };
         private readonly Label lblOledBrightness = new() { Text = "15", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
