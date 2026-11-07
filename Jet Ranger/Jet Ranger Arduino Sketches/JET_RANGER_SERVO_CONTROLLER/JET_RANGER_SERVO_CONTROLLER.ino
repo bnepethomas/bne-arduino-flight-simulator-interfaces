@@ -150,7 +150,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Servo Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 5
+#define FIRMWARE_BUILD 6
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -1290,7 +1290,7 @@ void loop() {
 
     MSFSpacketsize = MSFSudp.parsePacket();
     if (MSFSpacketsize > 0) {
-      SendDebug("Received a MSFS Packet");
+      // SendDebug("Received a MSFS Packet");   // not sent: one line for every packet, about ten a second
 
       MSFSLen = MSFSudp.read(packetBuffer, 1000);
 

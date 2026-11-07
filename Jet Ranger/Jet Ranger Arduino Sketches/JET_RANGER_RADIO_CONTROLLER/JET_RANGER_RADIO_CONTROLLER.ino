@@ -146,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 9
+#define FIRMWARE_BUILD 11
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -1522,7 +1522,7 @@ void HandleOutputValuePair(String str) {
 
 
   //if (Debug_Display || bLocalDebug ) SendDebug("Handling " + str);
-  SendDebug("Handling " + str);
+  // SendDebug("Handling " + str);   // not sent for any token: NAVCOM1:n and the other values arrive in every packet (about ten a second)
 
   int delimeterlocation = 0;
   String workstring = "";
@@ -1583,7 +1583,7 @@ void HandleOutputValuePair(String str) {
         radioFrequencyChanged = true;
       };
     } else if (ParameterName == "NOTMAINBUS") {
-      SendDebug("Received MAINBUS: " + ParameterValue);
+      // SendDebug("Received MAINBUS: " + ParameterValue);
       if (mainBusVoltage != ParameterValue) {
         SendDebug("Main Bus Voltage Changed");
         // Only set if it has been more 500mS since last update from local encoder
@@ -1596,7 +1596,7 @@ void HandleOutputValuePair(String str) {
         radioFrequencyChanged = true;
       }
     } else if (ParameterName == "NAVCOM1") {
-      SendDebug("Received NAVCOM1: " + ParameterValue);
+      // SendDebug("Received NAVCOM1: " + ParameterValue);   // not sent: NAVCOM1 arrives in every packet (about ten a second)
       if (navCom1Status != ParameterValue) {
         SendDebug("NAVCOM1 Status Changed");
         // Only set if it has been more 500mS since last update from local encoder
