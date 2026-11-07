@@ -29,7 +29,7 @@ offsets. Written 2026-10-17 and since run against MSFS 2024.
 4. **`timerMain_Tick`** (100 ms) converts the newest sample to a `SimSnapshot`, updates the
    readout, lamp list and Avionics Master box, then sends:
    - the **Radio** packet when a frequency, the main bus voltage or the radio power flag
-     changed (at most every 200 ms), or every 5 s regardless;
+     changed (at most every 200 ms), or every 500 ms regardless (twice a second; `RadioRefreshMs`);
    - one packet each to the **Servo, Stepper and Dual Stepper** boards about every
      100 ms (about 10 per second per board).
    If no new data has arrived for 3 s (simulator paused or loading) it stops sending, so
@@ -217,3 +217,29 @@ A fifth SimConnect request (`PanelDme`, about 5 times a second, in its own reque
 ## About window, version and build number (8 November 2026)
 
 The **About...** button (under Show packets...) opens it. The **data out** text box (the readout) now grows and shrinks with the window, the lamp list stays against the right edge, and a **Pause data out** check box freezes the text box while the data keeps going to the boards (the readout is only redrawn when the box is unticked). Checked by resizing the running window (the box went from 281 x 441 to 798 x 702 pixels at a 1300 x 900 window). **Raise `<BuildNumber>` in the project file by one every time this program is changed** (and `<Version>` for a larger change); the build date and time are stamped in automatically at every build, so they are always the time of the last build. `AboutForm.cs` reads them from the program (assembly metadata `BuildNumber` and `BuildDateTime`, and the assembly version) and shows the program name, version, build number and build date and time. The version is 1.0.0 and the build number started at 1 on 8 November 2026.
+
+## DME on the data out box, and the station identifier (8 November 2026, build 2)
+
+The data out text box now has a line `DME (NAV 1): IBN  1.0 NM  0 KT` (`none` with no DME), so the DME values being sent can be seen. The DME request also reads `NAV IDENT:1` (a string, so it is the last field of `PanelDmeData`), and `Payloads.DmeTokens()` adds `,DMEID:IBN` (capitals, letters and digits only, at most 4 characters; `-` when there is none) to the Radio packet. Checked against the running MSFS (the CowaSim 206B3 at Brisbane): the text box showed the identifier and distance. The Radio shows the identifier from build 14.
+
+## Radio packet twice a second (8 November 2026, build 3)
+
+The radio packet (frequencies, bus, power, LEDs, Auto Pilot values and DME) now goes out at least every 500 ms (`RadioRefreshMs`), instead of every 5 seconds when nothing changed; a change is still sent at once (at most every 200 ms). Checked with the bridge on `--emulators-only` and a UDP listener on 127.0.0.101: 18 packets in 14 seconds, 0.53 to 0.56 s apart (the 100 ms timer rounds the interval up to the next tick), each 353 bytes with the DME tokens.
+
+## Scroll bar on the data out box (8 November 2026, build 4)
+
+The data out text box has a vertical scroll bar. Because setting its text sends the view back to the top, the readout is now written through `ShowReadout()`, which only rewrites the box when the text changed and puts the scroll position back afterwards, so the box can be scrolled while the data keeps updating (Pause data out still freezes it completely). Checked on the running MSFS bridge: with 6 lines of scrolling requested the box stayed at the end of its range (line 4) over 3 seconds of updates.
+
+## Autopilot and audio status on the data out box (8 November 2026, build 5)
+
+The data out text box now shows what the simulator reports for the Radio panel's LEDs and Auto Pilot display, so a LED that does not light can be traced: `Auto Pilot LEDs lit: none` (or a list such as `AP ENGAGE, HDG, ALT`), `Auto Pilot display: HDG 360  CRS 196  IAS 0  VS 0  ALT 0` and `Audio LEDs lit: COM1, NAV2, DME, NAV1, MKR`. These are the states before the radio power rule (the Radio turns the LEDs off when the avionics bus is below 24 V). Checked against the running MSFS (the CowaSim 206B3): `Auto Pilot LEDs lit: none` and `Auto Pilot display: HDG 360  CRS 196  IAS 0  VS 0  ALT 0`, so the simulator reports no autopilot for that aircraft, while `Audio LEDs lit: COM1, NAV2, DME, NAV1, MKR` matched the Audio LED tokens in the radio packet.
+
+## CowanSim HeloSAS autopilot on the Auto Pilot LEDs (8 November 2026, build 6)
+
+The CowanSim 206B3's autopilot (HeloSAS) does not set the standard `AUTOPILOT …` SimVars, so the Auto Pilot LEDs stayed dark. Its annunciator lights are two bit-field local variables, found in the aircraft's model XML (`HeliSAS_Lights` in `206B3_INT.xml`): `L:CS_HeliSAS_Lights_Green` (engaged) and `L:CS_HeliSAS_Lights_White` (standby), with bits 1 SAS master, 2 HDG, 4 NAV, 8 SPD, 16 ALT and 32 VRT. They are read in the Auto Pilot request (other aircraft read 0) and OR-ed into the LED states: **AP ENGAGE** = SAS (1), **HDG** = HDG (2), **CRS** = NAV (4), **IAS** = SPD (8), **ALT** = ALT (16). VRT (32) has no LED on the panel, and the panel's APPR, FD and BC LEDs have no HeloSAS equivalent. The data out box shows `CowanSim HeloSAS lights: green 19  white 1` for the CowanSim. Checked against the running MSFS with the autopilot engaged in HDG and ALT: `Auto Pilot LEDs lit: AP ENGAGE, HDG, ALT`.
+
+**The Auto Pilot OLED values are still the standard SimVars** (heading bug, NAV1 OBS, airspeed, vertical speed and altitude targets), which the HeloSAS does not use. The module (`Cowan_HeliSAS.wasm`) names `L:CS_AP_Alt_Hold_Target`, `L:CS_AP_IAS_Hold_Target`, `L:CS_AP_VS_Hold_Target`, `L:CS_AP_Alt_Hold`, `L:CS_AP_IAS_Hold`, `L:CS_AP_VS_Hold` and `L:CS_AP_HDG_Hold`, but all read 0 with HDG and ALT engaged, so the references appear to be kept internally; they were not added.
+
+## HeloSAS references on the Auto Pilot display (8 November 2026, build 7)
+
+The HeloSAS takes its altitude, airspeed and vertical speed references at the moment the mode is engaged and keeps them internally (the target variables read 0), so `ApplyHeloSasReferences()` does the same: when the ALT, SPD or VRT light (green bits 16, 8 and 32) comes on, the current altitude (to 10 feet), airspeed (to the knot) or vertical speed (to 10 feet per minute) is remembered and shown as ALT, IAS or VS on the Auto Pilot display until that mode is switched off. If the bridge starts with a mode already on, the values at that moment are used. With no mode on the display shows the standard SimVars as before. HDG shows the heading bug (a standard SimVar, which the HeloSAS does use). Checked against the running MSFS with ALT engaged at about 238 ft: the display showed `ALT 240` and held it while the altitude moved by a foot or two.

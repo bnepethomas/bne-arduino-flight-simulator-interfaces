@@ -122,6 +122,7 @@ namespace FSUIPCTest
         private Offset<ushort> dme1Distance = new Offset<ushort>("RadioStack", 0x0300);
         private Offset<short> dme1Speed = new Offset<short>("RadioStack", 0x0302);
         private Offset<ushort> radioStatusFlags = new Offset<ushort>("RadioStack", 0x3300);
+        private Offset<string> nav1Ident = new Offset<string>("RadioStack", 0x3000, 6);   // NAV1 (VOR1) identifier, 6 bytes with the zero terminator
 
 
 
@@ -257,13 +258,49 @@ namespace FSUIPCTest
 
         // The DME readout for the DME display as ",DMEDIST:12.3,DMESPD:120" (nautical miles to one decimal, knots). -1 for both when NAV1 has no DME;
         // a negative speed (moving away from the station) is sent as 0.
+        // The DME station identifier: letters and digits only, in capitals, at most 4 characters (the Radio's display has room for 4).
+        private string DmeIdent()
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach (char c in (nav1Ident.Value ?? "").ToUpperInvariant())
+                if (char.IsAsciiLetterOrDigit(c) && sb.Length < 4) sb.Append(c);
+            return sb.ToString();
+        }
+
+        // The DME for the on-screen readout: "BNE  12.3 NM  120 KT" or "none".
+        private string DmeReadoutText()
+        {
+            if ((radioStatusFlags.Value & 0x0010) == 0) return "none";
+            string ident = DmeIdent();
+            return (ident.Length > 0 ? ident + "  " : "") + (dme1Distance.Value / 10.0).ToString("F1", System.Globalization.CultureInfo.InvariantCulture)
+                 + " NM  " + Math.Max(0, (int)Math.Round(dme1Speed.Value / 10.0)).ToString(System.Globalization.CultureInfo.InvariantCulture) + " KT";
+        }
+
+        // The Auto Pilot and Audio LEDs the simulator reports as lit, and the Auto Pilot display values, for the on-screen readout.
+        private string AutoPilotReadoutText()
+        {
+            string Lit(params (bool On, string Name)[] leds)
+            {
+                var names = leds.Where(l => l.On).Select(l => l.Name).ToList();
+                return names.Count == 0 ? "none" : string.Join(", ", names);
+            }
+            byte audio = audioSwitches.Value;
+            string apLeds = Lit((apMaster.Value != 0, "AP ENGAGE"), (apNav1Lock.Value != 0, "CRS"), (apHeadingLock.Value != 0, "HDG"), (apAirspeedHold.Value != 0, "IAS"),
+                                (apAltitudeLock.Value != 0, "ALT"), (apApproachHold.Value != 0, "APPR"), (flightDirectorActive.Value != 0, "FD"), (apBackCourseHold.Value != 0, "BC"));
+            string audioLeds = Lit(((audio & 0x80) != 0, "COM1"), ((audio & 0x20) != 0, "BOTH"), ((audio & 0x08) != 0, "NAV2"), ((audio & 0x02) != 0, "DME"), (markerOuter.Value != 0, "OUTER"),
+                                   (markerInner.Value != 0, "INNER"), ((audio & 0x40) != 0, "COM2"), ((audio & 0x10) != 0, "NAV1"), ((audio & 0x04) != 0, "MKR"), ((audio & 0x01) != 0, "ADF"), (markerMiddle.Value != 0, "MIDDLE"));
+            return "Auto Pilot LEDs lit: " + apLeds + Environment.NewLine + "Auto Pilot display: " + BuildPanelValuePayload().TrimStart(',').Replace(',', ' ').Replace(":", " ") + Environment.NewLine
+                 + "Audio LEDs lit: " + audioLeds + Environment.NewLine;
+        }
+
         private string BuildDmePayload()
         {
-            if ((radioStatusFlags.Value & 0x0010) == 0) return ",DMEDIST:-1,DMESPD:-1";
+            if ((radioStatusFlags.Value & 0x0010) == 0) return ",DMEDIST:-1,DMESPD:-1,DMEID:-";
             double nauticalMiles = dme1Distance.Value / 10.0;
             int knots = Math.Max(0, (int)Math.Round(dme1Speed.Value / 10.0));
             return ",DMEDIST:" + nauticalMiles.ToString("F1", System.Globalization.CultureInfo.InvariantCulture)
-                 + ",DMESPD:" + knots.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                 + ",DMESPD:" + knots.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                 + ",DMEID:" + (DmeIdent().Length > 0 ? DmeIdent() : "-");
         }
 
         // The 19 LEDs on the Auto Pilot and Audio panels (driven by the Radio controller's MAX7219) as
@@ -368,6 +405,7 @@ namespace FSUIPCTest
 
         // The destination check boxes: the real boards, the panel emulators, or both (command line --emulators, --emulators-only, --emulator-net).
         private readonly BoardTargets targets = new();
+        private const int RadioRefreshMs = 500;   // the radio packet goes out at least this often (twice a second), whether or not anything changed
         private readonly Button btnPackets = new() { Text = "Show packets...", Location = new Point(190, 42), Size = new Size(112, 27) };
         private PacketMonitorForm? packetMonitor;
 
@@ -380,6 +418,18 @@ namespace FSUIPCTest
         }
         private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
         private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+        // The data out text box has a vertical scroll bar. Setting Text moves the view back to the top, so the readout is only rewritten when it changed, and the
+        // scroll position is put back afterwards: the box can be scrolled while the data keeps updating.
+        [DllImport("user32.dll")] private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+        private const int EM_LINESCROLL = 0x00B6, EM_GETFIRSTVISIBLELINE = 0x00CE;
+        private void ShowReadout(string text)
+        {
+            if (textBox1.Text == text) return;
+            int firstLine = SendMessage(textBox1.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
+            textBox1.Text = text;
+            SendMessage(textBox1.Handle, EM_LINESCROLL, 0, firstLine);
+        }
+
         private readonly Button btnAbout = new() { Text = "About...", Location = new Point(190, 72), Size = new Size(112, 27) };
         // Pause freezes the data out text box (what is on screen); the data keeps going to the boards.
         private readonly CheckBox chkPause = new() { Text = "Pause data out", AutoSize = true, Location = new Point(22, 94) };
@@ -391,6 +441,7 @@ namespace FSUIPCTest
             chkEmulators.Checked = targets.ToEmulators;
             chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
             chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
+            textBox1.ScrollBars = ScrollBars.Vertical;
             textBox1.Top += 74;                 // make room under the Avionics Master box for the two check boxes and the Pause box
             textBox1.Height -= 74;
             btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger FSUIPC Bridge", "Reads Prepar3D and FSX through FSUIPC and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP."); about.ShowDialog(this); };
@@ -660,7 +711,7 @@ namespace FSUIPCTest
                 span = DateTime.Now - RadioTimeLastPacketSent;
                 mS = (int)span.TotalMilliseconds;
 
-                if ((mS >= 200 && radioFrequencyChanged) || mS >= 5000)
+                if ((mS >= 200 && radioFrequencyChanged) || mS >= RadioRefreshMs)   // on a change, and in any case twice a second
                 {
                     radioFrequencyChanged = false;
                     string radioPayload = "D,C1A:" + com1ActiveFrequency;
@@ -687,6 +738,8 @@ namespace FSUIPCTest
                                    "Fuel Capacity: " + fuelCapacityGallons.ToString("F0") + " Gallons" + Environment.NewLine +
                                    "Battery Load Amps: " + battLoadAmpsValue.ToString("F1") + " A" + Environment.NewLine +
                                    "Fuel Pressure: " + fuelPressureValue.ToString("F1") + " PSI" + Environment.NewLine +
+                                   "DME (NAV 1): " + DmeReadoutText() + Environment.NewLine +
+                                   AutoPilotReadoutText() +
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
@@ -713,7 +766,7 @@ namespace FSUIPCTest
                 
 
 
-                if (!chkPause.Checked) this.textBox1.Text = outstring;   // Pause data out freezes the text box
+                if (!chkPause.Checked) ShowReadout(outstring);   // Pause data out freezes the text box
 
 
                 // --- Annunciator bit extraction ---

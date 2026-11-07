@@ -215,3 +215,7 @@ The **OLED brightness (0-15)** slider in the top button row sends `C,OLEDB:<leve
 ## DME display (8 November 2026)
 
 The **DME display (Radio .101)** group (right column, under the Auto Pilot display) has **Distance (nm)** and **Speed (knots)** boxes (start at 12.3 and 120) and two buttons: **Send DME** sends `D,NAVCOM1:1,DMEDIST:<nm>,DMESPD:<knots>` to the Radio, which shows them on the DME OLED (for example `DME 12.3 NM` and `120 KT 6 MIN`), and **No DME** sends -1 for both (`DME --- NM`). It needs the Radio on build 12 or later. Built clean (Debug and Release); the packets have not been checked on the board yet.
+
+## Station ident, About window and build number (8 November 2026, build 1)
+
+The **DME display** group has a **Station ident** box (up to 4 letters or digits, start `BNE`); **Send DME** sends it as `DMEID` with the distance and speed, and **No DME** sends `DMEID:-`. It needs the Radio on build 14 for the identifier to show. The program now has the same version, build number and build date as the bridges (`<BuildNumber>` in `BenchTester.csproj`, raised by one every time the program is changed; the build date and time are stamped at every build) and an **About...** button after COM ports... that shows them.

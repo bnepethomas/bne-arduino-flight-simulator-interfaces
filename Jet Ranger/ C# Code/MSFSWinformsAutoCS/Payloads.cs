@@ -42,8 +42,10 @@ namespace MSFSWinformsAutoCS
         public PanelLedState Leds;                 // autopilot and audio panel LEDs (see PanelLedState)
         public int ApHeading, ApCourse;            // the autopilot heading bug and the NAV1 OBS, degrees (north is 360)
         public int ApAirspeed, ApVerticalSpeed, ApAltitude;   // the autopilot airspeed (knots), vertical speed (feet per minute) and altitude (feet)
+        public int SasGreen, SasWhite;             // the CowanSim HeloSAS annunciator lights (bit fields: 1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT, 32 VRT)
         public bool DmeValid;                      // NAV1 has a DME station in range
         public double DmeDistanceNm, DmeSpeedKnots;   // distance to the DME station (nautical miles) and the speed towards it (knots)
+        public string DmeIdent = "";               // the DME station identifier (capitals, up to 4 characters)
     }
 
     // The 19 LEDs on the Auto Pilot and Audio panels, driven by the Radio controller's MAX7219.
@@ -262,8 +264,34 @@ namespace MSFSWinformsAutoCS
         // and a negative speed (moving away from the station) is sent as 0.
         public static string DmeTokens(SimSnapshot s)
             => s.DmeValid
-                ? ",DMEDIST:" + Math.Max(0.0, s.DmeDistanceNm).ToString("F1", Inv) + ",DMESPD:" + Math.Max(0, (int)Math.Round(s.DmeSpeedKnots)).ToString(Inv)
-                : ",DMEDIST:-1,DMESPD:-1";
+                ? ",DMEDIST:" + Math.Max(0.0, s.DmeDistanceNm).ToString("F1", Inv) + ",DMESPD:" + Math.Max(0, (int)Math.Round(s.DmeSpeedKnots)).ToString(Inv) + ",DMEID:" + (s.DmeIdent.Length > 0 ? s.DmeIdent : "-")
+                : ",DMEDIST:-1,DMESPD:-1,DMEID:-";
+
+        // The station identifier as sent: letters and digits only, in capitals, at most 4 characters (the Radio's display has room for 4).
+        public static string CleanIdent(string? ident)
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach (char c in (ident ?? "").ToUpperInvariant())
+                if (char.IsAsciiLetterOrDigit(c) && sb.Length < 4) sb.Append(c);
+            return sb.ToString();
+        }
+
+        // The lit LEDs for the on-screen readout, for example "AP, HDG, ALT" or "none" (before the radio power rule: what the simulator reports).
+        static string Lit(params (bool On, string Name)[] leds)
+        {
+            var names = leds.Where(l => l.On).Select(l => l.Name).ToList();
+            return names.Count == 0 ? "none" : string.Join(", ", names);
+        }
+        public static string LitAutoPilotLeds(PanelLedState l)
+            => Lit((l.ApEngage, "AP ENGAGE"), (l.Crs, "CRS"), (l.Hdg, "HDG"), (l.Ias, "IAS"), (l.Alt, "ALT"), (l.Appr, "APPR"), (l.Fd, "FD"), (l.Bc, "BC"));
+        public static string LitAudioLeds(PanelLedState l)
+            => Lit((l.Com1, "COM1"), (l.Both, "BOTH"), (l.Nav2, "NAV2"), (l.Dme, "DME"), (l.Outer, "OUTER"), (l.Inner, "INNER"), (l.Com2, "COM2"), (l.Nav1, "NAV1"), (l.Mkr, "MKR"), (l.Adf, "ADF"), (l.Middle, "MIDDLE"));
+
+        // The DME for the on-screen readout: "BNE  12.3 NM  120 KT" or "none".
+        public static string DmeReadout(SimSnapshot s)
+            => s.DmeValid
+                ? (s.DmeIdent.Length > 0 ? s.DmeIdent + "  " : "") + s.DmeDistanceNm.ToString("F1", Inv) + " NM  " + Math.Max(0, (int)Math.Round(s.DmeSpeedKnots)).ToString(Inv) + " KT"
+                : "none";
 
         // Radio board (.101).
         public static string Radio(SimSnapshot s)

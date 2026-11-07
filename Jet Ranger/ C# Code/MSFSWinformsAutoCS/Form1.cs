@@ -174,6 +174,10 @@ namespace MSFSWinformsAutoCS
             ("AUTOPILOT APPROACH HOLD", "bool"),
             ("AUTOPILOT BACKCOURSE HOLD", "bool"),
             ("AUTOPILOT FLIGHT DIRECTOR ACTIVE", "bool"),
+            // The CowanSim 206B3's HeloSAS autopilot does not use the standard autopilot SimVars: its annunciator lights are two bit fields (1 SAS master, 2 HDG, 4 NAV,
+            // 8 SPD, 16 ALT, 32 VRT), green = engaged, white = standby (found in the aircraft's model XML, HeliSAS_Lights). Other aircraft read 0.
+            ("L:CS_HeliSAS_Lights_Green", "number"),
+            ("L:CS_HeliSAS_Lights_White", "number"),
         };
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
@@ -187,6 +191,8 @@ namespace MSFSWinformsAutoCS
             public double AUTOPILOT_APPROACH_HOLD;
             public double AUTOPILOT_BACKCOURSE_HOLD;
             public double AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE;
+            public double L_CS_HELISAS_LIGHTS_GREEN;
+            public double L_CS_HELISAS_LIGHTS_WHITE;
         }
 
         private static readonly (string Name, string Units)[] AudioVars =
@@ -254,6 +260,8 @@ namespace MSFSWinformsAutoCS
             public double NAV_HAS_DME_1;
             public double NAV_DME_1;
             public double NAV_DMESPEED_1;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 8)]
+            public string NAV_IDENT_1;   // the DME station identifier (NAV1's identifier), a string, so last
         }
 
         private PanelDmeData _latestDme;
@@ -406,6 +414,7 @@ namespace MSFSWinformsAutoCS
 
         // The destination check boxes: the real boards, the panel emulators, or both (command line --emulators, --emulators-only, --emulator-net).
         private readonly BoardTargets targets = new();
+        private const int RadioRefreshMs = 500;   // the radio packet goes out at least this often (twice a second), whether or not anything changed
         private readonly Button btnPackets = new() { Text = "Show packets...", Location = new Point(190, 42), Size = new Size(112, 27) };
         private PacketMonitorForm? packetMonitor;
 
@@ -418,6 +427,18 @@ namespace MSFSWinformsAutoCS
         }
         private readonly CheckBox chkBoards = new() { Text = "Send to the boards", Checked = true, AutoSize = true, Location = new Point(22, 44) };
         private readonly CheckBox chkEmulators = new() { Text = "Send to the emulators", AutoSize = true, Location = new Point(22, 68) };
+        // The data out text box has a vertical scroll bar. Setting Text moves the view back to the top, so the readout is only rewritten when it changed, and the
+        // scroll position is put back afterwards: the box can be scrolled while the data keeps updating.
+        [DllImport("user32.dll")] private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
+        private const int EM_LINESCROLL = 0x00B6, EM_GETFIRSTVISIBLELINE = 0x00CE;
+        private void ShowReadout(string text)
+        {
+            if (textBox1.Text == text) return;
+            int firstLine = SendMessage(textBox1.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
+            textBox1.Text = text;
+            SendMessage(textBox1.Handle, EM_LINESCROLL, 0, firstLine);
+        }
+
         private readonly Button btnAbout = new() { Text = "About...", Location = new Point(190, 72), Size = new Size(112, 27) };
         // Pause freezes the data out text box (what is on screen); the data keeps going to the boards.
         private readonly CheckBox chkPause = new() { Text = "Pause data out", AutoSize = true, Location = new Point(22, 94) };
@@ -429,6 +450,7 @@ namespace MSFSWinformsAutoCS
             chkEmulators.Checked = targets.ToEmulators;
             chkBoards.CheckedChanged += (_, _) => targets.ToBoards = chkBoards.Checked;
             chkEmulators.CheckedChanged += (_, _) => targets.ToEmulators = chkEmulators.Checked;
+            textBox1.ScrollBars = ScrollBars.Vertical;
             textBox1.Top += 74;                 // make room under the Avionics Master box for the two check boxes and the Pause box
             textBox1.Height -= 74;
             btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger MSFS Bridge", "Reads Microsoft Flight Simulator 2020 and 2024 through SimConnect and sends the gauge, lamp and radio data to the Jet Ranger cockpit boards over UDP."); about.ShowDialog(this); };
@@ -562,6 +584,7 @@ namespace MSFSWinformsAutoCS
 
             foreach (var (name, units) in DmeVars)
                 simconnect.AddToDataDefinition(DEFINITIONS.PanelDme, name, units, SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            simconnect.AddToDataDefinition(DEFINITIONS.PanelDme, "NAV IDENT:1", null!, SIMCONNECT_DATATYPE.STRING8, 0.0f, SimConnect.SIMCONNECT_UNUSED);
             simconnect.RegisterDataDefineStruct<PanelDmeData>(DEFINITIONS.PanelDme);
             simconnect.RequestDataOnSimObject(DATA_REQUESTS.PanelDme, DEFINITIONS.PanelDme,
                 SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME,
@@ -599,7 +622,7 @@ namespace MSFSWinformsAutoCS
                 throw new InvalidOperationException("PanelAudioData and AudioVars are out of step.");
             if (typeof(PanelApValueData).GetFields().Length != ApValueVars.Length)
                 throw new InvalidOperationException("PanelApValueData and ApValueVars are out of step.");
-            if (typeof(PanelDmeData).GetFields().Length != DmeVars.Length)
+            if (typeof(PanelDmeData).GetFields().Length != DmeVars.Length + 1)   // the SimVars (all numbers) plus the identifier string
                 throw new InvalidOperationException("PanelDmeData and DmeVars are out of step.");
         }
 
@@ -786,16 +809,20 @@ namespace MSFSWinformsAutoCS
             s.ApAirspeed = (int)Math.Round(apv.AUTOPILOT_AIRSPEED_HOLD_VAR);
             s.ApVerticalSpeed = (int)Math.Round(apv.AUTOPILOT_VERTICAL_HOLD_VAR);
             s.ApAltitude = (int)Math.Round(apv.AUTOPILOT_ALTITUDE_LOCK_VAR);
+            s.SasGreen = (int)Math.Round(_latestAp.L_CS_HELISAS_LIGHTS_GREEN);
+            s.SasWhite = (int)Math.Round(_latestAp.L_CS_HELISAS_LIGHTS_WHITE);
+            ApplyHeloSasReferences(s);
             PanelDmeData dme = _latestDme;
             s.DmeValid = dme.NAV_HAS_DME_1 > 0.5;
             s.DmeDistanceNm = dme.NAV_DME_1;
             s.DmeSpeedKnots = dme.NAV_DMESPEED_1;
+            s.DmeIdent = Payloads.CleanIdent(dme.NAV_IDENT_1);
             if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);
             if (s.CowaSim) s.TransTempCelsius = s.OilTempCelsius * CowaSimTransmissionTempOfOilTemp;
 
             // --- On-screen readout and lamps ---
-            if (!chkPause.Checked) textBox1.Text = BuildReadout(s);   // Pause data out freezes the text box
+            if (!chkPause.Checked) ShowReadout(BuildReadout(s));   // Pause data out freezes the text box
             UpdateLights(s);
             _suppressAvionicsEvent = true;
             chkAvionicsMaster.Checked = s.AvionicsMaster;
@@ -813,7 +840,7 @@ namespace MSFSWinformsAutoCS
             TrackRadioChange(ref panelDmeText, Payloads.DmeTokens(s));
 
             int radioMs = (int)(DateTime.Now - radioTimeLastPacketSent).TotalMilliseconds;
-            if ((radioMs >= 200 && radioFrequencyChanged) || radioMs >= 5000)
+            if ((radioMs >= 200 && radioFrequencyChanged) || radioMs >= RadioRefreshMs)   // on a change, and in any case twice a second
             {
                 radioFrequencyChanged = false;
                 SendPacket(radioClient, Payloads.Radio(s));
@@ -840,21 +867,40 @@ namespace MSFSWinformsAutoCS
             }
         }
 
+        // The CowanSim HeloSAS keeps its references (the altitude, airspeed and vertical speed it holds) to itself: it takes them at the moment the mode is engaged.
+        // So the Auto Pilot display shows the same: when the ALT, SPD or VRT light (green bits 16, 8 and 32) comes on, the current altitude (to 10 feet), airspeed (to
+        // the knot) or vertical speed (to 10 feet per minute) is remembered and shown until the mode is switched off. If the bridge is started with a mode already on,
+        // the values at that moment are taken. With no mode on, the display shows the standard autopilot SimVars as before. The heading bug is a standard SimVar.
+        private bool _sasAltOn, _sasIasOn, _sasVsOn;
+        private int _sasAlt, _sasIas, _sasVs;
+        private void ApplyHeloSasReferences(SimSnapshot s)
+        {
+            bool alt = (s.SasGreen & 16) != 0, ias = (s.SasGreen & 8) != 0, vs = (s.SasGreen & 32) != 0;
+            if (alt && !_sasAltOn) _sasAlt = (int)(Math.Round(s.AltitudeFeet / 10.0) * 10.0);
+            if (ias && !_sasIasOn) _sasIas = (int)Math.Round(s.AirspeedKnots);
+            if (vs && !_sasVsOn) _sasVs = (int)(Math.Round(s.VerticalSpeedFpm / 10.0) * 10.0);
+            _sasAltOn = alt; _sasIasOn = ias; _sasVsOn = vs;
+            if (alt) s.ApAltitude = _sasAlt;
+            if (ias) s.ApAirspeed = _sasIas;
+            if (vs) s.ApVerticalSpeed = _sasVs;
+        }
+
         // The autopilot and audio panel LED states from the two extra SimVar requests (all off until they arrive).
         private PanelLedState BuildLeds()
         {
             PanelApData a = _latestAp;
             PanelAudioData u = _latestAudio;
+            int sas = (int)Math.Round(a.L_CS_HELISAS_LIGHTS_GREEN);   // CowanSim HeloSAS: engaged modes (bit 1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT; 32 VRT has no LED)
             return new PanelLedState
             {
-                Crs = a.AUTOPILOT_NAV1_LOCK > 0.5,
-                Hdg = a.AUTOPILOT_HEADING_LOCK > 0.5,
-                Ias = a.AUTOPILOT_AIRSPEED_HOLD > 0.5,
-                Alt = a.AUTOPILOT_ALTITUDE_LOCK > 0.5,
+                Crs = a.AUTOPILOT_NAV1_LOCK > 0.5 || (sas & 4) != 0,
+                Hdg = a.AUTOPILOT_HEADING_LOCK > 0.5 || (sas & 2) != 0,
+                Ias = a.AUTOPILOT_AIRSPEED_HOLD > 0.5 || (sas & 8) != 0,
+                Alt = a.AUTOPILOT_ALTITUDE_LOCK > 0.5 || (sas & 16) != 0,
                 Appr = a.AUTOPILOT_APPROACH_HOLD > 0.5,
                 Fd = a.AUTOPILOT_FLIGHT_DIRECTOR_ACTIVE > 0.5,
                 Bc = a.AUTOPILOT_BACKCOURSE_HOLD > 0.5,
-                ApEngage = a.AUTOPILOT_MASTER > 0.5,
+                ApEngage = a.AUTOPILOT_MASTER > 0.5 || (sas & 1) != 0,
                 Com1 = u.COM_TRANSMIT_1 > 0.5,
                 Both = u.COM_RECEIVE_ALL > 0.5,
                 Nav2 = u.NAV_SOUND_2 > 0.5,
@@ -914,6 +960,11 @@ namespace MSFSWinformsAutoCS
                 "NAV 1 Standby: " + Payloads.Freq(s.Nav1Standby) + nl +
                 "NAV 2: " + Payloads.Freq(s.Nav2Active) + nl +
                 "NAV 2 Standby: " + Payloads.Freq(s.Nav2Standby) + nl +
+                "DME (NAV 1): " + Payloads.DmeReadout(s) + nl +
+                "Auto Pilot LEDs lit: " + Payloads.LitAutoPilotLeds(s.Leds) + nl +
+                "Auto Pilot display: HDG " + s.ApHeading.ToString("000", inv) + "  CRS " + s.ApCourse.ToString("000", inv) + "  IAS " + s.ApAirspeed.ToString(inv) + "  VS " + s.ApVerticalSpeed.ToString(inv) + "  ALT " + s.ApAltitude.ToString(inv) + nl +
+                "Audio LEDs lit: " + Payloads.LitAudioLeds(s.Leds) + nl +
+                (s.CowaSim ? "CowanSim HeloSAS lights: green " + s.SasGreen + "  white " + s.SasWhite + "  (1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT, 32 VRT)" + nl : "") +
                 "GPS position: " + s.LatitudeDeg.ToString("F5", inv) + ", " + s.LongitudeDeg.ToString("F5", inv) +
                 "  heading " + s.HeadingTrueDeg.ToString("F0", inv);
         }

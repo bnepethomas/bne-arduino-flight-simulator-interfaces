@@ -153,6 +153,7 @@ namespace BenchTester
         // DME display (the Audio panel OLED on the Radio): "DMEDIST" in nautical miles and "DMESPD" in knots; -1 for both means no DME.
         private readonly TextBox txtDmeDistance = new() { Text = "12.3", Width = 60, MaxLength = 6 };
         private readonly TextBox txtDmeSpeed = new() { Text = "120", Width = 60, MaxLength = 4 };
+        private readonly TextBox txtDmeIdent = new() { Text = "BNE", Width = 60, MaxLength = 4 };
         private readonly Button btnDmeSend = new() { Text = "Send DME", AutoSize = true };
         private readonly Button btnDmeNone = new() { Text = "No DME", AutoSize = true };
 
@@ -186,6 +187,7 @@ namespace BenchTester
         private readonly TextBox txtAdfIp = new() { Text = "172.16.1.107", Width = 110 };
         private readonly Button btnReset = new() { Text = "Reset boards...", AutoSize = true };
         private readonly Button btnPorts = new() { Text = "COM ports...", AutoSize = true };
+        private readonly Button btnAbout = new() { Text = "About...", AutoSize = true };
         private readonly Button btnSwingAll = new() { Text = "Swing ALL (in order)", AutoSize = true };
         private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
         private readonly Button btnOledOn = new() { Text = "OLEDs ON", AutoSize = true };
@@ -269,6 +271,7 @@ namespace BenchTester
             actions.Controls.Add(btnOledOff);
             actions.Controls.Add(btnReset);
             actions.Controls.Add(btnPorts);
+            actions.Controls.Add(btnAbout);
             actions.Controls.Add(chkOled);
             chkOled.Margin = new Padding(12, 6, 3, 0);
             actions.Controls.Add(new Label { Text = "Temp OLED:", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
@@ -505,8 +508,12 @@ namespace BenchTester
             var dmeButtons = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = true, Width = 300 };
             dmeButtons.Controls.Add(btnDmeSend);
             dmeButtons.Controls.Add(btnDmeNone);
+            var dmeRow3 = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.LeftToRight, Margin = new Padding(0) };
+            dmeRow3.Controls.Add(new Label { Text = "Station ident", Width = 130, Margin = new Padding(3, 6, 3, 0) });
+            dmeRow3.Controls.Add(txtDmeIdent);
             dmeFlow.Controls.Add(dmeRow1);
             dmeFlow.Controls.Add(dmeRow2);
+            dmeFlow.Controls.Add(dmeRow3);
             dmeFlow.Controls.Add(dmeButtons);
             dmeGroup.Controls.Add(dmeFlow);
 
@@ -584,6 +591,7 @@ namespace BenchTester
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
             btnReset.Click += async (_, _) => await ResetBoardsAsync();
             btnPorts.Click += (_, _) => { using var ports = new PortsForm(); ports.ShowDialog(this); };
+            btnAbout.Click += (_, _) => { using var about = new AboutForm("Jet Ranger Bench Tester", "Bench tool for the Jet Ranger cockpit boards: swings the gauges, lights the lamps, OLEDs, panel LEDs and landing gear lamps, tests the brightness levels and the DME display, and resets the boards, over UDP."); about.ShowDialog(this); };
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
             btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
             btnLedsOn.Click += async (_, _) => await SetAllPanelLedsAsync(true);
@@ -847,12 +855,12 @@ namespace BenchTester
         /// Sends the five Auto Pilot display values to the Radio controller: "D,NAVCOM1:1,APHDG:090,APVS:0,APCRS:110,APIAS:80,APALT:3200"
         /// (NAVCOM1:1 keeps the radio's power flag on, because the display blanks with it).
         /// </summary>
-        /// <summary>Sends the DME readout to the Radio controller: "D,NAVCOM1:1,DMEDIST:12.3,DMESPD:120", or -1 for both with no DME.</summary>
+        /// <summary>Sends the DME readout to the Radio controller: "D,NAVCOM1:1,DMEDIST:12.3,DMESPD:120,DMEID:BNE", or -1 for both (and "-" for the ident) with no DME.</summary>
         private async Task SendDmeAsync(bool noDme)
         {
             try
             {
-                string distance = "-1", speed = "-1";
+                string distance = "-1", speed = "-1", ident = "-";
                 if (!noDme)
                 {
                     if (!double.TryParse(txtDmeDistance.Text.Trim(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double nm) || nm < 0 || nm > 9999)
@@ -867,9 +875,11 @@ namespace BenchTester
                     }
                     distance = nm.ToString("F1", System.Globalization.CultureInfo.InvariantCulture);
                     speed = kt.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string typed = new string(txtDmeIdent.Text.Trim().ToUpperInvariant().Where(char.IsAsciiLetterOrDigit).Take(4).ToArray());
+                    if (typed.Length > 0) ident = typed;
                 }
-                await SendPacketAsync(BoardId.Radio, $"D,NAVCOM1:1,DMEDIST:{distance},DMESPD:{speed}");
-                lblStatus.Text = $"DME display: DMEDIST:{distance}  DMESPD:{speed} sent to the Radio.";
+                await SendPacketAsync(BoardId.Radio, $"D,NAVCOM1:1,DMEDIST:{distance},DMESPD:{speed},DMEID:{ident}");
+                lblStatus.Text = $"DME display: DMEDIST:{distance}  DMESPD:{speed}  DMEID:{ident} sent to the Radio.";
             }
             catch (Exception ex)
             {

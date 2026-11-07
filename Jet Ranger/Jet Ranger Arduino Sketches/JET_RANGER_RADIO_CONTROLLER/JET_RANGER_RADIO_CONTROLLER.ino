@@ -146,7 +146,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 13
+#define FIRMWARE_BUILD 14
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -499,12 +499,14 @@ void sendAdfDisplay(bool on) {
 
 // The text on the DME display, and the power state it was last drawn with.
 // The DME display shows two lines of up to 16 characters: dashes (no DME data) from start-up until the first DME values arrive from the bridge, then
-//   "DME 12.3 NM"        the distance to the tuned DME station (nautical miles; "---" when there is no DME)
+//   "DME BNE 12.3NM"     the station identifier (up to 4 characters, left out when there is none) and the distance to the tuned DME station
+//                        (nautical miles; "DME 12.3 NM" without an identifier, "---" when there is no DME)
 //   "120 KT  6 MIN"      the ground speed towards the station (knots) and the time to it (minutes, "--" when it cannot be worked out)
 char dmeTopText[17] = "DME --- NM";       // no DME data yet: dashes, the same text buildDmeText() makes when there is no DME
 char dmeBottomText[17] = "--- KT -- MIN";
 bool dmeDrawnPower = true;
 bool dmeValuesChanged = false;
+char dmeIdent[5] = "";           // the DME station identifier, up to 4 characters ("" = none)
 int dmeDistanceTenths = -11;   // distance in tenths of a nautical mile; -10 = no DME, -11 = nothing received yet (so the first packet always redraws)
 int dmeSpeedKnots = -2;        // knots; -1 = none, -2 = nothing received yet
 
@@ -526,7 +528,8 @@ void buildDmeText() {
   if (dmeDistanceTenths < 0) strcpy(dist, "---");
   else if (dmeDistanceTenths < 1000) snprintf(dist, sizeof(dist), "%d.%d", dmeDistanceTenths / 10, dmeDistanceTenths % 10);
   else snprintf(dist, sizeof(dist), "%d", dmeDistanceTenths / 10);
-  snprintf(dmeTopText, sizeof(dmeTopText), "DME %s NM", dist);
+  if (dmeIdent[0]) snprintf(dmeTopText, sizeof(dmeTopText), "DME %s %sNM", dmeIdent, dist);
+  else snprintf(dmeTopText, sizeof(dmeTopText), "DME %s NM", dist);
   char speed[6], minutes[5];
   if (dmeSpeedKnots < 0) strcpy(speed, "---");
   else snprintf(speed, sizeof(speed), "%d", constrain(dmeSpeedKnots, 0, 999));
@@ -535,7 +538,7 @@ void buildDmeText() {
   snprintf(dmeBottomText, sizeof(dmeBottomText), "%s KT %s MIN", speed, minutes);
 }
 
-// "DMEDIST", "12.3" (nautical miles, -1 = no DME) or "DMESPD", "120" (knots): returns true if the token was one of the DME values. The display is
+// "DMEDIST", "12.3" (nautical miles, -1 = no DME), "DMESPD", "120" (knots) or "DMEID", "BNE" (the station identifier): returns true if the token was one of the DME values. The display is
 // redrawn from the loop when a value has changed.
 bool setDmeFromToken(const String& name, String value) {
   value.trim();
@@ -543,6 +546,17 @@ bool setDmeFromToken(const String& name, String value) {
     float distance = value.toFloat();
     int tenths = (distance < 0) ? -10 : (int)(distance * 10.0f + 0.5f);
     if (tenths != dmeDistanceTenths) { dmeDistanceTenths = tenths; dmeValuesChanged = true; }
+  } else if (name == "DMEID") {
+    // "DMEID", "BNE": the station identifier, letters and digits only, shown in capitals ("-" = none).
+    char ident[5] = "";
+    int n = 0;
+    for (unsigned int i = 0; i < value.length() && n < 4; i++) {
+      char c = value[i];
+      if (c >= 'a' && c <= 'z') c = c - 'a' + 'A';
+      if ((c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')) ident[n++] = c;
+    }
+    ident[n] = 0;
+    if (strcmp(ident, dmeIdent) != 0) { strcpy(dmeIdent, ident); dmeValuesChanged = true; }
   } else if (name == "DMESPD") {
     int knots = (int)(value.toFloat() + (value.toFloat() < 0 ? -0.5f : 0.5f));
     if (knots != dmeSpeedKnots) { dmeSpeedKnots = knots; dmeValuesChanged = true; }

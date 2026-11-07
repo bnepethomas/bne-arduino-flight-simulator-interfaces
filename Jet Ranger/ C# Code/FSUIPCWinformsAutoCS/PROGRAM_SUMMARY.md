@@ -266,3 +266,19 @@ The bridge reads NAV1's DME from three more offsets in the `RadioStack` group: `
 ## About window, version and build number (8 November 2026)
 
 The **About...** button (under Show packets...) opens it. The **data out** text box (the readout) now grows and shrinks with the window, the lamp list stays against the right edge, and a **Pause data out** check box freezes the text box while the data keeps going to the boards (the readout is only redrawn when the box is unticked). Checked by resizing the running window (the box went from 281 x 441 to 798 x 702 pixels at a 1300 x 900 window). **Raise `<BuildNumber>` in the project file by one every time this program is changed** (and `<Version>` for a larger change); the build date and time are stamped in automatically at every build, so they are always the time of the last build. `AboutForm.cs` reads them from the program (assembly metadata `BuildNumber` and `BuildDateTime`, and the assembly version) and shows the program name, version, build number and build date and time. The version is 1.0.0 and the build number started at 1 on 8 November 2026.
+
+## DME on the data out box, and the station identifier (8 November 2026, build 2)
+
+The data out text box now has a line `DME (NAV 1): IBN  12.3 NM  120 KT` (`none` with no DME). The identifier is read from offset `0x3000` (VOR1 identity, a 6 byte string) and `BuildDmePayload()` adds `,DMEID:IBN` (capitals, letters and digits only, at most 4 characters; `-` when there is none) to the Radio packet. Builds clean; not run against Prepar3D. The Radio shows the identifier from build 14.
+
+## Radio packet twice a second (8 November 2026, build 3)
+
+The radio packet now goes out at least every 500 ms (`RadioRefreshMs`), instead of every 5 seconds when nothing changed; a change is still sent at once (at most every 200 ms). Built clean; not run against Prepar3D. (The same change in the MSFS bridge was checked with a UDP listener: 0.53 to 0.56 s between packets.)
+
+## Scroll bar on the data out box (8 November 2026, build 4)
+
+The data out text box has a vertical scroll bar. Because setting its text sends the view back to the top, the readout is now written through `ShowReadout()`, which only rewrites the box when the text changed and puts the scroll position back afterwards, so the box can be scrolled while the data keeps updating (Pause data out still freezes it completely). Built clean; not run against Prepar3D.
+
+## Autopilot and audio status on the data out box (8 November 2026, build 5)
+
+The data out text box now shows what the simulator reports for the Radio panel's LEDs and Auto Pilot display, so a LED that does not light can be traced: `Auto Pilot LEDs lit: none` (or a list such as `AP ENGAGE, HDG, ALT`), `Auto Pilot display: HDG 360  CRS 196  IAS 0  VS 0  ALT 0` and `Audio LEDs lit: COM1, NAV2, DME, NAV1, MKR`. These are the states before the radio power rule (the Radio turns the LEDs off when the avionics bus is below 24 V). Built clean; not run against Prepar3D.
