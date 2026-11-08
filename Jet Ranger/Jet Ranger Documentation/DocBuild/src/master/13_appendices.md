@@ -35,6 +35,10 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | Radio .101 | The values on the Auto Pilot panel's OLED: heading and course (three digits, north is 360), airspeed (knots), vertical speed (feet per minute, signed) and altitude (feet), up to 5 characters each |
 | `LDGN`, `LDGL`, `LDGR` | ADF and Upper .107 | The landing gear lamps (nose, left, right): 1 = lit |
 | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101 | COM1 and COM2 active and standby frequency, MHz |
+| `N1A`, `N2A` | Radio .101 | NAV1 and NAV2 **active** frequency, MHz (the standby frequencies are local) |
+| `DMEDIST`, `DMESPD`, `DMEID` | Radio .101 | The DME display: distance in nautical miles (-1 = no DME), speed in knots (-1 = none), station identifier (up to 4 characters, `-` = none) |
+| `ADF`, `SQK` | ADF and Upper .107 | The simulator's ADF frequency in kHz (190 to 1799) and transponder code (four digits), for the ADF controller's display |
+| `BRIDGEKEYS`, `ADFKEYPAD` | ADF and Upper .107 | `BRIDGEKEYS:*`: the bridge handles `*` on the Upper keypad itself, so the board does not type it (held 5 seconds). `ADFKEYPAD:SQUAWK`: the ADF keypad enters the squawk code (held 5 seconds) |
 | `MAINBUS` | Radio .101 | Main bus voltage |
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank, panel LEDs off), 1 = on |
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101 | Auto Pilot panel LEDs (CRS, HDG, IAS, ALT, APPR, FD, BC, AP ENGAGE): 1 = on |
@@ -66,7 +70,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 
 ## Messages from the ADF controller to the PC (UDP 27003)
 
-`ADF_FREQ:<kHz>` (190 to 1799, sent 250 ms after the knobs stop), `RADAR_FOLLOW_ID:<digits>` (`RADAR_FOLLOW_ID:0` = stop following) and `POWER,V12:<volts>,V5:<volts>,STATUS:<OK, or 5V_LOW, 5V_HIGH, 12V_LOW, 12V_HIGH joined with +>` every 30 seconds. No bridge reads this port yet.
+`ADF_FREQ:<kHz>` (190 to 1799, sent 250 ms after the knobs stop), `RADAR_FOLLOW_ID:<digits>` (`RADAR_FOLLOW_ID:0` = stop following) and `POWER,V12:<volts>,V5:<volts>,STATUS:<OK, or 5V_LOW, 5V_HIGH, 12V_LOW, 12V_HIGH joined with +>` every 30 seconds. Also `UPPER_KEY:<key>` for each press on the Upper keypad and `SQUAWK_SET:<4 digits>` when a squawk is entered on the ADF keypad. The FSUIPC bridge reads all of them (`ADF_FREQ` sets the ADF, `UPPER_KEY:*` toggles the ATC menu, `SQUAWK_SET` sets the transponder); the MSFS bridge reads `ADF_FREQ`; the DCS and X-Plane bridges do not read the port.
 
 ## Aircraft information to the GPS interface (UDP 27002)
 
@@ -108,18 +112,18 @@ Every controller sketch has a firmware version, a build number and the compile d
 The board sends one line to the debug stream (UDP 27000) straight after *Ethernet Started* in its start-up sequence, and again whenever it receives the control packet `C,VERSION:1`, so the version can be checked without resetting it (the USB HID board sends it to its logging port):
 
 ```
-Radio Controller firmware 1.0 build 9 compiled Nov  7 2026 08:00:00
+Radio Controller firmware 1.0 build 15 compiled Nov  8 2026 09:50:00
 ```
 
 (each board's debug function puts its own name in front of the line). The start-up line is only seen if the debug listener is already running when the board starts; otherwise send `C,VERSION:1` to the board. The version is also in every heartbeat to the Health Monitor, as ` FW:1.0.2` (version 1.0, build 2), and the Health Monitor shows it in the **Firmware** column of its voltage table, so the code on every board can be checked at a glance.
 
-| Controller | Sketch | `FIRMWARE_NAME` | Version and build now (all but the USB HID board flashed 7 November 2026) |
+| Controller | Sketch | `FIRMWARE_NAME` | Version and build now (all but the USB HID board flashed 7 and 8 November 2026) |
 |---|---|---|---|
-| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 9 |
-| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 5 |
+| Radio controller .101 | `JET_RANGER_RADIO_CONTROLLER` | Radio Controller | 1.0 build 15 |
+| Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 6 |
 | Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 5 |
 | Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 7 |
-| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 9 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 13 |
 | USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 2 |
 
 ## COM port to board mapping

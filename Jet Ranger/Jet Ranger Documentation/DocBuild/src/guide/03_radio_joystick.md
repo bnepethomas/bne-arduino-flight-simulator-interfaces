@@ -39,6 +39,8 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (1 = on) | `LED_HDG:1` |
 | `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (1 = on); the DCS bridge sends all 20 for the Huey, the X-Plane bridge ten approximations, the FSUIPC and MSFS bridges none | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot panel's OLED | `APHDG:090` |
+| `N1A`, `N2A` | The NAV1 and NAV2 active frequencies (MHz); the standby frequencies stay local | `N1A:113.70` |
+| `DMEDIST`, `DMESPD`, `DMEID` | The DME display: distance in nautical miles (-1 = no DME), speed in knots, station identifier | `DMEDIST:12.3` |
 | `BPWR` | Backlight power: 1 = main bus 20 V or more, 0 = backlight off | `BPWR:1` |
 | `C,B:n` | Brightness 0 to 15: the panel backlight level (0 off) and the panel LEDs' intensity | `C,B:5` |
 | `C,LEDTEST:n` | 1 lights all 39 panel LEDs, 0 returns them to the simulator's state | `C,LEDTEST:1` |
@@ -130,6 +132,8 @@ One MAX7219 chip on the Radio Auto Pilot PCB lights the 19 LEDs on the two panel
 
 The bridges send each LED as a `LED_xxx:0/1` pair in the radio packet and the radio lights it, so the panel follows the simulator: the Auto Pilot LEDs show the autopilot and flight director modes (CRS is NAV1 lock), the COM1, COM2, BOTH, NAV1, NAV2, DME, ADF and MKR LEDs show the audio panel selections, and OUTER, MIDDLE and INNER light as you fly over a marker beacon. The LEDs go off with the radio power (avionics bus below 24 V, or no data and no use for 30 seconds). `C,LEDTEST:1` lights all 39 (including the Huey panel's) for checking the wiring and `C,LEDTEST:0` returns them to the simulator's state. The brightness command `C,B:0-15` (the BenchTester slider, or the ADF panel's pot) sets their brightness, and 0 switches them off. The **BenchTester** can light each LED on its own (see Program windows). The FSUIPC bridge reads standard FSUIPC offsets that the DodoSim aircraft may not all drive, and the MSFS bridge has not been checked against the simulator, so some LEDs may stay off until that is confirmed.
 
+**Autopilot LEDs by simulator.** The bridges light the Auto Pilot LEDs from the simulator's standard autopilot variables. Aircraft with an autopilot of their own need their own mapping: the MSFS bridge maps the CowanSim 206B3's HeloSAS (AP ENGAGE, HDG, CRS, IAS and ALT; it also shows the altitude, airspeed and vertical speed captured when a mode is engaged on the Auto Pilot display) and the FSUIPC bridge maps the DodoSim 206's SAS. The panel's APPR, FD and BC LEDs have no equivalent in either.
+
 **DodoSim 206 in Prepar3D: enable the SAS first.** The SAS (the stability augmentation system and autopilot) in the DodoSim 206 must be enabled in the aircraft's systems before it is displayed on the Auto Pilot panel. The DodoSim 206 V2 Settings window (General tab, shown below) has the SAS options: under *Equipment* tick *SAS fitted by default* and *SAS used by default*, and under *This Aircraft* tick *Has SAS fitted*.
 
 ![The DodoSim 206 V2 Settings window (General tab): the SAS options under Equipment and This Aircraft](screenshots/dodosim_settings_sas.png#h140)
@@ -162,13 +166,13 @@ The radio controller switches the backlights of the Audio, Auto Pilot and COM an
 - If no data arrives from the PC for 30 seconds and no knob or button is used, the COM, NAV, Auto Pilot and DME displays blank (as if the radio had no power) and the radio tells the ADF controller to blank its display and lamps too. Turning a knob, pressing a button or new data switches them back on.
 - When the avionics bus is below 24 V the bridge tells the radio the power is off (`NAVCOM1:0`) and the COM, NAV, Auto Pilot and DME displays (and the ADF panel's display) go blank together; they light together again when the bus rises.
 - At power-up the matrix is ignored for the first 1.5 seconds so a floating input cannot send false button presses. Each switch is checked every millisecond and reported about 12 ms after it changes, and a noisy reading cannot hold a release back.
-- At start-up the radio scans the I2C bus and sends what it finds, behind each multiplexer channel, to the debug monitor (lines starting `I2C`); send `C,I2CSCAN:1` to scan again. The Audio panel's OLED is the **DME display**: it shows `10M` on the top line and `0M` on the bottom line after start-up.
+- At start-up the radio scans the I2C bus and sends what it finds, behind each multiplexer channel, to the debug monitor (lines starting `I2C`); send `C,I2CSCAN:1` to scan again. The Audio panel's OLED is the **DME display**: it shows dashes (`DME --- NM`, `--- KT -- MIN`) until the bridge sends a DME readout, then the station identifier and distance (`DME IBN 12.3NM`) and the speed and time to the station (`120 KT 6 MIN`).
 
 - The radio sends `COMM_NAV` to the Health Monitor every 10 seconds.
 
 ## Known issues
 
-- Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet, although the NAV knobs are read.
+- The PC sends the COM1 and COM2 frequencies and the NAV1 and NAV2 active frequencies; the NAV standby frequencies are local to the radio (the knobs and the swap switches are read).
 - The Radio Auto Pilot PCB has volume pots that the radio sketch does not read yet.
 - Four encoders (COM1 major and minor, COM2 minor, NAV1 minor) have A and B the other way round from the PCB labels; it only matters if one of those knobs tunes backwards.
 - If every button in the matrix's first column stops working, send `C,MATRIX:1` to port 13136: the radio prints the raw H or L state of each column to the debug listener. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board (a faulty or badly seated Mega did exactly this on the bench).

@@ -70,6 +70,8 @@ The default waits are the swing times measured on the real boards plus about one
 - One row per gauge (18 rows on the left) with its board, a seconds box and a **Swing** button; the running row is highlighted gold. The 15 warning-lamp buttons are on the right.
 - **OLEDs ON** sends `C,OLEDTEST:1` to the Dual Stepper and **OLEDs OFF** sends `C,OLEDTEST:0`. The **Temp OLED** box (default `21C`) with **Send TEMP** sends `D,TEMP:<text>`.
 - **Reset boards...** opens a dialog with a tick box per board (Radio .101, Servo .102, Upper .103, Stepper .105, Dual Stepper .106, USB HID .11; all ticked by default; the ADF and Upper board .107 is not in the list yet and the Upper .103 entry is the retired address) and sends `C,RESET:1` to each ticked board (the HID board on port 4210). The Dual Stepper takes about a minute to restart and the HID board briefly drops its USB devices. The button is disabled while a run is active.
+- **DME display group** (right column, under the Auto Pilot display): **Distance (nm)**, **Speed (knots)** and **Station ident** boxes (start at 12.3, 120 and BNE) and **Send DME** / **No DME**, which send `DMEDIST`, `DMESPD` and `DMEID` to the Radio so the DME display can be tried without a simulator.
+- **About...** (after COM ports...): the program's version, build number and build date and time. The BenchTester has its own build number (`<BuildNumber>` in its project file, raised with every change) like the bridges.
 
 ## COM ports window
 

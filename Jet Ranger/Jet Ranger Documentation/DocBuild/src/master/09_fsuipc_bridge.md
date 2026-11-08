@@ -12,7 +12,7 @@
    - `FSUIPCConnection.Process()` refreshes every declared offset and the radio-stack group;
    - format the on-screen readout and update the annunciator list;
    - build and send each board's packet (below);
-   - send the radio packet when a frequency or the bus voltage changed (at most every 200 ms) or every 5 seconds regardless.
+   - send the radio packet when a frequency or the bus voltage changed (at most every 200 ms) and in any case every 500 ms (twice a second, `RadioRefreshMs`).
 4. **`UpdateRadios(command)`** handles port 27001 (below).
 5. **`chkAvionicsMaster_CheckedChanged`** writes the avionics master offset when the operator toggles the checkbox, and closing the window stops both timers and the FSUIPC connection.
 
@@ -60,7 +60,7 @@ The Servo, Stepper and Dual Stepper boards each get their **own** packet in real
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
 | Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
 | ADF and Upper .107 (and the retired Upper .103) | `BPWR` only (`D,BPWR:1/0`, sent from the same code as the others, `adfClient` and `upperClient`); it also feeds the 30 second no-data timeout. The Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to an address that no longer exists and should be removed |
-| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0) and the five Auto Pilot display values `APHDG`, `APCRS`, `APIAS`, `APVS` and `APALT` (`BuildPanelValuePayload()`: heading and course as three digits, north is 360, airspeed in knots, vertical speed in feet per minute and altitude in feet). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
+| Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `N1A`, `N2A` (the NAV active frequencies), `DMEDIST`, `DMESPD`, `DMEID` (the DME readout), `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) `BPWR` (backlight power, 1 while the main bus is 20 V or more) and the 19 `LED_xxx` tokens for the Auto Pilot and Audio panel LEDs (all 0 while `NAVCOM1` is 0) and the five Auto Pilot display values `APHDG`, `APCRS`, `APIAS`, `APVS` and `APALT` (`BuildPanelValuePayload()`: heading and course as three digits, north is 360, airspeed in knots, vertical speed in feet per minute and altitude in feet). The offsets above are standard FSUIPC offsets; the DodoSim aircraft may not drive all of them |
 
 ## Aircraft information for the GPS interface
 
@@ -97,3 +97,16 @@ Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:y
 ## Packet monitor
 
 **Packet monitor.** **Show packets...** under the Avionics Master box opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, the retired Upper .103, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local*) and the payload text. The **Target board** box filters the list to one board; **Pause** and **Clear** do what they say. Command line: `--show-packets` opens it at start, `--packet-board <radio, servo, stepper, dual, adf, gps or a last number such as 105>` opens it filtered. `BoardTargets` raises a `PacketSent` event for every send and `PacketMonitorForm` shows the queued packets ten times a second (the last 6,000 are kept for re-filtering), so a busy bridge is not slowed. Only packets that are really sent are shown. The window and the command line were checked; no simulator data has gone through this bridge's monitor yet.
+
+## Radio panel, ADF and keypad features (8 November 2026)
+
+- **DME.** The DME display gets `DMEDIST`, `DMESPD` and `DMEID` from offsets `0x0300` (distance, nautical miles x 10), `0x0302` (speed, knots x 10), the "NAV1 has DME" bit (bit 4 of `0x3300`) and `0x3000` (the NAV1 identifier, 6 bytes). With no DME it sends -1 and `-`.
+- **NAV active frequencies.** `N1A` and `N2A` come from the NAV offsets `0x0350` and `0x0352`; the standby frequencies are not sent.
+- **DodoSim 206 SAS on the Auto Pilot LEDs.** The SAS annunciator LEDs are local variables (`DodoSim_SasSasLed`, `…HdgLed`, `…NavLed`, `…SpdLed`, `…AltLed`, `…VrtLed`, `…PwrLed`), read with FSUIPC's local variable access about five times a second (`ReadDodoSas()`). Bit 1 is yellow (standby or primed), bit 2 green (engaged); the green bit lights AP ENGAGE (SAS), HDG, CRS (NAV), IAS (SPD) and ALT. The SAS must be enabled in the DodoSim first (see the notes above). The data out box shows the raw values.
+- **ADF.** The packet to the ADF controller carries the simulator's ADF frequency (`ADF:<kHz>`, from offsets `0x034C` and `0x0356`), `BRIDGEKEYS:*`, `ADFKEYPAD:SQUAWK` and the transponder code (`SQK`, offset `0x0354`). The bridge listens on UDP 27003: `ADF_FREQ:<kHz>` sets the ADF with the generic control `ADF_COMPLETE_SET` (kHz x 10000 as BCD digits); `UPPER_KEY:*` toggles the ATC menu with the control `ATC`; `SQUAWK_SET:<code>` sets the transponder with `XPNDR_SET` (four BCD digits, 0 to 7 only). The data out box shows the last of each. Checked live on Prepar3D v6.1.
+- **Window.** The data out text box (the readout) grows with the window, has a scroll bar that keeps its position while the values update, and a **Pause data out** check box freezes it while the data keeps going to the boards. It also shows the DME, the autopilot and audio LEDs the simulator reports, the SAS values, the squawk and the last keypad and knob events.
+
+## About window, build number and icon
+
+The **About...** button (under Show packets...) opens a window with the program name, its version, its **build number** and the **date and time it was built**. The build number is raised by one every time the program is changed (`<BuildNumber>` in the project file) and the build date and time are stamped in at every build. The program's icon is a suspension bridge (`bridge.ico`), used for the exe, the main window and the About window.
+

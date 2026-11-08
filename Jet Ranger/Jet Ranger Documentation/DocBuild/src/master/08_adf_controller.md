@@ -72,6 +72,15 @@ These come from the former Upper controller. The Upper panel is the overhead swi
 
 The PCB has a brightness pot on A0 (5 V to ground, wiper to A0). The sketch can read it, smooth it (a running average over 8 samples every 20 ms), turn it into a **level 0 to 15** with hysteresis, set its own backlight from it and send `C,B:<level>` to the other panels. This is **switched off for the moment**: `USE_BRIGHTNESS_POT` at the top of the brightness code is 0, so the pot is not read, no `C,B` packets are sent, and this board's own backlight stays at the default level 4 (PWM 68, close to the other boards' default of 65) until a `C,B` command sets it (see Panel blanking and backlight). Set `USE_BRIGHTNESS_POT` to 1 and reflash to bring it back. With it on, the level goes to the Radio .101, Servo .102, Stepper .105 and Dual Stepper .106 (not the USB HID board; the Upper panel is on this board), one board per pass of the loop so a switched-off board costs at most one send timeout, once 5 seconds after start-up and then whenever it changes. The other panels' brightness meanwhile follows the BenchTester slider and their own defaults.
 
+## The bridges and the ADF controller
+
+The FSUIPC bridge (Prepar3D / FSX) and the MSFS bridge send this board `D,BPWR:1,ADF:284` (and from the FSUIPC bridge also `BRIDGEKEYS:*,ADFKEYPAD:SQUAWK,SQK:3374`) in every packet, and read its events on UDP 27003:
+
+- **ADF frequency, simulator to display.** `ADF:<kHz>` is the simulator's active ADF frequency (190 to 1799); `setAdfFromBridge()` puts it on the display, so the display follows the simulator. It is not applied for a second after a knob turn, or while a new knob frequency is waiting to be sent, because the simulator has not caught up yet.
+- **ADF knobs, display to simulator.** The knobs change the display at once and, 250 ms after they stop, the board sends `ADF_FREQ:<kHz>`. The FSUIPC bridge sets Prepar3D's ADF with the generic control `ADF_COMPLETE_SET` (the parameter is the frequency as BCD digits of kHz x 10000: 340 kHz is `0x3400000`; checked from 190 to 1799 kHz). The MSFS bridge sends the event `ADF_COMPLETE_SET` and tries three encodings (kHz x 10000, Hz, kHz), keeping the one for which the simulator then reports the right frequency; this is **not yet tested against MSFS**. The knobs are also joystick buttons, so FSUIPC may tune the DodoSim's own ADF too; the exact frequency sent after the knob stops is the final value.
+- **Upper keypad keys.** Each press on the Upper keypad is sent to the PC as `UPPER_KEY:<key>` as well as typed through the USB HID board. The FSUIPC bridge toggles the ATC menu on `*` (the control `ATC`). With `BRIDGEKEYS:*` in the packets (held for 5 seconds, `BRIDGE_KEYS_HOLD_MS`) the board does not type the `*` (neither press nor release), so there is no stray asterisk; with no bridge running, or with the other bridges, every key is typed.
+- **ADF keypad as the squawk keypad.** With `ADFKEYPAD:SQUAWK` (the FSUIPC bridge) the ADF keypad enters the transponder code instead of the radar follow ID: four digits 0 to 7, `#` sends `SQUAWK_SET:<code>`, `*` deletes the last digit. The display shows `SQUAWK: 12_` while typing and `SQUAWK 3374` otherwise (the code the bridge reports as `SQK`). The bridge sets the transponder with the generic control `XPNDR_SET` (the four digits as BCD). The radar follow ID is not touched in this mode.
+
 ## Start-up hold
 
 From reset the backlight (at 100 percent), the OLED and the three landing gear lamps stay **on** (`panelBlank()` returns false and every lamp is lit) until the 13 Stepper controller announces on UDP port 13138 that start-up is complete, or 180 seconds after reset. Then `refreshAfterStartupHold()` redraws the OLED and the lamps from the Radio's `C,DISPLAY`, the no-data timer and the bridge, and the backlight goes to 70 percent and off until `BPWR:1`.
@@ -106,7 +115,7 @@ A power status is sent to the PC (port 27003) 5 seconds after start-up, then **e
 | 172.16.1.10 | 13137 | `ADF_PANEL V5:5.03 V12:12.41 FW:1.0.3` heartbeat every 10 seconds, and the same readings again as `UPPER_INPUT V5:5.03 V12:12.41 FW:1.0.3` (the old Upper board's name) |
 | 172.16.1.11 (USB HID board) | 4210 | also the Upper switch matrix as `index,state` (0 to 95) and the Upper keypad as `KEY,key,state` |
 
-The events use **port 27003, not 27001**, because the FSUIPC and MSFS bridges treat any unrecognised string on 27001 as a COM1 standby frequency and would retune COM1. **Neither bridge reads port 27003 yet**, so the ADF frequency and the radar follow ID do not reach the simulator. The switch commands do go to 27001, which both bridges recognise.
+The events use **port 27003, not 27001**, because the FSUIPC and MSFS bridges treat any unrecognised string on 27001 as a COM1 standby frequency and would retune COM1. The FSUIPC bridge reads port 27003 (the ADF knob frequency, the Upper keypad keys and the squawk entries) and the MSFS bridge reads the knob frequency (see The bridges and the ADF controller); the DCS and X-Plane bridges do not, and no bridge uses the radar follow ID yet. The switch commands do go to 27001, which both bridges recognise.
 
 ## Panel switches
 
@@ -132,7 +141,7 @@ The three lamps on the ADF panel (nose D2, left D3, right D4, each LED with its 
 
 ## What it receives
 
-On UDP 13136: control packets (`C,<COMMAND>:<value>`) and data packets (`LDGN`, `LDGL` and `LDGR` for the lamps and `BPWR` for the backlight power; every other token is ignored). Every data packet, brightness command and keep-alive restarts the 30 second no-data timeout (see Panel blanking and backlight).
+On UDP 13136: control packets (`C,<COMMAND>:<value>`) and data packets (`LDGN`, `LDGL` and `LDGR` for the lamps `BPWR` for the backlight power, `ADF` (the simulator's ADF frequency in kHz), `BRIDGEKEYS`, `ADFKEYPAD` and `SQK` (see The bridges and the ADF controller); every other token is ignored). Every data packet, brightness command and keep-alive restarts the 30 second no-data timeout (see Panel blanking and backlight).
 
 | Command | Action |
 |---|---|
@@ -152,7 +161,7 @@ The two-line, 16-character OLED is on the Mega's own I2C bus (no TCA9548A) and u
 - The knob directions have not been checked. If a knob tunes the wrong way, swap its two pins in the `RotaryEncoder` lines.
 - The display code is the Radio controller's character OLED code. If the ADF panel's display is a graphics SSD1306 it needs different code.
 - The rail limits (5 V: 4.75 to 5.25, 12 V: 10.8 to 15.0) are first guesses; check them against the real supply.
-- The ADF frequency and the radar follow ID go to port 27003, which the bridges do not read, so they are not used in the simulator yet.
+- The radar follow ID goes to port 27003, which no bridge uses yet (the ADF frequency is read by the FSUIPC and MSFS bridges).
 - The Upper matrix and keypad, the ADF switches at their new pins (D31 to D37), the display and lamp blanking, and the backlight and no-data rules have not been bench-tested on the combined board.
 - **Remote reset** (`C,RESET:1`) is the same software reset as the Radio controller. The old Upper board's reset was never bench-tested.
 - **No pause for a missing HID board:** unlike the Radio, the sketch has no pause after a failed send to the USB HID board, so with the HID board unplugged each switch or key change can stall the scan for up to about 80 ms (the W5500 retransmission timeout is 10 ms with 8 retries).

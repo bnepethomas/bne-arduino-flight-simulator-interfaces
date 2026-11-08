@@ -6,7 +6,7 @@
 
 ## Program flow
 
-1. **Setup:** reset the W5500 through pin 53, bring up Ethernet and open the UDP sockets, flash the red LED for 3 seconds while the link settles, send an "Ethernet Started" debug line, scan the I2C bus (results to the debug monitor, see Diagnostics), start the COM and NAV OLEDs through the TCA9548A I2C multiplexer, start the DME display (the Audio panel's OLED) with the text `10M` and `0M`, start the eight COM and NAV encoders (with acceleration), the five Auto Pilot knobs and the matrix scanner.
+1. **Setup:** reset the W5500 through pin 53, bring up Ethernet and open the UDP sockets, flash the red LED for 3 seconds while the link settles, send an "Ethernet Started" debug line, scan the I2C bus (results to the debug monitor, see Diagnostics), start the COM and NAV OLEDs through the TCA9548A I2C multiplexer, start the DME display (the Audio panel's OLED) with the no-data text `DME --- NM` and `--- KT -- MIN`, start the eight COM and NAV encoders (with acceleration), the five Auto Pilot knobs and the matrix scanner.
 2. **Main loop:**
    - toggle the green and red status LEDs every 200 ms;
    - every 10 seconds send the `COMM_NAV` heartbeat;
@@ -56,6 +56,8 @@
 | `LED_xxx` | One of the 19 Auto Pilot and Audio panel LEDs (see below): 1 = on, 0 = off | `LED_HDG:1` |
 | `LED_H_xxx` | One of the 20 Huey Warning Panel LEDs (see below): 1 = on, 0 = off. Sent by the DCS and X-Plane bridges, not by the FSUIPC and MSFS bridges | `LED_H_ENG_OIL:1` |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | The five values on the Auto Pilot display (see below), up to 5 characters each | `APHDG:090` |
+| `N1A`, `N2A` | The NAV1 and NAV2 **active** frequencies, MHz (the standby frequencies stay local to the radio); not applied for 500 ms after a knob or switch | `N1A:113.70` |
+| `DMEDIST`, `DMESPD`, `DMEID` | The DME readout (NAV1) for the DME display: distance in nautical miles (-1 = no DME), speed in knots (-1 = none) and the station identifier (up to 4 letters or digits, `-` = none) | `DMEDIST:12.3` |
 | `C,B:n` | Brightness 0 to 15 (control packet): the panel backlight level (0 off, 15 full) and the MAX7219 intensity of the panel LEDs | `C,B:5` |
 | `C,LEDTEST:n` | Control packet: 1 lights all 39 panel LEDs (Auto Pilot, Audio and Huey), 0 returns them to the simulator's state | `C,LEDTEST:1` |
 | `C,LEDB:n` | Control packet: the MAX7219 brightness (the Auto Pilot, Audio and Huey LEDs) on its own, 0 off, 1 to 15; after the first one `C,B` sets only the backlight until the board is reset | `C,LEDB:8` |
@@ -144,6 +146,8 @@ One MAX7219 on the Radio Auto Pilot PCB (U2, `DOUT` unconnected, ISET resistor 1
 
 The first two columns are the Auto Pilot panel and the others the Audio panel. The bridges send each LED as a `LED_xxx:0/1` token in the radio data packet. `HandleOutputValuePair()` handles these before its per-pair debug line (19 extra debug packets per radio packet would flood the debug stream), `applyPanelLeds()` writes only the LEDs that changed, and the LEDs follow the radio power: they are lit only while `NAVCOM1` is 1 and the no-data timeout has not blanked the displays. `C,LEDTEST:1` lights all 39 for checking the wiring, and `C,B:0-15` (for example from the ADF controller's pot or the BenchTester slider) sets the intensity: 0 shuts the MAX7219 down, 1 to 15 set the intensity. The BenchTester has a toggle for each LED, an All ON / OFF, a chase and the board test.
 
+**Autopilot LEDs by simulator.** The bridges light the Auto Pilot LEDs from the simulator's standard autopilot variables (SimVars, FSUIPC offsets). Aircraft with an autopilot of their own need their own mapping. The MSFS bridge maps the CowanSim 206B3's HeloSAS: its annunciator lights are the local variable `L:CS_HeliSAS_Lights_Green` (bit 1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT, 32 VRT), which light AP ENGAGE, HDG, CRS, IAS and ALT, and the altitude, airspeed and vertical speed the HeloSAS captured when the mode was engaged are shown on the Auto Pilot display. The FSUIPC bridge maps the DodoSim 206's SAS: its annunciator variables `DodoSim_SasSasLed`, `DodoSim_SasHdgLed`, `DodoSim_SasNavLed`, `DodoSim_SasSpdLed` and `DodoSim_SasAltLed` (bit 1 = yellow, standby; bit 2 = green, engaged) light the same five LEDs. The panel's APPR, FD and BC LEDs have no equivalent in either autopilot, and the SAS's VRT mode has no LED on the panel.
+
 ## Huey Warning Panel switches and LEDs
 
 The Huey Warning Panel (20 caution LEDs, three switches) connects to the Radio controller through four connectors added in PCB revision 1.4 (31 October 2026): **J20** the three switches (A8 to A10), **J21** the panel backlight, **J22** the LED anodes (`HUEY_ANODES`) and **J23** the LED cathodes (`HUEY_CATHODES`). The panel itself is hand wired and its PCB is not part of this documentation. The sketch supports it as follows (the Radio on COM20 was flashed with this build on 31 October 2026, 40,552 bytes of flash and 5,949 bytes of RAM, 72 percent; it has not been checked on the panel yet):
@@ -190,7 +194,7 @@ Every Audio and Auto Pilot switch and knob click is sent to the USB HID board (1
 
 ## DME display
 
-The Audio panel's character OLED (the PCB net `AUDIO_OLED`, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2) is the DME display. `DME_OLED_Port` selects the channel. At start-up the sketch starts it with the same OLED sequence as the COM and NAV displays and writes `10M` on the top line and `0M` on the bottom line (`showDme()` pads each line to 16 characters so a shorter text replaces a longer one). Nothing else writes to it yet. It blanks and returns with the COM, NAV and Auto Pilot displays: `updateDme()` clears it while the radio has no power (the avionics bus is below 24 V) or the no-data timeout has fired, and redraws `10M` / `0M` when they come back (it is called wherever `updateAP()` is).
+The Audio panel's character OLED (the PCB net `AUDIO_OLED`, TCA9548A channel 3; the Auto Pilot panel's OLED is channel 2) is the DME display. `DME_OLED_Port` selects the channel. At start-up the sketch starts it with the same OLED sequence as the COM and NAV displays and writes the no-data text, `DME --- NM` on the top line and `--- KT -- MIN` on the bottom line (`showDme()` pads each line to 16 characters; it was `10M` and `0M` before build 13). From build 12 the bridges send the DME readout as three tokens, `DMEDIST`, `DMESPD` and `DMEID`; `setDmeFromToken()` stores them (capitals only, letters and digits, 4 characters) and the loop redraws the display when one changed (`dmeValuesChanged`, `buildDmeText()`). The top line is `DME IBN 12.3NM`: the station identifier (build 14) and the distance, with one decimal below 100 nm (`DME 12.3 NM` with no identifier, `DME --- NM` with no DME). The bottom line is `120 KT 6 MIN`: the speed and the time to the station (distance / speed x 60, at most 99; `-- MIN` when the speed is 0). It blanks and returns with the COM, NAV and Auto Pilot displays: `updateDme()` clears it while the radio has no power (the avionics bus is below 24 V) or the no-data timeout has fired, and redraws the text when they come back; it stays lit during the start-up hold.
 
 ## ADF controller display
 
@@ -233,6 +237,6 @@ On the same PCB the COM1 major, COM1 minor, COM2 minor and NAV1 minor encoders h
 
 ## Known issues
 
-- Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet.
+- The PC sends the COM1 and COM2 frequencies (active and standby) and, from build 15, the NAV1 and NAV2 **active** frequencies (`N1A`, `N2A`); the NAV standby frequencies are local to the radio (the knobs and the swap switches).
 - The Radio controller emulator sends a bare frequency for every radio (see the emulator chapter).
 - The mux address pins (D2 to D4) are not driven by the sketch; the mux module's own pull-downs set address 0x70.

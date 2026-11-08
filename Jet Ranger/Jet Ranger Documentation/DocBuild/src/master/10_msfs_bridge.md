@@ -19,7 +19,7 @@
 1. **Constructor:** connect the UDP clients (port 13136), build the lamp list, start the 1 second `timerConnection` and the UDP listener on 27001.
 2. **`timerConnection_Tick`:** try `new SimConnect("MSFS Winforms Bridge", Handle, WM_USER_SIMCONNECT, ...)`. While MSFS is not running this throws and the timer tries again. On success it registers the data definition, requests it every second sim frame, maps the client events, starts `timerMain` and stops itself.
 3. **`DefWndProc`** passes `WM_USER_SIMCONNECT` to `ReceiveMessage()`; the data callback only stores the newest sample. If MSFS quits or the connection throws, the app closes SimConnect, stops `timerMain` and goes back to step 2.
-4. **`timerMain_Tick`** (100 ms) converts the newest sample to a `SimSnapshot`, updates the readout, lamp list and Avionics Master box, then sends the packets: Radio when a frequency, the main bus voltage or the radio power flag changed (at most every 200 ms) or every 5 seconds; one packet each to the Servo, Stepper and Dual Stepper boards about every 100 ms.
+4. **`timerMain_Tick`** (100 ms) converts the newest sample to a `SimSnapshot`, updates the readout, lamp list and Avionics Master box, then sends the packets: Radio when a frequency, the main bus voltage or the radio power flag changed (at most every 200 ms) and in any case every 500 ms (twice a second); one packet each to the Servo, Stepper and Dual Stepper boards about every 100 ms.
 5. **`UpdateRadios`** (UDP 27001) handles the Radio controller's commands as SimConnect client events.
 
 ![Connection states](diagrams/msfs_states.svg)
@@ -120,3 +120,16 @@ Five lamps are driven; the other ten are aircraft specific (DodoSim supplies the
 ## Packet monitor
 
 **Packet monitor.** **Show packets...** under the Avionics Master box opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, the retired Upper .103, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local*) and the payload text. The **Target board** box filters the list to one board; **Pause** and **Clear** do what they say. Command line: `--show-packets` opens it at start, `--packet-board <radio, servo, stepper, dual, adf, gps or a last number such as 105>` opens it filtered. `BoardTargets` raises a `PacketSent` event for every send and `PacketMonitorForm` shows the queued packets ten times a second (the last 6,000 are kept for re-filtering), so a busy bridge is not slowed. Only packets that are really sent are shown. The window and the command line were checked; no simulator data has gone through this bridge's monitor yet.
+
+## Radio panel, ADF and keypad features (8 November 2026)
+
+- **DME.** A SimConnect request of its own reads NAV1's DME: `NAV HAS DME:1`, `NAV DME:1`, `NAV DMESPEED:1` and the station identifier `NAV IDENT:1` (a string); the radio packet carries `DMEDIST`, `DMESPD` and `DMEID`.
+- **NAV active frequencies.** `N1A` and `N2A` (`NAV ACTIVE FREQUENCY:1` and `:2`); the standby frequencies are not sent.
+- **CowanSim 206B3 HeloSAS on the Auto Pilot LEDs and display.** The aircraft's autopilot does not use the standard `AUTOPILOT …` SimVars. Its annunciator lights are the local variable `L:CS_HeliSAS_Lights_Green` (bit 1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT, 32 VRT), which light AP ENGAGE, HDG, CRS, IAS and ALT. The HeloSAS keeps its references to itself (the altitude, airspeed and vertical speed at the moment a mode is engaged), so the bridge remembers those values when the ALT, SPD or VRT light comes on and shows them on the Auto Pilot display until the mode goes off; HDG is the heading bug (a standard SimVar).
+- **ADF.** The packet to the ADF controller carries `ADF:<kHz>` (`ADF ACTIVE FREQUENCY:1`). The bridge listens on UDP 27003 for `ADF_FREQ:<kHz>` from the ADF controller's knobs and sets the ADF with the event `ADF_COMPLETE_SET`, trying three encodings of the BCD parameter and keeping the one the simulator confirms. **Not yet tested against MSFS.** The Upper keypad and the squawk entry are not handled by this bridge.
+- **Window.** The data out text box grows with the window, has a scroll bar and a **Pause data out** check box, and shows the DME, the autopilot and audio LEDs and the ADF knob line.
+
+## About window, build number and icon
+
+The **About...** button (under Show packets...) opens a window with the program name, its version, its **build number** and the **date and time it was built**. The build number is raised by one every time the program is changed (`<BuildNumber>` in the project file) and the build date and time are stamped in at every build. The program's icon is a suspension bridge (`bridge.ico`), used for the exe, the main window and the About window.
+

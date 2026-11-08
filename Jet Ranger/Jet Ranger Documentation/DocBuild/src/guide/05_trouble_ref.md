@@ -118,6 +118,10 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | D | Auto Pilot panel LEDs on the radio controller (1 = on) |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | D | Audio panel LEDs on the radio controller (1 = on) |
 | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT` | D | The values on the Auto Pilot panel's OLED (radio controller): heading and course as three digits (north is 360), airspeed in knots, vertical speed in feet per minute and altitude in feet |
+| `N1A`, `N2A` | D | NAV1 and NAV2 active frequency in MHz, for the radio controller's NAV display (the standby frequencies are local) |
+| `DMEDIST`, `DMESPD`, `DMEID` | D | The radio controller's DME display: distance in nautical miles (-1 = no DME), speed in knots (-1 = none), station identifier (`-` = none) |
+| `ADF`, `SQK` | D | To the ADF and Upper controller: the simulator's ADF frequency in kHz and transponder code, for its display |
+| `BRIDGEKEYS`, `ADFKEYPAD` | D | To the ADF and Upper controller: `BRIDGEKEYS:*` = the bridge handles `*` on the Upper keypad (not typed); `ADFKEYPAD:SQUAWK` = the ADF keypad enters the squawk code |
 | `LDGN`, `LDGL`, `LDGR` | D | The landing gear lamps on the ADF panel (nose, left, right): 1 = lit |
 | `BPWR` | D | Backlight power for the Radio, Servo, Stepper, Dual Stepper and ADF and Upper controllers: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets, after `PWR` in the Dual Stepper packet, after `NAVCOM1` in the Radio packet and on its own to the ADF and Upper board |
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |

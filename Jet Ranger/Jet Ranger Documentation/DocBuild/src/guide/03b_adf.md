@@ -97,11 +97,21 @@ Five seconds after start-up, and then every **30 seconds**, the board sends the 
 | `RADAR_FOLLOW_ID:4521` | The aircraft ID typed on the keypad; `RADAR_FOLLOW_ID:0` means stop following |
 | `POWER,V12:12.41,V5:5.02,STATUS:OK` | Power status, every 30 seconds |
 
-These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anything they do not recognise on 27001 as a COM1 standby frequency. (The panel switch commands above do go to 27001: the bridges recognise those names.) **Neither bridge reads port 27003 yet**, so the frequency and the follow ID do not reach the simulator.
+These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anything they do not recognise on 27001 as a COM1 standby frequency. (The panel switch commands above do go to 27001: the bridges recognise those names.) The FSUIPC bridge reads port 27003 (the knob frequency, the Upper keypad and the squawk) and the MSFS bridge reads the knob frequency (see With the bridges); no bridge uses the radar follow ID yet.
 
 ## Control packets
 
 The board acts on control packets on UDP 13136: `C,RESET:1` reboots it, `C,MATRIX:1` prints the raw ADF keypad readings to the debug listener, `C,POWER:1` sends a power status, `C,B:0` to `C,B:15` sets the backlight brightness (while the pot is switched off), `C,KEEPALIVE:1` counts as data and `C,DISPLAY:0` / `C,DISPLAY:1` (sent by the Radio controller) blank and restore the panel. Of the data packets it uses the three landing gear lamp tokens and `BPWR`.
+
+## With the bridges
+
+When the **FSUIPC bridge** (Prepar3D and FSX) or the **MSFS bridge** is running:
+
+- **The ADF frequency follows the simulator.** The display shows the simulator's ADF frequency. Turning the knobs changes the display at once, and a moment after you stop the bridge sets that frequency in the simulator. (The MSFS bridge's version of this has not been tested yet: check the line *Last ADF knob frequency* in its window.)
+- **The Upper keypad.** In Prepar3D, **`*` toggles the ATC menu** (and no longer types an asterisk). Every other key is typed as before.
+- **The ADF keypad sets the squawk** (Prepar3D and FSX, with the FSUIPC bridge): type four digits from 0 to 7 and press `#`; `*` deletes a digit. The display's second line shows `SQUAWK: 12_` while you type and then `SQUAWK 3374`. The radar follow ID is not used then.
+
+Without a bridge the ADF keypad is the radar follow ID keypad and the Upper keypad types its keys, as described above.
 
 ## Start-up hold
 

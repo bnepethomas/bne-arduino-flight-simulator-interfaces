@@ -49,3 +49,8 @@ The window shows the X-Plane address and whether data is arriving, the **Profile
 ## Packet monitor
 
 **Packet monitor.** **Show packets...** in the toolbar opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local*) and the payload text. The **Target board** box filters the list to one board; **Pause** and **Clear** do what they say. Command line: `--show-packets` opens it at start, `--packet-board <radio, servo, stepper, dual, adf, gps or a last number such as 105>` opens it filtered. `BoardTargets` raises a `PacketSent` event for every send and `PacketMonitorForm` shows the queued packets ten times a second (the last 6,000 are kept for re-filtering), so a busy bridge is not slowed. Only packets that are really sent are shown. It shares its code with the DCS bridge's monitor, which was tested with a synthetic stream; this bridge was built and its window checked.
+
+## About window, build number and icon
+
+The **About...** button on the toolbar (after Show packets...) opens a window with the program name, its version, its **build number** and the **date and time it was built**. The build number is raised by one every time the program is changed (`<BuildNumber>` in the project file) and the build date and time are stamped in at every build. The program's icon is a suspension bridge (`bridge.ico`), used for the exe, the main window and the About window.
+

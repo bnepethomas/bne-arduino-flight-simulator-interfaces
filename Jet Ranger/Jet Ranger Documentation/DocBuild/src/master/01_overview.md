@@ -11,7 +11,7 @@ This document ties together the three parts of the repository: the **Arduino ske
 - The **simulator** supplies the flight data.
 - A **bridge program** on the PC reads the data, converts it to real units and sends one short UDP text packet to each board about ten times a second.
 - Each **Arduino board** turns the real units into stepper steps, servo positions, lamp states or display text with calibration tables in its own sketch.
-- Switches and knobs go back the other way: the radio board sends commands to the bridge (UDP 27001), the ADF controller sends its frequency, radar follow ID and power status to the PC (UDP 27003, not read by the bridges yet), and the switch boards send joystick button changes to a USB HID board (UDP 4210) which Windows sees as game controllers.
+- Switches and knobs go back the other way: the radio board sends commands to the bridge (UDP 27001), the ADF controller sends its frequency, radar follow ID and power status to the PC (UDP 27003, which the FSUIPC and MSFS bridges read: the ADF knob frequency and, in the FSUIPC bridge, the Upper keypad keys and the squawk code), and the switch boards send joystick button changes to a USB HID board (UDP 4210) which Windows sees as game controllers.
 - Every board sends a **heartbeat** every 10 seconds to the Health Monitor (UDP 13137) and its **debug text** to a listener on the PC (UDP 27000).
 
 ![From simulator value to moving needle](diagrams/data_pipeline.svg)
@@ -75,6 +75,8 @@ Python helpers in `Jet Ranger Python Code/`: a SimConnect exporter, a UDP test r
 
 Run **only one bridge at a time**: the FSUIPC and MSFS bridges both listen on UDP 27001, and all four send to the same boards. The DCS and X-Plane bridges read their simulator and send only; they do not listen on 27001.
 
+The bridges and the boards exchange more than gauge values. **8 November 2026:** the MSFS and FSUIPC bridges send the Radio the NAV active frequencies and a DME readout (distance, speed, time and the station identifier) for its DME display, light the Auto Pilot LEDs from the CowanSim's HeloSAS (MSFS) and the DodoSim's SAS (FSUIPC), send the ADF controller the simulator's ADF frequency, and read the ADF controller's knob frequency to tune the simulator. In Prepar3D the Upper keypad's `*` toggles the ATC menu and the ADF keypad sets the transponder (squawk) code. Every bridge now has an About window with its version, build number and build date and time, and a bridge icon. See the Radio, ADF controller and bridge chapters.
+
 ## PCBs
 
 KiCad projects are in `Jet Ranger/PCBs/`. The schematic and board layout of every one are in Appendix E, top-side pictures with the external connectors labelled, for installing the controller boards, are in Appendix F, and a map of every gauge, lamp and display with the connector that drives it is in Appendix G. The boards used by the sketches and programs above are:
@@ -97,7 +99,7 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
-All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 9, Servo 5, Stepper 5, Dual Stepper 7, ADF and Upper 9 and USB HID 2 (all flashed on 7 November 2026 except the USB HID board, flashed on 1 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 13 and USB HID 2 (all flashed on 7 and 8 November 2026 except the USB HID board, flashed on 1 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
 
 The start-up backlight hold (6 and 7 November 2026): every controller holds its backlight at 100 percent, and its OLEDs and indicator lamps on, from reset until the 13 Stepper controller announces on UDP port 13138 (twice, 2 seconds apart) that start-up is complete. The commanded level then becomes 70 percent and the backlight goes off until the bridge sends `BPWR:1` (see the Network chapter). It has been flashed on every controller and checked in the Health Monitor, but not yet watched through a full cockpit power cycle.
 

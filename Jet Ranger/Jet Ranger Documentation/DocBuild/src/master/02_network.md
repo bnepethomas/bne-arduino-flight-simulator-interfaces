@@ -25,7 +25,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 13136 | PC to boards | Data (`D,`) and control (`C,`) packets |
 | 27001 | Radio and ADF controllers to PC bridge (FSUIPC and MSFS bridges only) | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (`AP_MASTER`, `HEADING_BUG_INC:5`, `GEAR_DOWN`, ...) |
 | 27002 | Bridge (or bench tester) to the GPS interface | Aircraft position, altitude, airspeed, heading and simulator UTC time, every 500 ms (both on the PC) |
-| 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status every 30 seconds (no bridge reads it yet; not 27001, where an unknown string is taken as a COM1 standby frequency) |
+| 27003 | ADF controller to the PC | ADF knob frequency (`ADF_FREQ`), radar follow ID and power status every 30 seconds, each Upper keypad press (`UPPER_KEY:<key>`) and each squawk entered on the ADF keypad (`SQUAWK_SET:<code>`). The FSUIPC bridge reads all of them (the MSFS bridge reads `ADF_FREQ`; the DCS and X-Plane bridges do not read this port). Not 27001, where an unknown string is taken as a COM1 standby frequency |
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
 | 5010 | DCS (DCS-BIOS) to the DCS bridge | The DCS-BIOS export stream, multicast 239.255.50.10, on the PC |
 | 49000 | X-Plane and the X-Plane bridge | The bridge sends dataref requests to X-Plane's receive port and X-Plane answers to the bridge's own port; X-Plane's beacon is multicast 239.255.1.1 port 49707 |

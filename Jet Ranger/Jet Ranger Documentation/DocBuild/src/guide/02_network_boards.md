@@ -21,7 +21,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 13136 | PC to boards | Gauge, lamp and radio data (`D,`) and control (`C,`) packets |
 | 27001 | Radio and ADF controllers to PC bridge (FSUIPC and MSFS bridges only) | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (for example `AP_MASTER`, `GEAR_DOWN`) |
 | 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
-| 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status (no bridge reads it yet) |
+| 27003 | ADF controller to the PC | ADF knob frequency, radar follow ID, power status, each Upper keypad press and each squawk entered on the ADF keypad (the FSUIPC bridge reads them all, the MSFS bridge reads the ADF frequency) |
 | 5010 | DCS to the DCS bridge | The DCS-BIOS export stream (multicast 239.255.50.10, on the PC) |
 | 49000 | X-Plane and the X-Plane bridge | Dataref requests to X-Plane and its answers (X-Plane's beacon is multicast 239.255.1.1 port 49707) |
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |

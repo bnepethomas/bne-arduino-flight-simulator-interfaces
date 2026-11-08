@@ -78,6 +78,7 @@ Script: `"Start Jet Ranger.bat" -Simulator MSFS`.
 4. The panel's joystick buttons must be bound to the DS206 events in FSUIPC (see Installing the DodoSim event file); without that nothing happens in the simulator when you press a switch.
 5. The GPS interface takes the position, altitude, airspeed and heading from FSUIPC offsets and the simulator's UTC time from FSUIPC.
 6. To see the DodoSim's SAS on the Auto Pilot panel it must be enabled in the DodoSim's systems first (the DodoSim 206 V2 Settings window; see the Auto Pilot and Audio panel LEDs in the Radio controller chapter).
+7. With the FSUIPC bridge running: **`*` on the Upper keypad toggles the ATC menu**, the **ADF keypad sets the squawk code** (four digits 0 to 7, then `#`), and the **ADF knobs set the ADF frequency** in the simulator, which the ADF display follows. The radio's NAV displays follow the simulator's active NAV frequencies and the DME display shows the DME station, distance, speed and time. The bridge window shows what it last received from the keypad and the ADF knobs.
 
 Script: `"Start Jet Ranger.bat" -Simulator P3D` (or `FSX`).
 

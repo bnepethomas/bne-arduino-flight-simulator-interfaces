@@ -38,7 +38,7 @@ The cockpit's power, USB, CKAS platform, lighting, display and sound systems are
 
 The Windows PC runs the simulator and a **bridge program** that turns simulator variables into UDP text packets for the Arduino boards. Switch inputs travel the other way as joystick buttons.
 
-The bridge sends the Servo, Stepper and Dual Stepper boards each their own packet in **real units** (degrees, knots, feet per minute, psi, percent, degrees C), and the boards convert them with their own calibration. It sends about 10 packets per second to each board; the radio gets a packet whenever a frequency changes and at least every 5 seconds. The Dual Stepper's temperature OLED shows the outside air temperature from the simulator.
+The bridge sends the Servo, Stepper and Dual Stepper boards each their own packet in **real units** (degrees, knots, feet per minute, psi, percent, degrees C), and the boards convert them with their own calibration. It sends about 10 packets per second to each board; the radio gets a packet whenever a frequency changes and at least twice a second. The Dual Stepper's temperature OLED shows the outside air temperature from the simulator.
 
 | Component | Role | Notes |
 |---|---|---|
