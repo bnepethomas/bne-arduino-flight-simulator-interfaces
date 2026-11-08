@@ -42,6 +42,7 @@ namespace MSFSWinformsAutoCS
 
         enum EVENTS
         {
+            ADF_COMPLETE_SET,
             COM1_RADIO_SWAP,
             COM2_RADIO_SWAP,
             NAV1_RADIO_SWAP,
@@ -488,6 +489,7 @@ namespace MSFSWinformsAutoCS
             this.timerConnection.Start();
             // Start listening for radio / battery / alternator commands from the Radio / Upper controller boards
             StartListener();
+            StartAdfEventListener();
         }
 
         private void ConnectUdpClients()
@@ -598,6 +600,7 @@ namespace MSFSWinformsAutoCS
             // Client events used by the commands that come back from the radio board.
             simconnect.MapClientEventToSimEvent(EVENTS.COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
+            simconnect.MapClientEventToSimEvent(EVENTS.ADF_COMPLETE_SET, "ADF_COMPLETE_SET");
             simconnect.MapClientEventToSimEvent(EVENTS.NAV1_RADIO_SWAP, "NAV1_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.NAV2_RADIO_SWAP, "NAV2_RADIO_SWAP");
             simconnect.MapClientEventToSimEvent(EVENTS.COM1_STBY_SET_HZ, "COM_STBY_RADIO_SET_HZ");
@@ -969,6 +972,7 @@ namespace MSFSWinformsAutoCS
                 "NAV 2: " + Payloads.Freq(s.Nav2Active) + nl +
                 "NAV 2 Standby: " + Payloads.Freq(s.Nav2Standby) + nl +
                 "DME (NAV 1): " + Payloads.DmeReadout(s) + nl +
+                "Last ADF knob frequency from the ADF controller: " + _adfKnobStatus + nl +
                 "Auto Pilot LEDs lit: " + Payloads.LitAutoPilotLeds(s.Leds) + nl +
                 "Auto Pilot display: HDG " + s.ApHeading.ToString("000", inv) + "  CRS " + s.ApCourse.ToString("000", inv) + "  IAS " + s.ApAirspeed.ToString(inv) + "  VS " + s.ApVerticalSpeed.ToString(inv) + "  ALT " + s.ApAltitude.ToString(inv) + nl +
                 "Audio LEDs lit: " + Payloads.LitAudioLeds(s.Leds) + nl +
@@ -1051,6 +1055,81 @@ namespace MSFSWinformsAutoCS
                     Console.WriteLine(ex.Message);
                 }
             });
+        }
+
+        // The ADF controller's knobs: "ADF_FREQ:340" (kHz, sent to port 27003 a moment after the knob stops) sets the simulator's ADF frequency with the event ADF_COMPLETE_SET. The event's
+        // parameter is BCD digits, but in which unit differs between simulators (Prepar3D takes kHz x 10000), so the encodings are tried in turn, each checked against the ADF frequency the
+        // simulator reports a moment later, and the one that works is kept. The ADF knobs are also joystick buttons, so the simulator may already have been tuned to the same frequency.
+        private const int eventPort = 27003;
+        private static string _adfKnobStatus = "none yet";
+        private int _adfEncoding = 0;
+        private bool _adfSetBusy;
+        private static uint Bcd(long n) => Convert.ToUInt32(n.ToString(), 16);
+        private static readonly Func<int, uint>[] AdfEncodings =
+        {
+            khz => Bcd(khz * 10000L),   // kHz x 10000 (what Prepar3D takes)
+            khz => Bcd(khz * 1000L),    // Hz
+            khz => Bcd(khz),            // kHz
+        };
+
+        private void StartAdfEventListener()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    using var server = new UdpClient(eventPort);
+                    while (true)
+                    {
+                        UdpReceiveResult result = await server.ReceiveAsync();
+                        string text = Encoding.ASCII.GetString(result.Buffer).Trim();
+                        if (!text.StartsWith("ADF_FREQ:")) continue;   // the ADF controller's other events are not used here
+                        string value = text.Substring("ADF_FREQ:".Length);
+                        this.Invoke(new Action(() => { _ = SetAdfFromController(value); }));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);   // for example the port is already in use
+                }
+            });
+        }
+
+        private async Task SetAdfFromController(string text)
+        {
+            string now = DateTime.Now.ToString("HH:mm:ss");
+            if (!int.TryParse(text, out int khz) || khz < 190 || khz > 1799)
+            {
+                _adfKnobStatus = now + " ignored \"" + text + "\" (190 to 1799 kHz)";
+                return;
+            }
+            if (_adfSetBusy) return;
+            _adfSetBusy = true;
+            try
+            {
+                if (Math.Abs(_latestDme.ADF_ACTIVE_FREQUENCY_1 - khz) < 0.6)
+                {
+                    _adfKnobStatus = now + " " + khz + " kHz (the simulator already has it)";
+                    return;
+                }
+                for (int attempt = 0; attempt < AdfEncodings.Length; attempt++)
+                {
+                    int encoding = (_adfEncoding + attempt) % AdfEncodings.Length;
+                    SendEvent(EVENTS.ADF_COMPLETE_SET, AdfEncodings[encoding](khz));
+                    await Task.Delay(1200);
+                    if (Math.Abs(_latestDme.ADF_ACTIVE_FREQUENCY_1 - khz) < 0.6)
+                    {
+                        _adfEncoding = encoding;
+                        _adfKnobStatus = now + " " + khz + " kHz set (encoding " + (encoding + 1) + ")";
+                        return;
+                    }
+                }
+                _adfKnobStatus = now + " " + khz + " kHz NOT set (the simulator shows " + _latestDme.ADF_ACTIVE_FREQUENCY_1.ToString("F1", CultureInfo.InvariantCulture) + ")";
+            }
+            finally
+            {
+                _adfSetBusy = false;
+            }
         }
 
         private void SendEvent(EVENTS evt, uint parameter)

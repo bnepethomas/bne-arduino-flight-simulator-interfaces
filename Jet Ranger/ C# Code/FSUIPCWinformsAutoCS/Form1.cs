@@ -365,6 +365,7 @@ namespace FSUIPCTest
         private String nav1ActiveFrequency = "";
         private string squawkNow = "";   // the simulator's transponder (squawk) code
         private string adfKeypadStatus = "no entry yet";
+        private string adfFreqStatus = "none yet";
         private double adf1Khz = 0;   // the simulator's active ADF frequency, kHz
         private String nav2ActiveFrequency = "";
         private String MainBusVoltage = "";
@@ -795,6 +796,7 @@ namespace FSUIPCTest
                                    "DME (NAV 1): " + DmeReadoutText() + Environment.NewLine +
                                    AutoPilotReadoutText() +
                                    "Last Upper keypad key: " + upperKeyStatus + Environment.NewLine +
+                                   "Last ADF knob frequency from the ADF controller: " + adfFreqStatus + Environment.NewLine +
                                    "Squawk (transponder): " + squawkNow + "   last ADF keypad entry: " + adfKeypadStatus + Environment.NewLine +
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
@@ -1224,6 +1226,12 @@ namespace FSUIPCTest
                         {
                             UdpReceiveResult result = await upperKeyServer.ReceiveAsync();
                             string text = Encoding.ASCII.GetString(result.Buffer).Trim();
+                            if (text.StartsWith("ADF_FREQ:"))
+                            {
+                                string khz = text.Substring("ADF_FREQ:".Length);
+                                this.Invoke(new Action(() => HandleAdfFrequency(khz)));
+                                continue;
+                            }
                             if (text.StartsWith("SQUAWK_SET:"))
                             {
                                 string code = text.Substring("SQUAWK_SET:".Length);
@@ -1241,6 +1249,27 @@ namespace FSUIPCTest
                     Console.WriteLine(ex.Message);   // for example the port is already in use
                 }
             });
+        }
+
+        // The ADF controller's knobs: "ADF_FREQ:340" (kHz, sent a moment after the knob stops) sets the simulator's ADF frequency with the generic control ADF_COMPLETE_SET. The parameter is the
+        // frequency as BCD digits of kHz x 10000 (340 kHz is 0x3400000, 1340 kHz is 0x13400000), checked against Prepar3D over the whole range 190 to 1799.
+        private void HandleAdfFrequency(string text)
+        {
+            string note;
+            if (int.TryParse(text, out int khz) && khz >= 190 && khz <= 1799)
+            {
+                try
+                {
+                    FSUIPCConnection.SendControlToFS(FsControl.ADF_COMPLETE_SET, Convert.ToInt32((khz * 10000L).ToString(), 16));
+                    note = khz + " kHz set";
+                }
+                catch (Exception ex)
+                {
+                    note = khz + " kHz NOT set (" + ex.Message + ")";
+                }
+            }
+            else note = "ignored \"" + text + "\" (190 to 1799 kHz)";
+            adfFreqStatus = DateTime.Now.ToString("HH:mm:ss") + " " + note;
         }
 
         // The ADF keypad's squawk entry: "SQUAWK_SET:1200" sets the transponder code with the generic control XPNDR_SET (the code as four BCD digits).
