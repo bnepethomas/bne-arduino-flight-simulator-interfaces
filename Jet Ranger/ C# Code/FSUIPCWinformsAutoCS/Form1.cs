@@ -363,6 +363,8 @@ namespace FSUIPCTest
         private String com2ActiveFrequency = "";
         private String com2StandbyFrequency = "";
         private String nav1ActiveFrequency = "";
+        private string squawkNow = "";   // the simulator's transponder (squawk) code
+        private string adfKeypadStatus = "no entry yet";
         private double adf1Khz = 0;   // the simulator's active ADF frequency, kHz
         private String nav2ActiveFrequency = "";
         private String MainBusVoltage = "";
@@ -677,6 +679,7 @@ namespace FSUIPCTest
                 FsFrequencyADF adf1Helper = new FsFrequencyADF(this.adf1Main.Value, this.adf1Extended.Value);
                 adf1Khz = (double)adf1Helper.ToDecimal();   // for the ADF controller's display
                 FsTransponderCode txHelper = new FsTransponderCode(this.transponder.Value);
+                squawkNow = txHelper.ToString();   // for the ADF controller's display
 
                 // --- Radio data to the Radio Controller board (172.16.1.101:13136) ---
                 // Ported from SimConnect_to_UDP's DATA_REQUESTS.RADIOS handling.
@@ -792,6 +795,7 @@ namespace FSUIPCTest
                                    "DME (NAV 1): " + DmeReadoutText() + Environment.NewLine +
                                    AutoPilotReadoutText() +
                                    "Last Upper keypad key: " + upperKeyStatus + Environment.NewLine +
+                                   "Squawk (transponder): " + squawkNow + "   last ADF keypad entry: " + adfKeypadStatus + Environment.NewLine +
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
@@ -1174,7 +1178,10 @@ namespace FSUIPCTest
 
                         // ADF Controller (.107): backlight power and the ADF frequency.
                         Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")
-                            + (adf1Khz >= 190 && adf1Khz <= 1799 ? ",ADF:" + ((int)Math.Round(adf1Khz)).ToString(System.Globalization.CultureInfo.InvariantCulture) : ""));   // and the simulator's ADF frequency (kHz)
+                            + (adf1Khz >= 190 && adf1Khz <= 1799 ? ",ADF:" + ((int)Math.Round(adf1Khz)).ToString(System.Globalization.CultureInfo.InvariantCulture) : "")
+                            + ",BRIDGEKEYS:*"
+                            + ",ADFKEYPAD:SQUAWK"                                              // the ADF keypad enters the squawk code while this bridge runs
+                            + (squawkNow.Length == 4 ? ",SQK:" + squawkNow : ""));   // the keys this bridge handles itself on the Upper keypad: the ADF controller does not type them   // and the simulator's ADF frequency (kHz)
                         targets.Send(adfClient, adfSendData);
 
                         // Upper Controller (.103): backlight power only.
@@ -1217,6 +1224,12 @@ namespace FSUIPCTest
                         {
                             UdpReceiveResult result = await upperKeyServer.ReceiveAsync();
                             string text = Encoding.ASCII.GetString(result.Buffer).Trim();
+                            if (text.StartsWith("SQUAWK_SET:"))
+                            {
+                                string code = text.Substring("SQUAWK_SET:".Length);
+                                this.Invoke(new Action(() => HandleSquawkSet(code)));
+                                continue;
+                            }
                             if (!text.StartsWith("UPPER_KEY:")) continue;   // the ADF controller's other events (frequency, radar follow ID, power status) are not used here
                             string key = text.Substring("UPPER_KEY:".Length);
                             this.Invoke(new Action(() => HandleUpperKey(key)));
@@ -1228,6 +1241,26 @@ namespace FSUIPCTest
                     Console.WriteLine(ex.Message);   // for example the port is already in use
                 }
             });
+        }
+
+        // The ADF keypad's squawk entry: "SQUAWK_SET:1200" sets the transponder code with the generic control XPNDR_SET (the code as four BCD digits).
+        private void HandleSquawkSet(string code)
+        {
+            string note;
+            if (code.Length == 4 && code.All(c => c >= '0' && c <= '7'))
+            {
+                try
+                {
+                    FSUIPCConnection.SendControlToFS(FsControl.XPNDR_SET, Convert.ToInt32(code, 16));
+                    note = "squawk " + code + " set";
+                }
+                catch (Exception ex)
+                {
+                    note = "squawk " + code + " NOT set (" + ex.Message + ")";
+                }
+            }
+            else note = "ignored \"" + code + "\" (the squawk is four digits, 0 to 7)";
+            adfKeypadStatus = DateTime.Now.ToString("HH:mm:ss") + " " + note;
         }
 
         private void HandleUpperKey(string key)

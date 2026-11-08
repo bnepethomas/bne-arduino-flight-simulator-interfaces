@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 11
+#define FIRMWARE_BUILD 13
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -315,6 +315,22 @@ void noteActivity() {
 
 void setAdfFromBridge(int khz);   // defined with the ADF tuning below
 
+// The Upper keypad keys a bridge says it handles itself ("D,BRIDGEKEYS:*"): while the bridge keeps saying so (it sends it with every packet) those keys are not typed through the
+// USB HID board; they still go to the bridge as UPPER_KEY:<key>. For example the FSUIPC bridge (Prepar3D / FSX) toggles the ATC menu on *, so * is not typed. With no bridge running
+// nothing changes: every key is typed.
+#define BRIDGE_KEYS_HOLD_MS 5000UL
+char bridgeKeys[8] = "";
+unsigned long bridgeKeysUntil = 0;
+
+// Squawk mode ("D,ADFKEYPAD:SQUAWK" with every packet from the FSUIPC bridge): the ADF keypad enters the transponder (squawk) code instead of the radar follow ID. Four digits, 0 to 7,
+// # sends "SQUAWK_SET:<code>" to the PC (port 27003), * deletes the last digit. The bridge also sends the simulator's code ("SQK:3374") so the display shows it.
+unsigned long squawkModeUntil = 0;
+char simSquawk[5] = "";
+unsigned long squawkEnteredAt = 0;
+bool squawkMode() {
+  return (long)(squawkModeUntil - millis()) > 0;
+}
+
 // "BPWR", "1": backlight power from the bridge (1 = main bus 20 V or more). "ADF", "340": the simulator's ADF frequency in kHz, shown on the display.
 void HandleDataString(String str) {
   int colon = str.indexOf(':');
@@ -334,6 +350,19 @@ void HandleDataString(String str) {
   }
   if (name == "ADF") {
     setAdfFromBridge(value.toInt());
+    return;
+  }
+  if (name == "ADFKEYPAD") {
+    if (value == "SQUAWK") squawkModeUntil = millis() + BRIDGE_KEYS_HOLD_MS;
+    return;
+  }
+  if (name == "SQK") {
+    if (squawkEnteredAt == 0 || (millis() - squawkEnteredAt) >= 1500UL) value.toCharArray(simSquawk, sizeof(simSquawk));   // not for a moment after a code was entered: the simulator has not caught up
+    return;
+  }
+  if (name == "BRIDGEKEYS") {
+    value.toCharArray(bridgeKeys, sizeof(bridgeKeys));
+    bridgeKeysUntil = millis() + BRIDGE_KEYS_HOLD_MS;
     return;
   }
   setLandingGearLampFromToken(name, value);
@@ -502,6 +531,7 @@ const char upperKeyMap[4][3] = {
   { '5', '4', '6' }
 };
 bool upperKeyDown[4][3];
+bool upperKeyHandled[4][3];   // this press was left to the bridge (not typed), so its release is not typed either
 unsigned long upperKeyHoldoff[4][3];
 
 void sendKeyToHid(char key, int state) {
@@ -565,9 +595,11 @@ void scanUpperKeypad() {
         upperKeyHoldoff[row][col] = millis() + UPPER_DEBOUNCE_MS;
         upperKeyDown[row][col] = down;
         noteActivity();
-        sendKeyToHid(upperKeyMap[row][col], down ? 1 : 0);
+        char key = upperKeyMap[row][col];
+        if (down) upperKeyHandled[row][col] = ((long)(bridgeKeysUntil - millis()) > 0 && strchr(bridgeKeys, key) != NULL);   // a bridge handles this key itself
+        if (!upperKeyHandled[row][col]) sendKeyToHid(key, down ? 1 : 0);
         if (down) sendToPc("UPPER_KEY:" + String(upperKeyMap[row][col]));   // also to the PC (port 27003) so a bridge can act on the key, for example * for the ATC menu
-        if (down) SendDebug("Upper key pressed: " + String(upperKeyMap[row][col]));
+        if (down) SendDebug("Upper key pressed: " + String(upperKeyMap[row][col]) + (upperKeyHandled[row][col] ? " (left to the bridge, not typed)" : ""));
       }
     }
     digitalWrite(upperKeyRowPins[row], HIGH);
@@ -643,7 +675,8 @@ void updateDisplay() {
   send_string(line);
 
   String second;
-  if (idEntering) second = "ID: " + idBuffer + "_";
+  if (idEntering) second = String(squawkMode() ? "SQUAWK: " : "ID: ") + idBuffer + "_";
+  else if (squawkMode()) second = String("SQUAWK ") + (simSquawk[0] ? simSquawk : "----");
   else if (activeId.length() > 0) second = "FOLLOW " + activeId;
   else second = "FOLLOW OFF";
   while (second.length() < 16) second += ' ';
@@ -655,6 +688,35 @@ void updateDisplay() {
 void onKeyChar(char key) {
   lastKeyMillis = millis();
   noteActivity();
+  if (squawkMode()) {
+    // Squawk entry: four digits 0 to 7; the radar follow ID is left alone.
+    if (key >= '0' && key <= '7') {
+      if (!idEntering) {
+        idEntering = true;
+        idBuffer = "";
+      }
+      if (idBuffer.length() < 4) idBuffer += key;
+    } else if (key == '#') {
+      if (idEntering && idBuffer.length() == 4) {
+        idBuffer.toCharArray(simSquawk, sizeof(simSquawk));
+        squawkEnteredAt = millis();
+        sendToPc("SQUAWK_SET:" + idBuffer);
+        SendDebug("Squawk " + idBuffer);
+      } else if (idEntering) {
+        SendDebug("Squawk needs four digits (0 to 7): " + idBuffer);
+      }
+      idEntering = false;
+      idBuffer = "";
+    } else if (key == '*') {
+      if (idEntering && idBuffer.length() > 0) idBuffer.remove(idBuffer.length() - 1);
+      else {
+        idEntering = false;
+        idBuffer = "";
+      }
+    }
+    displayDirty = true;
+    return;
+  }
   if (key >= '0' && key <= '9') {
     if (!idEntering) {
       idEntering = true;

@@ -306,3 +306,11 @@ The packet to the ADF controller (.107) now carries the simulator's active ADF f
 ## Bridge icon (8 November 2026, build 11)
 
 The program icon is a suspension bridge (`bridge.ico` in the project folder: 256, 64, 48, 32, 24 and 16 pixel images, drawn with GDI+, orange cables and towers over blue water). It is set as the application icon in the project file (`<ApplicationIcon>bridge.ico</ApplicationIcon>`, so it is the icon of the exe) and, from the exe, as the icon of the main window and the About window (`Icon.ExtractAssociatedIcon`). The same icon is used by all four bridges.
+
+## Keys the bridge handles (8 November 2026, build 12)
+
+The packet to the ADF controller now ends with `,BRIDGEKEYS:*` (`D,BPWR:1,ADF:284,BRIDGEKEYS:*`): it tells the ADF and Upper controller (build 12 or later) that this bridge handles `*` on the Upper keypad itself (the ATC menu), so the keypad does not also type an asterisk. While the bridge is not running the ADF controller types every key as before. Checked with a UDP listener on the ADF controller's loopback address (34 packets in 16 seconds, each ending `BRIDGEKEYS:*`).
+
+## ADF keypad sets the squawk code (8 November 2026, build 13)
+
+The packet to the ADF controller now also carries `ADFKEYPAD:SQUAWK` (the ADF keypad enters the squawk code while this bridge runs) and the simulator's transponder code, `SQK:3374` (from `FsTransponderCode`, offset `0x0354`). The ADF controller (build 13 or later) sends `SQUAWK_SET:<code>` to port 27003 when the code is complete and `#` is pressed; the bridge sets the transponder with the generic control **`XPNDR_SET`** (`FSUIPCConnection.SendControlToFS(FsControl.XPNDR_SET, <the four digits as BCD>)`), no DodoSim-specific event. A code that is not four digits 0 to 7 is ignored. The data out box has a line `Squawk (transponder): 3374   last ADF keypad entry: 11:00:29 squawk 1234 set`. Checked live against Prepar3D v6.1 with the DodoSim 206 by sending the packets to a copy of the bridge: `SQUAWK_SET:1234` changed the simulator's code from 3374 to 1234, `SQUAWK_SET:9999` was ignored, and the original 3374 was sent back; the packet to the ADF controller's address ended `BRIDGEKEYS:*,ADFKEYPAD:SQUAWK,SQK:3374`.
