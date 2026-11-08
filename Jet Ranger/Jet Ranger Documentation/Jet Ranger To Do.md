@@ -14,6 +14,7 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [x] **Mask the unwanted backlight.** Block the light that leaks where it should not shine (around the panels and gauges), so only the lettering and markings are backlit. (done, confirmed 2026-11-07)
 - [x] **Replace the backlight in the pitch and roll indicator** (the attitude indicator on the Servo controller). (done, confirmed 2026-11-07)
 - [ ] **Install a cable for the upper brightness pot from the upper panel to the Upper ADF controller,** following the same cable path as the upper switches cable. The pot input on the Upper ADF Controller PCB is A0 (5 V, ground and wiper); its code is switched off at the moment (`USE_BRIGHTNESS_POT` 0 in the ADF sketch). Once the cable is in, switch it on so the pot sets the ADF backlight and is sent as `C,B` to the Radio, Servo, Stepper and Dual Stepper boards, and check it against the start-up hold's levels (100 percent, then 70 percent).
+- [ ] **Install the ATX PSU PCB.**
 
 ## Firmware and software
 
