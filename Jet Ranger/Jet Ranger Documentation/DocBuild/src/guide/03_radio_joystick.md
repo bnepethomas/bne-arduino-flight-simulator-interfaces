@@ -172,7 +172,6 @@ The radio controller switches the backlights of the Audio, Auto Pilot and COM an
 
 ## Known issues
 
-- The PC sends the COM1 and COM2 frequencies and the NAV1 and NAV2 active frequencies; the NAV standby frequencies are local to the radio (the knobs and the swap switches are read).
 - The Radio Auto Pilot PCB has volume pots that the radio sketch does not read yet.
 - Four encoders (COM1 major and minor, COM2 minor, NAV1 minor) have A and B the other way round from the PCB labels; it only matters if one of those knobs tunes backwards.
 - If every button in the matrix's first column stops working, send `C,MATRIX:1` to port 13136: the radio prints the raw H or L state of each column to the debug listener. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board (a faulty or badly seated Mega did exactly this on the bench).

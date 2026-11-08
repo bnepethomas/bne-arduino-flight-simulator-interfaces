@@ -40,7 +40,7 @@ position -> action in `handleKeyPress()`:
 
 | Switch (COM and NAV PCB) | Matrix (row, col) | Action |
 |---|---|---|
-| NAV1 FREQ SWITCH (`SW6`) | 0, 0 | **NAV1 swap**: swaps `Nav1ActiveFrequency`/`Nav1StandbyFrequency` on the NAV OLED immediately (the PC does not send NAV frequencies back, unlike COM) and sends `NAV1_RADIO_SWAP` to 172.16.1.10:27001 |
+| NAV1 FREQ SWITCH (`SW6`) | 0, 0 | **NAV1 swap**: swaps `Nav1ActiveFrequency`/`Nav1StandbyFrequency` on the NAV OLED immediately (the bridges send the NAV active frequencies back as `N1A` and `N2A`; the standby frequencies stay local to the Radio) and sends `NAV1_RADIO_SWAP` to 172.16.1.10:27001 |
 | NAV2 FREQ SWITCH (`SW7`) | 1, 0 | **NAV2 swap**: same with NAV2, sends `NAV2_RADIO_SWAP` |
 | COMM1 Freq Switch (`SW4`) | 2, 0 | COM1 swap: sends `COM1_RADIO_SWAP` (the display changes when the sim sends the swapped frequencies back) |
 | COMM2 FREQ SWITCH (`SW5`) | 3, 0 | COM2 swap: sends `COM2_RADIO_SWAP`, then `AVIONICS_MASTER_SET` |

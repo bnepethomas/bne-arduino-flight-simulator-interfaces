@@ -45,6 +45,7 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 ## Documentation and source control
 
+- [ ] **Re-grab all the screenshots** (added 2026-11-08): they are out of date. They are in `DocBuild/screenshots` (the bridges, the emulators, the Health Monitor, the BenchTester and the other program windows; `capture_all.ps1` takes them), and the User Guide and master document use them. Re-take them from the current builds, then rebuild both documents.
 - [x] **Update the documentation** (done 2026-10-25, including the ADF Controller PCB revision 1.5 images and notes) for the changes: the three new ADF switches and `ANTI_ICE_SET`, the DME and ADF blanking, the ADF and Upper backlight and timeout rules, the bridges' new ADF and Upper packets, the BenchTester COM ports window, and the Servo fuel pin swap. Then regenerate the documents.
 - [x] **Commit and push** (done 2026-10-25).
 - [x] **Update the documentation again** (done 2026-10-31): the ADF and Upper merge (chapters, pin tables, joystick indexes, heartbeat names, COM26, the Upper ADF Controller PCB rev 1.0 images and notes, diagrams), the 12 V and keypad fixes, and the Huey Warning Panel switches, LEDs and BenchTester tests (firmware only: the Huey panel is hand wired, so its PCB is deliberately left out of the documentation). Then regenerate the documents.

@@ -1,6 +1,6 @@
 # Appendix G: Instrument map {-}
 
-This appendix draws every gauge, lamp and display of the cockpit as the real thing (dial gauges with needles, the attitude indicator, annunciator and legend lamps, gear lights, OLED displays) and joins each one by a cable to the connector on the controller board that drives it. The connector references and names are the ones printed on the PCBs (see the installation views in Appendix F). Needles and lamps are drawn at illustrative readings and the lens colours are illustrative. Switches, knobs, keypads and the USB HID board are inputs and are not drawn. The full-size drawing is on one A3 landscape page, `Jet Ranger Instrument Map A3.pdf` (also an SVG and a PNG) in the documentation folder; it is made by `DocBuild/make_instrument_map.py`.
+This appendix draws every gauge, lamp and display of the cockpit as the real thing (dial gauges with needles, the attitude indicator, annunciator and legend lamps, gear lights, OLED displays) and joins each one by a cable to the connector on the controller board that drives it. The connector references and names are the ones printed on the PCBs (see the installation views in Appendix F). Needles and lamps are drawn at illustrative readings and the lens colours are illustrative. The Upper panel (switch matrix, keypad and brightness pot), the ADF keypad and the Huey Warning Panel switches are drawn as inputs; the other switches, knobs and the USB HID board are not. The full-size drawing is on one A3 landscape page, `Jet Ranger Instrument Map A3.pdf` (also an SVG and a PNG) in the documentation folder; it is made by `DocBuild/make_instrument_map.py`.
 
 ![The whole map (the A3 original is Jet Ranger Instrument Map A3.pdf; zoom in the PDF to read it)](diagrams/instrument_map_full.png)
 
@@ -69,8 +69,9 @@ This appendix draws every gauge, lamp and display of the cockpit as the real thi
 | COM and NAV frequency OLEDs | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101: J8 COMM_NAV |
 | Auto Pilot display (OLED) and 8 LEDs | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT`; `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101: J12 AUTOPILOT |
 | DME display (OLED) and 11 audio panel LEDs | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101: J3 AUDIO |
-| 20 Huey Warning Panel lamps | `LED_H_*` (MAX7219 digits 4 to 7) | Radio .101: J22 HUEY_ANODES and J23 HUEY_CATHODES (rev 1.4 layout; the panel is hand wired today) |
+| 20 Huey Warning Panel lamps and 3 switches | `LED_H_*` (MAX7219 digits 4 to 7); switches on A8 to A10 | Radio .101: J22 HUEY_ANODES (LED rows), J23 HUEY_CATHODES (LED columns) and J20 HUEY_SWITCHES (digital inputs) |
+| Upper panel switch matrix (72 switches), numeric keypad and brightness pot | joystick buttons 0 to 95; `UPPER_KEY:`; pot on A0 (switched off in the sketch) | ADF and Upper .107: J30 ROWS, J31 COLS, J32 KEYPAD and J16 GUAGE BRIGHT (analog) |
 | 4 Dual Stepper OLEDs (barometer, altimeter digits, clock, temperature) | `ALT`, `ZULU`, `TEMP` | Dual Stepper .106: J55 BARO-OLED, J17 ALTIMETER-OLED, J18 CLOCK-OLED, J20 TEMPERATURE-OLED |
-| ADF display (OLED) and 3 landing gear lamps | `LDGN`, `LDGL`, `LDGR` (Mega pins D2, D3, D4) | ADF and Upper .107: J5 ADF |
+| ADF display (OLED), 3 landing gear lamps and the ADF keypad | `LDGN`, `LDGL`, `LDGR` (Mega pins D2, D3, D4); keypad on A1 to A7 | ADF and Upper .107: J5 ADF |
 
 Which dual instrument uses which socket is taken from the names on the PCBs (J8 ENGINE, J6 XMSN, J7 ROTOR ENG SPEED, J10 ELEC FUEL LOAD); the Stepper's turbine out temperature gauge is shown on J27 EGT; and how the 15 annunciator lamps divide between J4 and J5 is not recorded, so the drawing joins the whole lamp panel to both.

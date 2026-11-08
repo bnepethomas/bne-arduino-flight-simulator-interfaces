@@ -4,7 +4,7 @@ from dgcommon import diagram, Svg, INK, INK2, LINE, text_width, BLUE, GREEN, AMB
 
 @diagram
 def system_overview():
-    s = Svg(880, 620)
+    s = Svg(1096, 620)
     s.frame(16, 16, 320, 548, "Windows PC (primary)", "172.16.1.10", theme="blue")
     x, w = 30, 292
     y = 66
@@ -23,33 +23,53 @@ def system_overview():
         y += h + 12
     by, bh = ys["Bridge application"]
     s.arrow([(x + w / 2, ys["Flight simulator"][0] + ys["Flight simulator"][1]), (x + w / 2, by)], None)
-    s.rect(432, 66, 20, 440, "#2B2F36", "#2B2F36", rx=6)
-    s.text(442, 44, "Ethernet switch", size=14, weight=700, anchor="middle")
-    s.text(442, 60, "172.16.1.0/24", size=12.5, fill=INK2, anchor="middle")
-    s.arrow([(322, by + 22), (432, by + 22)], "UDP 13136", color=BLUE, label_dy=-8)
-    s.arrow([(432, by + 56), (322, by + 56)], "UDP 27001", color=GREEN, label_dy=-8)
+    sw_x = 410
+    s.rect(sw_x, 66, 20, 440, "#2B2F36", "#2B2F36", rx=6)
+    s.text(sw_x + 10, 44, "Ethernet switch", size=14, weight=700, anchor="middle")
+    s.text(sw_x + 10, 60, "172.16.1.0/24", size=12.5, fill=INK2, anchor="middle")
+    s.arrow([(322, by + 22), (sw_x, by + 22)], "UDP 13136", color=BLUE, label_dy=-8)
+    s.arrow([(sw_x, by + 56), (322, by + 56)], "UDP 27001", color=GREEN, label_dy=-8)
     ry = ys["Python UDP reflector"][0]
-    s.arrow([(432, ry + 31), (322, ry + 31)], "debug 27000", label_dy=-8)
+    s.arrow([(sw_x, ry + 31), (322, ry + 31)], "debug 27000", label_dy=-8)
     hy = ys["Health Monitor"][0]
-    s.arrow([(432, hy + 31), (322, hy + 31)], "heartbeat 13137", label_dy=-8)
-    s.frame(548, 16, 316, 548, "Panel boards", "Arduino Mega 2560 + W5500", theme="gray")
+    s.arrow([(sw_x, hy + 31), (322, hy + 31)], "heartbeat 13137", label_dy=-8)
+    s.frame(510, 16, 300, 548, "Panel boards", "Arduino Mega 2560 + W5500", theme="gray")
+    bx, bw = 524, 272
     boards = [
         ("Radio controller  .101", ["COM/NAV OLEDs, knobs, buttons"], "white"),
         ("Servo controller  .102", ["attitude servos, 15 lamps"], "white"),
         ("Stepper controller  .105", ["IAS, VSI, torque, N1, ITT ..."], "white"),
         ("OLED dual stepper  .106", ["oil, load, RPM, altimeter, OLEDs"], "white"),
-        ("ADF + Upper controller  .107", ["ADF knobs, ID keypad, overhead switches"], "white"),
+        ("ADF + Upper controller  .107", ["ADF knobs, keypad, overhead panel"], "white"),
         ("USB HID board  .11", ["UDP 4210  ->  USB joysticks"], "amber"),
     ]
     y = 66
+    by_name = {}
     for t, ln, th in boards:
-        s.card(562, y, 288, 56, t, ln, th)
-        s.arrow([(452, y + 28), (562, y + 28)], None, color=AMBER if th == "amber" else BLUE, both=True)
+        s.card(bx, y, bw, 56, t, ln, th)
+        s.arrow([(sw_x + 20, y + 28), (bx, y + 28)], None, color=AMBER if th == "amber" else BLUE, both=True)
+        by_name[t.split("  ")[0]] = y
         y += 66
     hid_y = y - 66
-    s.path(f"M 706 {hid_y + 56} L 706 590 L 176 590 L 176 564", stroke=AMBER, sw=1.8, dash="6 4")
-    s.rect(330, 580, 250, 20, "#FFFFFF", "#FFFFFF", rx=3, sw=0)
-    s.text(455, 595, "USB: joystick buttons into Windows", size=12.5, fill=AMBER, anchor="middle")
+    cx = bx + bw / 2
+    s.path(f"M {cx} {hid_y + 56} L {cx} 590 L 176 590 L 176 564", stroke=AMBER, sw=1.8, dash="6 4")
+    s.rect(293, 580, 250, 20, "#FFFFFF", "#FFFFFF", rx=3, sw=0)
+    s.text(418, 595, "USB: joystick buttons into Windows", size=12.5, fill=AMBER, anchor="middle")
+
+    # Panels wired to the boards by their own cables
+    s.frame(916, 16, 164, 548, "Panels", "wired to the boards", theme="gray")
+    px, pw = 930, 136
+    rx_end = bx + bw
+    ry0 = by_name["Radio controller"]
+    s.card(px, ry0 + 10, pw, 76, "Huey caution panel", ["20 LEDs, 3 switches"], "white", title_size=12.5, line_size=12)
+    for dy, lab, to_board in ((16, "digital inputs", True), (32, "LED rows", False), (48, "LED columns", False)):
+        pts = [(px, ry0 + dy), (rx_end, ry0 + dy)]
+        s.arrow(pts if to_board else pts[::-1], lab, color=GREEN, label_dy=-3)
+    ay0 = by_name["ADF + Upper controller"]
+    s.card(px, ay0 - 4, pw, 76, "Upper panel", ["switch matrix, keypad,", "analog brightness pot"], "white", title_size=13.5, line_size=12)
+    for dy, lab, to_board in ((16, "rows", False), (32, "columns", True), (48, "brightness", True)):
+        pts = [(px, ay0 + dy), (rx_end, ay0 + dy)]
+        s.arrow(pts if to_board else pts[::-1], lab, color=GREEN, label_dy=-3)
     return s
 
 

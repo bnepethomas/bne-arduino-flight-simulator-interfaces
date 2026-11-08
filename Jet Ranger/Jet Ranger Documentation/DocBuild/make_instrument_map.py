@@ -406,16 +406,16 @@ def build():
     rb = boards["radio"]
     huey_y = 300
     section("radio", "HUEY WARNING PANEL")
-    panel_frame(rb.x, huey_y, rb.w, 160, "HUEY WARNING PANEL  (20 caution lamps on MAX7219 digits 4 - 7)", "connectors J20 - J23", RADIO_C)
+    panel_frame(rb.x, huey_y, rb.w, 160, "HUEY WARNING PANEL  (20 caution lamps on MAX7219 digits 4 - 7)", "J20 - J23", RADIO_C)
     hw = (rb.w - 20) / 10
     for i, lines in enumerate(HUEY_LAMPS):
         lx = rb.x + 10 + (i % 10) * hw
         ly = huey_y + 26 + (i // 10) * 64
         inst_draw.append(lambda lx=lx, ly=ly, lines=lines, i=i: lamp(lx, ly, hw - 4, 44, list(lines), "amber", "CL_%s%d" % ("ABCDEFGHIJ"[i % 10], i // 10), size=6.8))
-    for k, label in enumerate(("J22 HUEY ANODES", "J23 HUEY CATHODES")):
+    for k, label in enumerate(("J22 HUEY ANODES", "J23 HUEY CATHODES", "J20 HUEY SWITCHES")):
         px = rb.port_x("top", k + 1, 4)
-        cable((rb.x + rb.w * (0.35 + 0.3 * k), huey_y + 160), (px, rb.y), RADIO_C)
-        inst_draw.append(lambda px=px, label=label, k=k: connector(rb, "top", px, label, pins=8 if k == 0 else 4))
+        cable((rb.x + rb.w * (0.25 + 0.25 * k), huey_y + 160), (px, rb.y), RADIO_C)
+        inst_draw.append(lambda px=px, label=label, k=k: connector(rb, "top", px, label, pins=(8, 4, 4)[k]))
 
     LY = 782
     # ------------------------------------------------ lower region: dual OLEDs
@@ -482,10 +482,43 @@ def build():
     inst_draw.append(lambda: connector(ab, "bottom", pa, "J5 ADF", pins=12))
     section("adf", "ADF PANEL")
     # inputs note in the free top right corner
-    text(ab.x + 2, 128, "Switches, knobs,", size=10, fill="#666", anchor="start")
-    text(ab.x + 2, 142, "keypads and the", size=10, fill="#666", anchor="start")
-    text(ab.x + 2, 156, "USB HID board are", size=10, fill="#666", anchor="start")
-    text(ab.x + 2, 170, "inputs: not drawn.", size=10, fill="#666", anchor="start")
+    text(ab.x + 2, 112, "Other switches and", size=9.5, fill="#666", anchor="start")
+    text(ab.x + 2, 124, "knobs and the USB HID", size=9.5, fill="#666", anchor="start")
+    text(ab.x + 2, 136, "board are inputs: not drawn.", size=9.5, fill="#666", anchor="start")
+
+    def keypad(kx, ky, bw_=16, bh_=11, gap=3):
+        for r_ in range(4):
+            for c_ in range(3):
+                add('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="2" fill="#E9E9E4" stroke="#777" stroke-width="0.7"/>' % (kx + c_ * (bw_ + gap), ky + r_ * (bh_ + gap), bw_, bh_))
+        return 3 * bw_ + 2 * gap, 4 * bh_ + 3 * gap
+
+    # ADF keypad on the ADF panel (reaches the board through J5)
+    inst_draw.append(lambda: (keypad(ab.x + 14, LY + 236), text(ab.x + 74, LY + 252, "ADF keypad", size=8.6, fill="#444", weight=700, anchor="start"), text(ab.x + 74, LY + 263, "(aircraft ID)", size=8, fill="#777", anchor="start")))
+
+    # ------------------------------------------------ Upper panel: four cables to the ADF + Upper board (inputs)
+    uy, uh = 150, 302
+    panel_frame(ab.x, uy, aw, uh, "UPPER PANEL", "inputs", ADF_C)
+    gx, gy = ab.x + 22, uy + 40
+    def upper_glyph():
+        add('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="3" fill="#F1F1EE" stroke="#999" stroke-width="0.7"/>' % (gx - 12, gy - 12, 7 * 14 + 24, 8 * 12 + 24))
+        for r_ in range(9):
+            for c_ in range(8):
+                add('<circle cx="%.1f" cy="%.1f" r="2.6" fill="#555"/>' % (gx + c_ * 14 + 3, gy + r_ * 12))
+        text(ab.x + aw / 2, gy + 8 * 12 + 24, "72 switch matrix", size=8.6, fill="#444", weight=700)
+        text(ab.x + aw / 2, gy + 8 * 12 + 36, "8 columns x 9 rows", size=8, fill="#777")
+        ky_ = uy + uh - 94
+        keypad(ab.x + 14, ky_)
+        text(ab.x + 14 + 25, ky_ + 66 + 12, "keypad", size=8.6, fill="#444", weight=700)
+        px_, py_ = ab.x + 114, ky_ + 24
+        add('<circle cx="%.1f" cy="%.1f" r="15" fill="url(#hub)" stroke="#333" stroke-width="1"/>' % (px_, py_))
+        add('<path d="M %.1f %.1f L %.1f %.1f" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>' % (px_, py_, px_ + 8, py_ - 10))
+        text(px_, py_ + 30, "brightness", size=8.2, fill="#444", weight=700)
+        text(px_, py_ + 40, "pot (analog)", size=7.8, fill="#777")
+    inst_draw.append(upper_glyph)
+    for k, (label, pins, fx) in enumerate((("J30 ROWS", 4, 0.12), ("J31 COLS", 4, 0.3), ("J32 KEYPAD", 4, 0.5), ("J16 GUAGE BRIGHT", 3, 0.82))):
+        px = ab.port_x("top", k, 4)
+        cable((ab.x + aw * fx, uy + uh), (px, ab.y), ADF_C)
+        inst_draw.append(lambda px=px, label=label, pins=pins: connector(ab, "top", px, label, pins=pins))
 
     # ------------------------------------------------ how the values arrive (bottom left, under the Stepper board)
     bx, by, bw = sb.x, 710, sb.w
@@ -535,7 +568,7 @@ def build():
     draw_cables()
     for f in inst_draw:
         f()
-    text(W - 28, H - 18, "Jet Ranger cockpit instrument map - 31 October 2026 - from the sketches, PCB layouts and tables in the Program Summary", size=9, fill="#888", anchor="end")
+    text(W - 28, H - 18, "Jet Ranger cockpit instrument map - 8 November 2026 - from the sketches, PCB layouts and tables in the Program Summary", size=9, fill="#888", anchor="end")
     add('</svg>')
     return "\n".join(out)
 
@@ -639,9 +672,10 @@ def md_tables():
              "| COM and NAV frequency OLEDs | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101: J8 COMM_NAV |",
              "| Auto Pilot display (OLED) and 8 LEDs | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT`; `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101: J12 AUTOPILOT |",
              "| DME display (OLED) and 11 audio panel LEDs | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101: J3 AUDIO |",
-             "| 20 Huey Warning Panel lamps | `LED_H_*` (MAX7219 digits 4 to 7) | Radio .101: J22 HUEY_ANODES and J23 HUEY_CATHODES (rev 1.4 layout; the panel is hand wired today) |",
+             "| 20 Huey Warning Panel lamps and 3 switches | `LED_H_*` (MAX7219 digits 4 to 7); switches on A8 to A10 | Radio .101: J22 HUEY_ANODES (LED rows), J23 HUEY_CATHODES (LED columns) and J20 HUEY_SWITCHES (digital inputs) |",
+             "| Upper panel switch matrix (72 switches), numeric keypad and brightness pot | joystick buttons 0 to 95; `UPPER_KEY:`; pot on A0 (switched off in the sketch) | ADF and Upper .107: J30 ROWS, J31 COLS, J32 KEYPAD and J16 GUAGE BRIGHT (analog) |",
              "| 4 Dual Stepper OLEDs (barometer, altimeter digits, clock, temperature) | `ALT`, `ZULU`, `TEMP` | Dual Stepper .106: J55 BARO-OLED, J17 ALTIMETER-OLED, J18 CLOCK-OLED, J20 TEMPERATURE-OLED |",
-             "| ADF display (OLED) and 3 landing gear lamps | `LDGN`, `LDGL`, `LDGR` (Mega pins D2, D3, D4) | ADF and Upper .107: J5 ADF |"]
+             "| ADF display (OLED), 3 landing gear lamps and the ADF keypad | `LDGN`, `LDGL`, `LDGR` (Mega pins D2, D3, D4); keypad on A1 to A7 | ADF and Upper .107: J5 ADF |"]
     return gauges, "\n".join(lamps)
 
 
@@ -650,7 +684,7 @@ def write_markdown(heading_master):
     intro = ("This appendix draws every gauge, lamp and display of the cockpit as the real thing (dial gauges with needles, the attitude indicator, annunciator and legend lamps, "
              "gear lights, OLED displays) and joins each one by a cable to the connector on the controller board that drives it. The connector references and names are "
              "the ones printed on the PCBs (see the installation views in Appendix F). Needles and lamps are drawn at illustrative readings and the lens colours are illustrative. "
-             "Switches, knobs, keypads and the USB HID board are inputs and are not drawn. The full-size drawing is on one A3 landscape page, `Jet Ranger Instrument Map A3.pdf` "
+             "The Upper panel (switch matrix, keypad and brightness pot), the ADF keypad and the Huey Warning Panel switches are drawn as inputs; the other switches, knobs and the USB HID board are not. The full-size drawing is on one A3 landscape page, `Jet Ranger Instrument Map A3.pdf` "
              "(also an SVG and a PNG) in the documentation folder; it is made by `DocBuild/make_instrument_map.py`.")
     inference = ("Which dual instrument uses which socket is taken from the names on the PCBs (J8 ENGINE, J6 XMSN, J7 ROTOR ENG SPEED, J10 ELEC FUEL LOAD); the Stepper's turbine "
                  "out temperature gauge is shown on J27 EGT; and how the 15 annunciator lamps divide between J4 and J5 is not recorded, so the drawing joins the whole lamp panel to both.")

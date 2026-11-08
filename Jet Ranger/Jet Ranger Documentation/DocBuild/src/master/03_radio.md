@@ -237,6 +237,5 @@ On the same PCB the COM1 major, COM1 minor, COM2 minor and NAV1 minor encoders h
 
 ## Known issues
 
-- The PC sends the COM1 and COM2 frequencies (active and standby) and, from build 15, the NAV1 and NAV2 **active** frequencies (`N1A`, `N2A`); the NAV standby frequencies are local to the radio (the knobs and the swap switches).
 - The Radio controller emulator sends a bare frequency for every radio (see the emulator chapter).
 - The mux address pins (D2 to D4) are not driven by the sketch; the mux module's own pull-downs set address 0x70.

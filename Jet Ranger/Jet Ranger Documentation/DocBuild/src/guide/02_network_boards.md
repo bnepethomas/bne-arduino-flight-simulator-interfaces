@@ -234,6 +234,5 @@ Send `C,OLEDTEST:1` to light all four displays solid and `C,OLEDTEST:0` to resto
 ## Known issues
 
 - RAM use is 75 percent or more; avoid adding more OLEDs or string-heavy code.
-- The latest bench I2C scan found OLEDs on mux channels 1 to 4; check by eye that each shows its text.
 - Engine and rotor RPM tables assume 0 percent is 0 steps; `RSoffset` is not yet measured.
 - The altimeter zero seek travels up to 10,080 steps (about 14 turns) before giving up.
