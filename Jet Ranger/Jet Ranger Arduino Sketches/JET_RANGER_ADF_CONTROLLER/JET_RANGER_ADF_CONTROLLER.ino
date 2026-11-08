@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 9
+#define FIRMWARE_BUILD 11
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -313,7 +313,9 @@ void noteActivity() {
   }
 }
 
-// "BPWR", "1": backlight power from the bridge (1 = main bus 20 V or more).
+void setAdfFromBridge(int khz);   // defined with the ADF tuning below
+
+// "BPWR", "1": backlight power from the bridge (1 = main bus 20 V or more). "ADF", "340": the simulator's ADF frequency in kHz, shown on the display.
 void HandleDataString(String str) {
   int colon = str.indexOf(':');
   if (colon <= 0) return;
@@ -328,6 +330,10 @@ void HandleDataString(String str) {
       applyOwnBacklight();
       SendDebug(powered ? "Main bus on - backlight on" : "Main bus off - backlight off");
     }
+    return;
+  }
+  if (name == "ADF") {
+    setAdfFromBridge(value.toInt());
     return;
   }
   setLandingGearLampFromToken(name, value);
@@ -560,6 +566,7 @@ void scanUpperKeypad() {
         upperKeyDown[row][col] = down;
         noteActivity();
         sendKeyToHid(upperKeyMap[row][col], down ? 1 : 0);
+        if (down) sendToPc("UPPER_KEY:" + String(upperKeyMap[row][col]));   // also to the PC (port 27003) so a bridge can act on the key, for example * for the ATC menu
         if (down) SendDebug("Upper key pressed: " + String(upperKeyMap[row][col]));
       }
     }
@@ -611,6 +618,16 @@ String activeId = "";   // the ID last sent with '#' ("" = not following)
 bool idEntering = false;
 unsigned long lastKeyMillis = 0;
 bool displayDirty = true;
+
+// The simulator's ADF frequency from the bridge ("D,ADF:340", kHz): the display follows the simulator. Not applied for a second after a knob was turned (the knobs tune the
+// simulator through the joystick buttons, so it has not caught up yet) or while the new frequency has not been sent to the PC.
+void setAdfFromBridge(int khz) {
+  khz = constrain(khz, ADF_MIN_KHZ, ADF_MAX_KHZ);
+  if (khz == adfKhz) return;
+  if (adfFreqDirty || (millis() - adfLastChange) < 1000UL) return;
+  adfKhz = khz;
+  displayDirty = true;
+}
 unsigned long lastDisplayMillis = 0;
 
 // The Radio controller blanks its displays (no avionics power, or no data or input for 30 s) and sends "C,DISPLAY:0" so this one blanks at the same

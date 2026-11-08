@@ -252,6 +252,7 @@ namespace MSFSWinformsAutoCS
             ("NAV HAS DME:1", "bool"),
             ("NAV DME:1", "nautical miles"),
             ("NAV DMESPEED:1", "knots"),
+            ("ADF ACTIVE FREQUENCY:1", "kilohertz"),   // not DME, but it travels in this request: the ADF frequency for the ADF controller's display
         };
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
@@ -260,6 +261,7 @@ namespace MSFSWinformsAutoCS
             public double NAV_HAS_DME_1;
             public double NAV_DME_1;
             public double NAV_DMESPEED_1;
+            public double ADF_ACTIVE_FREQUENCY_1;
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 8)]
             public string NAV_IDENT_1;   // the DME station identifier (NAV1's identifier), a string, so last
         }
@@ -477,6 +479,7 @@ namespace MSFSWinformsAutoCS
         public Form1()
         {
             InitializeComponent();
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bridge icon (bridge.ico, set as the application icon in the project file)
             SetUpTargets();
             ConnectUdpClients();
             configureForm();
@@ -818,6 +821,7 @@ namespace MSFSWinformsAutoCS
             s.DmeValid = dme.NAV_HAS_DME_1 > 0.5;
             s.DmeDistanceNm = dme.NAV_DME_1;
             s.DmeSpeedKnots = dme.NAV_DMESPEED_1;
+            s.AdfKhz = dme.ADF_ACTIVE_FREQUENCY_1;
             s.DmeIdent = Payloads.CleanIdent(dme.NAV_IDENT_1);
             if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);

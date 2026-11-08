@@ -18,6 +18,7 @@ namespace FSUIPCTest
 
         private UdpClient udpServer;
         private const int listenPort = 27001;
+        private const int eventPort = 27003;   // the ADF and Upper controller's events for the PC: UPPER_KEY:<key> for each press on the Upper keypad
 
 
         // =====================================
@@ -362,6 +363,7 @@ namespace FSUIPCTest
         private String com2ActiveFrequency = "";
         private String com2StandbyFrequency = "";
         private String nav1ActiveFrequency = "";
+        private double adf1Khz = 0;   // the simulator's active ADF frequency, kHz
         private String nav2ActiveFrequency = "";
         private String MainBusVoltage = "";
         private String CIRCUIT_NAVCOM1_ON = "";
@@ -493,6 +495,7 @@ namespace FSUIPCTest
         public Form1()
         {
             InitializeComponent();
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bridge icon (bridge.ico, set as the application icon in the project file)
             SetUpTargets();
             targets.Register(udpClient, "172.16.1.101");
             targets.Register(frontPanelClient, "172.16.1.102");
@@ -506,6 +509,7 @@ namespace FSUIPCTest
             this.timerConnection.Start();
             // Start listening for radio/battery/alternator commands from the Radio/Upper controller boards
             StartListener();
+            StartUpperKeyListener();
         }
 
         // This method is called every 1 second by the connection timer.
@@ -671,6 +675,7 @@ namespace FSUIPCTest
                 FsFrequencyNAV nav2Helper = new FsFrequencyNAV(this.nav2.Value);
                 FsFrequencyNAV nav2StandbyHelper = new FsFrequencyNAV(this.nav2Standby.Value);
                 FsFrequencyADF adf1Helper = new FsFrequencyADF(this.adf1Main.Value, this.adf1Extended.Value);
+                adf1Khz = (double)adf1Helper.ToDecimal();   // for the ADF controller's display
                 FsTransponderCode txHelper = new FsTransponderCode(this.transponder.Value);
 
                 // --- Radio data to the Radio Controller board (172.16.1.101:13136) ---
@@ -786,6 +791,7 @@ namespace FSUIPCTest
                                    "Fuel Pressure: " + fuelPressureValue.ToString("F1") + " PSI" + Environment.NewLine +
                                    "DME (NAV 1): " + DmeReadoutText() + Environment.NewLine +
                                    AutoPilotReadoutText() +
+                                   "Last Upper keypad key: " + upperKeyStatus + Environment.NewLine +
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
@@ -1166,8 +1172,9 @@ namespace FSUIPCTest
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         targets.Send(dualStepperClient, dualStepperSendData);
 
-                        // ADF Controller (.107): backlight power only.
-                        Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0"));
+                        // ADF Controller (.107): backlight power and the ADF frequency.
+                        Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")
+                            + (adf1Khz >= 190 && adf1Khz <= 1799 ? ",ADF:" + ((int)Math.Round(adf1Khz)).ToString(System.Globalization.CultureInfo.InvariantCulture) : ""));   // and the simulator's ADF frequency (kHz)
                         targets.Send(adfClient, adfSendData);
 
                         // Upper Controller (.103): backlight power only.
@@ -1193,6 +1200,54 @@ namespace FSUIPCTest
         }
 
         // Listens for the radio/battery/alternator/standby-frequency commands the
+        // The Upper keypad: the ADF and Upper controller sends "UPPER_KEY:<key>" to port 27003 for each key press. * toggles the ATC menu in Prepar3D / FSX (FSUIPC control ATC);
+        // the other keys are only noted for now (the keypad also types them through the USB HID board as before).
+        private string upperKeyStatus = "no key yet";
+        private UdpClient? upperKeyServer;
+
+        private void StartUpperKeyListener()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    using (upperKeyServer = new UdpClient(eventPort))
+                    {
+                        while (true)
+                        {
+                            UdpReceiveResult result = await upperKeyServer.ReceiveAsync();
+                            string text = Encoding.ASCII.GetString(result.Buffer).Trim();
+                            if (!text.StartsWith("UPPER_KEY:")) continue;   // the ADF controller's other events (frequency, radar follow ID, power status) are not used here
+                            string key = text.Substring("UPPER_KEY:".Length);
+                            this.Invoke(new Action(() => HandleUpperKey(key)));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);   // for example the port is already in use
+                }
+            });
+        }
+
+        private void HandleUpperKey(string key)
+        {
+            string note = "";
+            if (key == "*")
+            {
+                try
+                {
+                    FSUIPCConnection.SendControlToFS(FsControl.ATC, 0);   // toggles the ATC menu
+                    note = " - ATC menu toggled";
+                }
+                catch (Exception ex)
+                {
+                    note = " - ATC menu NOT toggled (" + ex.Message + ")";
+                }
+            }
+            upperKeyStatus = key + " at " + DateTime.Now.ToString("HH:mm:ss") + note;
+        }
+
         // Radio/Upper controller boards send on UDP port 27001. Ported from
         // SimConnect_to_UDP's StartListener().
         private void StartListener()

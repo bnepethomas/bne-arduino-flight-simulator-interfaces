@@ -22,6 +22,7 @@ namespace DCSBiosBridge
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             AutoScaleMode = AutoScaleMode.Dpi;
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bridge icon (bridge.ico, set as the application icon in the project file)
             Font = new Font("Segoe UI", 9f);
             ClientSize = new Size(420, 220);
 

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <ApplicationIcon>bridge.ico</ApplicationIcon>
     <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -17,7 +18,7 @@
        and time are stamped in automatically at every build. Both are shown in the About window. -->
   <PropertyGroup>
     <Version>1.0.0</Version>
-    <BuildNumber>8</BuildNumber>
+    <BuildNumber>11</BuildNumber>
     <FileVersion>1.0.0.$(BuildNumber)</FileVersion>
     <BuildDateTime>$([System.DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss'))</BuildDateTime>
   </PropertyGroup>

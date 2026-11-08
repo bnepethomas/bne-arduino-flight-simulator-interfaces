@@ -58,6 +58,7 @@ namespace DCSBiosBridge
 
         public Form1()
         {
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bridge icon (bridge.ico, set as the application icon in the project file)
             Text = "DCS-BIOS Bridge";
             ClientSize = new Size(900, 600);
             MinimumSize = new Size(700, 450);

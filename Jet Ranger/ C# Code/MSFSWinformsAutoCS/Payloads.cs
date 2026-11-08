@@ -43,6 +43,7 @@ namespace MSFSWinformsAutoCS
         public int ApHeading, ApCourse;            // the autopilot heading bug and the NAV1 OBS, degrees (north is 360)
         public int ApAirspeed, ApVerticalSpeed, ApAltitude;   // the autopilot airspeed (knots), vertical speed (feet per minute) and altitude (feet)
         public int SasGreen, SasWhite;             // the CowanSim HeloSAS annunciator lights (bit fields: 1 SAS, 2 HDG, 4 NAV, 8 SPD, 16 ALT, 32 VRT)
+        public double AdfKhz;                      // the active ADF frequency, kHz
         public bool DmeValid;                      // NAV1 has a DME station in range
         public double DmeDistanceNm, DmeSpeedKnots;   // distance to the DME station (nautical miles) and the speed towards it (knots)
         public string DmeIdent = "";               // the DME station identifier (capitals, up to 4 characters)
@@ -152,8 +153,9 @@ namespace MSFSWinformsAutoCS
              + ",PITCH:" + F1(-s.PitchDegrees) + ",BANK:" + F1(s.BankDegrees) + LampPayload(s);
 
         // ADF Controller (.107): backlight power only (it also feeds the board's no-data timeout).
+        // The ADF controller (.107): backlight power and the simulator's ADF frequency (kHz) for its display (left out when the simulator reports none).
         public static string Adf(SimSnapshot s)
-            => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0");
+            => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0") + (s.AdfKhz >= 190 && s.AdfKhz <= 1799 ? ",ADF:" + ((int)Math.Round(s.AdfKhz)).ToString(Inv) : "");
 
         // The radar altimeter is powered from the main bus: 0 when unpowered.
         public static string RadarAltitude(SimSnapshot s)

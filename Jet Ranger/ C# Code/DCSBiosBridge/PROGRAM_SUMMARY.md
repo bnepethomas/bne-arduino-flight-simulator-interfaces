@@ -124,3 +124,7 @@ while open); the MSFS and FSUIPC windows were checked (button, `--show-packets`)
 ## About window, version and build number (8 November 2026)
 
 The **About...** button on the toolbar (after Show packets...) opens it. **Raise `<BuildNumber>` in the project file by one every time this program is changed** (and `<Version>` for a larger change); the build date and time are stamped in automatically at every build, so they are always the time of the last build. `AboutForm.cs` reads them from the program (assembly metadata `BuildNumber` and `BuildDateTime`, and the assembly version) and shows the program name, version, build number and build date and time. The version is 1.0.0 and the build number started at 1 on 8 November 2026.
+
+## Bridge icon (8 November 2026, build 2)
+
+The program icon is a suspension bridge (`bridge.ico` in the project folder: 256, 64, 48, 32, 24 and 16 pixel images, drawn with GDI+, orange cables and towers over blue water). It is set as the application icon in the project file (`<ApplicationIcon>bridge.ico</ApplicationIcon>`, so it is the icon of the exe) and, from the exe, as the icon of the main window and the About window (`Icon.ExtractAssociatedIcon`). The same icon is used by all four bridges.

@@ -247,3 +247,11 @@ The HeloSAS takes its altitude, airspeed and vertical speed references at the mo
 ## Live NAV active frequencies (8 November 2026, build 8)
 
 The radio packet now has `N1A` and `N2A`, the NAV1 and NAV2 active frequencies (`Nav1Active`, `Nav2Active`, in MHz to three decimals), so the Radio's NAV display follows the simulator. The standby frequencies are not sent (they stay local to the Radio). A change goes out like a COM frequency change (at most every 200 ms), and in any case twice a second. The Radio shows them from build 15. Builds clean; not run live (MSFS was not running).
+
+## ADF frequency to the ADF controller (8 November 2026, build 9)
+
+The packet to the ADF controller (.107) now carries the simulator's active ADF frequency as well as the backlight power: `D,BPWR:1,ADF:284` (`ADF ACTIVE FREQUENCY:1`, in kilohertz, rounded; left out when the simulator reports none or a value outside 190 to 1799). The ADF controller shows it from build 11. The SimVar travels in the DME request. Builds clean; not run against MSFS (it was not running).
+
+## Bridge icon (8 November 2026, build 10)
+
+The program icon is a suspension bridge (`bridge.ico` in the project folder: 256, 64, 48, 32, 24 and 16 pixel images, drawn with GDI+, orange cables and towers over blue water). It is set as the application icon in the project file (`<ApplicationIcon>bridge.ico</ApplicationIcon>`, so it is the icon of the exe) and, from the exe, as the icon of the main window and the About window (`Icon.ExtractAssociatedIcon`). The same icon is used by all four bridges.

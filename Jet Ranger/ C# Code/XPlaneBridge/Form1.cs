@@ -46,6 +46,7 @@ namespace XPlaneBridge
 
         public Form1()
         {
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bridge icon (bridge.ico, set as the application icon in the project file)
             Text = "X-Plane Bridge";
             ClientSize = new Size(980, 620);
             MinimumSize = new Size(760, 450);
