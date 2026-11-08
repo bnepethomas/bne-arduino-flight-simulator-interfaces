@@ -403,6 +403,8 @@ namespace MSFSWinformsAutoCS
         private string com1StandbyFrequency = "";
         private string com2ActiveFrequency = "";
         private string com2StandbyFrequency = "";
+        private string nav1ActiveFrequency = "";
+        private string nav2ActiveFrequency = "";
         private string mainBusText = "";
         private string navCom1On = "";
         private string panelLedText = "";
@@ -833,6 +835,8 @@ namespace MSFSWinformsAutoCS
             TrackRadioChange(ref com1StandbyFrequency, Payloads.Freq(s.Com1Standby));
             TrackRadioChange(ref com2ActiveFrequency, Payloads.Freq(s.Com2Active));
             TrackRadioChange(ref com2StandbyFrequency, Payloads.Freq(s.Com2Standby));
+            TrackRadioChange(ref nav1ActiveFrequency, Payloads.Freq(s.Nav1Active));   // the NAV active frequencies (not the standby ones)
+            TrackRadioChange(ref nav2ActiveFrequency, Payloads.Freq(s.Nav2Active));
             TrackRadioChange(ref mainBusText, s.MainBusVolts.ToString("F1", CultureInfo.InvariantCulture));
             TrackRadioChange(ref navCom1On, Payloads.RadioPowered(s) ? "1" : "0");
             TrackRadioChange(ref panelLedText, Payloads.LedTokens(s.Leds, Payloads.RadioPowered(s)));

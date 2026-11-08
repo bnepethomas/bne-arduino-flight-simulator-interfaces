@@ -23,7 +23,7 @@
        and time are stamped in automatically at every build. Both are shown in the About window. -->
   <PropertyGroup>
     <Version>1.0.0</Version>
-    <BuildNumber>7</BuildNumber>
+    <BuildNumber>8</BuildNumber>
     <FileVersion>1.0.0.$(BuildNumber)</FileVersion>
     <BuildDateTime>$([System.DateTime]::Now.ToString('yyyy-MM-dd HH:mm:ss'))</BuildDateTime>
   </PropertyGroup>

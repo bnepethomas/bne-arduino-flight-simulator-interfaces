@@ -77,6 +77,7 @@ Script: `"Start Jet Ranger.bat" -Simulator MSFS`.
 3. Run `FSUIPCWinformsAutoCS.exe`. The status bar shows when it is connected. The window lists the values being sent and the 21 annunciator bits.
 4. The panel's joystick buttons must be bound to the DS206 events in FSUIPC (see Installing the DodoSim event file); without that nothing happens in the simulator when you press a switch.
 5. The GPS interface takes the position, altitude, airspeed and heading from FSUIPC offsets and the simulator's UTC time from FSUIPC.
+6. To see the DodoSim's SAS on the Auto Pilot panel it must be enabled in the DodoSim's systems first (the DodoSim 206 V2 Settings window; see the Auto Pilot and Audio panel LEDs in the Radio controller chapter).
 
 Script: `"Start Jet Ranger.bat" -Simulator P3D` (or `FSX`).
 

@@ -258,6 +258,32 @@ namespace FSUIPCTest
 
         // The DME readout for the DME display as ",DMEDIST:12.3,DMESPD:120" (nautical miles to one decimal, knots). -1 for both when NAV1 has no DME;
         // a negative speed (moving away from the station) is sent as 0.
+        // The DodoSim 206's SAS (stability augmentation system and autopilot) keeps its annunciator LEDs in local variables (found in DodoSim206.gau): bit 1 (value 1) = yellow
+        // (primed or standby), bit 2 (value 2) = green (engaged). They are read with FSUIPC's local variable access about 5 times a second. The SAS must be enabled in the DodoSim settings first.
+        // Mapping to the Auto Pilot panel LEDs: SAS = AP ENGAGE, HDG = HDG, NAV = CRS, SPD = IAS, ALT = ALT (VRT has no LED on the panel).
+        private readonly Dictionary<string, double> dodoSas = new()
+        {
+            ["SasSasLed"] = 0, ["SasHdgLed"] = 0, ["SasNavLed"] = 0, ["SasSpdLed"] = 0, ["SasAltLed"] = 0, ["SasVrtLed"] = 0, ["SasPwrLed"] = 0,
+        };
+        private DateTime dodoSasNextRead = DateTime.MinValue;
+
+        private void ReadDodoSas()
+        {
+            if (DateTime.Now < dodoSasNextRead) return;
+            dodoSasNextRead = DateTime.Now.AddMilliseconds(200);
+            try
+            {
+                foreach (string key in dodoSas.Keys.ToList()) dodoSas[key] = FSUIPCConnection.ReadLVar("DodoSim_" + key);
+            }
+            catch
+            {
+                dodoSasNextRead = DateTime.Now.AddSeconds(5);   // the variables could not be read (FSUIPC without local variable access): try again later
+            }
+        }
+
+        // Bit 1 = yellow, bit 2 = green (the SAS LED read 6, green with another bit set, with the SAS in attitude hold and a mode on); the green bit means engaged.
+        private bool DodoGreen(string key) => (((int)Math.Round(dodoSas[key])) & 2) != 0;
+
         // The DME station identifier: letters and digits only, in capitals, at most 4 characters (the Radio's display has room for 4).
         private string DmeIdent()
         {
@@ -285,12 +311,14 @@ namespace FSUIPCTest
                 return names.Count == 0 ? "none" : string.Join(", ", names);
             }
             byte audio = audioSwitches.Value;
-            string apLeds = Lit((apMaster.Value != 0, "AP ENGAGE"), (apNav1Lock.Value != 0, "CRS"), (apHeadingLock.Value != 0, "HDG"), (apAirspeedHold.Value != 0, "IAS"),
-                                (apAltitudeLock.Value != 0, "ALT"), (apApproachHold.Value != 0, "APPR"), (flightDirectorActive.Value != 0, "FD"), (apBackCourseHold.Value != 0, "BC"));
+            string apLeds = Lit((apMaster.Value != 0 || DodoGreen("SasSasLed"), "AP ENGAGE"), (apNav1Lock.Value != 0 || DodoGreen("SasNavLed"), "CRS"), (apHeadingLock.Value != 0 || DodoGreen("SasHdgLed"), "HDG"), (apAirspeedHold.Value != 0 || DodoGreen("SasSpdLed"), "IAS"),
+                                (apAltitudeLock.Value != 0 || DodoGreen("SasAltLed"), "ALT"), (apApproachHold.Value != 0, "APPR"), (flightDirectorActive.Value != 0, "FD"), (apBackCourseHold.Value != 0, "BC"));
             string audioLeds = Lit(((audio & 0x80) != 0, "COM1"), ((audio & 0x20) != 0, "BOTH"), ((audio & 0x08) != 0, "NAV2"), ((audio & 0x02) != 0, "DME"), (markerOuter.Value != 0, "OUTER"),
                                    (markerInner.Value != 0, "INNER"), ((audio & 0x40) != 0, "COM2"), ((audio & 0x10) != 0, "NAV1"), ((audio & 0x04) != 0, "MKR"), ((audio & 0x01) != 0, "ADF"), (markerMiddle.Value != 0, "MIDDLE"));
-            return "Auto Pilot LEDs lit: " + apLeds + Environment.NewLine + "Auto Pilot display: " + BuildPanelValuePayload().TrimStart(',').Replace(',', ' ').Replace(":", " ") + Environment.NewLine
-                 + "Audio LEDs lit: " + audioLeds + Environment.NewLine;
+            return "Auto Pilot LEDs lit: " + apLeds + Environment.NewLine + "Auto Pilot display: " + BuildPanelValuePayload().TrimStart(',').Replace("AP", "").Replace(",", "  ").Replace(":", " ") + Environment.NewLine
+                 + "Audio LEDs lit: " + audioLeds + Environment.NewLine
+                 + "DodoSim SAS LEDs (0 off, 1 yellow, 2 green): SAS " + dodoSas["SasSasLed"] + "  HDG " + dodoSas["SasHdgLed"] + "  NAV " + dodoSas["SasNavLed"] + "  SPD " + dodoSas["SasSpdLed"]
+                 + "  ALT " + dodoSas["SasAltLed"] + "  VRT " + dodoSas["SasVrtLed"] + "  PWR " + dodoSas["SasPwrLed"] + Environment.NewLine;
         }
 
         private string BuildDmePayload()
@@ -309,14 +337,14 @@ namespace FSUIPCTest
         {
             byte audio = audioSwitches.Value;
             Func<bool, string> f = v => (powered && v) ? "1" : "0";
-            return ",LED_CRS:" + f(apNav1Lock.Value != 0)
-                 + ",LED_HDG:" + f(apHeadingLock.Value != 0)
-                 + ",LED_IAS:" + f(apAirspeedHold.Value != 0)
-                 + ",LED_ALT:" + f(apAltitudeLock.Value != 0)
+            return ",LED_CRS:" + f(apNav1Lock.Value != 0 || DodoGreen("SasNavLed"))
+                 + ",LED_HDG:" + f(apHeadingLock.Value != 0 || DodoGreen("SasHdgLed"))
+                 + ",LED_IAS:" + f(apAirspeedHold.Value != 0 || DodoGreen("SasSpdLed"))
+                 + ",LED_ALT:" + f(apAltitudeLock.Value != 0 || DodoGreen("SasAltLed"))
                  + ",LED_APPR:" + f(apApproachHold.Value != 0)
                  + ",LED_FD:" + f(flightDirectorActive.Value != 0)
                  + ",LED_BC:" + f(apBackCourseHold.Value != 0)
-                 + ",LED_APENG:" + f(apMaster.Value != 0)
+                 + ",LED_APENG:" + f(apMaster.Value != 0 || DodoGreen("SasSasLed"))
                  + ",LED_COM1:" + f((audio & 0x80) != 0)
                  + ",LED_BOTH:" + f((audio & 0x20) != 0)
                  + ",LED_NAV2:" + f((audio & 0x08) != 0)
@@ -333,6 +361,8 @@ namespace FSUIPCTest
         private String com1StandbyFrequency = "";
         private String com2ActiveFrequency = "";
         private String com2StandbyFrequency = "";
+        private String nav1ActiveFrequency = "";
+        private String nav2ActiveFrequency = "";
         private String MainBusVoltage = "";
         private String CIRCUIT_NAVCOM1_ON = "";
         private String panelLedText = "";    // ",LED_CRS:0,LED_HDG:1,..." as last sent in the radio packet
@@ -631,6 +661,7 @@ namespace FSUIPCTest
 
 
                 FSUIPCConnection.Process("RadioStack");
+                ReadDodoSas();
                 FsFrequencyCOM com1Helper = new FsFrequencyCOM(this.com1.Value);
                 FsFrequencyCOM com1StandbyHelper = new FsFrequencyCOM(this.com1Standby.Value);
                 FsFrequencyCOM com2Helper = new FsFrequencyCOM(this.com2.Value);
@@ -666,6 +697,19 @@ namespace FSUIPCTest
                 {
                     radioFrequencyChanged = true;
                     com2StandbyFrequency = com2StandbyHelper.ToString();
+                }
+
+                // The NAV active frequencies (not the standby ones) go to the Radio so its NAV display follows the simulator.
+                if (nav1ActiveFrequency != nav1Helper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    nav1ActiveFrequency = nav1Helper.ToString();
+                }
+
+                if (nav2ActiveFrequency != nav2Helper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    nav2ActiveFrequency = nav2Helper.ToString();
                 }
 
                 if (MainBusVoltage != mainBusVoltageValue.ToString("F1"))
@@ -718,6 +762,8 @@ namespace FSUIPCTest
                     radioPayload += ",C1S:" + com1StandbyFrequency;
                     radioPayload += ",C2A:" + com2ActiveFrequency;
                     radioPayload += ",C2S:" + com2StandbyFrequency;
+                    radioPayload += ",N1A:" + nav1ActiveFrequency;
+                    radioPayload += ",N2A:" + nav2ActiveFrequency;
                     radioPayload += ",MAINBUS:" + MainBusVoltage;
                     radioPayload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                     radioPayload += ",BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0");    // backlight on only while the main bus is 20 V or more

@@ -85,6 +85,9 @@ Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:y
 - Several unused annunciator bits (`SPARE_*`, `SIMCONNECT_FAIL`, `LOW_INLET_PRESSURE`) all share the short code `SCF`, so the last one in the packet wins for that lamp.
 - `TURB_ENG_ITT_1` is assigned twice per tick (percent, then temperature), so the temperature wins.
 - Run only one bridge at a time; the MSFS bridge also listens on UDP 27001.
+- **DodoSim 206 SAS:** the SAS (stability augmentation system and autopilot) in the DodoSim 206 must be enabled in the aircraft's systems before it is displayed on the Auto Pilot panel. The DodoSim 206 V2 Settings window (General tab) has the options: *SAS fitted by default* and *SAS used by default* under *Equipment*, and *Has SAS fitted* under *This Aircraft*.
+
+![The DodoSim 206 V2 Settings window (General tab): the SAS options under Equipment and This Aircraft](screenshots/dodosim_settings_sas.png#h140)
 - Built clean and run against Prepar3D v6.1 sending about 10 packets per second per board.
 
 ## Panel emulators

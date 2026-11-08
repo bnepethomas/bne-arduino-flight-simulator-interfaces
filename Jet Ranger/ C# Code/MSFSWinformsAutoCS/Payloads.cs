@@ -299,6 +299,8 @@ namespace MSFSWinformsAutoCS
              + ",C1S:" + Freq(s.Com1Standby)
              + ",C2A:" + Freq(s.Com2Active)
              + ",C2S:" + Freq(s.Com2Standby)
+             + ",N1A:" + Freq(s.Nav1Active)      // the NAV active frequencies (the standby ones stay local to the Radio)
+             + ",N2A:" + Freq(s.Nav2Active)
              + ",MAINBUS:" + F1(s.MainBusVolts)
              + ",NAVCOM1:" + (RadioPowered(s) ? "1" : "0")
              + ",BPWR:" + (GaugesPowered(s) ? "1" : "0")        // backlight on only while the main bus is 20 V or more

@@ -243,3 +243,7 @@ The CowanSim 206B3's autopilot (HeloSAS) does not set the standard `AUTOPILOT â€
 ## HeloSAS references on the Auto Pilot display (8 November 2026, build 7)
 
 The HeloSAS takes its altitude, airspeed and vertical speed references at the moment the mode is engaged and keeps them internally (the target variables read 0), so `ApplyHeloSasReferences()` does the same: when the ALT, SPD or VRT light (green bits 16, 8 and 32) comes on, the current altitude (to 10 feet), airspeed (to the knot) or vertical speed (to 10 feet per minute) is remembered and shown as ALT, IAS or VS on the Auto Pilot display until that mode is switched off. If the bridge starts with a mode already on, the values at that moment are used. With no mode on the display shows the standard SimVars as before. HDG shows the heading bug (a standard SimVar, which the HeloSAS does use). Checked against the running MSFS with ALT engaged at about 238 ft: the display showed `ALT 240` and held it while the altitude moved by a foot or two.
+
+## Live NAV active frequencies (8 November 2026, build 8)
+
+The radio packet now has `N1A` and `N2A`, the NAV1 and NAV2 active frequencies (`Nav1Active`, `Nav2Active`, in MHz to three decimals), so the Radio's NAV display follows the simulator. The standby frequencies are not sent (they stay local to the Radio). A change goes out like a COM frequency change (at most every 200 ms), and in any case twice a second. The Radio shows them from build 15. Builds clean; not run live (MSFS was not running).

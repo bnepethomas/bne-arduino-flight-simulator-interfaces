@@ -21,6 +21,7 @@ bool Debug_Display = false;
 
 unsigned long lastEncoderUpdate = millis();
 bool radioFrequencyChanged = false;
+bool navFrequencyChanged = false;   // a live NAV active frequency (N1A, N2A) arrived from the bridge: the NAV display is redrawn
 bool powerAvailable = true;
 
 // No-data timeout, same idea as the Servo/Stepper/Dual Stepper boards: if no UDP
@@ -146,7 +147,7 @@ unsigned long debugDownUntil = 0;
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "Radio Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 14
+#define FIRMWARE_BUILD 15
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -1510,6 +1511,10 @@ void ProcessReceivedMSFSString() {
       if (navDrawnPower != radioPowered()) updateNAV();  // NAV on/off together with COMM
       radioFrequencyChanged = false;
     }
+    if (navFrequencyChanged) {
+      navFrequencyChanged = false;
+      updateNAV();  // new live NAV active frequencies
+    }
     applyPanelLeds();  // new LED states, and the LEDs follow the radio power like the displays
     if (apValuesChanged || apDrawnPower != radioPowered()) {  // new Auto Pilot values, or the radio power changed
       apValuesChanged = false;
@@ -1643,6 +1648,17 @@ void HandleOutputValuePair(String str) {
         }
         radioFrequencyChanged = true;
       };
+    } else if (ParameterName == "N1A") {
+      // Live NAV1 active frequency from the bridge (the standby frequencies are local). Not applied within 500 ms of a knob or switch, like the COM2 values.
+      if (Nav1ActiveFrequency != ParameterValue && (millis() - lastEncoderUpdate) >= 500) {
+        Nav1ActiveFrequency = ParameterValue;
+        navFrequencyChanged = true;
+      }
+    } else if (ParameterName == "N2A") {
+      if (Nav2ActiveFrequency != ParameterValue && (millis() - lastEncoderUpdate) >= 500) {
+        Nav2ActiveFrequency = ParameterValue;
+        navFrequencyChanged = true;
+      }
     } else if (ParameterName == "NOTMAINBUS") {
       // SendDebug("Received MAINBUS: " + ParameterValue);
       if (mainBusVoltage != ParameterValue) {
