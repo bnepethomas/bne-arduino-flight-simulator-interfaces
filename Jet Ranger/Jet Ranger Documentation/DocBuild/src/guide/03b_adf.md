@@ -4,6 +4,12 @@ The ADF panel is another Mega, at 172.16.1.107, running `JET_RANGER_ADF_CONTROLL
 
 ![ADF panel](diagrams/adf_blocks.svg)
 
+## Physical connections
+
+The combined board connects to the ADF panel, the lower panel switches, the Upper panel (matrix rows, matrix columns, keypad and brightness pot) and the two front switches.
+
+![ADF and Upper controller connections](diagrams/adf_connectivity.svg)
+
 ## Using the panel
 
 | Control | What it does |

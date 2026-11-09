@@ -6,6 +6,12 @@ The sketch started as an A-10C front instrument board and still carries some DCS
 
 ![Stepper controller blocks](diagrams/stepper_blocks.svg)
 
+## Physical connections
+
+Each gauge has its own six-pin cable from the Stepper board to the gauge's X27 stepper. The coil pins are the Mega pins the sketch drives.
+
+![Stepper controller connections](diagrams/stepper_connectivity.svg)
+
 ## Gauges and calibration
 
 | Gauge | Token | Mega pins | Unit and range | Calibration |

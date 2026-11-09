@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="1088" viewBox="0 0 880 1088">
+<rect width="880" height="1088" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahC9C9C4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C9C9C4"/></marker>
+<marker id="ahsC9C9C4" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C9C9C4"/></marker>
+<marker id="ahC62828" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahsC62828" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+</defs>
+<rect x="214.0" y="20.0" width="130.0" height="1024.0" rx="10" ry="10" fill="#1F6B43" stroke="#0A2A1A" stroke-width="1.2"/>
+<text x="279.0" y="100.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Stepper</text>
+<text x="279.0" y="120.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#DDFBE8" text-anchor="middle">172.16.1.105</text>
+<text x="279.0" y="144.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">13 Stepper</text>
+<text x="279.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">PCB 1.6</text>
+<rect x="14.0" y="390.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="413.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Ethernet switch</text>
+<text x="26.0" y="435.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">W5500, 172.16.1.105</text>
+<path d="M 154.0 421.0 L 214.0 421.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="464.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="487.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">USB hub</text>
+<text x="26.0" y="509.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">COM4 (programming)</text>
+<path d="M 154.0 495.0 L 214.0 495.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="538.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="561.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">5 V supply</text>
+<text x="26.0" y="583.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J2 5V IN</text>
+<path d="M 154.0 569.0 L 214.0 569.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="14.0" y="612.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="635.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">12 to 20 V supply</text>
+<text x="26.0" y="657.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J3 STEPPER IN</text>
+<path d="M 154.0 643.0 L 214.0 643.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="540.0" y="20.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Airspeed</text>
+<text x="552.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D12, D13, D22, D23</text>
+<path d="M 344.0 44.0 L 540.0 44.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="376.7" y="29.0" width="130.6" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="40.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J26 AIRSPEED  6-pin</text>
+<rect x="540.0" y="98.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Vertical speed</text>
+<text x="552.0" y="145.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D7, D8, D9, D11</text>
+<path d="M 344.0 122.0 L 540.0 122.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="395.4" y="107.0" width="93.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="118.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J5 VVI  6-pin</text>
+<rect x="540.0" y="176.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="200.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Radar altitude</text>
+<text x="552.0" y="223.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D32 to D35</text>
+<path d="M 344.0 200.0 L 540.0 200.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="373.6" y="185.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="196.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J23 RADAR ALT  6-pin</text>
+<rect x="540.0" y="254.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="278.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Torque</text>
+<text x="552.0" y="301.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D36 to D39</text>
+<path d="M 344.0 278.0 L 540.0 278.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="370.5" y="263.0" width="143.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="274.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J25 ENG TORQUE  6-pin</text>
+<rect x="540.0" y="332.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Gas producer (N1)</text>
+<text x="552.0" y="379.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D40 to D43</text>
+<path d="M 344.0 356.0 L 540.0 356.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="364.2" y="341.0" width="155.5" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="352.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J24 GAS PRODUCER  6-pin</text>
+<rect x="540.0" y="410.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="434.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Turbine out temperature</text>
+<text x="552.0" y="457.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils A11 to A14</text>
+<path d="M 344.0 434.0 L 540.0 434.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="392.3" y="419.0" width="99.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="430.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J27 EGT  6-pin</text>
+<rect x="540.0" y="488.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="512.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Fuel quantity</text>
+<text x="552.0" y="535.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D2, D3, D4, D6</text>
+<path d="M 344.0 512.0 L 540.0 512.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="373.6" y="497.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="508.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J4 FUEL LEVEL  6-pin</text>
+<rect x="540.0" y="566.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="590.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Engine oil temperature (placeholder)</text>
+<text x="552.0" y="613.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D48, A0 to A2</text>
+<path d="M 344.0 590.0 L 540.0 590.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="364.2" y="575.0" width="155.5" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="586.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J41 ENG OIL TEMP  6-pin</text>
+<rect x="540.0" y="644.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="668.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Engine oil pressure (placeholder)</text>
+<text x="552.0" y="691.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils D44 to D47</text>
+<path d="M 344.0 668.0 L 540.0 668.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="364.2" y="653.0" width="155.5" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="664.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J40 ENG OIL PRES  6-pin</text>
+<rect x="540.0" y="722.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="746.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission oil temperature (placeholder)</text>
+<text x="552.0" y="769.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils A3 to A6</text>
+<path d="M 344.0 746.0 L 540.0 746.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="361.1" y="731.0" width="161.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="742.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J30 XMSN OIL TEMP  6-pin</text>
+<rect x="540.0" y="800.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="824.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission oil pressure (placeholder)</text>
+<text x="552.0" y="847.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">X27 stepper gauge, coils A7 to A10</text>
+<path d="M 344.0 824.0 L 540.0 824.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="358.0" y="809.0" width="168.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="820.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J39 XMSN OIL PRESS  6-pin</text>
+<rect x="540.0" y="878.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="552.0" y="902.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Backlights</text>
+<text x="552.0" y="925.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">each gauge's pin 6, switched by D5 (IRF540N)</text>
+<path d="M 344.0 902.0 L 540.0 902.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="351.8" y="887.0" width="180.5" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="898.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">in the six-pin gauge cables</text>
+<rect x="540.0" y="956.0" width="326.0" height="88.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="980.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Turbine speed, rotor speed</text>
+<text x="552.0" y="1003.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">J20 TURBINE SPEED, J22 ROTOR SPEED: not used</text>
+<text x="552.0" y="1020.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">(these gauges moved to the Dual Stepper)</text>
+<path d="M 344.0 980.0 L 540.0 980.0" fill="none" stroke="#C9C9C4" stroke-width="1.6" marker-end="url(#ahC9C9C4)"/>
+<rect x="395.4" y="965.0" width="93.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="976.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">not connected</text>
+<text x="14.0" y="1076.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">Cable colours: blue = signal, amber = backlight, red = power, green = network and USB.</text>
+</svg>

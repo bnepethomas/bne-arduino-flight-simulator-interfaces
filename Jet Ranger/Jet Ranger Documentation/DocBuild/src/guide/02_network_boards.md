@@ -93,6 +93,12 @@ The servo board is an Arduino Mega 2560 with an Ethernet module, on the Jet Rang
 
 ![Servo board](diagrams/servo_blocks.svg)
 
+## Physical connections
+
+The Servo controller drives the attitude indicator servos, the annunciator lamps and the panel backlights, and reads three front panel switches. Only two of the board's servo headers are used.
+
+![Servo controller connections](diagrams/servo_connectivity.svg)
+
 ## Uploading the firmware
 
 1. Open the sketch in the Arduino IDE and select *Board: Arduino Mega or Mega 2560* (or use `arduino-cli`, see Flashing a board).
@@ -157,6 +163,12 @@ A second Arduino Mega 2560, on the Jet Ranger 13 Stepper PCB at 172.16.1.105, dr
 
 Every token has a raw twin with `RAW` on the end (for example `IASRAW:300`). It moves the needle by raw steps and skips the table, which is how new calibration points are measured on the bench. The board also has four oil and transmission steppers with placeholder scales; those gauges are driven from the Dual Stepper, so wire each physical gauge to one board only. Pins 24 to 31 are free.
 
+## Physical connections
+
+Each gauge has its own six-pin cable from the Stepper board to the gauge's X27 stepper. The coil pins are the Mega pins the sketch drives.
+
+![Stepper controller connections](diagrams/stepper_connectivity.svg)
+
 ## Behaviour
 
 - **Power-up:** status LEDs flash, Ethernet starts, backlighting ramps up, then each gauge does a self-test sweep in turn: fuel, torque, turbine out, gas producer, VSI, airspeed, radar altitude. Each sweep has its own on/off switch (`SwingFA`, `SwingTQ` and so on) near the top of the sketch.
@@ -210,6 +222,12 @@ A third Mega, on the Jet Ranger OLED Dual Stepper PCB at 172.16.1.106, drives st
 | Transmission oil pressure | `XMSNP` | A7 to A10 | psi | 5-point table |
 
 Turbine out temperature (`ITT`) and fuel quantity (`FUEL`) are also accepted, as on the 13 Stepper board. Wire each physical gauge to one board only; the matching channel on the other board then simply has nothing connected. Each token also has a `RAW` twin for bench work. `IAS` is not handled here; the FSUIPC and MSFS bridges send airspeed to the 13 Stepper board with one decimal place so the needle moves smoothly.
+
+## Physical connections
+
+The Dual Stepper board drives four dual instruments and the altimeter, and four OLEDs on its I2C multiplexer. Which dual instrument uses which socket follows the names printed on the PCB.
+
+![Dual Stepper controller connections](diagrams/dual_stepper_connectivity.svg)
 
 ## OLED displays
 

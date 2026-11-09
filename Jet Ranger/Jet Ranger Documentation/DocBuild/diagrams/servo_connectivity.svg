@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="506" viewBox="0 0 880 506">
+<rect width="880" height="506" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahC9C9C4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C9C9C4"/></marker>
+<marker id="ahsC9C9C4" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C9C9C4"/></marker>
+<marker id="ahC62828" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahsC62828" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+</defs>
+<rect x="214.0" y="20.0" width="130.0" height="442.0" rx="10" ry="10" fill="#1F6B43" stroke="#0A2A1A" stroke-width="1.2"/>
+<text x="279.0" y="100.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Servo</text>
+<text x="279.0" y="120.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#DDFBE8" text-anchor="middle">172.16.1.102</text>
+<text x="279.0" y="144.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">Front Panel Servo</text>
+<text x="279.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">PCB 1.4</text>
+<rect x="14.0" y="99.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Ethernet switch</text>
+<text x="26.0" y="144.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">W5500, 172.16.1.102</text>
+<path d="M 154.0 130.0 L 214.0 130.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="173.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="196.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">USB hub</text>
+<text x="26.0" y="218.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">COM16 (programming)</text>
+<path d="M 154.0 204.0 L 214.0 204.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="247.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="270.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">5 V supply</text>
+<text x="26.0" y="292.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J2 5V IN</text>
+<path d="M 154.0 278.0 L 214.0 278.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="14.0" y="321.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="344.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">12 to 20 V supply</text>
+<text x="26.0" y="366.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J3 STEPPER IN</text>
+<path d="M 154.0 352.0 L 214.0 352.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="540.0" y="20.0" width="326.0" height="78.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Attitude indicator</text>
+<text x="552.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">pitch servo (D26), bank servo (D27)</text>
+<path d="M 344.0 44.0 L 540.0 44.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="386.1" y="29.0" width="111.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="40.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J42 PITCH  3-pin</text>
+<path d="M 344.0 70.0 L 540.0 70.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="389.2" y="55.0" width="105.6" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="66.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J43 ROLL  3-pin</text>
+<rect x="540.0" y="106.0" width="326.0" height="88.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="130.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Annunciator lamp panels</text>
+<text x="552.0" y="153.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">15 warning lamps on A1 to A15</text>
+<text x="552.0" y="170.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">(the split between the two panels is not recorded)</text>
+<path d="M 344.0 130.0 L 540.0 130.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="373.6" y="115.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="126.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J4 LHS ANNUC  IDC 16</text>
+<path d="M 344.0 156.0 L 540.0 156.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="373.6" y="141.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="152.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J5 RHS ANNUC  IDC 16</text>
+<rect x="540.0" y="202.0" width="326.0" height="104.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Front panel switches</text>
+<text x="552.0" y="249.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">TOT clear (D43), fuel valve (D48),</text>
+<text x="552.0" y="266.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">warning mute (D47): to ground when on</text>
+<path d="M 344.0 226.0 L 540.0 226.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="395.4" y="211.0" width="93.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="222.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">SW1 TOT CLEAR</text>
+<path d="M 344.0 252.0 L 540.0 252.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="392.3" y="237.0" width="99.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="248.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">SW2 FUEL VALVE</text>
+<path d="M 344.0 278.0 L 540.0 278.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="386.1" y="263.0" width="111.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="274.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">SW3 WARNING MUTE</text>
+<rect x="540.0" y="314.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="552.0" y="338.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Panel backlights</text>
+<text x="552.0" y="361.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">D5 PWM through the IRF540N</text>
+<path d="M 344.0 338.0 L 540.0 338.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="345.5" y="323.0" width="193.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="334.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J6-J10, J15-J19  BK LIGHT x10</text>
+<rect x="540.0" y="392.0" width="326.0" height="70.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="416.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Spare servo headers</text>
+<text x="552.0" y="439.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">J20 to J33, J44, J45: fitted, not used</text>
+<path d="M 344.0 416.0 L 540.0 416.0" fill="none" stroke="#C9C9C4" stroke-width="1.6" marker-end="url(#ahC9C9C4)"/>
+<rect x="395.4" y="401.0" width="93.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="412.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">not connected</text>
+<text x="14.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">Cable colours: blue = signal, amber = backlight, red = power, green = network and USB.</text>
+</svg>

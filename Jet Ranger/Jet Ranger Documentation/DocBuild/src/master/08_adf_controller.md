@@ -4,6 +4,12 @@
 
 ![ADF controller blocks](diagrams/adf_blocks.svg)
 
+## Physical connections
+
+The combined board connects to the ADF panel, the lower panel switches, the Upper panel (matrix rows, matrix columns, keypad and brightness pot) and the two front switches.
+
+![ADF and Upper controller connections](diagrams/adf_connectivity.svg)
+
 ## Program flow
 
 1. **Setup:** set the status LEDs, set the board's own backlight (the pot is not read), reset the W5500, start Ethernet with the 10 ms retransmission timeout and open the sockets (red LED flashes for 3 seconds), start the I2C character OLED, start the two encoders (centred at 1000), the ADF keypad scanner, the Upper matrix and keypad, the panel switches and the landing gear lamps.

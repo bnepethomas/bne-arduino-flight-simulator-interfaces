@@ -4,15 +4,6 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 ## Hardware
 
-- [x] **Laser-cut a spacer plate for the Auto Pilot panel so the backlighting shines through for HDG, CRS, ALT, VS and IAS.** (done, confirmed 2026-11-07)
-  - The plate sits between the Jet Ranger Auto Pilot Panel PCB and the faceplate, with an opening at each of the five knob positions so the backlight reaches the HDG, CRS, ALT, VS and IAS labels (the five rotary encoders on the panel).
-  - Where to take the positions from: the KiCad board layout `Jet Ranger/PCBs/Jet Ranger Auto Pilot Panel/Jet Ranger Auto Pilot Panel.kicad_pcb` (encoders `SW1` CRS, `SW2` ALT, `SW3` VS, `SW4` IAS and `SW5` HDG, and the backlight connector `J2`), or the 3D model `Jet Ranger Auto Pilot Panel.step` in the same folder.
-  - To decide before cutting: the plate material and thickness, the opening sizes and shapes, whether the same plate is wanted for the Audio panel and the ADF panel, and the mounting holes (take them from the PCB).
-
-- [x] **Paint the gauge needles black.** (done, confirmed 2026-11-07)
-
-- [x] **Mask the unwanted backlight.** Block the light that leaks where it should not shine (around the panels and gauges), so only the lettering and markings are backlit. (done, confirmed 2026-11-07)
-- [x] **Replace the backlight in the pitch and roll indicator** (the attitude indicator on the Servo controller). (done, confirmed 2026-11-07)
 - [ ] **Install a cable for the upper brightness pot from the upper panel to the Upper ADF controller,** following the same cable path as the upper switches cable. The pot input on the Upper ADF Controller PCB is A0 (5 V, ground and wiper); its code is switched off at the moment (`USE_BRIGHTNESS_POT` 0 in the ADF sketch). Once the cable is in, switch it on so the pot sets the ADF backlight and is sent as `C,B` to the Radio, Servo, Stepper and Dual Stepper boards, and check it against the start-up hold's levels (100 percent, then 70 percent).
 - [ ] **Install the ATX PSU PCB.**
 
@@ -22,8 +13,6 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 
 ## Firmware and software
 
-- [x] **Merge the Upper controller sketch into the ADF controller sketch** (done 2026-10-31; flashed to COM26). The combined Upper ADF Controller PCB is now the reference PCB for the ADF controller and the old Upper board (172.16.1.103) is retired. Also fixed that day: the 12 V monitor is on A8 (it read 5.33 V from A15 with 12.3 V on the board) and the ADF keypad lines arrive in reverse order (rows A7 to A4, columns A3 to A1; every key now reports correctly).
-- [x] **Flash the Radio controller (COM20) with the Huey build** (done 2026-10-31): Huey Warning Panel switches on A8 to A10 and the 20 LEDs on MAX7219 digits 4 to 7; 40,552 bytes flash and 5,949 bytes RAM (72 percent). The panel is hand wired for now. The Auto Pilot and Audio LEDs will be dimmer than before (scan limit 7 instead of 3).
 - [ ] **Remove the retired Upper address 172.16.1.103** from the FSUIPC and MSFS bridges (`upperClient` in both; the DCS and X-Plane bridges never use it), the BenchTester (the Upper IP box, brightness, backlight power, keep-alive and *Reset boards...* lists) and the Health Monitor's Upper light, and add the ADF and Upper board (.107) to the BenchTester's *Reset boards...* list.
 - [ ] **Huey LED states in the FSUIPC and MSFS bridges.** The DCS bridge now sends all 20 `LED_H_xxx` tokens from the UH-1H caution panel (tested live, 2026-10-31) and the X-Plane bridge sends ten approximations from generic annunciators. Still to decide for the Prepar3D / FSX and MSFS bridges: which simulator state drives each lamp, and make them send it.
 - [ ] **The ADF sketch has no pause for a missing USB HID board** (the Radio has one), so with the HID board unplugged each switch or key change can stall the scan for up to about 80 ms.
@@ -34,39 +23,9 @@ Open jobs for the cockpit. Tick an item (`[x]`) when it is done and note the dat
 - [ ] **Start-up script** (`Jet Ranger/Start Jet Ranger.bat` / `.ps1`, added 2026-10-31): tested with dry runs and with the real Health Monitor, GPS interface and bridges, but not with the simulators. To do: copy `Start Jet Ranger.sample.json` to `Start Jet Ranger.json` and set the `Reflector` command and the simulator programs (MSFS, P3D, FSX, DCS, X-Plane) if you want `-StartSimulator`; run it once per simulator. This PC blocks `.ps1` files, so use the `.bat`.
 - [ ] **GPS time from DCS and X-Plane:** both bridges now send `UTC:` to the Lowrance GPS (added 2026-10-31). To check live: the DCS mission clock is assumed to be seconds since midnight of the mission's local day (set the bridge's Mission time zone box for the theatre); X-Plane uses its zulu clock with the PC's year. Not yet tried against the real AirMap.
 - [ ] **X-Plane bridge (`C# Code/XPlaneBridge`, UDP datarefs, no plugin, output only):** built 2026-10-31 and tested against a fake X-Plane (generic profile plus Robinson R22). To do: add profiles for the aircraft you fly, then inputs/port 27001/27003 as for the other bridges. Documentation chapters: done 2026-10-31 (master document and User Guide).
-- [x] **Reflash every controller with the firmware version build** (done 2026-11-01): all six flashed (Radio COM20, Servo COM16, Stepper COM4, Dual Stepper COM5, ADF and Upper COM26, USB HID COM8) and the Health Monitor's new Firmware column shows build 2 for all but the ADF and Upper controller (build 3). Raise `FIRMWARE_BUILD` whenever a sketch changes.
-- [x] **Start-up hold: backlights, OLEDs and indicator lamps stay on until the Stepper controller announces start-up** (done 2026-11-06, UDP 13138; Radio build 5, Servo 4, Stepper 3, Dual Stepper 5, ADF and Upper 6, all flashed). Still to do: watch it through a full cockpit power cycle on the bench.
-- [x] **Start-up backlight levels** (done 2026-11-07): 100 percent during the start-up hold, then the commanded level is 70 percent and the backlight goes off; the announcement is sent twice, 2 seconds apart; the DME display stays on during the hold. All five boards flashed (Radio 8, Servo 5, Stepper 5, Dual Stepper 7, ADF 8).
-- [x] **Separate brightness for the MAX7219 LEDs, the landing gear lamps and the SSD1306 OLEDs** (done 2026-11-07): `C,LEDB`, `C,GEARB` and `C,OLEDB`, each with a slider in the BenchTester (SwingTester renamed BenchTester). Flashed; not yet checked on the panels.
-- [x] **Bench-check the start-up hold and the brightness sliders** (done 2026-11-07, confirmed by the user) with a full cockpit power cycle: every backlight at full brightness until the Stepper finishes, then 70 percent and off; the DME display stays lit; the BenchTester's four sliders (backlight, OLEDs, MAX7219 LEDs, landing gear lamps) each change only their own lights.
 
 ## Testing on the bench
-
 
 ## Documentation and source control
 
 - [ ] **Re-grab all the screenshots** (added 2026-11-08): they are out of date. They are in `DocBuild/screenshots` (the bridges, the emulators, the Health Monitor, the BenchTester and the other program windows; `capture_all.ps1` takes them), and the User Guide and master document use them. Re-take them from the current builds, then rebuild both documents.
-- [x] **Update the documentation** (done 2026-10-25, including the ADF Controller PCB revision 1.5 images and notes) for the changes: the three new ADF switches and `ANTI_ICE_SET`, the DME and ADF blanking, the ADF and Upper backlight and timeout rules, the bridges' new ADF and Upper packets, the BenchTester COM ports window, and the Servo fuel pin swap. Then regenerate the documents.
-- [x] **Commit and push** (done 2026-10-25).
-- [x] **Update the documentation again** (done 2026-10-31): the ADF and Upper merge (chapters, pin tables, joystick indexes, heartbeat names, COM26, the Upper ADF Controller PCB rev 1.0 images and notes, diagrams), the 12 V and keypad fixes, and the Huey Warning Panel switches, LEDs and BenchTester tests (firmware only: the Huey panel is hand wired, so its PCB is deliberately left out of the documentation). Then regenerate the documents.
-- [x] **Update the to do list** (done 2026-10-31).
-- [x] **Commit and push** the 2026-10-31 documentation (done 2026-10-31).
-- [x] **Add an installation appendix** (done 2026-10-31): top-side pictures of the five controller PCBs with only the external connectors labelled (Appendix F of the master document, chapter 19 of the User Guide), drawn by `DocBuild/export_install_views.py`. The Huey Warning Panel connectors are left out.
-- [x] **Commit and push** the installation appendix. (done 2026-10-31)
-- [x] **Add the instrument map appendix** (done 2026-10-31): every gauge, lamp and display with the connector that drives it (Appendix G of the master document, chapter 20 of the User Guide), plus the A3 drawing as `Jet Ranger Instrument Map A3` (SVG, PDF, PNG), made by `DocBuild/make_instrument_map.py`.
-- [x] **Commit and push** the installation appendix, the DCS bridge, the X-Plane bridge and the instrument map. (done 2026-10-31)
-- [x] **Document the GPS senders and the simulators** (done 2026-10-31): the GPS chapters, the system, GPS, data pipeline and start-up diagrams now cover MSFS, Prepar3D / FSX, DCS World and X-Plane, with a senders table.
-- [x] **Add a start-up procedure for each simulator and a start-up script** (done 2026-10-31): the User Guide chapter *Starting each simulator*, the master document chapter and `Start Jet Ranger.bat` / `.ps1`.
-- [x] **Add DCS-BIOS installation instructions to the User Guide** (done 2026-10-31).
-- [x] **Commit and push** the GPS and start-up work and the DCS-BIOS instructions (done 2026-10-31).
-- [x] **Add panel emulators for the controllers and a send-to-emulators option in the bridges, and document them** (done 2026-11-01): `JetRangerPanelEmulator`, the master document chapter, the User Guide sections, the bridge window screenshots retaken.
-- [x] **Commit and push** the panel emulators (done 2026-11-01).
-- [x] **Update the to do list** (done 2026-11-01).
-- [x] **Update the documentation for the firmware versions, the Health Monitor Firmware column and the ADF power status change** (done 2026-11-01).
-- [x] **Add a packet monitor with a target board filter to every bridge, and document it** (done 2026-11-01).
-- [x] **Update the documentation for the packet monitor** (done 2026-11-01).
-- [x] **Draw the cockpit systems diagrams and add them to the documents** (done 2026-11-02): power supply (ATX supply PCB, power distribution PCB, GPS, network switch, 12 V lighting module), USB wiring (7 port hub, USB to serial adapter to the GPS, sound card, flight controls, CKAS platform), CKAS 6DOF platform (emergency stop, two door sensors), lighting (dimming circuit and three position switch), PC displays (HDMI) and the sound system; chapter *Cockpit systems wiring* in the User Guide and the master document.
-- [x] **Update the documentation and commit and push** (done 2026-11-02).
-- [x] **Update the documentation for the start-up hold, the current firmware builds and the Radio PCB revision 1.4** (done 2026-11-06), with third-page versions of the six cockpit systems diagrams in the opening sections of the User Guide and the master document, and the regenerated Radio PCB pictures.
-- [x] **Update the documentation for the start-up hold changes, the new brightness commands and the BenchTester rename** (done 2026-11-07): both documents, the backlight diagram, the BenchTester screenshots and the build tables.
-- [x] **Update the documentation for Radio build 9 and ADF build 9** (done 2026-11-07): the build tables, the MAX7219 start-up intensity of 15 and the BenchTester slider defaults.

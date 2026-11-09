@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="532" viewBox="0 0 880 532">
+<rect width="880" height="532" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahC62828" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahsC62828" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C62828"/></marker>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+</defs>
+<rect x="214.0" y="20.0" width="130.0" height="468.0" rx="10" ry="10" fill="#1F6B43" stroke="#0A2A1A" stroke-width="1.2"/>
+<text x="279.0" y="100.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">ADF + Upper</text>
+<text x="279.0" y="120.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#DDFBE8" text-anchor="middle">172.16.1.107</text>
+<text x="279.0" y="144.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">Upper ADF Controller</text>
+<text x="279.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#BFE9CE" text-anchor="middle">PCB 1.0</text>
+<rect x="14.0" y="75.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Ethernet switch</text>
+<text x="26.0" y="120.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">W5500, 172.16.1.107</text>
+<path d="M 154.0 106.0 L 214.0 106.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="149.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="172.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">USB hub</text>
+<text x="26.0" y="194.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">COM26 (programming)</text>
+<path d="M 154.0 180.0 L 214.0 180.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="223.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="246.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">USB HID board</text>
+<text x="26.0" y="268.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">buttons and keys, UDP 4210</text>
+<path d="M 214.0 254.0 L 154.0 254.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)" marker-start="url(#ahs2E7D32)"/>
+<rect x="14.0" y="297.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">5 V supply</text>
+<text x="26.0" y="342.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J4 5V IN</text>
+<path d="M 154.0 328.0 L 214.0 328.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="14.0" y="371.0" width="140.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="26.0" y="394.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">12 to 20 V supply</text>
+<text x="26.0" y="416.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">J7 STEPPER IN</text>
+<path d="M 154.0 402.0 L 214.0 402.0" fill="none" stroke="#C62828" stroke-width="1.6" marker-end="url(#ahC62828)"/>
+<rect x="540.0" y="20.0" width="326.0" height="88.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF panel</text>
+<text x="552.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">ADF knobs, keypad, switches, OLED,</text>
+<text x="552.0" y="84.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">3 landing gear lamps</text>
+<path d="M 344.0 44.0 L 540.0 44.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="392.3" y="29.0" width="99.4" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="40.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J5 ADF  IDC 26</text>
+<rect x="540.0" y="116.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="140.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Lower panel switches</text>
+<text x="552.0" y="163.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">hyd boost (D35), anti-ice (D36), caution dim (D37)</text>
+<path d="M 344.0 140.0 L 540.0 140.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="373.6" y="125.0" width="136.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J20 HYD BOOST  6-pin</text>
+<rect x="540.0" y="194.0" width="326.0" height="130.0" rx="10" ry="10" fill="#E3F5F4" stroke="#00796B" stroke-width="1.2"/>
+<text x="552.0" y="218.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper panel</text>
+<text x="552.0" y="241.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">72-switch matrix, numeric keypad,</text>
+<text x="552.0" y="258.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">brightness pot (analog, switched off for now)</text>
+<path d="M 344.0 218.0 L 540.0 218.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="389.2" y="203.0" width="105.6" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J30 ROWS  8-pin</text>
+<path d="M 344.0 244.0 L 540.0 244.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="389.2" y="229.0" width="105.6" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="240.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J31 COLS  8-pin</text>
+<path d="M 344.0 270.0 L 540.0 270.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="383.0" y="255.0" width="118.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="266.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J32 KEYPAD  8-pin</text>
+<path d="M 344.0 296.0 L 540.0 296.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="364.2" y="281.0" width="155.5" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="292.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J16 GUAGE BRIGHT  3-pin</text>
+<rect x="540.0" y="332.0" width="326.0" height="78.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="552.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Warning mute and TOT test switches</text>
+<text x="552.0" y="379.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">on the matrix ROW8 (indexes 88 and 89)</text>
+<path d="M 344.0 356.0 L 540.0 356.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="386.1" y="341.0" width="111.8" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="352.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J17 WARNING MUTE</text>
+<path d="M 344.0 382.0 L 540.0 382.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="398.6" y="367.0" width="86.9" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="378.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J18 TOT TEST</text>
+<rect x="540.0" y="418.0" width="326.0" height="70.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="552.0" y="442.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Panel backlight</text>
+<text x="552.0" y="465.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">D5 PWM through the IRF540N</text>
+<path d="M 344.0 442.0 L 540.0 442.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="395.4" y="427.0" width="93.1" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="442.0" y="438.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">J33 BACKLIGHT</text>
+<text x="14.0" y="520.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="400" fill="#555555" text-anchor="start">Cable colours: blue = signal, amber = backlight, red = power, green = network and USB. J5 also carries the ADF panel backlight.</text>
+</svg>

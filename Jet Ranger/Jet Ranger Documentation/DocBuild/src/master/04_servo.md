@@ -4,6 +4,12 @@
 
 ![Servo controller blocks](diagrams/servo_blocks.svg)
 
+## Physical connections
+
+The Servo controller drives the attitude indicator servos, the annunciator lamps and the panel backlights, and reads three front panel switches. Only two of the board's servo headers are used.
+
+![Servo controller connections](diagrams/servo_connectivity.svg)
+
 ## Program flow
 
 1. **Setup:** set the status LED pins; light all 15 lamps as a lamp test; reset the W5500, start Ethernet and open the sockets (red LED flashes for 3 seconds); sweep pitch and then bank from minimum to maximum and back (about 2 seconds each) and park both at their calibrated zero; switch all lamps off; send the starting state of the three switches to the HID board; log "Setup Complete" and arm the 30 second watchdog.

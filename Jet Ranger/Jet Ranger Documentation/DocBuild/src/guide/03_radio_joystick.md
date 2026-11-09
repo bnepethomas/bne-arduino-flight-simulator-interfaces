@@ -4,6 +4,12 @@ The radio panel is another Mega at 172.16.1.101, running `JET_RANGER_RADIO_CONTR
 
 ![Radio panel](diagrams/radio_blocks.svg)
 
+## Physical connections
+
+The Radio controller board connects to its panels through four panel cables, and to the network, the USB hub and the power supplies. Each connector reference is the one printed on the Jet Ranger Radio Auto Pilot PCB.
+
+![Radio controller connections](diagrams/radio_connectivity.svg)
+
 ## Boards
 
 | PCB | Role | Main parts |

@@ -4,6 +4,12 @@
 
 ![Dual stepper controller blocks](diagrams/dual_stepper_blocks.svg)
 
+## Physical connections
+
+The Dual Stepper board drives four dual instruments and the altimeter, and four OLEDs on its I2C multiplexer. Which dual instrument uses which socket follows the names printed on the PCB.
+
+![Dual Stepper controller connections](diagrams/dual_stepper_connectivity.svg)
+
 ## Gauges and calibration
 
 | Gauge | Token | Mega pins | Unit | Calibration |

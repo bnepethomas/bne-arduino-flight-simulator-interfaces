@@ -15,6 +15,7 @@ import diagrams_b  # noqa: F401  boards
 import diagrams_c  # noqa: F401  PC software
 import diagrams_d  # noqa: F401  guide and tools
 import diagrams_e  # noqa: F401  GPS interface and backlight
+import diagrams_f  # noqa: F401  controller connectivity
 from dgcommon import OUT, REGISTRY
 
 

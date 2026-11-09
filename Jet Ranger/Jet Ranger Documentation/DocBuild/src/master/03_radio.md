@@ -4,6 +4,12 @@
 
 ![Radio controller blocks](diagrams/radio_blocks.svg)
 
+## Physical connections
+
+The Radio controller board connects to its panels through four panel cables, and to the network, the USB hub and the power supplies. Each connector reference is the one printed on the Jet Ranger Radio Auto Pilot PCB.
+
+![Radio controller connections](diagrams/radio_connectivity.svg)
+
 ## Program flow
 
 1. **Setup:** reset the W5500 through pin 53, bring up Ethernet and open the UDP sockets, flash the red LED for 3 seconds while the link settles, send an "Ethernet Started" debug line, scan the I2C bus (results to the debug monitor, see Diagnostics), start the COM and NAV OLEDs through the TCA9548A I2C multiplexer, start the DME display (the Audio panel's OLED) with the no-data text `DME --- NM` and `--- KT -- MIN`, start the eight COM and NAV encoders (with acceleration), the five Auto Pilot knobs and the matrix scanner.
