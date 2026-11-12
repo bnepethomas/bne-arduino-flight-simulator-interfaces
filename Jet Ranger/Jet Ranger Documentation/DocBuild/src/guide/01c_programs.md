@@ -95,6 +95,8 @@ The BenchTester was called SwingTester until 7 November 2026; it was renamed bec
 - **Gauge rows** (left): the 18 gauges with the board each is on, the wait in seconds and a **Swing** button for each. The row being swung is highlighted gold.
 - **Warning lamps** (right): one button for each of the 15 lamps, in turn-off order. A lamp that is on is gold.
 
+![BenchTester scrolled to the end of the form: the Auto Pilot display and DME display groups](screenshots/swing_tester_bottom.png)
+
 ![The COM ports window](screenshots/swing_tester_ports.png)
 
 **COM ports...** lists every COM port Windows knows: the port, Windows' description, the board type (guessed from the USB vendor and product ids), the USB serial number (genuine Arduino boards have one; most clones do not), whether another program has the port open (for example the Arduino IDE serial monitor, which blocks flashing), the status and the USB device id. It refreshes by itself when a device is plugged in or removed. **Copy list** puts the table on the clipboard. **Restart selected USB device** stops and starts the selected board's USB device with `pnputil` (the same as disabling and enabling it in Device Manager, so the port reappears; it cannot cut the power): Windows asks for administrator rights, and the port must not be open in another program.

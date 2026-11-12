@@ -48,6 +48,16 @@ try {
         $p = Run "$root\BenchTester\bin\Release\net10.0-windows\BenchTester.exe"
         Shot $p "swing_tester.png"
         $main = Find-Window $p.Id "Jet Ranger Bench Tester"
+        # the same window scrolled to the bottom (the DME group, below the fold of the main picture)
+        $main = Find-Window $p.Id "Jet Ranger Bench Tester"
+        Add-Type -Namespace Win -Name Wheel -MemberDefinition '[DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y); [DllImport("user32.dll")] public static extern void mouse_event(uint f, int dx, int dy, int d, int e);'
+        $rc = $main.Current.BoundingRectangle
+        [Win.Wheel]::SetCursorPos([int]($rc.Left + 1350), [int]($rc.Top + 500)) | Out-Null
+        [Win.Wheel]::mouse_event(0x0800, 0, 0, -120 * 30, 0)       # wheel down to the end of the form
+        Start-Sleep 1
+        Shot $p "swing_tester_bottom.png"
+        [Win.Wheel]::mouse_event(0x0800, 0, 0, 120 * 30, 0)        # and back to the top
+        Start-Sleep 1
         Click-Button $main "Reset boards..."
         Start-Sleep 1.5
         $dlg = Find-Window $p.Id "Reset boards"
