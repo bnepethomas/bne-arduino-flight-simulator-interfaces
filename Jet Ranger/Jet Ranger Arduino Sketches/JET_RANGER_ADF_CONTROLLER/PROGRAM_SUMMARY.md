@@ -25,7 +25,7 @@ The landing gear lamps (D2 to D4) are lit by data packets: `D,LDGN:1,LDGL:1,LDGR
 **toggle switches, so their position is sent as a value** to the bridge on UDP 27001: `GEAR_SET:1` (down) / `GEAR_SET:0` (up), `FLAPS_SET:1/0` and `SPOILERS_SET:1/0` on every change and again every
 5 s (`POSITION_RESEND_MS`), so the simulator follows the switches, including their position at power-up (the aircraft moves about 5 s after the panel is switched on). The brakes push button sends
 `PARKING_BRAKES` when pressed. For 1.5 s after start-up the switches are only read. If a switch works the wrong way round, swap its 1 and 0. Each ADF knob click is also a 40 ms press of Joystick 4 buttons
-(major clockwise / anticlockwise 108 / 109, minor 110 / 111). The heartbeat is `ADF_PANEL V5:5.03 V12:12.41` (5 V and 12 V rails) for the Health Monitor, followed by the same readings as `UPPER_INPUT V5:5.03 V12:12.41` (the old Upper board's name, so the monitor's Upper light stays green).
+(major clockwise / anticlockwise 108 / 109, minor 110 / 111). The heartbeat is `ADF_PANEL V5:5.03 V12:12.41` (5 V and 12 V rails) for the Health Monitor. (Until build 15 the same readings were also sent as `UPPER_INPUT`, the old Upper board's name, to keep the Health Monitor's Upper light green; build 16 stopped that when the light was removed.)
 
 ## Network
 
@@ -33,7 +33,7 @@ The landing gear lamps (D2 to D4) are lit by data packets: `D,LDGN:1,LDGL:1,LDGR
 |---|---|---|
 | In, UDP 13136 | control and data | `C,RESET:1` reboot, `C,MATRIX:1` raw keypad dump to the debug stream, `C,POWER:1` send a power status now, `C,B:0-15` backlight brightness, `C,KEEPALIVE:1`, `C,DISPLAY:0/1` (from the Radio). Data packets: `LDGN`, `LDGL`, `LDGR` (lamps) and `BPWR` (backlight power) |
 | Out to 172.16.1.10:27000 | debug | Text, prefixed `Jet Ranger ADF:` |
-| Out to 172.16.1.10:13137 | heartbeat | `ADF_PANEL` and `UPPER_INPUT` every 10 s |
+| Out to 172.16.1.10:13137 | heartbeat | `ADF_PANEL` every 10 s |
 | Out to 172.16.1.11:4210 | USB HID board | ADF switches and knobs (indexes 104 to 114), the Upper matrix (`index,state`, 0 to 95) and the Upper keypad (`KEY,key,state`) |
 | Out to 172.16.1.10:27003 | PC events | `ADF_FREQ:830`, `RADAR_FOLLOW_ID:4521` (`RADAR_FOLLOW_ID:0` = stop), `POWER,V12:12.41,V5:5.02,STATUS:OK` |
 
@@ -113,3 +113,7 @@ When the FSUIPC bridge says so (`D,ADFKEYPAD:SQUAWK` with every packet, held for
 ## Live overhead switch states to the PC (15 November 2026, build 15)
 
 Every change of the Upper switch matrix is now also sent to the PC on **UDP port 27004** (`172.16.1.10`, new, used only by the BenchTester's switch view; port 27003 stays for the bridges) as `UPPER_SW:<index>:<0|1>` (index = row x 11 + column, 1 = closed to ground), and a full snapshot goes out every 5 seconds as `UPPER_SNAP:` followed by 72 characters of `0` and `1` (9 rows of 8 columns, row by row). The matrix still goes to the USB HID board as before and the debug line `Front Input - <index>:<state>` is unchanged. Compiled at 33,300 bytes flash (13%) and 2,979 bytes RAM (36%) and flashed to COM26; the BenchTester showed the link up and the matrix states from the real board.
+
+## No UPPER_INPUT heartbeat (15 November 2026, build 16)
+
+The extra `UPPER_INPUT` heartbeat that followed each `ADF_PANEL` one is gone: the Health Monitor's Upper Input light was removed, so the board now sends one heartbeat, `ADF_PANEL`, every 10 seconds (`V5:`, `V12:` and `FW:1.0.16`). Nothing else changed. Compiled at 33,208 bytes flash (13%) and 2,967 bytes RAM (36%) and flashed to COM26.

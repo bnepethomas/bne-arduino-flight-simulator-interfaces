@@ -56,7 +56,7 @@ Use it to check that a board has the code you think it has: after flashing, the 
 | Servo controller | `JET_RANGER_SERVO_CONTROLLER` | 1.0 build 6 |
 | Stepper controller | `JET_RANGER_STEPPER_CONTROLLER` | 1.0 build 5 |
 | Dual Stepper controller | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | 1.0 build 7 |
-| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 15 |
+| ADF and Upper controller | `JET_RANGER_ADF_CONTROLLER` | 1.0 build 16 |
 | USB HID board | `UDP_TO_HID` | 1.0 build 2 |
 
 Whoever changes a sketch raises its `FIRMWARE_BUILD` by one, so the build number tells you which version of the sketch a board has.

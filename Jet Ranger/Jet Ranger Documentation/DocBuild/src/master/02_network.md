@@ -14,9 +14,9 @@ All devices sit on one wired `172.16.1.0/24` network with fixed addresses; there
 | Servo controller | 172.16.1.102 | A8:61:0A:9E:83:02 | `SERVO` |
 | Stepper controller | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper controller | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
-| ADF and Upper controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` and `UPPER_INPUT` |
+| ADF and Upper controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` |
 
-Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103, MAC A8:61:0A:9E:83:03) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends both heartbeat names so the Health Monitor still shows an Upper light. The bridges and the BenchTester still send some packets to .103, which go nowhere.
+Every live board has its own IP and MAC address. The old Upper controller (172.16.1.103, MAC A8:61:0A:9E:83:03) was merged into the ADF controller on 31 October 2026 and no longer exists; the merged board sends the single `ADF_PANEL` heartbeat (it also sent `UPPER_INPUT` until firmware build 15, for the Health Monitor's old Upper light). The bridges and the BenchTester no longer send to .103.
 
 ## UDP ports
 

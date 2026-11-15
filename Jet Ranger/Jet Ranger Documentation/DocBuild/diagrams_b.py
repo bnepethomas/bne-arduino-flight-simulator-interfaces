@@ -108,7 +108,7 @@ def adf_blocks():
     s.arrow([(580, 250), (614, 200)], None, color=AMBER)
     s.card(614, 272, 250, 130, "Switches to the simulator", ["D31-D37 to the bridge (27001):", "GEAR_SET, FLAPS_SET,", "SPOILERS_SET, ANTI_ICE_SET (1/0)", "buttons 104-107, 112-114 to HID"], "green", title_size=14, line_size=12.5)
     s.arrow([(580, 300), (614, 330)], None, color=GREEN)
-    s.card(614, 418, 250, 100, "Upper panel to the HID board", ["UDP 4210: \"<index>,<state>\" (0 - 95)", "keypad: \"KEY,<key>,<state>\"", "heartbeats ADF_PANEL + UPPER_INPUT"], "amber", title_size=13.5, line_size=12.5)
+    s.card(614, 418, 250, 100, "Upper panel to the HID board", ["UDP 4210: \"<index>,<state>\" (0 - 95)", "keypad: \"KEY,<key>,<state>\"", "heartbeat ADF_PANEL"], "amber", title_size=13.5, line_size=12.5)
     s.arrow([(580, 330), (614, 460)], None, color=AMBER)
     s.card(614, 534, 250, 100, "Own backlight and lamps", ["D5 PWM: BPWR, C,B, 30 s no-data;", "OLED and lamps D2 - D4 blank with", "the Radio displays (C,DISPLAY)"], "white", title_size=14, line_size=12.5)
     s.arrow([(580, 350), (614, 570)], None, color=LINE)
@@ -122,7 +122,7 @@ def adf_blocks():
 @diagram
 def hid_path():
     s = Svg(880, 600)
-    s.card(16, 20, 250, 96, "ADF + Upper controller  .107", ["9 x 8 switch matrix + keypad", "index = row x 11 + column", "heartbeats ADF_PANEL, UPPER_INPUT"], "white", title_size=14, line_size=12.5)
+    s.card(16, 20, 250, 96, "ADF + Upper controller  .107", ["9 x 8 switch matrix + keypad", "index = row x 11 + column", "heartbeat ADF_PANEL"], "white", title_size=14, line_size=12.5)
     s.card(16, 140, 250, 96, "Servo controller  .102", ["WARNING MUTE  index 7", "TOT CLEAR     index 8", "FUEL VALVE    index 9"], "white", title_size=14, line_size=12.5)
     s.card(330, 70, 220, 120, "USB HID board  .11", ["Arduino Leonardo", "UDP 4210 in", "heartbeat JOYSTICK"], "amber", title_size=14, line_size=12.5, center=True)
     s.arrow([(266, 68), (330, 110)], "idx,state", color=AMBER, label_dy=-8)

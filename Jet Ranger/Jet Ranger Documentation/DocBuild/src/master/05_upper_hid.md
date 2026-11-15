@@ -5,7 +5,7 @@ The overhead switch matrix and the small numeric keypad used to have their own b
 - each matrix switch is still sent to the USB HID board as `index,state` with `index = row x 11 + column`, so the joystick button numbers (0 to 95, Joystick 1 to 3) and the table below are unchanged. The matrix is now 9 rows by 8 columns (72 positions, indexes 0 to 95) instead of 16 by 11 (176 positions);
 - the keypad is still sent as `KEY,key,state`;
 - the remote reset (`C,RESET:1`), `C,B` brightness, `C,KEEPALIVE:1` and `D,BPWR` are handled by the ADF controller's code, which has the same rules;
-- the Health Monitor's Upper light is fed by an `UPPER_INPUT` heartbeat that the merged board sends next to its `ADF_PANEL` one.
+- the Health Monitor has no Upper light any more (removed on 15 November 2026); the merged board's heartbeat is `ADF_PANEL` only (the extra `UPPER_INPUT` heartbeat stopped in build 16).
 
 The old sketch (`JET_RANGER_UPPER_CONTROLLER.ino`) was removed from the project on 15 November 2026 (it is in the git history). Its DCS-BIOS code (`CreateDcsBiosMessage()`, every case empty) was not carried over, so nothing here is sent to DCS World. The old Upper board's remote reset and backlight code were never bench-tested because the board was not connected.
 

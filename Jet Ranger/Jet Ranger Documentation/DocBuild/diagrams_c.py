@@ -173,8 +173,7 @@ def torque_curves():
 @diagram
 def health_monitor():
     s = Svg(880, 500)
-    boards = [("Radio controller", "COMM_NAV"), ("Servo controller", "SERVO"), ("Upper (ADF + Upper board)", "UPPER_INPUT"),
-              ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER"), ("ADF + Upper controller", "ADF_PANEL")]
+    boards = [("Radio controller", "COMM_NAV"), ("Servo controller", "SERVO"), ("USB HID board", "JOYSTICK"), ("Stepper controller", "STEPPER"), ("Dual stepper", "DUAL_STEPPER"), ("ADF + Upper controller", "ADF_PANEL")]
     y = 24
     for name, tok in boards:
         s.card(16, y, 250, 52, name, [], "white", title_size=13.5)

@@ -11,7 +11,7 @@
 <text x="28.0" y="44.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF + Upper controller  .107</text>
 <text x="28.0" y="67.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">9 x 8 switch matrix + keypad</text>
 <text x="28.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">index = row x 11 + column</text>
-<text x="28.0" y="102.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">heartbeats ADF_PANEL, UPPER_INPUT</text>
+<text x="28.0" y="102.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">heartbeat ADF_PANEL</text>
 <rect x="16.0" y="140.0" width="250.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo controller  .102</text>
 <text x="28.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">WARNING MUTE  index 7</text>

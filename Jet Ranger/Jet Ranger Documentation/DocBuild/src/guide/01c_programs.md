@@ -58,9 +58,9 @@ The **Target board** box filters the list to one board. Start with `--packet-boa
 
 ## Health Monitor
 
-![JetRangerHealthMonitor: all seven boards heard](screenshots/health_monitor.png)
+![JetRangerHealthMonitor: all six boards heard](screenshots/health_monitor.png)
 
-One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF (the combined ADF and Upper board lights both the Upper Input and ADF labels). Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The program and its window have a heartbeat icon (a red ECG trace) since 15 November 2026. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
+One coloured label per board: Comm Nav, Servo, Joystick, Stepper, Dual Stepper and ADF (the ADF label is the combined ADF and Upper board; the separate Upper Input light was removed on 15 November 2026). Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The program and its window have a heartbeat icon (a red ECG trace) since 15 November 2026. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
 
 The **Show Voltages** button opens a table with one row per board:
 

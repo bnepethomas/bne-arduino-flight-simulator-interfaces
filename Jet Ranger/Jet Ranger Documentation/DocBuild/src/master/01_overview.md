@@ -99,7 +99,7 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
-All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 15 and USB HID 2 (all flashed on 7 and 8 November 2026 except the USB HID board, flashed on 1 November and the ADF and Upper board, flashed on 15 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 16 and USB HID 2 (all flashed on 7 and 8 November 2026 except the USB HID board, flashed on 1 November, and the ADF and Upper board, flashed on 15 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
 
 The start-up backlight hold (6 and 7 November 2026): every controller holds its backlight at 100 percent, and its OLEDs and indicator lamps on, from reset until the 13 Stepper controller announces on UDP port 13138 (twice, 2 seconds apart) that start-up is complete. The commanded level then becomes 70 percent and the backlight goes off until the bridge sends `BPWR:1` (see the Network chapter). It has been flashed on every controller and checked in the Health Monitor, but not yet watched through a full cockpit power cycle.
 

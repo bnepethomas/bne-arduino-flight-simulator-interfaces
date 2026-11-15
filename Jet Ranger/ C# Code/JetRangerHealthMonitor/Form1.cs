@@ -16,7 +16,6 @@ namespace MegaHealthMonitor
         DateTime CommNavLastReceived = DateTime.Now;
         DateTime ServoLastReceived = DateTime.Now;
         DateTime JoyStickLastReceived = DateTime.Now;
-        DateTime UpperInputLastReceived = DateTime.Now;
         DateTime StepperLastReceived = DateTime.Now;
         DateTime DualStepperLastReceived = DateTime.Now;
         DateTime AdfLastReceived = DateTime.Now;
@@ -39,7 +38,6 @@ namespace MegaHealthMonitor
             new BoardVoltage { Prefix = "COMM_NAV", Name = "Comm Nav (Radio)" },
             new BoardVoltage { Prefix = "SERVO", Name = "Servo" },
             new BoardVoltage { Prefix = "JOYSTICK", Name = "Joystick (HID)" },
-            new BoardVoltage { Prefix = "UPPER_INPUT", Name = "Upper Input" },
             new BoardVoltage { Prefix = "STEPPER", Name = "Stepper" },
             new BoardVoltage { Prefix = "DUAL_STEPPER", Name = "Dual Stepper" },
             new BoardVoltage { Prefix = "ADF_PANEL", Name = "ADF", Measures12V = true },
@@ -215,22 +213,6 @@ namespace MegaHealthMonitor
                                 }));
 
                             }
-                            else if (receivedData.StartsWith("UPPER_INPUT"))
-                            {
-                                UpperInputLastReceived = DateTime.Now;
-                                // Update UI with received data (use Invoke to reach UI thread)
-                                if (loggingActive)
-                                {
-                                    this.Invoke(new Action(() =>
-                                    {
-                                        listBoxLogs.Items.Add(UpperInputLastReceived.ToString("HH:mm:ss") + $" Received: {receivedData} from {result.RemoteEndPoint}");
-                                    }));
-                                }
-                                this.Invoke(new Action(() =>
-                                {
-                                    lblUpperInput.BackColor = Color.Green;
-                                }));
-                            }
                             else if (receivedData.StartsWith("STEPPER"))
                             {
                                 StepperLastReceived = DateTime.Now;
@@ -354,26 +336,6 @@ namespace MegaHealthMonitor
                     AddLog("JoyStick connection warning.");
                 }
                 lblJoyStick.BackColor = Color.Orange;
-            }
-
-            span = DateTime.Now - UpperInputLastReceived;
-            mS = (int)span.TotalMilliseconds;
-
-            if (mS >= 30000)
-            {
-                if (lblUpperInput.BackColor != Color.Red)
-                {
-                    AddLog("Upper Input connection lost.");
-                }
-                lblUpperInput.BackColor = Color.Red;
-            }
-            else if (mS >= 15000)
-            {
-                if (lblUpperInput.BackColor != Color.Orange)
-                {
-                    AddLog("Upper Input connection warning.");
-                }
-                lblUpperInput.BackColor = Color.Orange;
             }
 
             span = DateTime.Now - StepperLastReceived;

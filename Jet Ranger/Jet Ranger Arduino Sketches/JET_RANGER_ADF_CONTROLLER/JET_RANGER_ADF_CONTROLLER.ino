@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 15
+#define FIRMWARE_BUILD 16
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -1217,14 +1217,10 @@ void loop() {
 
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
-      // One board is now both panels, so it answers to both names in the Health Monitor (the old Upper board's name is kept).
+      // The Health Monitor has one light for this board ("ADF_PANEL"); the old Upper board's "UPPER_INPUT" heartbeat is no longer sent (build 16).
       String voltages = adfHeartbeatVoltages() + firmwareHeartbeatText();
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("ADF_PANEL");
-      aliveudp.print(voltages);
-      aliveudp.endPacket();
-      aliveudp.beginPacket(reflectorIP, aliveport);
-      aliveudp.print("UPPER_INPUT");
       aliveudp.print(voltages);
       aliveudp.endPacket();
     }

@@ -35,7 +35,6 @@
             cmdToggleLogs = new Button();
             lblServo = new Label();
             lblJoyStick = new Label();
-            lblUpperInput = new Label();
             lblStepper = new Label();
             lblDualStepper = new Label();
             lblAdf = new Label();
@@ -105,23 +104,12 @@
             lblJoyStick.TabIndex = 4;
             lblJoyStick.Text = "Joystick";
             //
-            // lblUpperInput
-            //
-            lblUpperInput.AutoSize = true;
-            lblUpperInput.BackColor = Color.White;
-            lblUpperInput.ForeColor = SystemColors.ControlText;
-            lblUpperInput.Location = new Point(186, 9);
-            lblUpperInput.Name = "lblUpperInput";
-            lblUpperInput.Size = new Size(72, 15);
-            lblUpperInput.TabIndex = 5;
-            lblUpperInput.Text = "Upper Input";
-            //
             // lblStepper
             //
             lblStepper.AutoSize = true;
             lblStepper.BackColor = Color.White;
             lblStepper.ForeColor = SystemColors.ControlText;
-            lblStepper.Location = new Point(268, 9);
+            lblStepper.Location = new Point(186, 9);
             lblStepper.Name = "lblStepper";
             lblStepper.Size = new Size(52, 15);
             lblStepper.TabIndex = 6;
@@ -132,7 +120,7 @@
             lblDualStepper.AutoSize = true;
             lblDualStepper.BackColor = Color.White;
             lblDualStepper.ForeColor = SystemColors.ControlText;
-            lblDualStepper.Location = new Point(330, 9);
+            lblDualStepper.Location = new Point(248, 9);
             lblDualStepper.Name = "lblDualStepper";
             lblDualStepper.Size = new Size(80, 15);
             lblDualStepper.TabIndex = 7;
@@ -143,7 +131,7 @@
             lblAdf.AutoSize = true;
             lblAdf.BackColor = Color.White;
             lblAdf.ForeColor = SystemColors.ControlText;
-            lblAdf.Location = new Point(416, 9);
+            lblAdf.Location = new Point(334, 9);
             lblAdf.Name = "lblAdf";
             lblAdf.Size = new Size(28, 15);
             lblAdf.TabIndex = 8;
@@ -207,7 +195,6 @@
             Controls.Add(lblAdf);
             Controls.Add(lblDualStepper);
             Controls.Add(lblStepper);
-            Controls.Add(lblUpperInput);
             Controls.Add(lblJoyStick);
             Controls.Add(lblServo);
             Controls.Add(cmdToggleLogs);
@@ -228,7 +215,6 @@
         private Button cmdToggleLogs;
         private Label lblServo;
         private Label lblJoyStick;
-        private Label lblUpperInput;
         private Label lblStepper;
         private Label lblDualStepper;
         private Label lblAdf;

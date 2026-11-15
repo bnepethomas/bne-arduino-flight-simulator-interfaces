@@ -2,8 +2,8 @@
 
 Small WinForms dashboard (namespace `MegaHealthMonitor`) that watches for
 the 10-second UDP heartbeat strings sent by every networked Arduino board
-in the panel and shows a Comm/Nav, Servo, Joystick, Upper-Input, Stepper
-and Dual Stepper traffic light so an operator can see at a glance which
+in the panel and shows a Comm/Nav, Servo, Joystick, Stepper,
+Dual Stepper and ADF traffic light so an operator can see at a glance which
 boards are alive.
 
 ## Program flow
@@ -15,7 +15,6 @@ boards are alive.
    - `"COMM_NAV"` → updates `CommNavLastReceived`, turns the CommNav label green.
    - `"SERVO"` → updates `ServoLastReceived`, turns the Servo label green.
    - `"JOYSTICK"` → updates `JoyStickLastReceived`, turns the JoyStick label green.
-   - `"UPPER_INPUT"` → updates `UpperInputLastReceived`, turns the Upper Input label green.
    - `"STEPPER"` → updates `StepperLastReceived`, turns the Stepper label green.
    - `"DUAL_STEPPER"` → updates `DualStepperLastReceived`, turns the Dual Stepper label green.
    Each match is optionally logged (sender endpoint + timestamp) to a list box.
@@ -64,3 +63,7 @@ Arduino boards, not the flight sim connection.
 ## Heartbeat icon (15 November 2026)
 
 The program and its window now use a heartbeat icon (`health.ico`: a red ECG trace across a dark tile, 16 to 256 pixels), set as `<ApplicationIcon>` in the project file and read back with `Icon.ExtractAssociatedIcon` in the `Form1` constructor. The project has no build number, so none was raised. It compiled clean in a scratch copy; the Release build in the project folder needs the running Health Monitor closed first (its exe was locked).
+
+## Upper Input light removed (15 November 2026)
+
+The **Upper Input** traffic light is gone (the label, its `UPPER_INPUT` handling, its 15 and 30 second checks and its row in the voltage table), because the Upper board was merged into the ADF controller on 31 October 2026 and the ADF light covers it. There are six lights now: Comm Nav, Servo, Joystick, Stepper, Dual Stepper and ADF, and the last three moved left to close the gap. The ADF board stopped sending its extra `UPPER_INPUT` heartbeat in firmware build 16 (until then the Health Monitor ignored it, as it ignores any string it does not know). The project has no build number. Release build clean; the window was started and checked.
