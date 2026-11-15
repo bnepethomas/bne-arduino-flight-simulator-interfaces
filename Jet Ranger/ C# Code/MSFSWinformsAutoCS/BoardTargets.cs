@@ -22,7 +22,7 @@ namespace MSFSWinformsAutoCS
         static readonly HashSet<int> EmulatedBoards = new() { 101, 102, 105, 106, 107 };
 
         // The names the packet monitor filters on, in the order of the boards.
-        public static readonly string[] Names = { "Radio .101", "Servo .102", "Stepper .105", "Dual Stepper .106", "ADF and Upper .107", "Upper .103 (retired)", GpsName };
+        public static readonly string[] Names = { "Radio .101", "Servo .102", "Stepper .105", "Dual Stepper .106", "ADF and Upper .107", GpsName };
 
         public bool ToBoards = true;
         public bool ToEmulators;
@@ -52,7 +52,7 @@ namespace MSFSWinformsAutoCS
 
         static string NameOf(int number) => number switch
         {
-            101 => Names[0], 102 => Names[1], 105 => Names[2], 106 => Names[3], 107 => Names[4], 103 => Names[5], _ => "Board ." + number,
+            101 => Names[0], 102 => Names[1], 105 => Names[2], 106 => Names[3], 107 => Names[4], _ => "Board ." + number,
         };
 
         // boardAddress is the real board's address (172.16.1.105 ...), already connected as boardClient; the emulator's address is EmulatorNet plus its last number.

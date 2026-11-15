@@ -82,16 +82,16 @@ error). The command is ignored by the board (debug line
 ## Reset boards
 
 The **Reset boards...** button opens a dialog with a tick box per board - Radio
-(.101), Servo (.102), Upper (.103), Stepper (.105), Dual Stepper (.106) and the
+(.101), Servo (.102), Stepper (.105), Dual Stepper (.106), ADF and Upper (.107) and the
 USB HID board (.11), all ticked by default (untick any that are not connected) -
 and **Reset** sends `C,RESET:1` to each ticked board (port 13136; the HID board
-listens on 4210). The Radio, Upper and HID addresses are extra boxes at the
-top. The Upper address (.103) is the retired board (merged into the ADF controller on 31 October 2026); the combined ADF and Upper board (.107) is not in this list yet. Each board reboots about 2 s later through its watchdog and runs its
+listens on 4210). The Radio, HID and ADF addresses are extra boxes at the
+top. Each board reboots about 2 s later through its watchdog and runs its
 start-up again (the Dual Stepper takes about a minute; the HID board briefly
 drops its USB joysticks and keyboard). The status line lists the boards the
 command was sent to. The button is disabled while a run is active.
 **Tested 2026-10-13** by driving the real window with UI automation (Reset
-dialog, Radio and Upper unticked): Servo, Stepper, Dual Stepper and HID all
+dialog, Radio and Upper (.103, since removed) unticked): Servo, Stepper, Dual Stepper and HID all
 acknowledged and rebooted cleanly.
 
 ## Temperature OLED
@@ -155,10 +155,10 @@ OLEDs left on manually will still time out after 30s.
 
 ## Brightness
 
-The **Backlight brightness (0-15)** slider at the top (backlights only; the MAX7219 LEDs and the landing gear lamps have their own sliders, see the end of this file) sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103, retired), Stepper (.105) and Dual Stepper
-(.106) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
+The **Backlight brightness (0-15)** slider at the top (backlights only; the MAX7219 LEDs and the landing gear lamps have their own sliders, see the end of this file) sends `C,B:<level>` to the Radio (.101), Servo (.102), Stepper (.105), Dual Stepper
+(.106) and ADF and Upper (.107) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
 The status line lists the boards sent to. The Radio, Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
-ADF and Upper board follows it. The Radio would also set its panel LEDs from `C,B` until it has had a `C,LEDB`, so for the Radio the slider first sends `C,LEDB:<the Panel LEDs slider's level>` and then `C,B`: the backlight slider never changes the LEDs. The board IP boxes at the top are used.
+ADF and Upper board (.107) follows it, unless its brightness pot is switched on (build 14), when the pot wins. The Radio would also set its panel LEDs from `C,B` until it has had a `C,LEDB`, so for the Radio the slider first sends `C,LEDB:<the Panel LEDs slider's level>` and then `C,B`: the backlight slider never changes the LEDs. The board IP boxes at the top are used.
 
 **Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Radio, Servo, Stepper and Dual Stepper, the packet the bridges send from the
 main bus voltage (1 at 20 V or more): the backlight goes off at 0 and, on 1, returns to the last brightness commanded. These are for
@@ -200,7 +200,7 @@ Built clean (Release, 0 errors) and the window checked on screen (31 October 202
 ## COM ports window and backlight lists (2026-10-25)
 
 - **COM ports...** button (next to *Reset boards...*) opens `PortsForm`: a grid of the PC's COM ports with Windows' description, the board type guessed from the USB VID:PID, the USB serial number (the last segment of the USB device id; a Windows-made id containing `&` means the board has none), whether another program has the port open (`CreateFile` access denied), the status and the USB device id. It reads WMI (`Win32_PnPEntity`, package `System.Management`), finds the USB device behind a composite function with `CM_Get_Parent`, and refreshes on `WM_DEVICECHANGE`. **Refresh**, **Copy list** (tab-separated) and **Restart selected USB device** (`pnputil /restart-device`, run elevated with a UAC prompt; stops and starts the driver, cannot cut the port's power).
-- **Boards in the lists:** the brightness slider (`C,B`) now also goes to the ADF (.107); *Backlight power ON / OFF* (`D,BPWR`) goes to the Radio, Servo, Stepper, Dual Stepper, Upper and ADF; the swing keep-alive (`C,KEEPALIVE:1`) goes to the Stepper, Dual Stepper, Servo, Upper and ADF.
+- **Boards in the lists:** the brightness slider (`C,B`) now also goes to the ADF (.107); *Backlight power ON / OFF* (`D,BPWR`) goes to the Radio, Servo, Stepper, Dual Stepper and ADF; the swing keep-alive (`C,KEEPALIVE:1`) goes to the Stepper, Dual Stepper, Servo and ADF. (Updated in build 2: the retired Upper board (.103) is gone from every list.)
 
 ## MAX7219 and landing gear brightness (7 November 2026)
 
@@ -219,3 +219,15 @@ The **DME display (Radio .101)** group (right column, under the Auto Pilot displ
 ## Station ident, About window and build number (8 November 2026, build 1)
 
 The **DME display** group has a **Station ident** box (up to 4 letters or digits, start `BNE`); **Send DME** sends it as `DMEID` with the distance and speed, and **No DME** sends `DMEID:-`. It needs the Radio on build 14 for the identifier to show. The program now has the same version, build number and build date as the bridges (`<BuildNumber>` in `BenchTester.csproj`, raised by one every time the program is changed; the build date and time are stamped at every build) and an **About...** button after COM ports... that shows them.
+
+## Upper (.103) removed (15 November 2026, build 2)
+
+The retired Upper board (172.16.1.103, merged into the ADF controller on 31 October 2026, and its sketch removed from the project) is gone from the BenchTester: the `Upper` board id, the **Upper (.103)** address box and its entries in the brightness, backlight power, keep-alive and reset lists. The **Reset boards...** dialog now offers the ADF and Upper board (.107) instead (the ADF controller handles `C,RESET:1`), so it lists Radio, Servo, Stepper, Dual Stepper, ADF and HID. Builds clean in Release.
+
+## Live overhead switch view (15 November 2026, build 3)
+
+A new group, **Overhead switches, live (ADF and Upper .107, UDP 27004)**, sits in the middle column under the landing gear lamps (scroll down). It shows the 9 x 8 Upper switch matrix as 72 cells numbered by index (row x 11 + column, the joystick button index the board sends the USB HID board), with the mapped switches named (the master document's mapping table, plus Warn mute and TOT test at 88 and 89 and SAS CB at 38): green = closed to ground, grey = open, white = not heard of yet. A line below shows the last change (`Last change: 38 SAS CB closed at 12:34:56`) and the link. It needs the ADF firmware **build 15 or later**, which sends `UPPER_SW:<index>:<0|1>` for every change and `UPPER_SNAP:` plus 72 `0`/`1` characters every 5 seconds to this PC on UDP 27004 (`SwitchViewGroup.cs`). It reports "No packet for N s" after 12 seconds without one, and an error if port 27004 is already in use (another BenchTester). Tested with the real board: link OK and the matrix states shown. Hover a cell for its index, joystick button and name.
+
+## Bench icon (15 November 2026, build 4)
+
+The program, its main window, the About window and the COM ports window now use a bench icon (`bench.ico`: a wooden workbench with a small circuit board and a lit LED on it, 16 to 256 pixels), set as `<ApplicationIcon>` in the project file and read back with `Icon.ExtractAssociatedIcon` like the bridges do.

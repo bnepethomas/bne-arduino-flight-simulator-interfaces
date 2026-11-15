@@ -30,7 +30,6 @@ namespace MSFSWinformsAutoCS
         private readonly UdpClient stepperClient = new UdpClient();       // 172.16.1.105 Stepper Controller
         private readonly UdpClient dualStepperClient = new UdpClient();   // 172.16.1.106 OLED Dual Stepper Controller
         private readonly UdpClient adfClient = new UdpClient();           // 172.16.1.107 ADF Controller (backlight power)
-        private readonly UdpClient upperClient = new UdpClient();         // 172.16.1.103 Upper Controller (backlight power)
 
         // ----- SimConnect -----------------------------------------------------------------
         private const int WM_USER_SIMCONNECT = 0x0402;
@@ -499,13 +498,11 @@ namespace MSFSWinformsAutoCS
             stepperClient.Connect("172.16.1.105", boardPort);
             dualStepperClient.Connect("172.16.1.106", boardPort);
             adfClient.Connect("172.16.1.107", boardPort);
-            upperClient.Connect("172.16.1.103", boardPort);
             targets.Register(radioClient, "172.16.1.101");
             targets.Register(servoClient, "172.16.1.102");
             targets.Register(stepperClient, "172.16.1.105");
             targets.Register(dualStepperClient, "172.16.1.106");
             targets.Register(adfClient, "172.16.1.107");
-            targets.Register(upperClient, "172.16.1.103");
             gpsClient.Connect(GpsHost, GpsPort);
         }
 
@@ -866,7 +863,6 @@ namespace MSFSWinformsAutoCS
                 SendPacket(stepperClient, Payloads.Stepper(s));
                 SendPacket(dualStepperClient, Payloads.DualStepper(s));
                 SendPacket(adfClient, Payloads.Adf(s));
-                SendPacket(upperClient, Payloads.Adf(s));  // the same backlight power packet
                 frontPanelTimeLastPacketSent = DateTime.Now;
             }
 

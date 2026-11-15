@@ -9,7 +9,6 @@ namespace BenchTester
         DualStepper,  // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER (also the OLEDs)
         Servo,        // JET_RANGER_SERVO_CONTROLLER (pitch/bank)
         Radio,        // JET_RANGER_RADIO_CONTROLLER (reset only)
-        Upper,        // JET_RANGER_UPPER_CONTROLLER (reset only)
         Hid,          // UDP_TO_HID (reset only; listens on 4210, not 13136)
         Adf           // JET_RANGER_ADF_CONTROLLER (landing gear lamps)
     }
@@ -182,7 +181,6 @@ namespace BenchTester
         private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
         private readonly TextBox txtServoIp = new() { Text = "172.16.1.102", Width = 110 };
         private readonly TextBox txtRadioIp = new() { Text = "172.16.1.101", Width = 110 };
-        private readonly TextBox txtUpperIp = new() { Text = "172.16.1.103", Width = 110 };
         private readonly TextBox txtHidIp = new() { Text = "172.16.1.11", Width = 110 };
         private readonly TextBox txtAdfIp = new() { Text = "172.16.1.107", Width = 110 };
         private readonly Button btnReset = new() { Text = "Reset boards...", AutoSize = true };
@@ -201,8 +199,8 @@ namespace BenchTester
         private readonly NumericUpDown numLampGapMs = new() { Minimum = 0, Maximum = 5000, Increment = 100, Value = 400, Width = 70 };
         private readonly NumericUpDown numLampOnGapMs = new() { Minimum = 0, Maximum = 10000, Increment = 100, Value = 1000, Width = 70 };
         // Backlight brightness (C,B:0-15) to every board except the USB HID board, and backlight power (D,BPWR) for testing the main bus rule.
-        private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper, BoardId.Adf };
-        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper, BoardId.Upper, BoardId.Adf };
+        private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper, BoardId.Adf };
+        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper, BoardId.Adf };
         private readonly TrackBar trkBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 260, AutoSize = false, Height = 32 };
         private readonly Label lblBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
         private readonly Button btnBrightnessSend = new() { Text = "Send to all boards", AutoSize = true };
@@ -228,6 +226,7 @@ namespace BenchTester
         public MainForm()
         {
             Text = "Jet Ranger Bench Tester";
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bench icon (bench.ico, set as the application icon in the project file)
             StartPosition = FormStartPosition.CenterScreen;
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
@@ -251,8 +250,6 @@ namespace BenchTester
             top.Controls.Add(txtServoIp);
             top.Controls.Add(new Label { Text = "Radio (.101)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
             top.Controls.Add(txtRadioIp);
-            top.Controls.Add(new Label { Text = "Upper (.103)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
-            top.Controls.Add(txtUpperIp);
             top.Controls.Add(new Label { Text = "HID (.11)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
             top.Controls.Add(txtHidIp);
             top.Controls.Add(new Label { Text = "ADF (.107)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
@@ -564,6 +561,7 @@ namespace BenchTester
             var middleColumn = new FlowLayoutPanel { AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
             middleColumn.Controls.Add(lampGroup);
             middleColumn.Controls.Add(ldgGroup);
+            middleColumn.Controls.Add(new SwitchViewGroup());   // live overhead switch states from the ADF and Upper board (UDP 27004)
             content.Controls.Add(middleColumn, 1, 0);
             content.ColumnCount = 3;
             content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
@@ -624,7 +622,6 @@ namespace BenchTester
             BoardId.Stepper => "Stepper .105",
             BoardId.DualStepper => "Dual Stepper .106",
             BoardId.Radio => "Radio .101",
-            BoardId.Upper => "Upper .103",
             BoardId.Hid => "HID .11",
             BoardId.Adf => "ADF .107",
             _ => "Servo .102"
@@ -635,7 +632,6 @@ namespace BenchTester
             BoardId.Stepper => txtStepperIp.Text.Trim(),
             BoardId.DualStepper => txtDualIp.Text.Trim(),
             BoardId.Radio => txtRadioIp.Text.Trim(),
-            BoardId.Upper => txtUpperIp.Text.Trim(),
             BoardId.Hid => txtHidIp.Text.Trim(),
             BoardId.Adf => txtAdfIp.Text.Trim(),
             _ => txtServoIp.Text.Trim()
@@ -771,7 +767,7 @@ namespace BenchTester
         private async Task ResetBoardsAsync()
         {
             if (running) return;
-            var boards = new[] { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper, BoardId.Hid };
+            var boards = new[] { BoardId.Radio, BoardId.Servo, BoardId.Stepper, BoardId.DualStepper, BoardId.Adf, BoardId.Hid };
             var chosen = PickBoardsToReset(boards);
             if (chosen.Count == 0) return;
 
@@ -1112,7 +1108,7 @@ namespace BenchTester
             try
             {
                 byte[] data = Encoding.ASCII.GetBytes("C,KEEPALIVE:1");
-                foreach (var board in new[] { BoardId.Stepper, BoardId.DualStepper, BoardId.Servo, BoardId.Upper, BoardId.Adf })
+                foreach (var board in new[] { BoardId.Stepper, BoardId.DualStepper, BoardId.Servo, BoardId.Adf })
                     await udp.SendAsync(data, data.Length, IpFor(board), Port);
             }
             catch (Exception ex)

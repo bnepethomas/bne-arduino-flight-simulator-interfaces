@@ -16,6 +16,7 @@ namespace BenchTester
         public AboutForm(string programName, string description)
         {
             Text = "About " + programName;
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bench icon (bench.ico, set as the application icon in the project file)
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;

@@ -451,6 +451,7 @@ namespace MegaHealthMonitor
         public frmMain()
         {
             InitializeComponent();
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the heartbeat icon (health.ico, set as the application icon in the project file)
         }
 
         private void Form1_Load(object sender, EventArgs e)

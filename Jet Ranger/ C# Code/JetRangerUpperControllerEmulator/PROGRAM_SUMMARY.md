@@ -42,6 +42,6 @@ None locally bound — this tool only sends, it doesn't listen for anything.
   `"idx,state"` and drives the corresponding virtual joystick button (idx
   0‑31 → Joystick 1, 32‑63 → Joystick 2, etc.), exactly as it would for a
   packet sent by the real
-  **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)**
+  **`JET_RANGER_UPPER_CONTROLLER` (removed from the project; in the git history)**
   board — this tool is meant to be run *instead of* that board while it's
   disconnected or being worked on.

@@ -199,7 +199,7 @@ twice per tick (percent, then temperature), so the temperature wins.
 - **[JET_RANGER_RADIO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_RADIO_CONTROLLER/JET_RANGER_RADIO_CONTROLLER.ino)**
   (`172.16.1.101:13136`) — receives radio/bus data; sends control commands
   back to this app's port 27001.
-- **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)**
+- **`JET_RANGER_UPPER_CONTROLLER` (removed from the project; in the git history)**
   — also a possible sender of control commands to port 27001.
 - **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER.ino)**
   (`172.16.1.105:13136`) — receives its own separate, purpose-built
@@ -237,7 +237,7 @@ unchecked against the simulator.
 ## Anti-ice position and ADF / Upper backlight power (2026-10-25)
 
 - **`ANTI_ICE_SET:1/0`:** `TryPositionCommand()` also handles the ADF panel's anti-ice switch position and sends the FSUIPC control `ANTI_ICE_SET` (1 or 0). The DodoSim 206 V2 may ignore the plain control: bind its own `ANTI_ICE_SWITCH_SET` event to the joystick button in FSUIPC instead (hyd boost `HYDRAULICS_SWITCH_SET` and caution dim `CAUTION_LIGHT_SWITCH_SET` have no safe bridge command).
-- **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to a retired address and should be removed) new `adfClient` (172.16.1.107:13136) and `upperClient` (172.16.1.103:13136) send `D,BPWR:1/0` (main bus 20 V or more) with the other boards' packets, so those boards' backlights follow the main bus and their 30 s no-data timeouts see the bridge. Built clean; not run against a simulator.
+- **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026; `upperClient` was removed in build 15) new `adfClient` (172.16.1.107:13136) and `upperClient` (172.16.1.103:13136) send `D,BPWR:1/0` (main bus 20 V or more) with the other boards' packets, so those boards' backlights follow the main bus and their 30 s no-data timeouts see the bridge. Built clean; not run against a simulator.
 
 ## Panel emulators (added 1 November 2026)
 
@@ -250,7 +250,7 @@ The seven board sends in `Form1.cs` go through `BoardTargets` (the retired Upper
 ## Packet monitor (added 1 November 2026)
 
 **Show packets...** (a button under the Avionics Master box, beside the two Send check boxes) opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105,
-Dual Stepper .106, ADF and Upper .107, the retired Upper .103 (this bridge still sends it the backlight packet), and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
+Dual Stepper .106, ADF and Upper .107, and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
 the payload text, for example `15:15:00.234  Stepper .105  board  D,BPWR:1,IAS:82,AGL:450,...`. The **Target board** box filters the list to one board (or *All boards*); **Pause** stops
 adding lines (the packets in between are dropped), **Clear** empties the list, and the window counts the lines shown and the packets sent since it opened. Command line: `--show-packets` opens
 the window at start and `--packet-board <radio, servo, stepper, dual, adf, gps, or a last number such as 105>` opens it filtered to that board. `BoardTargets` (in `BoardTargets.cs`) raises a
@@ -318,3 +318,7 @@ The packet to the ADF controller now also carries `ADFKEYPAD:SQUAWK` (the ADF ke
 ## ADF knob frequency to the simulator (8 November 2026, build 14)
 
 The ADF controller sends `ADF_FREQ:<kHz>` to port 27003 a moment after its knobs stop turning (it always did; nothing read it). `HandleAdfFrequency()` now sets the simulator's ADF frequency with the generic control **`ADF_COMPLETE_SET`** for 190 to 1799 kHz; anything else is ignored. The parameter, found by trying it against Prepar3D v6.1, is the frequency in **kHz x 10000 as BCD digits** (340 kHz is `0x3400000`, 1340 kHz `0x13400000`); read back from the ADF offsets, 190, 340, 530, 1340 and 1799 kHz all came out right. The data out box has a line `Last ADF knob frequency from the ADF controller: 11:07:38 340 kHz set`. Checked through the bridge on Prepar3D: `ADF_FREQ:340` set 340.0, `ADF_FREQ:99` was ignored, and 284 was sent back. The sim's ADF frequency still goes the other way to the ADF controller's display (`ADF:284` in its packet), which ignores it for a second after a knob turn, so the two do not fight. The ADF knobs also send joystick buttons 13 to 16, which FSUIPC may map to the DodoSim's own ADF events; the exact frequency sent after the knob stops is the final value either way.
+
+## Upper .103 removed (15 November 2026, build 15)
+
+The retired Upper board (172.16.1.103) is no longer a target: it is gone from the packet monitor's board list and its filter. `upperClient` (its socket, its registration with `BoardTargets` and its backlight power send) is removed, so the bridge no longer sends the backlight packet to .103; the ADF and Upper board .107 still gets it. Builds clean in Release.

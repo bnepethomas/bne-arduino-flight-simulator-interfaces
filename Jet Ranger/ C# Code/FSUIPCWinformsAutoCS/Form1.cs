@@ -225,8 +225,6 @@ namespace FSUIPCTest
         UdpClient dualStepperClient = new UdpClient();
         // ADF Controller (172.16.1.107): gets the backlight power (BPWR) like the other boards, which also feeds its no-data timeout.
         UdpClient adfClient = new UdpClient();
-        // Upper Controller (172.16.1.103): backlight power only, the same way.
-        UdpClient upperClient = new UdpClient();
         // Aircraft information for the GPS interface (LowranceAirMapGps): lat, lon, altitude, airspeed and
         // heading, sent twice a second. Change GpsHost if the GPS interface runs on another PC.
         UdpClient gpsClient = new UdpClient();
@@ -505,7 +503,6 @@ namespace FSUIPCTest
             targets.Register(stepperClient, "172.16.1.105");
             targets.Register(dualStepperClient, "172.16.1.106");
             targets.Register(adfClient, "172.16.1.107");
-            targets.Register(upperClient, "172.16.1.103");
             configureForm();
             BuildLightList();
             // Start the connection timer to look for a flight sim
@@ -1186,8 +1183,6 @@ namespace FSUIPCTest
                             + (squawkNow.Length == 4 ? ",SQK:" + squawkNow : ""));   // the keys this bridge handles itself on the Upper keypad: the ADF controller does not type them   // and the simulator's ADF frequency (kHz)
                         targets.Send(adfClient, adfSendData);
 
-                        // Upper Controller (.103): backlight power only.
-                        targets.Send(upperClient, adfSendData);
 
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }

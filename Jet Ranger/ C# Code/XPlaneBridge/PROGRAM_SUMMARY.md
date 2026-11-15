@@ -63,7 +63,7 @@ Tested with the real bridge, the fake X-Plane and the five emulators: `JetRanger
 ## Packet monitor (added 1 November 2026)
 
 **Show packets...** (a button in the toolbar, after Send to the emulators) opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105,
-Dual Stepper .106, ADF and Upper .107, the retired Upper .103, and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
+Dual Stepper .106, ADF and Upper .107, and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
 the payload text, for example `15:15:00.234  Stepper .105  board  D,BPWR:1,IAS:82,AGL:450,...`. The **Target board** box filters the list to one board (or *All boards*); **Pause** stops
 adding lines (the packets in between are dropped), **Clear** empties the list, and the window counts the lines shown and the packets sent since it opened. Command line: `--show-packets` opens
 the window at start and `--packet-board <radio, servo, stepper, dual, adf, gps, or a last number such as 105>` opens it filtered to that board. `BoardTargets` (in `BoardTargets.cs`) raises a
@@ -79,3 +79,7 @@ The **About...** button on the toolbar (after Show packets...) opens it. **Raise
 ## Bridge icon (8 November 2026, build 2)
 
 The program icon is a suspension bridge (`bridge.ico` in the project folder: 256, 64, 48, 32, 24 and 16 pixel images, drawn with GDI+, orange cables and towers over blue water). It is set as the application icon in the project file (`<ApplicationIcon>bridge.ico</ApplicationIcon>`, so it is the icon of the exe) and, from the exe, as the icon of the main window and the About window (`Icon.ExtractAssociatedIcon`). The same icon is used by all four bridges.
+
+## Upper .103 removed (15 November 2026, build 3)
+
+The retired Upper board (172.16.1.103) is no longer a target: it is gone from the packet monitor's board list and its filter. This bridge never sent to it. Builds clean in Release.

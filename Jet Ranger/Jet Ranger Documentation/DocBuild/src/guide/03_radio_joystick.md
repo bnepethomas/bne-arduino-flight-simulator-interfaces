@@ -252,6 +252,7 @@ From `UpperSwitchMapping.ods`. Button numbers are as Windows and the simulators 
 | 26 | Upper 2, 4 | Position lights | J1, 27 | `POSITION_LIGHTS_SET` |
 | 27 | Upper 2, 5 | Pitot heat | J1, 28 | `PITOT_HEAT_SWITCH_SET` |
 | 28 | Upper 2, 6 | Avionics | J1, 29 | `AVIONICS_SWITCH_SET` |
+| 38 | Upper 3, 5 | SAS circuit breaker | J2, 7 | none yet |
 | 39 | Upper 3, 6 | Strobe light | J2, 8 | none yet |
 
 The suggested events are the closest match in `DODSIM206V2.EVT`; the bindings actually saved in FSUIPC or MSFS are not in the repository. All other matrix positions are wired but unassigned.

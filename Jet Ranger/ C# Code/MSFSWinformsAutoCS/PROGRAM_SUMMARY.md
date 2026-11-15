@@ -188,7 +188,7 @@ it is 0 (see their summaries).
 ## Anti-ice position and ADF / Upper backlight power (2026-10-25)
 
 - **`ANTI_ICE_SET:1/0`:** `PositionEventNames` / `PositionOnValues` gain `ANTI_ICE_SET` (value 1 or 0), mapped to the SimConnect event of the same name (event numbers from 2000).
-- **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, so `upperClient` now sends to a retired address and should be removed) new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.
+- **ADF and Upper boards:** (the Upper board was merged into the ADF board on 31 October 2026, `upperClient` was removed in build 12) new `adfClient` (172.16.1.107) and `upperClient` (172.16.1.103) are sent `Payloads.Adf()` (`D,BPWR:1/0`) with the other boards' packets every 90 ms. Built clean; not run against MSFS.
 
 ## Panel emulators (added 1 November 2026)
 
@@ -201,7 +201,7 @@ The `SendPacket` helper sends the board clients' packets through `BoardTargets` 
 ## Packet monitor (added 1 November 2026)
 
 **Show packets...** (a button under the Avionics Master box, beside the two Send check boxes) opens a window that lists every payload as it is sent: one line per packet with the time, the target board (Radio .101, Servo .102, Stepper .105,
-Dual Stepper .106, ADF and Upper .107, the retired Upper .103 (this bridge still sends it the backlight packet), and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
+Dual Stepper .106, ADF and Upper .107, and the GPS interface) and where it went (*board*, *emulator*, *board + emulator*, or *local* for the GPS interface), then
 the payload text, for example `15:15:00.234  Stepper .105  board  D,BPWR:1,IAS:82,AGL:450,...`. The **Target board** box filters the list to one board (or *All boards*); **Pause** stops
 adding lines (the packets in between are dropped), **Clear** empties the list, and the window counts the lines shown and the packets sent since it opened. Command line: `--show-packets` opens
 the window at start and `--packet-board <radio, servo, stepper, dual, adf, gps, or a last number such as 105>` opens it filtered to that board. `BoardTargets` (in `BoardTargets.cs`) raises a
@@ -259,3 +259,7 @@ The program icon is a suspension bridge (`bridge.ico` in the project folder: 256
 ## ADF knob frequency to the simulator (8 November 2026, build 11)
 
 The bridge listens on UDP port 27003 (`StartAdfEventListener()`) for `ADF_FREQ:<kHz>`, which the ADF controller sends a moment after its knobs stop turning, and sets the simulator's ADF frequency with the SimConnect event `ADF_COMPLETE_SET` (190 to 1799 kHz; anything else is ignored). The event's parameter is BCD digits, but the unit is not documented clearly and differs between simulators (Prepar3D takes kHz x 10000), so `SetAdfFromController()` tries three encodings in turn (kHz x 10000, Hz, kHz), checks each against the ADF frequency MSFS reports about 1.2 seconds later (`ADF ACTIVE FREQUENCY:1`, already read for the ADF controller's display) and keeps the one that works. The data out box has a line `Last ADF knob frequency from the ADF controller: …` (`set (encoding 1)`, `NOT set (the simulator shows …)` and so on). **Not tested against MSFS** (it was not running): only that the bridge builds, starts and listens on 27003. Until the right encoding has been found, a first frequency may briefly show wrongly while the other encodings are tried; fly with it once and check the line.
+
+## Upper .103 removed (15 November 2026, build 12)
+
+The retired Upper board (172.16.1.103) is no longer a target: it is gone from the packet monitor's board list and its filter. `upperClient` (its socket, its connection, its registration with `BoardTargets` and its backlight power send) is removed, so the bridge no longer sends the backlight packet to .103; the ADF and Upper board .107 still gets it. Builds clean in Release.

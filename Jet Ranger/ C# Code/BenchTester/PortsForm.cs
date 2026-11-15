@@ -53,6 +53,7 @@ namespace BenchTester
         public PortsForm()
         {
             Text = "COM ports and USB devices";
+            try { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? Icon; } catch { }   // the bench icon (bench.ico, set as the application icon in the project file)
             StartPosition = FormStartPosition.CenterParent;
             ClientSize = new Size(1040, 360);
             MinimumSize = new Size(760, 240);

@@ -128,7 +128,7 @@ char packetBuffer[200];
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 #define FIRMWARE_NAME "ADF and Upper Controller"
 #define FIRMWARE_VERSION "1.0"
-#define FIRMWARE_BUILD 13
+#define FIRMWARE_BUILD 15
 
 String firmwareText() {
   return String(F(FIRMWARE_NAME " firmware ")) + F(FIRMWARE_VERSION) + F(" build ") + String(FIRMWARE_BUILD) + F(" compiled ") + F(__DATE__ " " __TIME__);
@@ -151,6 +151,16 @@ void SendDebug(String MessageToSend) {
 void sendToPc(const String& message) {
   if (Ethernet_In_Use != 1) return;
   udp.beginPacket(reflectorIP, adfEventPort);
+  udp.print(message);
+  udp.endPacket();
+}
+
+// The live state of the overhead switch matrix for the BenchTester's switch view: "UPPER_SW:<index>:<0|1>" for every change and "UPPER_SNAP:<72 characters>"
+// every UPPER_SNAPSHOT_MS (9 rows of 8 columns, row by row, 1 = closed to ground), to the PC on UDP port 27004. Nothing else listens there.
+const unsigned int switchViewPort = 27004;
+void sendSwitchView(const String& message) {
+  if (Ethernet_In_Use != 1) return;
+  udp.beginPacket(reflectorIP, switchViewPort);
   udp.print(message);
   udp.endPacket();
 }
@@ -579,10 +589,23 @@ void scanUpperMatrixRow() {
       int index = row * UPPER_ROW_STRIDE + col;
       noteActivity();
       sendButtonToHid(index, closed ? 1 : 0);
+      sendSwitchView("UPPER_SW:" + String(index) + ":" + String(closed ? 1 : 0));
       SendDebug("Front Input - " + String(index) + ":" + String(closed ? 1 : 0));
     }
   }
   digitalWrite(upperRowPins[row], HIGH);
+}
+
+#define UPPER_SNAPSHOT_MS 5000UL
+unsigned long lastUpperSnapshot = 0;
+
+void sendUpperSnapshot() {
+  if (millis() - lastUpperSnapshot < UPPER_SNAPSHOT_MS) return;
+  lastUpperSnapshot = millis();
+  String bits = "UPPER_SNAP:";
+  for (int r = 0; r < UPPER_ROWS; r++)
+    for (int c = 0; c < UPPER_COLS; c++) bits += upperClosed[r][c] ? '1' : '0';
+  sendSwitchView(bits);
 }
 
 void scanUpperKeypad() {
@@ -847,9 +870,9 @@ void reportMatrixRaw() {
 // ############################################# BEGIN PANEL BRIGHTNESS ##########################################
 // Pot on A0 (5 V to GND, wiper to A0). The 0-15 level drives this board's backlight and is sent to the other panels as C,B:level.
 #define BRIGHTNESS_PIN A0
-// The brightness pot is switched off for the moment: with USE_BRIGHTNESS_POT 0 the pot (A0) is not read, no C,B brightness is sent to the other panels,
-// and this board's own backlight stays at the default level below. Set it to 1 to bring the pot back.
-#define USE_BRIGHTNESS_POT 0
+// The brightness pot is switched on: with USE_BRIGHTNESS_POT 1 the pot (A0) is read, sets this board's backlight and is sent as C,B to the other panels.
+// Set it to 0 to switch it off again (the pot is then not read, no C,B is sent, and this board's backlight stays at the default level below).
+#define USE_BRIGHTNESS_POT 1
 #define BRIGHTNESS_DEFAULT_LEVEL 4  // 0-15 (4 is PWM 68, close to the other boards' default of 65)
 #define BRIGHTNESS_SAMPLE_MS 20
 #define BRIGHTNESS_FIRST_SEND_MS 5000  // after start-up, so the other boards are up and the pot position is applied to them
@@ -1231,6 +1254,7 @@ void loop() {
 
   scanMatrix();
   scanUpperMatrixRow();
+  sendUpperSnapshot();
   scanUpperKeypad();
   pollAdfSwitches();
   serviceHidPulses();

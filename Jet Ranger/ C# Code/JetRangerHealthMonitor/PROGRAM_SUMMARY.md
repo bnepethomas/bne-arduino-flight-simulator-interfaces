@@ -60,3 +60,7 @@ Arduino boards, not the flight sim connection.
   with a regular expression and keeps the last reading and its time per board; the **Show Voltages** button (`cmdToggleVoltages`) shows a `ListView` (`lvVoltages`) with one row per board: 5 V, 12 V (only the ADF; the others
   say "not measured") and the time with "N s ago". Readings outside 4.75 to 5.25 V (5 V) or 10.8 to 15.0 V (12 V) are orange; a reading older than 35 s, or none, is grey. `ApplyLayout()` sizes the window for the log list and
   the table. Tested with simulated heartbeats. A board that has not been reflashed shows "no reading" but its indicator still works.
+
+## Heartbeat icon (15 November 2026)
+
+The program and its window now use a heartbeat icon (`health.ico`: a red ECG trace across a dark tile, 16 to 256 pixels), set as `<ApplicationIcon>` in the project file and read back with `Icon.ExtractAssociatedIcon` in the `Form1` constructor. The project has no build number, so none was raised. It compiled clean in a scratch copy; the Release build in the project folder needs the running Health Monitor closed first (its exe was locked).
