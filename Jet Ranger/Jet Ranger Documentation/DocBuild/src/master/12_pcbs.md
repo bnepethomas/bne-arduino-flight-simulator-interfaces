@@ -36,7 +36,7 @@ All the controller boards (Servo, 13 Stepper, Dual Stepper, Radio Auto Pilot and
 
 The earlier revisions used a generic N-channel MOSFET symbol (`Q_NMOS_GSD`) whose pin-out had source and drain swapped; the revisions dated 18 October 2026 (1.4 Servo, 1.3 Radio Auto Pilot, the then ADF Controller and Upper 1.4, 1.5 Stepper and Dual Stepper); the combined Upper ADF Controller started from the corrected ADF design use the IRF540N with the correct pin-out. A board made from an earlier revision should have the transistor checked.
 
-The Radio, Servo, Stepper, Dual Stepper and ADF sketches drive D5 (see the network, Radio and ADF controller chapters); the ADF sketch now also covers the Upper panel's backlight. The combined PCB has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16); the ADF sketch can read it and send the level to the other panels, but that is switched off for the moment (`USE_BRIGHTNESS_POT` is 0).
+The Radio, Servo, Stepper, Dual Stepper and ADF sketches drive D5 (see the network, Radio and ADF controller chapters); the ADF sketch now also covers the Upper panel's backlight. The combined PCB has a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16); the ADF sketch reads it and sends the level to the other panels (switched on since build 14, `USE_BRIGHTNESS_POT` is 1).
 
 ## Warning Mute, Fuel Valve and TOT Clear inputs
 

@@ -135,7 +135,7 @@ def adf_connectivity():
     panels = [
         dict(title="ADF panel", lines=["ADF knobs, keypad, switches, OLED,", "3 landing gear lamps"], conns=[("J5 ADF  IDC 26", SIG)]),
         dict(title="Lower panel switches", lines=["hyd boost (D35), anti-ice (D36), caution dim (D37)"], conns=[("J20 HYD BOOST  6-pin", SIG)]),
-        dict(title="Upper panel", lines=["72-switch matrix, numeric keypad,", "brightness pot (analog, switched off for now)"],
+        dict(title="Upper panel", lines=["72-switch matrix, numeric keypad,", "brightness pot (analog)"],
              conns=[("J30 ROWS  8-pin", SIG), ("J31 COLS  8-pin", SIG), ("J32 KEYPAD  8-pin", SIG), ("J16 GUAGE BRIGHT  3-pin", SIG)], theme="teal"),
         dict(title="Warning mute and TOT test switches", lines=["on the matrix ROW8 (indexes 88 and 89)"], conns=[("J17 WARNING MUTE", SIG), ("J18 TOT TEST", SIG)]),
         dict(title="Panel backlight", lines=["D5 PWM through the IRF540N"], conns=[("J33 BACKLIGHT", BACK)], theme="amber"),

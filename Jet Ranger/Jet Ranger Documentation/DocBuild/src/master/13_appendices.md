@@ -44,7 +44,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101 | Auto Pilot panel LEDs (CRS, HDG, IAS, ALT, APPR, FD, BC, AP ENGAGE): 1 = on |
 | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101 | Audio panel LEDs: 1 = on |
 | `LED_H_ENG_OIL`, `LED_H_ENG_ICE`, `LED_H_ENG_ICE_DETECT`, `LED_H_ENG_CHIP`, `LED_H_LEFT_FUEL_BOOST`, `LED_H_ENG_FUEL_PUMP`, `LED_H_RIGHT_FUEL_BOOST`, `LED_H_20_MINUTE_FUEL`, `LED_H_AUX_FUEL_LOW`, `LED_H_XMSN_OIL_PRESS`, `LED_H_XMSN_OIL_HOT`, `LED_H_HYD_PRESS`, `LED_H_ENG_INLET_AIR`, `LED_H_INST_INVERTER`, `LED_H_DC_GENERATOR`, `LED_H_EXT_POWER`, `LED_H_FUEL_FILTER`, `LED_H_GOV_EMER`, `LED_H_CHIP_DETECTOR`, `LED_H_IFF` | Radio .101 | Huey Warning Panel LEDs: 1 = on (sent by the DCS bridge from the UH-1H caution panel, and ten of them approximately by the X-Plane bridge; not by the FSUIPC and MSFS bridges) |
-| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, ADF and Upper .107 (the bridges still also send it to the retired Upper .103) | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
+| `BPWR` | Radio .101, Servo .102, Stepper .105, Dual .106, ADF and Upper .107 | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
 
 ## Lamp tokens (Servo .102)
 
@@ -66,7 +66,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `OLEDB` | Dual Stepper controller: SSD1306 OLED brightness (contrast) 0 to 15 |
 | `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
 | `DISPLAY` | ADF and Upper controller: 0 blanks its OLED and landing gear lamps, 1 restores them (sent by the Radio controller with its own displays) |
-| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper, Dual Stepper and ADF and Upper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller can send it from its brightness pot, which is switched off for the moment |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Radio, Servo, Stepper, Dual Stepper and ADF and Upper; the Radio also sets the intensity of its Auto Pilot and Audio panel LEDs from it (0 = LEDs off). The ADF controller sends it from its brightness pot (switched on in build 14) |
 
 ## Messages from the ADF controller to the PC (UDP 27003)
 
@@ -123,7 +123,7 @@ Radio Controller firmware 1.0 build 15 compiled Nov  8 2026 09:50:00
 | Servo controller .102 | `JET_RANGER_SERVO_CONTROLLER` | Servo Controller | 1.0 build 6 |
 | Stepper controller .105 | `JET_RANGER_STEPPER_CONTROLLER` | Stepper Controller | 1.0 build 5 |
 | Dual Stepper controller .106 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | OLED Dual Stepper Controller | 1.0 build 7 |
-| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 13 |
+| ADF and Upper controller .107 | `JET_RANGER_ADF_CONTROLLER` | ADF and Upper Controller | 1.0 build 15 |
 | USB HID board .11 | `UDP_TO_HID` | USB HID Board | 1.0 build 2 |
 
 ## COM port to board mapping

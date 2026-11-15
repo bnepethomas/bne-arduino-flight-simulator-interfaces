@@ -1,6 +1,6 @@
 # ADF and Upper controller
 
-The ADF panel is another Mega, at 172.16.1.107, running `JET_RANGER_ADF_CONTROLLER.ino` on the Jet Ranger Upper ADF Controller PCB (revision 1.0), the combined ADF and Upper board. Since 31 October 2026 it also does the job of the old Upper controller (172.16.1.103): it scans the **overhead switch matrix** and the **Upper keypad** and sends them to the USB HID board (see Upper panel switches and keypad below), so there is no separate Upper board any more. It tunes the ADF with two knobs, takes the ID of an aircraft to follow on the radar from a keypad, sends its landing gear, flaps, speed brakes, brakes, anti-ice, hyd boost and caution dim switches to the simulator, lights the three landing gear lamps, blanks its display, lamps and backlight with the other panels, and watches the 12 V and 5 V supplies. The PCB has a brightness pot, but it is **switched off for the moment**. The sketch is flashed (COM26); the 12 V reading, the landing gear lamps and the ADF keypad have been checked on the bench, but the Upper matrix and keypad, the switches at their new pins and the blanking and backlight rules have not.
+The ADF panel is another Mega, at 172.16.1.107, running `JET_RANGER_ADF_CONTROLLER.ino` on the Jet Ranger Upper ADF Controller PCB (revision 1.0), the combined ADF and Upper board. Since 31 October 2026 it also does the job of the old Upper controller (172.16.1.103): it scans the **overhead switch matrix** and the **Upper keypad** and sends them to the USB HID board (see Upper panel switches and keypad below), so there is no separate Upper board any more. It tunes the ADF with two knobs, takes the ID of an aircraft to follow on the radar from a keypad, sends its landing gear, flaps, speed brakes, brakes, anti-ice, hyd boost and caution dim switches to the simulator, lights the three landing gear lamps, blanks its display, lamps and backlight with the other panels, and watches the 12 V and 5 V supplies. The PCB has a brightness pot, which is **switched on** (since build 14, 15 November 2026) and sets the backlights. The sketch is flashed (COM26); the 12 V reading, the landing gear lamps and the ADF keypad have been checked on the bench, but the Upper matrix and keypad, the switches at their new pins and the blanking and backlight rules have not.
 
 ![ADF panel](diagrams/adf_blocks.svg)
 
@@ -22,11 +22,11 @@ The combined board connects to the ADF panel, the lower panel switches, the Uppe
 | Landing gear, flaps and speed brakes switches | Set the simulator to match the switch position (see Panel switches) |
 | Brakes button | Toggles the parking brake |
 | Anti-ice, hyd boost and caution dim switches | Joystick 4 buttons 17 to 19; anti-ice also sets the simulator's anti-ice (see Panel switches) |
-| Brightness pot | Not used for the moment: the panel backlight stays at its default and no brightness is sent to the other panels |
+| Brightness pot | Sets this panel's backlight (level 0 to 15) and is sent as `C,B` to the Radio, Servo, Stepper and Dual Stepper (switched on in build 14) |
 
 The OLED shows the frequency on the first line (`ADF  340 kHz`) and the ID on the second: `ID: 1234_` while you type, `FOLLOW 1234` once it is sent, or `FOLLOW OFF`. An entry you leave unfinished for 20 seconds is dropped.
 
-**Brightness pot.** The pot on the PCB (A0) can set the backlight of this panel and of the Radio, Servo, Stepper and Dual Stepper panels, but `USE_BRIGHTNESS_POT` in the sketch is 0, so it does nothing: this panel's backlight stays at its default (level 4) until a `C,B` command sets it, and the other panels follow the BenchTester slider or their own defaults. Set it to 1 and reflash to bring the pot back.
+**Brightness pot.** The pot on the PCB (A0) sets the backlight of this panel and, as `C,B:0` to `C,B:15`, of the Radio, Servo, Stepper and Dual Stepper panels. `USE_BRIGHTNESS_POT` in the sketch has been 1 since build 14 (set it to 0 and reflash to switch the pot off again). The level is smoothed and only changes once the pot is clearly past a boundary; it is sent to the other panels five seconds after start-up and on every change. While the pot is on this board ignores `C,B` from anything else, so the BenchTester slider does not move its backlight. Like every board it holds its backlight at 100 percent until the Stepper announces that start-up is complete (or three minutes pass), so the pot has no visible effect until then.
 
 ## Inputs and outputs
 
@@ -37,7 +37,7 @@ The OLED shows the frequency on the first line (`ADF  340 kHz`) and the ID on th
 | ADF keypad | scan rows A7, A6, A5, A4, scan columns A3, A2, A1 | 4 by 3; the lines arrive in reverse order on this PCB; see the key table below |
 | Upper switch matrix | rows D22 to D30, columns D38 to D45 | 9 by 8, 72 switches (see Upper panel switches and keypad) |
 | Upper keypad | rows A10, A12, A14, A15, columns A9, A11, A13 | 4 by 3 |
-| Panel brightness pot | A0 | Wiper, 5 V to ground; not read while the pot is switched off |
+| Panel brightness pot | A0 | Wiper, 5 V to ground |
 | 12 V monitor | A8 | 47 k and 10 k divider with 0.1 uF |
 | 5 V monitor | AREF / AVcc | Measured against the internal 1.1 V reference; the AREF pin is left at its default |
 | Backlight | D5 | IRF540N MOSFET: full brightness during the start-up hold, then 70 percent, then `C,B`; off with `BPWR:0`, the no-data timeout or no data (see Panel blanking and backlight) |
@@ -81,7 +81,7 @@ The gear, flaps, speed brakes and anti-ice toggle switches send their **position
 
 ## Upper panel switches and keypad
 
-The overhead switch matrix and the numeric keypad of the old Upper controller are scanned by this board. Each of the 72 matrix switches (9 rows by 8 columns) is sent to the USB HID board as a joystick button, numbered `row x 11 + column` (0 to 95) as before, so the FSUIPC and MSFS button assignments and the switch table in the Joystick section do not change. The matrix is smaller than the old board's 16 by 11 (176 positions). The Upper keypad types keys 0 to 9, `*` and `#` on the HID board's keyboard. The Warning Mute and TOT Test connectors on the PCB are part of the matrix (indexes 88 and 89), nothing is assigned to them yet. A switch that is closed when the board starts is reported straight away. Everything on the panel counts as input for the 30 second no-data timeout. The old Upper board's backlight is this board's backlight.
+The overhead switch matrix and the numeric keypad of the old Upper controller are scanned by this board. Each of the 72 matrix switches (9 rows by 8 columns) is sent to the USB HID board as a joystick button, numbered `row x 11 + column` (0 to 95) as before, so the FSUIPC and MSFS button assignments and the switch table in the Joystick section do not change. The matrix is smaller than the old board's 16 by 11 (176 positions). The Upper keypad types keys 0 to 9, `*` and `#` on the HID board's keyboard. The Warning Mute and TOT Test connectors on the PCB are part of the matrix (indexes 88 and 89), nothing is assigned to them yet. A switch that is closed when the board starts is reported straight away. Everything on the panel counts as input for the 30 second no-data timeout. The old Upper board's backlight is this board's backlight. The state of every switch is also sent to the PC (see Switch states below) and shown live in the BenchTester's *Overhead switches, live* group.
 
 ## Landing gear lamps
 
@@ -105,9 +105,11 @@ Five seconds after start-up, and then every **30 seconds**, the board sends the 
 
 These use port 27003, not 27001, because the FSUIPC and MSFS bridges treat anything they do not recognise on 27001 as a COM1 standby frequency. (The panel switch commands above do go to 27001: the bridges recognise those names.) The FSUIPC bridge reads port 27003 (the knob frequency, the Upper keypad and the squawk) and the MSFS bridge reads the knob frequency (see With the bridges); no bridge uses the radar follow ID yet.
 
+**Switch states (UDP 27004).** From build 15 the board also reports the overhead switch matrix to the PC on port 27004, a port of its own so that it never reaches the bridges: `UPPER_SW:<index>:<0|1>` for every change (1 = closed to ground, index = row x 11 + column) and `UPPER_SNAP:` followed by 72 characters of 0 and 1 (9 rows of 8 columns, row by row) every 5 seconds. The BenchTester's *Overhead switches, live* group reads them.
+
 ## Control packets
 
-The board acts on control packets on UDP 13136: `C,RESET:1` reboots it, `C,MATRIX:1` prints the raw ADF keypad readings to the debug listener, `C,POWER:1` sends a power status, `C,B:0` to `C,B:15` sets the backlight brightness (while the pot is switched off), `C,KEEPALIVE:1` counts as data and `C,DISPLAY:0` / `C,DISPLAY:1` (sent by the Radio controller) blank and restore the panel. Of the data packets it uses the three landing gear lamp tokens and `BPWR`.
+The board acts on control packets on UDP 13136: `C,RESET:1` reboots it, `C,MATRIX:1` prints the raw ADF keypad readings to the debug listener, `C,POWER:1` sends a power status, `C,B:0` to `C,B:15` sets the backlight brightness (ignored while the brightness pot is on), `C,KEEPALIVE:1` counts as data and `C,DISPLAY:0` / `C,DISPLAY:1` (sent by the Radio controller) blank and restore the panel. Of the data packets it uses the three landing gear lamp tokens and `BPWR`.
 
 ## With the bridges
 

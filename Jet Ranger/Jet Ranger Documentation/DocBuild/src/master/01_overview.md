@@ -40,8 +40,8 @@ All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560
 |---|---|---|
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM and NAV frequency displays, eight tuning knobs, four frequency-swap switches; sends tuning and swap commands to the PC |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | Attitude indicator pitch and bank servos, 15 warning lamps, three front-panel switches (TOT clear, warning mute, fuel valve) |
-| `JET_RANGER_ADF_CONTROLLER` | .107 | The combined ADF and Upper board: ADF major and minor knobs, aircraft ID keypad for radar following, seven panel switches (gear, flaps, speed brakes, brakes, anti-ice, hyd boost, caution dim; joystick buttons and bridge commands), landing gear lamps, 12 V and 5 V rail monitoring with a status every 30 seconds, character OLED, and (merged in from the old Upper controller on 31 October 2026) the overhead switch matrix (72 positions) and the Upper keypad, forwarded to the USB HID board. The brightness pot on the PCB is switched off for the moment |
-| `JET_RANGER_UPPER_CONTROLLER` | (.103, retired) | The old overhead switch matrix and keypad board; its code now runs inside the ADF controller sketch. The folder is kept for reference |
+| `JET_RANGER_ADF_CONTROLLER` | .107 | The combined ADF and Upper board: ADF major and minor knobs, aircraft ID keypad for radar following, seven panel switches (gear, flaps, speed brakes, brakes, anti-ice, hyd boost, caution dim; joystick buttons and bridge commands), landing gear lamps, 12 V and 5 V rail monitoring with a status every 30 seconds, character OLED, and (merged in from the old Upper controller on 31 October 2026) the overhead switch matrix (72 positions) and the Upper keypad, forwarded to the USB HID board. The brightness pot on the PCB sets the backlights (switched on in build 14) |
+| `JET_RANGER_UPPER_CONTROLLER` | (.103, removed) | The old overhead switch matrix and keypad board; its code runs inside the ADF controller sketch. The sketch was removed from the project on 15 November 2026 and is only in the git history |
 | `UDP_TO_HID` | .11 | Leonardo-class board: UDP in, four 32-button joysticks and a keyboard out over USB |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | Stepper gauges: airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature, fuel quantity |
 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | .106 | Stepper gauges: engine and transmission oil, engine and rotor RPM, electrical load, fuel load, altimeter; four OLEDs (barometer, altimeter, clock, temperature) |
@@ -99,7 +99,7 @@ On 18 October 2026 the six controller boards of the time (Servo, Upper, 13 Stepp
 
 ## Where things stand
 
-All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 13 and USB HID 2 (all flashed on 7 and 8 November 2026 except the USB HID board, flashed on 1 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
+All six controllers (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) are flashed with firmware version 1.0: builds Radio 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 15 and USB HID 2 (all flashed on 7 and 8 November 2026 except the USB HID board, flashed on 1 November and the ADF and Upper board, flashed on 15 November). Each reports its version at start-up and in its heartbeat, and the Health Monitor shows them (see Appendix B).
 
 The start-up backlight hold (6 and 7 November 2026): every controller holds its backlight at 100 percent, and its OLEDs and indicator lamps on, from reset until the 13 Stepper controller announces on UDP port 13138 (twice, 2 seconds apart) that start-up is complete. The commanded level then becomes 70 percent and the backlight goes off until the bridge sends `BPWR:1` (see the Network chapter). It has been flashed on every controller and checked in the Health Monitor, but not yet watched through a full cockpit power cycle.
 
@@ -111,10 +111,9 @@ Open items:
 
 - The three servo-board switches reach the HID board but are not sent to the PC itself (the bridges treat an unrecognised string on port 27001 as a radio frequency, so they would need updating first).
 - The Upper switch matrix and Upper keypad now run on the combined ADF and Upper board (merged on 31 October 2026) and have not been bench-tested there. Its Warning Mute and TOT Test connectors are read by the matrix (indexes 88 and 89).
-- The bridges and the BenchTester still send to the retired Upper address 172.16.1.103; the entries should be removed.
 - The 16 Huey needle-position gauges in the DCS bridge are on first-guess scales and need calibrating in flight; the X-Plane bridge has not met a real X-Plane (check units, the R22 and S-76 rotor speed scales and the approximate Huey LEDs); neither sends inputs, port 27001 commands or the landing gear lamps.
 - The estimates in the MSFS bridge for the FlyInside and CowaSim aircraft come from a few dial readings; check them at other power settings.
-- The brightness pot input on A0 of the combined board is switched off in the sketch (`USE_BRIGHTNESS_POT` is 0); its backlight follows `BPWR`, `C,B` and the no-data timeout.
+- The brightness pot on A0 of the combined board was switched on on 15 November 2026 (`USE_BRIGHTNESS_POT` is 1, build 14, still the same in build 15). The other panels followed it straight away. The ADF and Upper board's own backlight did not follow the pot at first; that was corrected the same day, with no firmware change (the board is still on build 15), and the cause was not written down. Remember the start-up hold: every board's backlight stays at 100 percent, whatever the pot says, until the Stepper announces that start-up is complete (or three minutes pass), and after the hold the board is dark until a bridge or the BenchTester sends `D,BPWR:1`.
 - The Radio controller emulator still sends a bare frequency for every radio, so only COM1 tunes from it; the real board sends labelled COM2, NAV1 and NAV2 values, which both bridges understand.
 - The Dual Stepper's RAM use is high (79 percent); be careful adding code to it.
 - Calibration tables, swing times and waits come from bench measurements; recheck them after any mechanical change to a gauge.

@@ -46,6 +46,7 @@ try {
     if (Want "swing") {
         # BenchTester (was SwingTester): main window, the Reset boards dialog (only opened and cancelled) and the COM ports window
         $p = Run "$root\BenchTester\bin\Release\net10.0-windows\BenchTester.exe"
+        Start-Sleep 8   # the ADF board reports its switch states every 5 seconds: wait for the first snapshot so the live switch view is filled
         Shot $p "swing_tester.png"
         $main = Find-Window $p.Id "Jet Ranger Bench Tester"
         # the same window scrolled to the bottom (the DME group, below the fold of the main picture)

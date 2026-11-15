@@ -127,7 +127,7 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |
-| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Radio, Servo, Stepper, Dual Stepper and ADF and Upper (the Radio also sets the brightness of its Auto Pilot, Audio and Huey panel LEDs from it). The ADF controller can send it from its brightness pot, which is switched off for the moment |
+| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Radio, Servo, Stepper, Dual Stepper and ADF and Upper (the Radio also sets the brightness of its Auto Pilot, Audio and Huey panel LEDs from it). The ADF controller sends it from its brightness pot (switched on in build 14) |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
 | `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (BenchTester sends it during a run) |

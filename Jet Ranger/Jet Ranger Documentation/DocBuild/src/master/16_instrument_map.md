@@ -70,7 +70,7 @@ This appendix draws every gauge, lamp and display of the cockpit as the real thi
 | Auto Pilot display (OLED) and 8 LEDs | `APHDG`, `APCRS`, `APIAS`, `APVS`, `APALT`; `LED_CRS`, `LED_HDG`, `LED_IAS`, `LED_ALT`, `LED_APPR`, `LED_FD`, `LED_BC`, `LED_APENG` | Radio .101: J12 AUTOPILOT |
 | DME display (OLED) and 11 audio panel LEDs | `LED_COM1`, `LED_BOTH`, `LED_NAV2`, `LED_DME`, `LED_OUTER`, `LED_INNER`, `LED_COM2`, `LED_NAV1`, `LED_MKR`, `LED_ADF`, `LED_MID` | Radio .101: J3 AUDIO |
 | 20 Huey Warning Panel lamps and 3 switches | `LED_H_*` (MAX7219 digits 4 to 7); switches on A8 to A10 | Radio .101: J22 HUEY_ANODES (LED rows), J23 HUEY_CATHODES (LED columns) and J20 HUEY_SWITCHES (digital inputs) |
-| Upper panel switch matrix (72 switches), numeric keypad and brightness pot | joystick buttons 0 to 95; `UPPER_KEY:`; pot on A0 (switched off in the sketch) | ADF and Upper .107: J30 ROWS, J31 COLS, J32 KEYPAD and J16 GUAGE BRIGHT (analog) |
+| Upper panel switch matrix (72 switches), numeric keypad and brightness pot | joystick buttons 0 to 95; `UPPER_KEY:`; pot on A0 | ADF and Upper .107: J30 ROWS, J31 COLS, J32 KEYPAD and J16 GUAGE BRIGHT (analog) |
 | 4 Dual Stepper OLEDs (barometer, altimeter digits, clock, temperature) | `ALT`, `ZULU`, `TEMP` | Dual Stepper .106: J55 BARO-OLED, J17 ALTIMETER-OLED, J18 CLOCK-OLED, J20 TEMPERATURE-OLED |
 | ADF display (OLED), 3 landing gear lamps and the ADF keypad | `LDGN`, `LDGL`, `LDGR` (Mega pins D2, D3, D4); keypad on A1 to A7 | ADF and Upper .107: J5 ADF |
 

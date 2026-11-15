@@ -7,7 +7,7 @@ The overhead switch matrix and the small numeric keypad used to have their own b
 - the remote reset (`C,RESET:1`), `C,B` brightness, `C,KEEPALIVE:1` and `D,BPWR` are handled by the ADF controller's code, which has the same rules;
 - the Health Monitor's Upper light is fed by an `UPPER_INPUT` heartbeat that the merged board sends next to its `ADF_PANEL` one.
 
-The old sketch (`JET_RANGER_UPPER_CONTROLLER.ino`) is retired but still in the repository for reference. Its DCS-BIOS code (`CreateDcsBiosMessage()`, every case empty) was not carried over, so nothing here is sent to DCS World. The old Upper board's remote reset and backlight code were never bench-tested because the board was not connected.
+The old sketch (`JET_RANGER_UPPER_CONTROLLER.ino`) was removed from the project on 15 November 2026 (it is in the git history). Its DCS-BIOS code (`CreateDcsBiosMessage()`, every case empty) was not carried over, so nothing here is sent to DCS World. The old Upper board's remote reset and backlight code were never bench-tested because the board was not connected.
 
 # USB HID board (172.16.1.11)
 

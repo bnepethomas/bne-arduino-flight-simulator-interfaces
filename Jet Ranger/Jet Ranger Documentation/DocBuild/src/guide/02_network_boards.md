@@ -22,6 +22,7 @@ Every live board has its own IP and MAC address. The old Upper controller (172.1
 | 27001 | Radio and ADF controllers to PC bridge (FSUIPC and MSFS bridges only) | Standby frequencies, radio swaps, and the Auto Pilot, Audio and ADF panel controls (for example `AP_MASTER`, `GEAR_DOWN`) |
 | 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
 | 27003 | ADF controller to the PC | ADF knob frequency, radar follow ID, power status, each Upper keypad press and each squawk entered on the ADF keypad (the FSUIPC bridge reads them all, the MSFS bridge reads the ADF frequency) |
+| 27004 | ADF controller to the PC | The live state of the overhead switch matrix: `UPPER_SW:<index>:<0\|1>` for every change and `UPPER_SNAP:` plus 72 characters of 0 and 1 every 5 seconds (firmware build 15 or later). Only the BenchTester's *Overhead switches, live* group reads it |
 | 5010 | DCS to the DCS bridge | The DCS-BIOS export stream (multicast 239.255.50.10, on the PC) |
 | 49000 | X-Plane and the X-Plane bridge | Dataref requests to X-Plane and its answers (X-Plane's beacon is multicast 239.255.1.1 port 49707) |
 | 4210 | Servo, Radio and ADF and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
@@ -81,7 +82,7 @@ The Radio, Servo, Stepper, Dual Stepper and ADF and Upper boards drive their pan
 - **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns. The start-up hold overrides it: full brightness while the hold lasts, 70 percent when it ends.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **BenchTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** can send the level from its brightness pot to the other boards, but the pot is switched off for the moment. The Radio also uses the level for its panel LEDs until it receives a `C,LEDB`, which sets them on their own. The ADF controller also blanks its display and lamps with the Radio's displays.
+The **BenchTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule (including the ADF and Upper board). The **ADF controller** sends the level from its brightness pot to the Radio, Servo, Stepper and Dual Stepper (and sets its own backlight from it, so it ignores `C,B` from other senders); the pot is switched on from firmware build 14. The Radio also uses the level for its panel LEDs until it receives a `C,LEDB`, which sets them on their own. The ADF controller also blanks its display and lamps with the Radio's displays.
 
 ### Start-up hold
 
@@ -195,7 +196,7 @@ The **StepperVSITester** app can send every token and raw token to this board wi
 
 ![Swing ALL sequence](diagrams/swing_sequence.svg)
 
-It lights the OLEDs and the lamps during the run and sends a keep-alive so the boards' 30 second watchdogs do not fire. *Reset boards...* reboots the boards you tick (Radio, Servo, Upper (the retired .103 address), Stepper, Dual Stepper, USB HID) by sending each one `C,RESET:1` (the ADF and Upper board .107 is not in the list yet); each restarts about 2 seconds later and repeats its power-up test.
+It lights the OLEDs and the lamps during the run and sends a keep-alive so the boards' 30 second watchdogs do not fire. *Reset boards...* reboots the boards you tick (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) by sending each one `C,RESET:1`; each restarts about 2 seconds later and repeats its power-up test.
 
 ## Known issues
 

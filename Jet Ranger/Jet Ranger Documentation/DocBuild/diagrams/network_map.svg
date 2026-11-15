@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="608" viewBox="0 0 880 608">
-<rect width="880" height="608" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="636" viewBox="0 0 880 636">
+<rect width="880" height="636" fill="#FFFFFF"/>
 <defs>
 <marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
 <marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
@@ -47,8 +47,8 @@
 <text x="654.8" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">ADF + Upper</text>
 <text x="654.8" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.107</text>
 <text x="654.8" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136*</text>
-<text x="654.8" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27003, 4210</text>
-<text x="654.8" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<text x="654.8" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27003, 27004</text>
+<text x="654.8" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">4210, 27000, 13137</text>
 <path d="M 654.8 170.0 L 654.8 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
 <rect x="730.0" y="214.0" width="136.0" height="126.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
 <text x="798.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID</text>
@@ -58,7 +58,7 @@
 <text x="798.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
 <path d="M 798.0 170.0 L 798.0 214.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
 <text x="440.0" y="372.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">* the ADF + Upper board acts on control packets (C,RESET, C,B, C,DISPLAY ...) and BPWR; the old Upper (.103) is retired</text>
-<rect x="14.0" y="392.0" width="852.0" height="204.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="14.0" y="392.0" width="852.0" height="232.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="28.0" y="415.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">What the ports carry</text>
 <rect x="28.0" y="426.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
 <text x="53.2" y="442.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">13136</text>
@@ -74,11 +74,14 @@
 <text x="110.0" y="508.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">aircraft information from a bridge (or the bench tester) to the Lowrance GPS interface</text>
 <rect x="28.0" y="514.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
 <text x="53.2" y="530.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27003</text>
-<text x="110.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">ADF frequency, radar follow ID and power status from the ADF controller to the PC (no bridge reads it yet)</text>
+<text x="110.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">ADF frequency, radar follow ID, power status and keypad events from the ADF controller to the PC (read by the FSUIPC bridge)</text>
 <rect x="28.0" y="536.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
-<text x="53.2" y="552.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27000</text>
-<text x="110.0" y="552.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">debug text from every board to the UDP reflector</text>
+<text x="53.2" y="552.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27004</text>
+<text x="110.0" y="552.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">live state of the overhead switch matrix from the ADF controller to the BenchTester (build 15)</text>
 <rect x="28.0" y="558.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
-<text x="53.2" y="574.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">13137</text>
-<text x="110.0" y="574.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">10 second heartbeat text from every board to the Health Monitor</text>
+<text x="53.2" y="574.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27000</text>
+<text x="110.0" y="574.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">debug text from every board to the UDP reflector</text>
+<rect x="28.0" y="580.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="53.2" y="596.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">13137</text>
+<text x="110.0" y="596.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">10 second heartbeat text from every board to the Health Monitor</text>
 </svg>

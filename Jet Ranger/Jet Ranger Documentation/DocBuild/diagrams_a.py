@@ -75,7 +75,7 @@ def system_overview():
 
 @diagram
 def network_map():
-    s = Svg(880, 608)
+    s = Svg(880, 636)
     s.card(250, 14, 380, 92, "Windows PC  172.16.1.10",
            ["listens: 27001 bridge commands, 27000 debug,", "13137 heartbeats, 27003 ADF events  |  sends:", "13136 to boards, 4210 to the HID board"], "blue", line_size=12.5)
     s.rect(30, 148, 820, 22, "#2B2F36", "#2B2F36", rx=6)
@@ -86,7 +86,7 @@ def network_map():
         (".102", "Servo", ["in: 13136", "out: 4210", "27000, 13137"], "white"),
         (".105", "Stepper", ["in: 13136", "out: 27000", "13137"], "white"),
         (".106", "Dual stepper", ["in: 13136", "out: 27000", "13137"], "white"),
-        (".107", "ADF + Upper", ["in: 13136*", "out: 27003, 4210", "27000, 13137"], "white"),
+        (".107", "ADF + Upper", ["in: 13136*", "out: 27003, 27004", "4210, 27000, 13137"], "white"),
         (".11", "USB HID", ["in: 4210", "out: 27000", "13137"], "amber"),
     ]
     w, gap = 136, 7.2
@@ -96,13 +96,14 @@ def network_map():
         s.arrow([(x + w / 2, 170), (x + w / 2, 214)], None, color=BLUE if th == "white" else AMBER, both=True)
         x += w + gap
     s.text(440, 372, "* the ADF + Upper board acts on control packets (C,RESET, C,B, C,DISPLAY ...) and BPWR; the old Upper (.103) is retired", size=12.5, fill=INK2, anchor="middle")
-    s.frame(14, 392, 852, 204, "What the ports carry", theme="gray")
+    s.frame(14, 392, 852, 232, "What the ports carry", theme="gray")
     rows = [
         ("13136", "data (D,...) and control (C,...) packets from the PC to a board"),
         ("27001", "radio, battery and alternator commands from the Radio board to the bridge"),
         ("4210", "switch events (index,state) and key events to the USB HID board; also C,RESET:1 for it"),
         ("27002", "aircraft information from a bridge (or the bench tester) to the Lowrance GPS interface"),
-        ("27003", "ADF frequency, radar follow ID and power status from the ADF controller to the PC (no bridge reads it yet)"),
+        ("27003", "ADF frequency, radar follow ID, power status and keypad events from the ADF controller to the PC (read by the FSUIPC bridge)"),
+        ("27004", "live state of the overhead switch matrix from the ADF controller to the BenchTester (build 15)"),
         ("27000", "debug text from every board to the UDP reflector"),
         ("13137", "10 second heartbeat text from every board to the Health Monitor"),
     ]

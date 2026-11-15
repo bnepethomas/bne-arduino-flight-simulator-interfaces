@@ -54,7 +54,7 @@ project's own `PROGRAM_SUMMARY.md` and in
 |---|---|---|
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM/NAV frequency OLEDs, 8 rotary encoders (standard 25 kHz COM / 50 kHz NAV spacing), 4x4 button matrix (the four COM/NAV swap switches); sends tuning and swap commands to the PC; blanks its displays after 30 s with no UDP data or local input, or when the avionics bus is below 24 V |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | 2 attitude-indicator servos (pitch/bank, calibrated in degrees) and 15 warning lamps; 3 debounced front-panel switch inputs (D43 TOT CLEAR, D47 WARNING MUTE, D48 FUEL VALVE) sent to the HID board as joystick buttons (HID index 8 / 7 / 9) |
-| `JET_RANGER_UPPER_CONTROLLER` | .103 | overhead switch matrix (176 of 256 inputs) + keypad; feeds the `UDP_TO_HID` board |
+| `JET_RANGER_ADF_CONTROLLER` | .107 | the combined ADF and Upper board: ADF knobs and keypad, the overhead switch matrix (9 x 8) and keypad (feeds `UDP_TO_HID`, and reports the live switch states to the BenchTester on UDP 27004), landing gear lamps, brightness pot (sets the backlights, `C,B`), 12 V and 5 V monitors. It replaced `JET_RANGER_UPPER_CONTROLLER` (.103), whose sketch was removed on 15 November 2026 |
 | `UDP_TO_HID` | .11 | USB-HID bridge: UDP in, 4 virtual 32-button joysticks + keyboard out |
 | `JET_RANGER_OLED_CONTROLLER` | .104 | altitude and barometer OLEDs fed with `ALT`/`BARO`; the sketch also carries DCS-BIOS code from an A-10C console |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | stepper gauges: Airspeed, VSI, Radar Alt, Torque, Gas Producer, Turbine Out Temp, Fuel Quantity (all with bench-measured tables and zero trims) |
@@ -154,7 +154,7 @@ Known gaps / open items:
 
 Every controller sketch (Radio, Servo, Stepper, Dual Stepper, ADF and Upper, USB HID) has `FIRMWARE_NAME`, `FIRMWARE_VERSION` and `FIRMWARE_BUILD` at the top and reports them, with the
 compile date and time, on the debug stream at start-up and on `C,VERSION:1`, so the code on a board can be checked. **Raise `FIRMWARE_BUILD` by one whenever a sketch is changed.**
-All six are flashed at version 1.0: Radio build 9, Servo 5, Stepper 5, Dual Stepper 7, ADF and Upper 9 (all on 7 November 2026) and USB HID 2 (1 November). The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
+All six are flashed at version 1.0: Radio build 15, Servo 6, Stepper 5, Dual Stepper 7, ADF and Upper 15 and USB HID 2 (the others on 7 and 8 November 2026, the ADF and Upper board on 15 November, the USB HID board on 1 November). The version is also in every heartbeat (` FW:1.0.5`) and the Health Monitor shows it in its voltage table.
 
 **Start-up hold (6 and 7 November 2026).** From reset every controller keeps its backlight at 100 percent, and its OLEDs and indicator lamps on, until the 13 Stepper controller, the last to finish start-up, sends `STARTUPDONE` to UDP 13138 of the Radio, Servo, Dual Stepper and ADF and Upper controllers (twice, 2 seconds apart); each board also ends the hold by itself 180 seconds after reset. Then the commanded backlight level becomes 70 percent and the backlight goes off until `BPWR:1`. Watched through a full cockpit power cycle and confirmed working (7 November 2026).
 

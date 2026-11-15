@@ -48,7 +48,7 @@ Every bridge can show the packets it sends. Press **Show packets...** (or start 
 
 ![Packet monitor](screenshots/packet_monitor.png)
 
-Each line is one packet: the time, the **target board** (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, the retired Upper .103 in the FSUIPC and MSFS bridges, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local* for the GPS interface) and the payload text the board receives. The Radio's packet goes out only when something changes and at least every 5 seconds, the other boards' about ten times a second.
+Each line is one packet: the time, the **target board** (Radio .101, Servo .102, Stepper .105, Dual Stepper .106, ADF and Upper .107, or the GPS interface), where it went (*board*, *emulator*, *board + emulator* or *local* for the GPS interface) and the payload text the board receives. The Radio's packet goes out only when something changes and at least every 5 seconds, the other boards' about ten times a second.
 
 The **Target board** box filters the list to one board. Start with `--packet-board <radio, servo, stepper, dual, adf, gps or a number such as 105>` to open the window already filtered.
 
@@ -60,7 +60,7 @@ The **Target board** box filters the list to one board. Start with `--packet-boa
 
 ![JetRangerHealthMonitor: all seven boards heard](screenshots/health_monitor.png)
 
-One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF (the combined ADF and Upper board lights both the Upper Input and ADF labels). Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
+One coloured label per board: Comm Nav, Servo, Joystick, Upper Input, Stepper, Dual Stepper and ADF (the combined ADF and Upper board lights both the Upper Input and ADF labels). Each turns green when that board's 10 second heartbeat arrives on UDP 13137. The program and its window have a heartbeat icon (a red ECG trace) since 15 November 2026. The **Hide Logs** button hides the list of received heartbeats (the sender address and time of each one) and shrinks the window; it then reads **Show Logs**.
 
 The **Show Voltages** button opens a table with one row per board:
 
@@ -80,22 +80,23 @@ A board that goes quiet turns orange after 15 seconds and red after 30 seconds.
 
 ![BenchTester main window](screenshots/swing_tester.png)
 
-The BenchTester was called SwingTester until 7 November 2026; it was renamed because it does more than swing the gauges.
+The BenchTester was called SwingTester until 7 November 2026; it was renamed because it does more than swing the gauges. Its icon (since 15 November 2026) is a workbench with a circuit board and a lit LED on it.
 
-- **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, Upper, ADF and HID; the Upper address .103 is the retired board, the ADF and Upper board is .107).
+- **Top row:** the IP addresses of the boards (Stepper, Dual Stepper, Servo, Radio, HID and ADF; the ADF and Upper board is .107; the retired Upper .103 box was removed on 15 November 2026).
 - **Swing ALL (in order)** runs the 18 gauge swings in the fixed order, **Stop** cancels the remaining waits, **OLEDs ON / OFF** fill or restore the Dual Stepper's four OLEDs, **Reset boards...** opens the reset dialog, and **Light OLEDs during Swing ALL** controls the OLEDs. **Temp OLED** with **Send TEMP** sends text to the Dual Stepper's temperature display.
 - **Lamps ON (in order)** and **Lamps OFF (in order)** with the **on gap** and **off gap** times, and **Light warning lamps during Swing ALL**.
-- **Backlight brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Stepper, Dual Stepper and ADF and Upper, and the retired Upper address); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule. The slider changes the backlights only. Three more sliders have levels of their own: **OLED brightness (0-15)** (top button row, the Dual Stepper's four SSD1306 OLEDs), **Brightness (0-15)** in the Panel LEDs group (the Radio's MAX7219 LEDs, starting at 15) and **Brightness (0-15)** in the ADF panel landing gear lamps group (the lamps, starting at 15).
+- **Backlight brightness (0-15)** slider with **Send to all boards** sends the backlight brightness to every board except the USB HID board (the Radio, Servo, Stepper, Dual Stepper and ADF and Upper); **Backlight power ON / OFF** send `BPWR` to those boards to test the main bus rule. While the ADF board's own brightness pot is on, that board follows the pot and ignores the slider. The slider changes the backlights only. Three more sliders have levels of their own: **OLED brightness (0-15)** (top button row, the Dual Stepper's four SSD1306 OLEDs), **Brightness (0-15)** in the Panel LEDs group (the Radio's MAX7219 LEDs, starting at 15) and **Brightness (0-15)** in the ADF panel landing gear lamps group (the lamps, starting at 15).
 - **Status line:** what was last sent and to which boards.
 - **Panel LEDs group** (far right): one toggle for each of the 39 Auto Pilot, Audio and Huey Warning Panel LEDs (gold when on; the Huey LEDs are in two columns, *Huey Warning Panel* and *(continued)*), which lights that LED on its own through the Radio controller (`D,NAVCOM1:1,LED_xxx:1/0` or `LED_H_xxx`). **All ON** and **All OFF** do all 39, **Chase** lights them one at a time for the *on gap* time (click again to stop; a full chase of 39 takes about 39 seconds at the default), and **Board test (C,LEDTEST)** lights all 39 with the Radio's own test. The Radio on COM20 was flashed with the Huey build on 31 October 2026; the LEDs have not been checked on the panel yet.
 - **Auto Pilot display group** (far right, below the panel LEDs): five boxes for HDG, VS, CRS, IAS and ALT (start-up values 090, 0, 110, 80 and 3200). **Send values** sends them to the Radio for the Auto Pilot panel's OLED and **Start-up values** puts the start-up values back.
 - **ADF panel landing gear lamps** (under the warning lamps): **Nose**, **Left** and **Right** toggles (gold when on) light the three lamps on the ADF panel through the ADF controller (172.16.1.107, set in the `ADF (.107)` box at the top), with **All ON** and **All OFF**.
 - **DME display** group (under the Auto Pilot display): **Distance (nm)**, **Speed (knots)** and **Station ident** boxes with **Send DME** and **No DME**, to try the Radio's DME display without a simulator. **About...** shows the BenchTester's version, build number and build date and time.
+- **Overhead switches, live** group (middle column, under the ADF panel landing gear lamps; scroll down): the 72 positions of the Upper switch matrix as a 9 by 8 grid of cells, each numbered with the switch's index (row x 11 + column, the joystick button number the board sends) and, for the switches in the mapping table, its name. A cell is **green** while the switch is closed to ground, grey when it is open and white until the board has reported it. A line below shows the last change (for example *Last change: 38 SAS CB closed at 12:34:56*) and the link. It reads the ADF and Upper board's own reports on UDP 27004 (firmware build 15 or later), so it shows the real switches, not the Upper controller emulator's buttons. It says *No packet for N s* if nothing has arrived for 12 seconds.
 - **COM ports...** opens a window that lists the PC's COM ports with the board type, the USB serial number and whether another program has the port open, and can restart a USB device (see COM ports window below).
 - **Gauge rows** (left): the 18 gauges with the board each is on, the wait in seconds and a **Swing** button for each. The row being swung is highlighted gold.
 - **Warning lamps** (right): one button for each of the 15 lamps, in turn-off order. A lamp that is on is gold.
 
-![BenchTester scrolled to the end of the form: the Auto Pilot display and DME display groups](screenshots/swing_tester_bottom.png)
+![BenchTester scrolled to the end of the form: the Overhead switches group, the Auto Pilot display and DME display groups](screenshots/swing_tester_bottom.png)
 
 ![The COM ports window](screenshots/swing_tester_ports.png)
 
