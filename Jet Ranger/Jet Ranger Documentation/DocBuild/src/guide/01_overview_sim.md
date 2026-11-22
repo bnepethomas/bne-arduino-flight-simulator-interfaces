@@ -71,6 +71,86 @@ The order matters little: every board waits for data and the bridge reconnects t
 
 ![Health Monitor](diagrams/health_monitor.svg)
 
+## Installing the simulators and add-ons
+
+> **DRAFT.** Items marked **[CONFIRM]** are details to check against what is installed on the cockpit PC before this chapter is released. Version numbers, download sources and licence details have not been verified.
+
+Each simulator and add-on is installed **once per PC** and is normally already installed on the cockpit PC. You only need this section when setting up a second PC or rebuilding one. Install the simulator first, run it once to the main menu so that it creates its settings folders, close it, and then add the add-ons below.
+
+| Simulator | Add-ons it needs | Bridge | Where to install them |
+|---|---|---|---|
+| MSFS 2020 or 2024 | A Jet Ranger aircraft (FlyInside B206 or CowaSim Jet Ranger, optional); SimConnect is bundled with the bridge | `MSFSWinformsAutoCS` | Installing a Jet Ranger in MSFS, below |
+| Prepar3D or FSX | FSUIPC, DodoSim 206 V2 and `DODSIM206V2.EVT` | `FSUIPCWinformsAutoCS` | Installing FSUIPC and DodoSim 206 V2, below |
+| DCS World | DCS-BIOS | `DCSBiosBridge` | Installing DCS-BIOS (DCS World), below |
+| X-Plane 11 or 12 | None (no plugin) | `XPlaneBridge` | Running the X-Plane bridge, below |
+
+### Installing a Jet Ranger in MSFS
+
+The bridge works with any helicopter that fills in the standard simulator variables. Two Jet Rangers have fitted estimates for the dials that do not (see Aircraft with estimated dials): the **FlyInside B206** and the **CowaSim Jet Ranger**. Both are add-on aircraft from third parties. **[CONFIRM: store or publisher for each, and which edition is installed]**
+
+1. Close MSFS.
+2. Buy or download the aircraft from its publisher or the in-simulator Marketplace. **[CONFIRM]**
+3. If the publisher gives an installer, run it and let it choose the MSFS *Community* folder. If it gives a zip, extract it so that the aircraft's folder (the one holding `manifest.json`) sits **directly inside** the Community folder, not one level deeper.
+4. Find the Community folder if you need to. For the Microsoft Store version it is under `%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\Packages\Community`, for Steam under `%APPDATA%\Microsoft Flight Simulator\Packages\Community`. **[CONFIRM: path on the cockpit PC]**
+5. Start MSFS, choose the aircraft on the free-flight screen and wait for the cockpit to load.
+6. Start `MSFSWinformsAutoCS.exe`. The status bar shows the aircraft title it reports. `206B3 ...` is the CowaSim; the FlyInside shows its own title. If the title is not recognised the bridge uses the standard variables.
+
+**SimConnect.** `MSFSWinformsAutoCS` carries its own copy of the SimConnect libraries (`lib\Microsoft.FlightSimulator.SimConnect.dll` and `lib\SimConnect.dll`), so neither the MSFS SDK nor any other install is needed to build or run it. Keep both files next to the program.
+
+| Symptom | What to check |
+|---|---|
+| Status stays *Disconnected* | MSFS is not running, or you are still in the menu: load an aircraft and leave the world loading screen |
+| The aircraft is not in the list | The folder is nested one level too deep in Community, or `manifest.json` is missing; restart MSFS after changing Community |
+| The status shows the aircraft but gauges stay at zero | The aircraft does not fill in that variable (see the aircraft notes above) |
+
+### Installing FSUIPC and DodoSim 206 V2 (Prepar3D and FSX)
+
+The FSUIPC bridge reads the simulator through **FSUIPC**, and the panel's switches reach the DodoSim 206 as FSUIPC button events. Install in this order: simulator, FSUIPC, DodoSim 206 V2, then the event file.
+
+**FSUIPC.**
+
+1. Close the simulator.
+2. Download the version of FSUIPC that matches your simulator from the FSUIPC web site (`fsuipc.com`). FSX uses FSUIPC4; each Prepar3D major version needs the FSUIPC version built for it. **[CONFIRM: exact FSUIPC version and Prepar3D version on the cockpit PC]**
+3. Run the installer and let it find the simulator folder. It places `FSUIPC` in the simulator's `Modules` folder. Run the installer again if you later move or reinstall the simulator.
+4. **Licence.** The free version reads data, which is all the bridge needs. Assigning buttons to events (below) needs a **registered** copy, with the key entered in FSUIPC's Registration page. **[CONFIRM: which licence is installed and where the key is kept]**
+5. Start the simulator. `FSUIPC.ini` and `FSUIPC.log` now exist in `Modules`, and FSUIPC appears in the simulator's **Add-ons** menu.
+
+**DodoSim 206 V2.**
+
+1. Close the simulator.
+2. Get the DodoSim 206 V2 package from its publisher. **[CONFIRM: source, version and licence]**
+3. Run its installer, choosing the simulator it is for. If it is a manual install, copy its aircraft folder into the simulator's `SimObjects\Airplanes` folder, so that `aircraft.cfg` sits inside the aircraft's own folder.
+4. Start the simulator and check the DodoSim 206 is in the aircraft list. Load it on a runway and check the cockpit appears.
+
+**Event file.** Now do **Installing the DodoSim event file (FSUIPC)**, below, which copies `DODSIM206V2.EVT` into `Modules`.
+
+**Binding the switches.** With the aircraft loaded, open **Add-ons, FSUIPC, Buttons + Switches**, press a physical switch on the panel so FSUIPC shows its joystick number and button, tick **Select for FS control**, and pick the matching `DS206.*` event from the list. For a latching switch bind the `_SET` event with parameter 1 for switch-on and again with 0 for switch-off (see Event naming). Repeat for every switch. **[CONFIRM: where the panel's joystick profile or the FSUIPC.ini backup is stored]**
+
+| Symptom | What to check |
+|---|---|
+| No FSUIPC in the Add-ons menu | The installer did not find the right simulator folder: run it again and point it there; also check `Modules\FSUIPC.log` |
+| `DS206.*` events are missing from the list | `DODSIM206V2.EVT` is not in `Modules`, or the `[EventFiles]` entry is missing from `FSUIPC.ini` |
+| The switch is not detected in Buttons + Switches | The panel's HID board is not recognised by Windows: check it appears in Game Controllers |
+| Switches stopped working after an EVT update | FSUIPC re-indexed the events: check and re-map the bindings |
+
+### Binding the switches in MSFS, DCS World and X-Plane
+
+In these simulators the panel's switches are ordinary joystick buttons: the bridge only sends data to the panel and nothing returns by UDP, except the radio board's commands for MSFS (see the bridge chapters). Bind each button in the simulator's own controls screen. **[CONFIRM: whether any profile files exist to import]**
+
+1. Check Windows sees the panel: **Set up USB game controllers** (run `joy.cpl`) lists the HID board, and pressing a switch lights its button number.
+2. **MSFS:** Options, Controls Options, choose the controller, pick the action, press **Search by input** and press the switch. For a two-position switch bind the on and the off actions to the same button, one on press and one on release.
+3. **DCS World:** Options, Controls, choose the aircraft, select **Joystick** in the *Category* column, double-click the action row under the panel's column and press the switch. Save the profile for that aircraft.
+4. **X-Plane:** Settings, Joystick, Buttons: Basic (or Advanced), select the button number, then choose the command from the drop-down. Save it, as X-Plane keeps a profile per controller.
+5. Test each binding in the cockpit, not in the menu.
+
+### Build prerequisites
+
+The bridges and tools are .NET Windows programs built from the repository's `C# Code` folder; build output is not stored in git. Install **Visual Studio** with the **.NET desktop development** workload, open the solution or the project's `.csproj`, and build. The target framework of each project is set in its `.csproj`; install the matching .NET SDK if Visual Studio asks. **[CONFIRM: Visual Studio and .NET versions in use]**
+
+### Arduino setup
+
+The boards are programmed from the **Arduino IDE**. Install the IDE from `arduino.cc`, open the sketch and choose the board and port from the **Tools** menu. **[CONFIRM: board package and board selection used for each controller board]** Install the libraries listed in the appendix on software and libraries (Ethernet, AccelStepper, Servo, Ewma, U8g2, Wire, Joystick and Keyboard) from **Sketch, Include Library, Manage Libraries**. Keep the library versions listed there, as a newer release can change how a sketch builds.
+
 ## Running the MSFS bridge
 
 1. Build the project `MSFSWinformsAutoCS` (in the repository's `C# Code` folder) and run `MSFSWinformsAutoCS.exe` from its `bin\Debug` folder. Build output is not stored in git, so a fresh copy of the repository has to be built first.
