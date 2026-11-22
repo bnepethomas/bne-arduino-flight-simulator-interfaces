@@ -3,10 +3,12 @@
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
   //||                  FUNCTION = Jet Ranger ADF Controller             ||\\
   //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-  //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
-  //||                    CONNECTED COM PORT = COM                   ||\\
+  //||    ARDUINO CHIP SERIAL NUMBER = SN - 14532303732351E0B251    ||\\
+  //||                    CONNECTED COM PORT = COM20                 ||\\
   //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+
+  Current COM 20 - Check S/N (14532303732351E0B251) First - Before any new Uploads
 
   Drives the Jet Ranger Upper ADF Controller PCB, the combined ADF and Upper board (the reference PCB for this sketch). Built from the Jet Ranger
   Radio controller sketch (same Ethernet start-up, debug stream, heartbeat, encoder library, matrix scanner and character OLED code), with the

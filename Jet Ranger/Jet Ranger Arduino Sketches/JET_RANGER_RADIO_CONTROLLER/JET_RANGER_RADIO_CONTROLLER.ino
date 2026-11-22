@@ -3,10 +3,12 @@
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
   //||                  FUNCTION = Jet Ranger Radio                      ||\\
   //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-  //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
-  //||                    CONNECTED COM PORT = COM                   ||\\
+  //||    ARDUINO CHIP SERIAL NUMBER = SN - 95437313534351915181    ||\\
+  //||                    CONNECTED COM PORT = COM23                 ||\\
   //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+
+  Current COM 23 - Check S/N (95437313534351915181) First - Before any new Uploads
 
 Todos
 // Issues when using Due connected to USB closest to Power Socket
