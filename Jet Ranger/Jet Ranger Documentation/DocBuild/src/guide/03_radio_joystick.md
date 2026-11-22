@@ -276,6 +276,20 @@ A joystick button does nothing in the simulator until it is bound to an event in
 
 If FSUIPC does not see a switch, check that Windows shows the button moving in `joy.cpl` first. If it does not, the problem is on the board side: the servo board's debug messages report each change and the HID board logs the button it sets.
 
+## Copying the FSUIPC joystick settings to another computer
+
+FSUIPC keeps its button, switch and axis assignments in one `.ini` file, so moving them between the build computer and the simulator computer means copying that file (or the joystick part of it).
+
+1. Close the simulator on both computers first. FSUIPC rewrites its `.ini` when it exits, and would overwrite a file copied in while it was running.
+2. Find the file. For Prepar3D and FSX it is `FSUIPC.ini` in the simulator's `Modules` folder (the same place as `DODSIM206V2.EVT`; the name follows the FSUIPC version, for example `FSUIPC4.ini` or `FSUIPC6.ini`). For MSFS it is `FSUIPC7.ini` in the folder FSUIPC7 was installed to.
+3. On the destination computer, make a copy of the existing `.ini` first.
+4. Copy the `.ini` across (a USB stick or a shared folder will do). If you edited `DODSIM206V2.EVT`, copy that too. The master copy is kept in the repository's `FSUIPC Configurations` folder.
+5. Start the simulator, open FSUIPC and check the **Buttons + Switches** tab by operating a few switches.
+
+**Joystick letters.** FSUIPC refers to each controller by a letter (A, B, C and so on) tied to the device's name and ID. The `.ini` file has a `[JoyNames]` section that lists the letters, and the `[Buttons]`, `[Axes]` and `[Keys]` sections use them. On the other computer the same controllers may come up in a different order or with different IDs, so assignments can end up on the wrong device. Compare `[JoyNames]` with what FSUIPC shows on its joystick tabs and correct the letters in the file, or set the buttons again. The four virtual joysticks from the USB HID board are the ones most likely to change places.
+
+**Copying only the joystick settings.** To keep the destination computer's licence key and its other settings, do not replace the whole file. Copy only the joystick sections (`[JoyNames]`, `[Buttons]`, `[Axes]` and `[JoystickCalibration]`) into its `.ini`. If you use FSUIPC profiles (one per aircraft), the assignments are in the `[Profile.<name>]` sections as well, so copy the ones you use.
+
 ## Known issues
 
 - The HID board's own test button on pin 5 also drives Joystick 1 button 1, the same button as HTR 0.
