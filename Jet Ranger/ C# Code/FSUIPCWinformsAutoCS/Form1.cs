@@ -1178,7 +1178,7 @@ namespace FSUIPCTest
                         // ADF Controller (.107): backlight power and the ADF frequency.
                         Byte[] adfSendData = Encoding.ASCII.GetBytes("D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")
                             + (adf1Khz >= 190 && adf1Khz <= 1799 ? ",ADF:" + ((int)Math.Round(adf1Khz)).ToString(System.Globalization.CultureInfo.InvariantCulture) : "")
-                            + ",BRIDGEKEYS:*"
+                            + ",BRIDGEKEYS:*#"
                             + ",ADFKEYPAD:SQUAWK"                                              // the ADF keypad enters the squawk code while this bridge runs
                             + (squawkNow.Length == 4 ? ",SQK:" + squawkNow : ""));   // the keys this bridge handles itself on the Upper keypad: the ADF controller does not type them   // and the simulator's ADF frequency (kHz)
                         targets.Send(adfClient, adfSendData);
@@ -1204,7 +1204,7 @@ namespace FSUIPCTest
         }
 
         // Listens for the radio/battery/alternator/standby-frequency commands the
-        // The Upper keypad: the ADF and Upper controller sends "UPPER_KEY:<key>" to port 27003 for each key press. * toggles the ATC menu in Prepar3D / FSX (FSUIPC control ATC);
+        // The Upper keypad: the ADF and Upper controller sends "UPPER_KEY:<key>" to port 27003 for each key press. * toggles the ATC menu in Prepar3D / FSX (FSUIPC control ATC), # toggles pause (PAUSE_TOGGLE);
         // the other keys are only noted for now (the keypad also types them through the USB HID board as before).
         private string upperKeyStatus = "no key yet";
         private UdpClient? upperKeyServer;
@@ -1300,6 +1300,18 @@ namespace FSUIPCTest
                 catch (Exception ex)
                 {
                     note = " - ATC menu NOT toggled (" + ex.Message + ")";
+                }
+            }
+            else if (key == "#")
+            {
+                try
+                {
+                    FSUIPCConnection.SendControlToFS(FsControl.PAUSE_TOGGLE, 0);   // toggles pause in the simulator
+                    note = " - pause toggled";
+                }
+                catch (Exception ex)
+                {
+                    note = " - pause NOT toggled (" + ex.Message + ")";
                 }
             }
             upperKeyStatus = key + " at " + DateTime.Now.ToString("HH:mm:ss") + note;
