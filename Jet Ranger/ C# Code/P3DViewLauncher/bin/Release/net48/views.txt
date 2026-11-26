@@ -1,0 +1,19 @@
+# One view per line:   camera name | window title | screen number | size
+#
+#   camera name    a Title from Prepar3D's cameras.cfg (or one of your own custom cameras)
+#                  For a custom camera made inside Prepar3D write:  base camera > custom camera
+#   window title  any name you like; it must be different for every view
+#   screen number  as listed by:  P3DViewLauncher.exe --screens
+#   size           optional. Left out, the view is an ordinary window at the size Prepar3D gives it.
+#                  width x height in pixels (for example 1280x720) sets the size.
+#                  fullscreen removes the frame and covers the whole screen (close the view before
+#                  changing back to a window).
+#
+# To set the camera of Prepar3D's own main view (the window is not moved):   camera name | main
+#
+# Lines starting with # are ignored. Change these examples to suit your screens.
+
+Cockpit > FORWARD | main
+Cockpit > CHIN  | Chin View  | 1 | fullscreen
+Cockpit > RIGHT | Right View | 3 | fullscreen
+Cockpit > LEFT  | Left View  | 4 | fullscreen
