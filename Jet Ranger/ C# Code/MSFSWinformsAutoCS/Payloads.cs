@@ -74,6 +74,9 @@ namespace MSFSWinformsAutoCS
         public const double OledPowerVolts = 24.0;
         // The TRANSMISSION OIL PRESSURE lamp comes on below this pressure.
         public const double TransmissionPressureWarningPsi = 40.0;
+        // The FlyInside B206 reads only about 35 psi at normal rotor speed, so it has a lower threshold (the lamp
+        // comes on below about 86 percent rotor speed).
+        public const double FlyInsideTransmissionPressureWarningPsi = 30.0;
         // The GEN FAIL lamp comes on when the engine speed (turbine, percent) is below this.
         public const double GeneratorFailEngineRpmPct = 10.0;
 
@@ -128,10 +131,11 @@ namespace MSFSWinformsAutoCS
                 case "RLOW": return s.RotorRpmPct <= 95;      // rotor at or below 95 percent
                 case "LOWF": return s.FuelGallons <= 17;      // 17 US gallons or less
                 case "GENF": return s.EngineRpmPct < GeneratorFailEngineRpmPct;   // engine speed below 10 percent
-                // Transmission oil pressure below 40 psi. Only when a pressure is available: the FlyInside B206's
+                // Transmission oil pressure below 40 psi (30 psi for the FlyInside B206). Only when a pressure is available: the FlyInside B206's
                 // estimate (which falls to 0 with the rotor), or any aircraft whose SimVar reads above 0 (most
                 // report 0 for it, which would keep the lamp on all the time).
-                case "TOPW": return (s.FlyInside || s.CowaSim || s.TransPressurePsi > 0) && s.TransPressurePsi < TransmissionPressureWarningPsi;
+                case "TOPW": return (s.FlyInside || s.CowaSim || s.TransPressurePsi > 0)
+                    && s.TransPressurePsi < (s.FlyInside ? FlyInsideTransmissionPressureWarningPsi : TransmissionPressureWarningPsi);
                 default: return false;
             }
         }

@@ -141,8 +141,9 @@ The warning lamp for transmission oil pressure uses the estimate for this aircra
 
 Five are implemented. Three can be derived from standard SimVars, with these thresholds: `EOUT` (turbine speed below 60 %), `RLOW` (rotor at or below
 95 %) and `LOWF` (fuel 17 US gal or less). `TOPW` (transmission oil pressure) comes on below 40 psi
-(`TransmissionPressureWarningPsi`), only when a pressure is available: the FlyInside B206's estimate (35 psi at
-normal rotor speed, so the lamp is on all the time with the current estimate, and when the rotor stops) or an
+(`TransmissionPressureWarningPsi`), or below 30 psi for the FlyInside B206 (`FlyInsideTransmissionPressureWarningPsi`),
+only when a pressure is available: the FlyInside B206's estimate (35 psi at
+normal rotor speed, so the lamp comes on below about 86 % rotor speed) or an
 aircraft whose SimVar reads above 0 (most read 0, which would keep it on). `GENF` (generator fail) comes on when the
 engine speed is below 10 % (`GeneratorFailEngineRpmPct`). The other ten are aircraft specific
 (`DodoSim` supplies them through an FSUIPC offset, which MSFS aircraft do not have) and
@@ -263,3 +264,7 @@ The bridge listens on UDP port 27003 (`StartAdfEventListener()`) for `ADF_FREQ:<
 ## Upper .103 removed (15 November 2026, build 12)
 
 The retired Upper board (172.16.1.103) is no longer a target: it is gone from the packet monitor's board list and its filter. `upperClient` (its socket, its connection, its registration with `BoardTargets` and its backlight power send) is removed, so the bridge no longer sends the backlight packet to .103; the ADF and Upper board .107 still gets it. Builds clean in Release.
+
+## FlyInside transmission pressure warning (27 November 2026, build 13)
+
+The `TOPW` lamp stayed on all the time with the FlyInside B206, whose estimated pressure is 35 psi at normal rotor speed against a 40 psi threshold. That aircraft now has its own threshold of 30 psi, so the lamp comes on below about 86 % rotor speed. The gauge reading and other aircraft are unchanged.

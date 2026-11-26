@@ -101,7 +101,7 @@ Five lamps are driven; the other ten are aircraft specific (DodoSim supplies the
 | `EOUT` engine out | Turbine speed below 60 percent |
 | `RLOW` rotor low | Rotor at or below 95 percent |
 | `LOWF` low fuel | 17 US gal or less |
-| `TOPW` transmission oil pressure | Below 40 psi, only when a pressure is available (the FlyInside and CowaSim estimates, or an aircraft whose SimVar reads above 0) |
+| `TOPW` transmission oil pressure | Below 40 psi (30 psi for the FlyInside), only when a pressure is available (the FlyInside and CowaSim estimates, or an aircraft whose SimVar reads above 0) |
 | `GENF` generator fail | Engine speed below 10 percent |
 
 ## Known gaps
@@ -111,7 +111,7 @@ Five lamps are driven; the other ten are aircraft specific (DodoSim supplies the
 - Pitch sign and the 24 V thresholds are carried over from the FSUIPC bridge and are not verified for every MSFS aircraft.
 - There is no hysteresis on the 20 V and 24 V thresholds.
 - The FlyInside electrical load dial stays at about 50 percent whatever the load.
-- The FlyInside transmission pressure estimate is 35 psi at normal rotor speed, which is below the 40 psi lamp threshold, so the `TOPW` lamp stays on with that aircraft.
+- The FlyInside transmission pressure estimate is 35 psi at normal rotor speed, so that aircraft has its own `TOPW` threshold of 30 psi (build 13); the lamp comes on below about 86 percent rotor speed.
 
 ## Panel emulators
 
