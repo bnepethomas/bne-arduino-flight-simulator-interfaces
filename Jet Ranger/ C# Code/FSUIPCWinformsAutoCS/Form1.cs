@@ -1193,11 +1193,15 @@ namespace FSUIPCTest
             }
             catch (Exception ex)
             {
-                // An error occured. Tell the user and stop this timer.
+                // An error occured. Stop this timer and note it on the form. No dialog box: it would wait to be
+                // acknowledged and hold up the bridge (and anything waiting on it).
                 this.timerMain.Stop();
-                MessageBox.Show("Communication with FSUIPC Failed\n\n" + ex.Message, "FSUIPC", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // Close the connection so the connection timer can always open it again
+                FSUIPCConnection.Close();
                 // Update the connection status
                 configureForm();
+                textBox1.Text = DateTime.Now.ToString("HH:mm:ss") + " Communication with FSUIPC failed: " + ex.Message
+                    + Environment.NewLine + Environment.NewLine + textBox1.Text;
                 // start the connection timer
                 this.timerConnection.Start();
             }

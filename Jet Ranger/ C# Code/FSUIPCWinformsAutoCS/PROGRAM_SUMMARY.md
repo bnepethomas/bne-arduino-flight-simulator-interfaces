@@ -322,3 +322,7 @@ The ADF controller sends `ADF_FREQ:<kHz>` to port 27003 a moment after its knobs
 ## Upper .103 removed (15 November 2026, build 15)
 
 The retired Upper board (172.16.1.103) is no longer a target: it is gone from the packet monitor's board list and its filter. `upperClient` (its socket, its registration with `BoardTargets` and its backlight power send) is removed, so the bridge no longer sends the backlight packet to .103; the ADF and Upper board .107 still gets it. Builds clean in Release.
+
+## No dialog box when the connection is lost (26 November 2026, build 16)
+
+When `timerMain_Tick` fails (for example the simulator closes), the bridge no longer shows the *Communication with FSUIPC Failed* message box, which waited to be acknowledged and held up reconnection. It closes the FSUIPC connection, turns the status bar to the red *Disconnected* message, puts the time and error as the first line of the data out box, and goes straight back to looking for the simulator.

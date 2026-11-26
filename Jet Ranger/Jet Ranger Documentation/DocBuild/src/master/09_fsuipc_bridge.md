@@ -13,6 +13,7 @@
    - format the on-screen readout and update the annunciator list;
    - build and send each board's packet (below);
    - send the radio packet when a frequency or the bus voltage changed (at most every 200 ms) and in any case every 500 ms (twice a second, `RadioRefreshMs`).
+   - if the connection is lost (any error in the tick), no dialog box is shown: the connection is closed, the status bar turns red, the time and error are put at the top of the data out box and `timerConnection` starts looking for the simulator again (build 16);
 4. **`UpdateRadios(command)`** handles port 27001 (below).
 5. **`chkAvionicsMaster_CheckedChanged`** writes the avionics master offset when the operator toggles the checkbox, and closing the window stops both timers and the FSUIPC connection.
 

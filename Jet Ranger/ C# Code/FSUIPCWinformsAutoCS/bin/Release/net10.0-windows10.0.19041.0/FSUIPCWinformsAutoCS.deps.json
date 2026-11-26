@@ -9,21 +9,21 @@
       "FSUIPCWinformsAutoCS/1.0.0": {
         "dependencies": {
           "FSUIPCClientDLL": "3.3.6",
-          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.57"
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.87"
         },
         "runtime": {
           "FSUIPCWinformsAutoCS.dll": {}
         }
       },
-      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.57": {
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.87": {
         "runtime": {
           "Microsoft.Windows.SDK.NET.dll": {
             "assemblyVersion": "10.0.19041.38",
-            "fileVersion": "10.0.19041.55"
+            "fileVersion": "10.0.19041.86"
           },
           "WinRT.Runtime.dll": {
-            "assemblyVersion": "2.2.0.0",
-            "fileVersion": "2.2.0.48161"
+            "assemblyVersion": "2.3.1.0",
+            "fileVersion": "2.3.1.54291"
           }
         }
       },
@@ -34,7 +34,8 @@
         "runtime": {
           "lib/net7.0-windows7.0/fsuipcClient.dll": {
             "assemblyVersion": "3.3.6.407",
-            "fileVersion": "3.3.6.407"
+            "fileVersion": "3.3.6.407",
+            "localPath": "fsuipcClient.dll"
           }
         }
       },
@@ -45,7 +46,8 @@
         "runtime": {
           "lib/net6.0/protobuf-net.dll": {
             "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.1.26.27931"
+            "fileVersion": "3.1.26.27931",
+            "localPath": "protobuf-net.dll"
           }
         }
       },
@@ -53,7 +55,8 @@
         "runtime": {
           "lib/net6.0/protobuf-net.Core.dll": {
             "assemblyVersion": "3.0.0.0",
-            "fileVersion": "3.1.26.27931"
+            "fileVersion": "3.1.26.27931",
+            "localPath": "protobuf-net.Core.dll"
           }
         }
       }
@@ -65,7 +68,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.57": {
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.87": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
