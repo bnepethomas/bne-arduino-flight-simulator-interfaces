@@ -49,4 +49,4 @@ Source, Menu, Back and any other buttons have not been captured.
 
 ## Status
 
-Compiled for `arduino:avr:uno` (5,296 bytes flash, 606 bytes RAM) with the push buttons. Not flashed or tried against the projector.
+Compiled for `arduino:avr:uno` (5,296 bytes flash, 606 bytes RAM) with the push buttons. Flashed to an Uno (COM3) on 27 November 2026; not yet tried against the projector.
