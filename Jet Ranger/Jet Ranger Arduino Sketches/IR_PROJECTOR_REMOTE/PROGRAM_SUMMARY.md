@@ -54,39 +54,6 @@ finish, then follows it; if the switch is put back before then, nothing is sent.
 Debounced without blocking (30 ms). The code is sent once when a button goes down; holding it does not repeat it. A button
 already held at start-up sends nothing.
 
-## Status LED
-
-Flashes twice a second (250 ms on, 250 ms off) while the sketch is running.
-
-## Library
-
-`IRremote` (Arduino-IRremote) 4.7.1.
-
-## Commands (serial, 115200 baud, one per line, any case)
-
-| Command | NEC command (address 0x00) |
-|---|---|
-| `POWER` | 0x14 |
-| `LEFT` | 0x0E |
-| `RIGHT` | 0x1A |
-| `UP` | 0x03 |
-| `DOWN` | 0x02 |
-| `OK` | 0x07 |
-| `STARTUP` | power, wait 35 s, LEFT, wait 1 s, OK |
-| `SHUTDOWN` | power, wait 1 s, OK |
-| `OFF` | power, wait 1 s, power again |
-| `CANCEL` | stops the sequence that is running |
-| `CMD <hex>` | any command number from 00 to FF, to try codes that were not captured |
-
-Replies are `SENT <command>` or `UNKNOWN <text>`. The codes were captured from the projector's remote with `IR_CODE_LEARNER`.
-Source, Menu, Back and any other buttons have not been captured.
-
-The sequences run without blocking, so the buttons, the switch and the status LED keep working during their waits. Each prints
-`<name> sent <button>` for every step and `<name> done` at the end. Only one runs at a time. The waits are `STARTUP_WARMUP_MS`,
-`STARTUP_OK_DELAY_MS`, `SHUTDOWN_OK_DELAY_MS` and `POWER_CONFIRM_DELAY_MS` in the sketch.
-
 ## Status
 
-Compiled for `arduino:avr:uno` (6,220 bytes flash, 704 bytes RAM) on 28 November 2026 with the power switch and status LED.
-This version has **not been flashed**: the Uno (COM3) still has the previous one, with separate STARTUP (A5) and SHUTDOWN (A4)
-push buttons. Not yet tried against the projector.
+Compiled for `arduino:avr:uno` (6,220 bytes flash, 704 bytes RAM) with the power switch and status LED, and flashed to an Uno (COM3) on 28 November 2026. Not yet tried against the projector or on the new board.
