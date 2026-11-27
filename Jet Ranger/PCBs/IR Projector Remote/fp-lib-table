@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "IR_Remote")(type "KiCad")(uri "${KIPRJMOD}/IR_Remote.pretty")(options "")(descr ""))
+)
