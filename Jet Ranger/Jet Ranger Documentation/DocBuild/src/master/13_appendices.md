@@ -92,7 +92,7 @@ Ethernet 2.0.2 with SPI, AccelStepper 1.64.0 (steppers), Servo and Ewma (Servo c
 
 ```
 arduino-cli compile --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
-arduino-cli upload -p COM4 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
+arduino-cli upload -p COM18 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
 ```
 
 Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE serial monitor first: it holds the port ("Access is denied"). Check the port with Device Manager or `arduino-cli board list`.
@@ -132,14 +132,14 @@ Radio Controller firmware 1.0 build 15 compiled Nov  8 2026 09:50:00
 
 | Board | IP | Hardware | COM port |
 |---|---|---|---|
-| Radio controller | .101 | Mega 2560 (replacement board) | COM20 |
-| Servo controller | .102 | Mega 2560 clone | COM16 |
-| Stepper controller | .105 | Mega 2560 | COM4 |
-| Dual stepper controller | .106 | Mega 2560 | COM5 |
-| ADF and Upper controller (combined) | .107 | Mega 2560 | COM26 |
-| USB HID board | .11 | Arduino Leonardo | COM8 |
+| Radio controller | .101 | Mega 2560 (replacement board) | COM23 |
+| Servo controller | .102 | Mega 2560 clone | COM26 |
+| Stepper controller | .105 | Mega 2560 | COM18 |
+| Dual stepper controller | .106 | Mega 2560 | COM16 |
+| ADF and Upper controller (combined) | .107 | Mega 2560 | COM20 |
+| USB HID board | .11 | Arduino Leonardo | COM21 |
 
-The Lowrance GPS cable is not one of these boards: the GPS interface asks for its serial port the first time it runs and remembers it. These are the ports used at the last flash of each board. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.
+The Lowrance GPS cable is not one of these boards: the GPS interface asks for its serial port the first time it runs and remembers it (saved as COM25 on the primary flight simulator computer). These are the board ports on that computer (SIM-21), read on 28 November 2026. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.
 
 ## Sketch settings to know about
 

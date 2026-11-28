@@ -7,12 +7,12 @@ def com_ports():
     s = Svg(880, 560)
     s.card(16, 20, 190, 100, "Windows PC", ["172.16.1.10", "Arduino IDE / arduino-cli", "uploads over USB"], "dark", title_size=15, line_size=12.5, center=True)
     rows = [
-        ("Radio controller", "172.16.1.101", "Mega 2560 (replacement)", "COM20", "green"),
-        ("Servo controller", "172.16.1.102", "Mega 2560 clone", "COM16", "green"),
-        ("Stepper controller", "172.16.1.105", "Mega 2560", "COM4", "blue"),
-        ("Dual stepper controller", "172.16.1.106", "Mega 2560", "COM5", "blue"),
-        ("ADF + Upper controller", "172.16.1.107", "Mega 2560", "COM26", "blue"),
-        ("USB HID board", "172.16.1.11", "Arduino Leonardo", "COM8", "amber"),
+        ("Radio controller", "172.16.1.101", "Mega 2560 (replacement)", "COM23", "green"),
+        ("Servo controller", "172.16.1.102", "Mega 2560 clone", "COM26", "green"),
+        ("Stepper controller", "172.16.1.105", "Mega 2560", "COM18", "blue"),
+        ("Dual stepper controller", "172.16.1.106", "Mega 2560", "COM16", "blue"),
+        ("ADF + Upper controller", "172.16.1.107", "Mega 2560", "COM20", "blue"),
+        ("USB HID board", "172.16.1.11", "Arduino Leonardo", "COM21", "amber"),
     ]
     y = 20
     for name, ip, kind, com, th in rows:
@@ -20,7 +20,7 @@ def com_ports():
         s.pill(730, y + 18, com, th, size=13, pad=10, h=26)
         s.arrow([(206, 70), (250, 70), (250, y + 30), (300, y + 30)], None, color="#B0B0AB", sw=1.4) if com != "not recorded" else None
         y += 70
-    s.text(16, 530, "COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
+    s.text(16, 530, "COM numbers are those on the sim computer, SIM-21. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
     s.text(16, 550, "Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.", size=12.5, fill=INK2)
     return s
 
@@ -79,7 +79,7 @@ def flash_workflow():
         s.card(x, 40, bw, 130, f"{n}  {t}", d.split("\n"), "blue" if i in (2, 3) else "white", title_size=13.5, line_size=12)
         if i < len(steps) - 1:
             s.arrow([(x + bw, 105), (x + bw + 12, 105)], None)
-    s.card(16, 220, 420, 110, "Leonardo (USB HID board)", ["same flow with", "--fqbn arduino:avr:leonardo", "on COM8"], "amber", title_size=14, line_size=12.5)
+    s.card(16, 220, 420, 110, "Leonardo (USB HID board)", ["same flow with", "--fqbn arduino:avr:leonardo", "on COM21"], "amber", title_size=14, line_size=12.5)
     s.card(460, 220, 404, 110, "If the upload fails", ["'Access is denied': another program", "holds the port (serial monitor, IDE).", "Wrong port: re-run board list."], "red", title_size=14, line_size=12.5)
     s.text(16, 362, "Flash only the board you are working on. After a flash the board restarts and sends its first heartbeat within about 10 seconds.", size=12.5, fill=INK2)
     return s

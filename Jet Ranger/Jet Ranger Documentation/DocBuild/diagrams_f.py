@@ -55,7 +55,7 @@ LEG = "Cable colours: blue = signal, amber = backlight, red = power, green = net
 @diagram
 def radio_connectivity():
     infra = [("Ethernet switch", ["W5500, 172.16.1.101"], NET, True),
-             ("USB hub", ["COM20 (programming)"], NET, True),
+             ("USB hub", ["COM23 (programming)"], NET, True),
              ("5 V supply", ["J4 5V IN"], PWR, True),
              ("12 to 20 V supply", ["J7 STEPPER IN"], PWR, True)]
     panels = [
@@ -72,7 +72,7 @@ def radio_connectivity():
 @diagram
 def servo_connectivity():
     infra = [("Ethernet switch", ["W5500, 172.16.1.102"], NET, True),
-             ("USB hub", ["COM16 (programming)"], NET, True),
+             ("USB hub", ["COM26 (programming)"], NET, True),
              ("5 V supply", ["J2 5V IN"], PWR, True),
              ("12 to 20 V supply", ["J3 STEPPER IN"], PWR, True)]
     panels = [
@@ -90,7 +90,7 @@ def servo_connectivity():
 @diagram
 def stepper_connectivity():
     infra = [("Ethernet switch", ["W5500, 172.16.1.105"], NET, True),
-             ("USB hub", ["COM4 (programming)"], NET, True),
+             ("USB hub", ["COM18 (programming)"], NET, True),
              ("5 V supply", ["J2 5V IN"], PWR, True),
              ("12 to 20 V supply", ["J3 STEPPER IN"], PWR, True)]
     g = [("Airspeed", "J26 AIRSPEED", "coils D12, D13, D22, D23"), ("Vertical speed", "J5 VVI", "coils D7, D8, D9, D11"),
@@ -108,7 +108,7 @@ def stepper_connectivity():
 @diagram
 def dual_stepper_connectivity():
     infra = [("Ethernet switch", ["W5500, 172.16.1.106"], NET, True),
-             ("USB hub", ["COM5 (programming)"], NET, True),
+             ("USB hub", ["COM16 (programming)"], NET, True),
              ("5 V supply", ["J2 5V IN"], PWR, True),
              ("12 to 20 V supply", ["J3 STEPPER IN"], PWR, True)]
     panels = [
@@ -128,7 +128,7 @@ def dual_stepper_connectivity():
 @diagram
 def adf_connectivity():
     infra = [("Ethernet switch", ["W5500, 172.16.1.107"], NET, True),
-             ("USB hub", ["COM26 (programming)"], NET, True),
+             ("USB hub", ["COM20 (programming)"], NET, True),
              ("USB HID board", ["buttons and keys, UDP 4210"], NET, False),
              ("5 V supply", ["J4 5V IN"], PWR, True),
              ("12 to 20 V supply", ["J7 STEPPER IN"], PWR, True)]

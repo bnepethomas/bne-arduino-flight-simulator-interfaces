@@ -101,7 +101,7 @@ From `UpperSwitchMapping.ods`. Button numbers are as Windows and the simulators 
 | Log to | 172.16.1.10:27000 (boot, button and key events, malformed commands) |
 | Heartbeat to | 172.16.1.10:13137, `JOYSTICK` every 10 seconds |
 
-The Leonardo is flashed on COM8 with `--fqbn arduino:avr:leonardo`. Bench-tested remote reset: "Joystick controller booted" about 4 seconds after the command.
+The Leonardo is flashed on COM21 (on SIM-21) with `--fqbn arduino:avr:leonardo`. Bench-tested remote reset: "Joystick controller booted" about 4 seconds after the command.
 
 ## Known issues
 

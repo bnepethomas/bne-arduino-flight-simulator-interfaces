@@ -1,0 +1,21 @@
+﻿USB state of SIM-21, read 2026-11-28 13:19:32 with USB Device Tree Viewer 4.6.3.0 (not run as administrator)
+Port is the port chain: controller-port[-port on a hub]. Empty ports are not listed.
+
+AMD USB 3.10 eXtensible Host Controller - 1.10 (Microsoft)
+Port  | Device                                                                    | COM   | VID:PID   | Serial               | Speed      | Current | Cockpit use
+------+---------------------------------------------------------------------------+-------+-----------+----------------------+------------+---------+-------------------------
+1-8   | Genesys Logic USB 2.0 USB Hub                                             |       | 05E3:0608 | (none)               | High-Speed | 100 mA  |
+1-9   | USB 2.0 Hub                                                               |       | 2001:F103 | (none)               | High-Speed | 0 mA    |
+1-9-1 | Arduino Mega 2560 (COM16)                                                 | COM16 | 2341:0042 | 24238313635351910130 | Full-Speed | 100 mA  | Dual stepper controller
+1-9-2 | Arduino Mega 2560 (COM18)                                                 | COM18 | 2341:0042 | 1344847493935150D6E6 | Full-Speed | 100 mA  | Stepper controller
+1-9-3 | Arduino Mega 2560 (COM20)                                                 | COM20 | 2341:0042 | 14532303732351E0B251 | Full-Speed | 100 mA  | ADF and Upper controller
+1-9-4 | Nanjing Qinheng USB-SERIAL CH340 (COM25)                                  | COM25 | 1A86:7523 | (none)               | Full-Speed | 104 mA  | GPS serial adapter
+1-9-5 | Arduino Leonardo USB Composite Device - Keyboard, 4× HID, COM21           | COM21 | 2341:8036 | HIDPCHIDEH           | Full-Speed | 500 mA  | USB HID board
+1-9-6 | Arduino Mega 2560 (COM26)                                                 | COM26 | 2341:0042 | (none)               | Full-Speed | 100 mA  | Servo controller
+1-9-7 | Arduino Mega 2560 (COM23)                                                 | COM23 | 2341:0042 | 95437313534351915181 | Full-Speed | 100 mA  | Radio controller
+1-10  | Logitech USB Receiver USB Composite Device - Keyboard, Mouse, 4× HID      |       | 046D:C534 | (none)               | Full-Speed | 98 mA   |
+1-13  | ITE GIGABYTE USB Composite Device - 3× HID                                |       | 048D:5711 | (none)               | Full-Speed | 100 mA  |
+1-14  | Intel 0032 Intel(R) Wireless Bluetooth(R) - 4× Bluetooth, Net             |       | 8087:0032 | (none)               | Full-Speed | 100 mA  |
+1-15  | Van Ooijennische Informatica Leo Bodnar BU0836 Interface USB Input Device |       | 16C0:05B5 | A11367               | Full-Speed | 100 mA  |
+1-16  | Silicon Labs CP210x USB to UART Bridge (COM19)                            | COM19 | 10C4:EA60 | 0001                 | Full-Speed | 100 mA  |
+1-18  | Creative USB Sound Blaster HD USB Composite Device - Audio, HID           |       | 041E:30D7 | 0000026x             | Full-Speed | 500 mA  |

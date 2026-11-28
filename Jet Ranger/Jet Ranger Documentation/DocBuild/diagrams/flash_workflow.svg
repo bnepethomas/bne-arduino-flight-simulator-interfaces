@@ -35,7 +35,7 @@
 <text x="28.0" y="244.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Leonardo (USB HID board)</text>
 <text x="28.0" y="267.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">same flow with</text>
 <text x="28.0" y="285.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">--fqbn arduino:avr:leonardo</text>
-<text x="28.0" y="302.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">on COM8</text>
+<text x="28.0" y="302.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">on COM21</text>
 <rect x="460.0" y="220.0" width="404.0" height="110.0" rx="10" ry="10" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
 <text x="472.0" y="244.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">If the upload fails</text>
 <text x="472.0" y="267.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">'Access is denied': another program</text>

@@ -8,20 +8,46 @@ Each Arduino is programmed over its own USB cable from the primary PC. The cockp
 
 | Board | Address | Hardware | COM port | Sketch |
 |---|---|---|---|---|
-| Radio controller | 172.16.1.101 | Arduino Mega 2560 (replacement board) | **COM20** | `JET_RANGER_RADIO_CONTROLLER` |
-| Servo controller | 172.16.1.102 | Mega 2560 clone | **COM16** | `JET_RANGER_SERVO_CONTROLLER` |
-| Stepper controller | 172.16.1.105 | Mega 2560 | **COM4** | `JET_RANGER_STEPPER_CONTROLLER` |
-| Dual stepper controller | 172.16.1.106 | Mega 2560 | **COM5** | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` |
-| ADF and Upper controller (combined) | 172.16.1.107 | Mega 2560 | **COM26** | `JET_RANGER_ADF_CONTROLLER` (the old `JET_RANGER_UPPER_CONTROLLER` is retired) |
-| USB HID board | 172.16.1.11 | Arduino Leonardo | **COM8** | `UDP_TO_HID` |
+| Radio controller | 172.16.1.101 | Arduino Mega 2560 (replacement board) | **COM23** | `JET_RANGER_RADIO_CONTROLLER` |
+| Servo controller | 172.16.1.102 | Mega 2560 clone | **COM26** | `JET_RANGER_SERVO_CONTROLLER` |
+| Stepper controller | 172.16.1.105 | Mega 2560 | **COM18** | `JET_RANGER_STEPPER_CONTROLLER` |
+| Dual stepper controller | 172.16.1.106 | Mega 2560 | **COM16** | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` |
+| ADF and Upper controller (combined) | 172.16.1.107 | Mega 2560 | **COM20** | `JET_RANGER_ADF_CONTROLLER` (the old `JET_RANGER_UPPER_CONTROLLER` is retired) |
+| USB HID board | 172.16.1.11 | Arduino Leonardo | **COM21** | `UDP_TO_HID` |
 
-These are the ports used the last time each board was flashed. A COM number belongs to a USB socket and a board together, so it **can change**:
+These are the ports on the primary flight simulator computer (SIM-21), read on 28 November 2026. A COM number belongs to a USB socket and a board together, so it **can change**:
 
 - The Servo controller is a clone Mega that reports no USB serial number, so Windows ties its COM number to the USB socket it is plugged into. Plug it into a different socket and it appears as a new port.
 - Replacing a Mega (the Radio controller was replaced once) gives a new port number.
-- The Lowrance GPS cable is separate: the GPS interface asks for its serial port the first time it runs and remembers it.
+- The Lowrance GPS cable is separate: the GPS interface asks for its serial port the first time it runs and remembers it (on SIM-21 it is saved as **COM25**, a CH340 USB serial adapter). SIM-21 also has a Silicon Labs CP210x adapter on COM19, which is not one of the cockpit boards in this table.
 
 Always check the port before an upload: open Device Manager, Ports (COM and LPT), or run `arduino-cli board list`. If you are not sure which board is which, unplug one USB cable and see which port disappears. Add the confirmed port to the table above (and to the sketch header comment) once you have uploaded to a board.
+
+## USB state of the simulator computer
+
+This is how the USB devices were connected on SIM-21 on 28 November 2026, read with **USB Device Tree Viewer** 4.6.3.0 (see Install the utilities). Compare against it when a board or a COM port goes missing.
+
+![USB Device Tree Viewer on SIM-21: the cockpit devices are on the hub at Port9 of the first controller](screenshots/usb_tree.png)
+
+The port column is the port chain: controller, port, then the port on a hub. All are on the first host controller. Empty ports are not listed.
+
+| Port | Device | COM | VID:PID | Serial number | Cockpit use |
+|---|---|---|---|---|---|
+| 1-8 | Genesys Logic USB 2.0 hub | | 05E3:0608 | (none) | |
+| 1-9 | USB 2.0 hub | | 2001:F103 | (none) | Cockpit USB hub |
+| 1-9-1 | Arduino Mega 2560 | COM16 | 2341:0042 | 24238313635351910130 | Dual stepper controller |
+| 1-9-2 | Arduino Mega 2560 | COM18 | 2341:0042 | 1344847493935150D6E6 | Stepper controller |
+| 1-9-3 | Arduino Mega 2560 | COM20 | 2341:0042 | 14532303732351E0B251 | ADF and Upper controller |
+| 1-9-4 | CH340 USB serial adapter | COM25 | 1A86:7523 | (none) | GPS serial adapter |
+| 1-9-5 | Arduino Leonardo | COM21 | 2341:8036 | HIDPCHIDEH | USB HID board |
+| 1-9-6 | Arduino Mega 2560 | COM26 | 2341:0042 | (none) | Servo controller |
+| 1-9-7 | Arduino Mega 2560 | COM23 | 2341:0042 | 95437313534351915181 | Radio controller |
+| 1-10 | Logitech USB receiver (keyboard and mouse) | | 046D:C534 | (none) | |
+| 1-13 | ITE Gigabyte USB device | | 048D:5711 | (none) | |
+| 1-14 | Intel wireless Bluetooth | | 8087:0032 | (none) | |
+| 1-15 | Leo Bodnar BU0836 joystick interface | | 16C0:05B5 | A11367 | |
+| 1-16 | Silicon Labs CP210x USB to UART bridge | COM19 | 10C4:EA60 | 0001 | |
+| 1-18 | Creative USB Sound Blaster HD | | 041E:30D7 | 0000026x | Sound card |
 
 ## Flashing a board
 
@@ -35,10 +61,10 @@ Always check the port before an upload: open Device Manager, Ports (COM and LPT)
 
 ```
 arduino-cli compile --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
-arduino-cli upload -p COM4 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
+arduino-cli upload -p COM18 --fqbn arduino:avr:mega "Jet Ranger Arduino Sketches\JET_RANGER_STEPPER_CONTROLLER"
 ```
 
-For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port, COM8. Flash only the board you are working on. If a board ever reboot-loops after a reset packet, power-cycle it and flash it again.
+For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port, COM21. Flash only the board you are working on. If a board ever reboot-loops after a reset packet, power-cycle it and flash it again.
 
 ## Checking the firmware version
 
